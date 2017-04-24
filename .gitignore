@@ -1,4 +1,8 @@
-/DiarioSur-war/build/
-/DiarioSur-war/dist/
-/DiarioSur-ejb/dist/
+/nbproject/private/
+/DiarioSur-war/nbproject/private/
+/DiarioSur-ejb/nbproject/private/
 /DiarioSur-ejb/build/
+/DiarioSur-ejb/dist/
+/DiarioSur-war/build/
+/build/
+/DiarioSur-war/dist/
