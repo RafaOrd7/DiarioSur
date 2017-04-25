@@ -1,12 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Mi rama
+        <h1 align="center">Diario SUR</h1>
+        
+        <h:form>
+            <table align="right">
+                <tr>
+                    <td><p:button outcome="login" value="Login" icon="ui-icon-person"></p:button></td>
+                    <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td>  
+                </tr> 
+            </table>
+            
+            <table>
+                <tr><td><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-person"></p:button></td></tr> 
+                <tr><td><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></td></tr> 
+                <tr><td><p:button outcome="moderacion" value="Moderación" icon="ui-icon-person"></p:button></td></tr> 
+                <tr><td><p:button outcome="gestAnuncio" value="Gestión Anuncios" icon="ui-icon-person"></p:button></td></tr> 
+                <tr><td><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></td></tr> 
+                
+            </table>
+        </h:form>
+        
     </h:body>
 </html>
 
