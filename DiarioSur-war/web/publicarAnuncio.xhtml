@@ -1,71 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Publicar Anuncio</title>
     </h:head>
     <h:body>
-        <h:form>              
-            <h4>Nombre Anuncio</h4>
-            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
-            <h:outputText id="display" />
-            
-            <h4>id</h4>
-            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
-            <h:outputText id="display" />
-        </h:form>
-       
-        <h:form>             
-            <p:panelGrid class="ui-noborder"> 
-                <p:row>
-                    <h4>Prioridad</h4>
-                    <p:inputNumber id="id" value="#{inputNumberView.id}">  
-                        <p:ajax update="output1" />  
-                    </p:inputNumber>
-                </p:row>
-                 <p:row>
-                    <h4>Dias contratados</h4>
-                    <p:inputNumber id="id" value="#{inputNumberView.id}">  
-                        <p:ajax update="output1" />  
-                    </p:inputNumber>
-                </p:row>
-             </p:panelGrid>
-        </h:form>
-       
-        <h:form id="form">
-            <p:growl id="msgs" showDetail="true" />
-            <p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
-            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-                <p:panelGrid id="display" columns="2" columnClasses="label,value">
-                    <h:outputText value="Fecha publicación:" />
-                    <h:outputText value="#{calendarView.date3}">
-                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:panelGrid>
-            </p:dialog>
-        </h:form>
-        
-        <h:form enctype="multipart/form-data">
-            <p:growl id="messages" showDetail="true" />
+        <form>
+            nombre anuncio:
+            <input type="text" name="nombreAnuncio" action="#{publicarAnuncio.setNombreAnuncio(nombreAnuncio)}" />
 
-            <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+            <br/>
+            ID Anuncio:
+            <input type="text" name="id" action="#{publicarAnuncio.setId(id)}" />
+            <br/>
+            Dimensiones:
+            <input type="text" name="dimensiones" action="#{publicarAnuncio.setDimensiones(dimensiones)}" />
+            <br/>
+            Prioridad:
+            <input type="text" name="prioridad" action="#{publicarAnuncio.setPrioridad(prioridad)}" />
+            <br/>
+            Fecha:
+            <input type="text" name="fechaPublicacion" action="#{publicarAnuncio.setFechaPublicacion(fechaPublicacion)}" />
+            <br/>
+            Dias contratados:
+            <input type="text" name="diasContratados" action="#{publicarAnuncio.setDiasContratados(diasContratados)}" />
+            <br/>
+            <input type="submit" value="Publicar" action="index.xhtml" />
+        </form>
+        <a href="index.xhtml"><button>Cancelar</button></a>
 
-            <p:commandButton value="Submit" ajax="false" actionListener="#{fileUploadView.upload}" disabled="true" />
-        </h:form>
-        
-         <div>Publicar</div>
-        <p:button value="Publicar anuncio" icon="ui-icon-star">
-            <f:param name="productId" value="10" />
-        </p:button>
-         
-          <div>Cancelar</div>
-        <p:button value="Publicar anuncio" icon="ui-icon-star">
-            <f:param name="productId" value="10" />
-        </p:button>
-        
     </h:body>
 </html>
 
