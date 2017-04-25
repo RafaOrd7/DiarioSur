@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Publicar Anuncio</title>
     </h:head>
     <h:body>
         <form>
             nombre anuncio:
-            <input type="text" name="nombreAnuncio" action="#{publicarAnuncio.setNombreAnuncio(nombreAnuncio)}" />
-
+            <input type="text" name="nombreAnuncio" action="#{publicarAnuncio.setNombreAnuncio(nombreAnuncio)}" 
             <br/>
             ID Anuncio:
             <input type="text" name="id" action="#{publicarAnuncio.setId(id)}" />
@@ -20,16 +20,24 @@
             Prioridad:
             <input type="text" name="prioridad" action="#{publicarAnuncio.setPrioridad(prioridad)}" />
             <br/>
-            Fecha:
-            <input type="text" name="fechaPublicacion" action="#{publicarAnuncio.setFechaPublicacion(fechaPublicacion)}" />
-            <br/>
             Dias contratados:
             <input type="text" name="diasContratados" action="#{publicarAnuncio.setDiasContratados(diasContratados)}" />
             <br/>
             <input type="submit" value="Publicar" action="index.xhtml" />
         </form>
         <a href="index.xhtml"><button>Cancelar</button></a>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="inline" value="Inline:" />
+                    <p:calendar id="inline" value="#{publicarAnuncio.setFechaPublicacion(inline)}" mode="inline" />
+                </h:panelGrid>
+        </h:form>
+        <h:form enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true" />
 
+            <p:fileUpload value="#{publicarAnuncio.multimedia}" mode="simple" skinSimple="true"/>
+        </h:form>
     </h:body>
 </html>
 

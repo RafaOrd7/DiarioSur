@@ -7,6 +7,7 @@
 import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -22,7 +23,7 @@ public class PublicarAnuncio {
     private int prioridad;
     private Date fechaPublicacion;
     private int diasContratados;
-    private byte multimedia;
+    private UploadedFile multimedia;
     /**
      * Creates a new instance of PublicarAnuncio
      */
@@ -116,14 +117,14 @@ public class PublicarAnuncio {
     /**
      * @return the multimedia
      */
-    public byte getMultimedia() {
+    public UploadedFile getMultimedia() {
         return multimedia;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(byte multimedia) {
+    public void setMultimedia(UploadedFile multimedia) {
         this.multimedia = multimedia;
     }
     
