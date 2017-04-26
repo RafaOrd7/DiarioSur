@@ -15,38 +15,37 @@
                 <tbody>
                     <tr>
                         <td>
-                            <p:inputText id="nombre" placeholder="Nombre"/>
+                            <p:inputText id="nombre" placeholder="Nombre" value="#{creadorUsuarios.nombre}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="apellidos" placeholder="Apellidos"/>
+                            <p:inputText id="apellidos" placeholder="Apellidos" value="#{creadorUsuarios.apellidos}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="email" placeholder="Correo electrónico"/>
+                            <p:inputText id="email" placeholder="Correo electrónico" value="#{creadorUsuarios.email}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="dni" placeholder="DNI/NIF/NIE"/>
+                            <p:inputText id="dni" placeholder="DNI/NIF/NIE" value="#{creadorUsuarios.dni}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:password id="password1" value="#{passwordView.password2}" feedback="true" placeholder="Contraseña"/>
+                            <p:password id="password" value="#{creadorUsuarios.password}" feedback="true" placeholder="Contraseña"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:password id="password2" value="#{passwordView.password1}" placeholder="Repita contraseña"/>
+                            <p:password id="password2" value="#{creadorUsuarios.password2}" placeholder="Repita contraseña"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:button outcome="registerSuccess" value="Regístrate">
-                            </p:button>
+                            <h:commandButton value="submit" id="submit" action="#{creadorUsuarios.nuevoUsuario()}"/>
                         </td>
                     </tr>
                     <tr>
