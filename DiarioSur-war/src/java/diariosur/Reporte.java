@@ -131,6 +131,10 @@ public class Reporte implements Serializable {
         setTexto(tx);
     }
     
+    public Reporte(){
+        
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

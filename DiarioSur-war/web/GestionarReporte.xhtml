@@ -8,18 +8,18 @@
     </h:head>
     <h:body>
         <h1>Reportes</h1>
-        <p:dataTable var="car" value="#{dtBasicView.cars}">
-            <p:column headerText="Tipo de Reporte">
-                <h:outputText value="#{car.id}" />
+        <h:form>
+        <p:dataTable var="reporte" value="#{recogedorReportes.reportes}">
+            <p:column headerText="Tipo de Reporte">              
+               <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.tipo}"/>   
             </p:column>
-
             <p:column headerText="Comentario">
-                <h:outputText value="#{car.year}" />
+                <h:outputText value="#{reporte.texto}" />
             </p:column>
         </p:dataTable>
-    #{recogedorReportes.getReportes()}
-        
 
+        
+</h:form>
 
     </h:body>
 </html>
