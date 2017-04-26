@@ -25,7 +25,18 @@ public class Periodista extends SuperUsuario implements Serializable {
     @Column(nullable= false)
     private String telefono;
 
-   
+       /////////////// CONSTRUCTORES ////////////
+    public Periodista () {
+        
+    }
+    
+    public Periodista (String idUser, String nombre, String apellidos, String dni, String email, String password, String empresa, String cargo, String telefono) {
+        super(idUser, nombre, apellidos, dni, email, password, empresa);
+        this.cargo=cargo;
+        this.telefono=telefono;
+    }
+    
+    
     
     public String getCargo() {
         return cargo;
