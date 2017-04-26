@@ -19,13 +19,14 @@ import java.util.List;
 @RequestScoped
 public class PublicarAnuncio {
 
-    private String nombreAnuncio;
-    private String id;
-    private int dimensiones;
+    private String nombreEmpresa;
+    private long id;
+    private String dimensiones;
     private int prioridad;
     private Date fechaPublicacion;
-    private int diasContratados;
+    private Date fechaExpiracion;
     private File multimedia;
+    private String tags;
     private static List<Anuncio> anuncios = new ArrayList<Anuncio>();
     private Anuncio anuncio;
    
@@ -35,7 +36,21 @@ public class PublicarAnuncio {
     public PublicarAnuncio() {
     }
     
-     public void insertar(){
+    public void crear(){
+        anuncio.setDimensiones(dimensiones);
+        anuncio.setEmpresa(nombreEmpresa);
+        anuncio.setId_anuncio(id);
+        anuncio.setFechaPublicacion(fechaPublicacion);
+        anuncio.setFechaExpiracion(fechaExpiracion);
+        anuncio.setMultimedia(multimedia);
+        anuncio.setPrioridad(dimensiones);
+        anuncio.setTags(getTags());
+        
+        
+    }
+    
+    public void insertar(){
+        crear();
         anuncios.add(anuncio);
     }
     public void eliminar(PublicarAnuncio anuncio){
@@ -56,42 +71,42 @@ public class PublicarAnuncio {
     /**
      * @return the nombreAnuncio
      */
-    public String getNombreAnuncio() {
-        return nombreAnuncio;
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
     }
 
     /**
      * @param nombreAnuncio the nombreAnuncio to set
      */
-    public void setNombreAnuncio(String nombreAnuncio) {
-        this.nombreAnuncio = nombreAnuncio;
+    public void setNombreEmpresa(String nombreAnuncio) {
+        this.nombreEmpresa = nombreAnuncio;
     }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     /**
      * @return the dimensiones
      */
-    public int getDimensiones() {
+    public String getDimensiones() {
         return dimensiones;
     }
 
     /**
      * @param dimensiones the dimensiones to set
      */
-    public void setDimensiones(int dimensiones) {
+    public void setDimensiones(String dimensiones) {
         this.dimensiones = dimensiones;
     }
 
@@ -126,15 +141,13 @@ public class PublicarAnuncio {
     /**
      * @return the diasContratados
      */
-    public int getDiasContratados() {
-        return diasContratados;
+    public Date fechaExpiracion() {
+        return fechaExpiracion;
     }
 
-    /**
-     * @param diasContratados the diasContratados to set
-     */
-    public void setDiasContratados(int diasContratados) {
-        this.diasContratados = diasContratados;
+    
+    public void setFechaExpiracion(Date fechaExpiracion) {
+        this.fechaExpiracion = fechaExpiracion;
     }
 
     /**
@@ -158,6 +171,20 @@ public class PublicarAnuncio {
             throw new IllegalArgumentException("La imagen debe estar en uno de los siguientes formatos: .jpg, .gif, .png");
         }
         
+    }
+
+    /**
+     * @return the tags
+     */
+    public String getTags() {
+        return tags;
+    }
+
+    /**
+     * @param tags the tags to set
+     */
+    public void setTags(String tags) {
+        this.tags = tags;
     }
     
     

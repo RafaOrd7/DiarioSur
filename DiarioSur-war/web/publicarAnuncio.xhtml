@@ -7,14 +7,14 @@
     </h:head>
     <h:body>
         <form>
-            nombre anuncio:
-            <input type="text" name="nombreAnuncio" action="#{publicarAnuncio.nombreAnuncio}" />
+            nombre empresa
+            <input type="text" name="nombreEmpresa" action="#{publicarAnuncio.nombreEmpresa}" />
             <br/>
             ID Anuncio:
-            <input type="text" name="id" action="#{publicarAnuncio.id}" />
+            <input type="long" name="id" action="#{publicarAnuncio.id}" />
             <br/>
             Dimensiones:
-            <input type="int" name="dimensiones" action="#{publicarAnuncio.dimensiones}" />
+            <input type="text" name="dimensiones" action="#{publicarAnuncio.dimensiones}" />
             <br/>
             Prioridad:
             <input type="int" name="prioridad" action="#{publicarAnuncio.prioridad}" />
@@ -27,6 +27,9 @@
             <br/>
             Adjuntar Multimedia:
             <input type="File" name="multimedia" action="#{publicarAnuncio.setMultimedia(multimedia)}" />
+            <br/>
+             Etiquetas:
+            <input type="text" name="tags" action="#{publicarAnuncio.tags}" />
             <br/>
             <input type="submit" value="Publicar" action="#{managedAnuncio.insertar()}" />
         </form>
