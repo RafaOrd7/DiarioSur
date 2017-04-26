@@ -10,7 +10,7 @@
     <h:body>
         ¿Cuál es el problema?
         <h:form>
-            <h:selectOneRadio value="#{recogedorReporte.tipoReporte}">
+            <h:selectOneRadio value="#{recogedorReportes.tipoReporte}">
                 <f:selectItem itemValue="1" itemLabel="Ofensivo o inapropiado"/>   
                 <f:selectItem itemValue="2" itemLabel="Es spam" />
                 <f:selectItem itemValue="3" itemLabel="La información no es adecuada" />
@@ -18,10 +18,9 @@
                 </h:selectOneRadio>
                 <h3 style="margin-top: 0">Cuéntanos más</h3>
                 <p>Especifiquenos el motivo de su reporte</p>
-                <p:inputTextarea rows="10" cols="50" completeMethod="#{recogedorReporte.comentario}" queryDelay="750" minQueryLength="4" />
+                <p:inputTextarea rows="10" cols="50" value="#{recogedorReportes.comentario}" queryDelay="750" minQueryLength="4" />
                 <br/>
-                <h:commandButton value="Reportes" action="#{recogedorReporte.enviarReporte()}"></h:commandButton>
-               
+                <h:commandButton value="Reportes" action="#{recogedorReportes.enviarReporte()}"></h:commandButton>
         </h:form>
     </h:body>
 </html>
