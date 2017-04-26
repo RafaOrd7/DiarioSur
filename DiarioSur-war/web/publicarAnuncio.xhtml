@@ -15,30 +15,24 @@
             <input type="text" name="id" action="#{publicarAnuncio.id}" />
             <br/>
             Dimensiones:
-            <input type="text" name="dimensiones" action="#{publicarAnuncio.dimensiones}" />
+            <input type="int" name="dimensiones" action="#{publicarAnuncio.dimensiones}" />
             <br/>
             Prioridad:
-            <input type="text" name="prioridad" action="#{publicarAnuncio.prioridad}" />
+            <input type="int" name="prioridad" action="#{publicarAnuncio.prioridad}" />
             <br/>
             Dias contratados:
-            <input type="text" name="diasContratados" action="#{publicarAnuncio.diasContratados}" />
+            <input type="int" name="diasContratados" action="#{publicarAnuncio.diasContratados}" />
+            <br/>
+            Fecha Publicacion:
+            <input type="Date" name="fechaPublicacion" action="#{publicarAnuncio.fechaPublicacion}" />
+            <br/>
+            Adjuntar Multimedia:
+            <input type="File" name="fechaPublicacion" action="#{publicarAnuncio.multimedia}" />
             <br/>
             <input type="submit" value="Publicar" action="index.xhtml" />
         </form>
         <a href="index.xhtml"><button>Cancelar</button></a>
-       
-        <h:form id="form">
-            <p:growl id="msgs" showDetail="true" />
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="inline" value="Inline:" />
-                    <p:calendar id="inline" value="#{publicarAnuncio.fechaPublicacion}" mode="inline" />
-                </h:panelGrid>
-        </h:form>
         
-        <h:form enctype="multipart/form-data">
-            <p:growl id="messages" showDetail="true" />
-            <p:fileUpload value="#{publicarAnuncio.multimedia}" mode="simple" skinSimple="true"/>
-        </h:form>
     </h:body>
 </html>
 

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.io.File;
 import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -23,7 +24,7 @@ public class PublicarAnuncio {
     private int prioridad;
     private Date fechaPublicacion;
     private int diasContratados;
-    private UploadedFile multimedia;
+    private File multimedia;
     /**
      * Creates a new instance of PublicarAnuncio
      */
@@ -117,14 +118,14 @@ public class PublicarAnuncio {
     /**
      * @return the multimedia
      */
-    public UploadedFile getMultimedia() {
+    public File getMultimedia() {
         return multimedia;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(UploadedFile multimedia) {
+    public void setMultimedia(File multimedia) {
         this.multimedia = multimedia;
     }
     
