@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Publicar Anuncio</title>
     </h:head>
@@ -27,9 +26,9 @@
             <input type="Date" name="fechaPublicacion" action="#{publicarAnuncio.fechaPublicacion}" />
             <br/>
             Adjuntar Multimedia:
-            <input type="File" name="fechaPublicacion" action="#{publicarAnuncio.multimedia}" />
+            <input type="File" name="multimedia" action="#{publicarAnuncio.setMultimedia(multimedia)}" />
             <br/>
-            <input type="submit" value="Publicar" action="index.xhtml" />
+            <input type="submit" value="Publicar" action="#{managedAnuncio.insertar()}" />
         </form>
         <a href="index.xhtml"><button>Cancelar</button></a>
         

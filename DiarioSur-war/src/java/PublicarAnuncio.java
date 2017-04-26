@@ -8,8 +8,9 @@ import java.io.File;
 import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import org.primefaces.model.UploadedFile;
-
+import diariosur.Anuncio;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author pablo
@@ -25,12 +26,33 @@ public class PublicarAnuncio {
     private Date fechaPublicacion;
     private int diasContratados;
     private File multimedia;
+    private static List<Anuncio> anuncios = new ArrayList<Anuncio>();
+    private Anuncio anuncio;
+   
     /**
      * Creates a new instance of PublicarAnuncio
      */
     public PublicarAnuncio() {
     }
+    
+     public void insertar(){
+        anuncios.add(anuncio);
+    }
+    public void eliminar(PublicarAnuncio anuncio){
+        anuncios.remove(this.anuncio);
+    }
 
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    /**
+     * @param anuncio the anuncio to set
+     */
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
+    }
+    
     /**
      * @return the nombreAnuncio
      */
@@ -126,7 +148,17 @@ public class PublicarAnuncio {
      * @param multimedia the multimedia to set
      */
     public void setMultimedia(File multimedia) {
-        this.multimedia = multimedia;
+        if(multimedia.getName().endsWith(".jpg")){
+            this.multimedia = multimedia;
+        }else if(multimedia.getName().endsWith(".png")){
+            this.multimedia = multimedia;
+        }else if(multimedia.getName().endsWith(".gif")){
+            this.multimedia = multimedia;
+        }else{
+            throw new IllegalArgumentException("La imagen debe estar en uno de los siguientes formatos: .jpg, .gif, .png");
+        }
+        
     }
+    
     
 }
