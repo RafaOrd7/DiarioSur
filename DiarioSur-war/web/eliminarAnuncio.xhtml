@@ -8,18 +8,8 @@
         <title>Eliminar Anuncios</title>
     </h:head>
     <h:body>
-        
        
-       
-
-        
-        
-        
-        
-        
-        
-        
-        
+   
         <h:form> 
             <p:dataScroller value="#{dataScrollerView.anuncios}" var="anuncio" chunkSize="10">
                 <f:facet name="header">
@@ -33,7 +23,7 @@
                      <h:panelGrid columns="2" cellpadding="5">
                         
                         <h:outputText value="Nombre Anuncio:" />
-                        <h:outputText value="#{anuncio.getNombreAnuncio()}" style="font-weight: bold"/>
+                        <h:outputText value="#{anuncio()}" style="font-weight: bold"/>
                          
                          <h:outputText value="Id:" />
                         <h:outputText value="#{anuncio.getId()}" style="font-weight: bold"/>

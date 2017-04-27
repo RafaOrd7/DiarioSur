@@ -11,6 +11,9 @@ import javax.enterprise.context.RequestScoped;
 import diariosur.Anuncio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 /**
  *
  * @author pablo
@@ -41,7 +44,7 @@ public class PublicarAnuncio {
         anuncio.setEmpresa(nombreEmpresa);
         anuncio.setId_anuncio(id);
         anuncio.setFechaPublicacion(fechaPublicacion);
-        anuncio.setFechaExpiracion(fechaExpiracion);
+        anuncio.setFechaExpiracion(getFechaExpiracion());
         anuncio.setMultimedia(multimedia);
         anuncio.setPrioridad(dimensiones);
         anuncio.setTags(getTags());
@@ -49,9 +52,21 @@ public class PublicarAnuncio {
         
     }
     
+  
+       
+        
+    
+     
+    private void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    
     public void insertar(){
         crear();
         anuncios.add(anuncio);
+        addMessage("Anuncio subido correctamente!!");
     }
     public void eliminar(PublicarAnuncio anuncio){
         anuncios.remove(this.anuncio);
@@ -141,14 +156,7 @@ public class PublicarAnuncio {
     /**
      * @return the diasContratados
      */
-    public Date fechaExpiracion() {
-        return fechaExpiracion;
-    }
-
     
-    public void setFechaExpiracion(Date fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
 
     /**
      * @return the multimedia
@@ -185,6 +193,20 @@ public class PublicarAnuncio {
      */
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    /**
+     * @return the fechaExpiracion
+     */
+    public Date getFechaExpiracion() {
+        return fechaExpiracion;
+    }
+
+    /**
+     * @param fechaExpiracion the fechaExpiracion to set
+     */
+    public void setFechaExpiracion(Date fechaExpiracion) {
+        this.fechaExpiracion = fechaExpiracion;
     }
     
     
