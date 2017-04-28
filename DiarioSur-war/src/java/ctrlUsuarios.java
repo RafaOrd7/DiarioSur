@@ -17,11 +17,11 @@ import javax.inject.Inject;
  *
  * @author Garri
  */
-@Named(value = "creadorUsuarios")
+@Named(value = "ctrlUsuarios")
 @RequestScoped
 public class ctrlUsuarios {
 
-    private UsuarioRegistrado usuario;
+    private UsuarioRegistrado usuario = new UsuarioRegistrado();
     private String nombre, apellidos, email, dni, password, password2;
     private List<UsuarioRegistrado> usuarios;
 
