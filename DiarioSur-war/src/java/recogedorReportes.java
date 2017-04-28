@@ -24,7 +24,10 @@ public class recogedorReportes {
     private int tipoReporte;
     private String comentario;
     private UsuarioRegistrado usuario;
-    private static List<Reporte> reportes=new ArrayList<Reporte>();
+    
+    @Inject
+    private BdBean bd;
+    
     private Reporte seleccionado;
 
     public Reporte getSeleccionado() {
@@ -37,13 +40,14 @@ public class recogedorReportes {
     
     public String ver(Reporte reporte){
         seleccionado=reporte;
-        
-        
         return "VerReporte.xhtml";
     }
     
     
-
+    public List<Reporte> getReportes(){
+        return bd.getRep();
+    }
+    
     public int getTipoReporte() {
         return tipoReporte;
     }
@@ -64,14 +68,10 @@ public class recogedorReportes {
        
     }
 
-    public List<Reporte> getReportes() {
-        return reportes;
-    }
-
     public String enviarReporte() {
         Reporte aux = new Reporte(comentario, String.valueOf(tipoReporte));
-        reportes.add(aux);
-        
+        bd.crearReporte(aux);
         return "index.xhtml";
     }
+    
 }

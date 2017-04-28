@@ -9,15 +9,14 @@
     <h:body>
         <h1>Reportes</h1>
         <h:form>
-        <p:dataTable var="reporte" value="#{recogedorReportes.reportes}">
+        <p:dataTable var="reporte" value="#{recogedorReportes.getReportes()}">
             <p:column headerText="Tipo de Reporte">              
-               <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.tipo}"/>   
+               <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.tipo}"/>
             </p:column>
             <p:column headerText="Comentario">
                 <h:outputText value="#{reporte.texto}" />
             </p:column>
         </p:dataTable>
-
         
 </h:form>
 
