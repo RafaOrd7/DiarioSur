@@ -29,6 +29,9 @@ import javax.enterprise.context.Dependent;
 @ApplicationScoped
 public class BdBean implements Serializable{
 
+    
+    
+    private Long contId=0L;
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
     private List<Evento> ev=new ArrayList<>();
@@ -41,6 +44,8 @@ public class BdBean implements Serializable{
     private List<Valoracion> val=new ArrayList<>();
 
     public void crearAdmin(Administrador a){
+       contId++;
+       a.setIdUser("A"+contId);
        admin.add(a);
     }
     
@@ -58,6 +63,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearAnuncio(Anuncio a){
+        contId++;
+       a.setId_anuncio(contId);
        anu.add(a);
     }
     
@@ -70,11 +77,13 @@ public class BdBean implements Serializable{
         return null;
     }
     
-    public void eliminarAnuncio(Anuncio a){
+    public void eliminarAnuncio(Anuncio a){      
         anu.remove(a);
     }
     
     public void crearEvento(Evento a){
+        contId++;
+       a.setId(contId);
        ev.add(a);
     }
     
@@ -92,6 +101,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearJDR(JefeDeRedactores a){
+       contId++;
+       a.setIdUser("J"+contId);
        jdr.add(a);
     }
     
@@ -109,6 +120,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearNotificacion(Notificacion a){
+        contId++;
+       a.setId(contId);
        notif.add(a);
     }
     
@@ -126,6 +139,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearPeriodista(Periodista a){
+         contId++;
+       a.setIdUser("P"+contId);
        peri.add(a);
     }
     
@@ -143,6 +158,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearReporte(Reporte a){
+        contId++;
+       a.setId(contId);
        rep.add(a);
     }
     
@@ -160,6 +177,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearSU(SuperUsuario a){
+       contId++;
+       a.setIdUser("S"+contId);
        superu.add(a);
     }
     
@@ -177,6 +196,8 @@ public class BdBean implements Serializable{
     }
     
     public void crearUR(UsuarioRegistrado a){
+       contId++;
+       a.setIdUser("U"+contId);
        ur.add(a);
     }
     
@@ -195,6 +216,8 @@ public class BdBean implements Serializable{
     
     
     public void crearValoracion(Valoracion a){
+        contId++;
+       a.setId(contId);
        val.add(a);
     }
     

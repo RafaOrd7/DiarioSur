@@ -69,6 +69,7 @@ public class recogedorReportes {
     }
 
     public String enviarReporte() {
+        
         Reporte aux = new Reporte(comentario, String.valueOf(tipoReporte));
         bd.crearReporte(aux);
         return "index.xhtml";
