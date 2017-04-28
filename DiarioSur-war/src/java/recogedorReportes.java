@@ -24,10 +24,30 @@ public class recogedorReportes {
     private int tipoReporte;
     private String comentario;
     private UsuarioRegistrado usuario;
-    private static List<Reporte> reportes=new ArrayList<Reporte>();
+    
+    @Inject
+    private BdBean bd;
+    
+    private Reporte seleccionado;
 
-    ;
+    public Reporte getSeleccionado() {
+        return seleccionado;
+    }
 
+    public void setSeleccionado(Reporte seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+    
+    public String ver(Reporte reporte){
+        seleccionado=reporte;
+        return "VerReporte.xhtml";
+    }
+    
+    
+    public List<Reporte> getReportes(){
+        return bd.getRep();
+    }
+    
     public int getTipoReporte() {
         return tipoReporte;
     }
@@ -48,19 +68,10 @@ public class recogedorReportes {
        
     }
 
-    public List<String> getReportes() {
-        List<String>aux=new ArrayList<String>();
-        int i=0;
-        for(Reporte r:reportes){
-            aux.add(reportes.get(i).getTexto());
-            i++;
-        }
-        return aux;
-    }
-
     public String enviarReporte() {
         Reporte aux = new Reporte(comentario, String.valueOf(tipoReporte));
-        reportes.add(aux);
+        bd.crearReporte(aux);
         return "index.xhtml";
     }
+    
 }
