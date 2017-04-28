@@ -25,17 +25,13 @@ public class ctrlUsuarios {
     private String nombre, apellidos, email, dni, password, password2;
     private List<UsuarioRegistrado> usuarios;
 
+    
     public ctrlUsuarios() {  
         usuarios = new ArrayList<>();
     }
     
     public String nuevoUsuario() {
-        usuario.setNombre(nombre);
-        usuario.setApellidos(apellidos);
-        usuario.setDni(dni);
-        usuario.setEmail(email);
-        usuario.setPassword(password);
-        usuarios.add(usuario);
+        BdBean.crearUsuario(usuario);
         return "registerSuccess.xhtml";
     }
 
