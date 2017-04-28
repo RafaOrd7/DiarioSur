@@ -10,42 +10,43 @@
     <h:body>
         
         <h1 align="center">Diario SUR</h1>
+        <p:messages id="messages" autoUpdate="true" showIcon="false"  />
         <h:form>
             <table border="0" cellspacing="20">
                 <tbody>
                     <tr>
                         <td>
-                            <p:inputText id="nombre" placeholder="Nombre" value="#{creadorUsuarios.nombre}"/>
+                            <p:inputText id="nombre" placeholder="Nombre" value="#{ctrlUsuarios.usuario.nombre}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="apellidos" placeholder="Apellidos" value="#{creadorUsuarios.apellidos}"/>
+                            <p:inputText id="apellidos" placeholder="Apellidos" value="#{ctrlUsuarios.usuario.apellidos}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="email" placeholder="Correo electrónico" value="#{creadorUsuarios.email}"/>
+                            <p:inputText id="email" placeholder="Correo electrónico" value="#{ctrlUsuarios.usuario.email}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:inputText id="dni" placeholder="DNI/NIF/NIE" value="#{creadorUsuarios.dni}"/>
+                            <p:inputText id="dni" placeholder="DNI/NIF/NIE"  value="#{ctrlUsuarios.usuario.dni}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:password id="password" value="#{creadorUsuarios.password}" feedback="true" placeholder="Contraseña"/>
+                            <p:password id="password" label="pasword1" validatorMessage="payasos todos"  value="#{ctrlUsuarios.usuario.password}" match="password2"  feedback="true" placeholder="Contraseña"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p:password id="password2" value="#{creadorUsuarios.password2}" placeholder="Repita contraseña"/>
+                            <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h:commandButton value="submit" id="submit" action="#{creadorUsuarios.nuevoUsuario()}"/>
+                            <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="password" styleClass="submit"/>
                         </td>
                     </tr>
                     <tr>
