@@ -25,13 +25,15 @@ public class ctrlUsuarios {
     private String nombre, apellidos, email, dni, password, password2;
     private List<UsuarioRegistrado> usuarios;
 
+    @Inject
+    private BdBean bd;
     
     public ctrlUsuarios() {  
         usuarios = new ArrayList<>();
     }
     
     public String nuevoUsuario() {
-        BdBean.crearUsuario(usuario);
+        bd.crearUR(usuario);
         return "registerSuccess.xhtml";
     }
 
