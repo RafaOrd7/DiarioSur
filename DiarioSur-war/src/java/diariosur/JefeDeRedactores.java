@@ -18,7 +18,7 @@ import javax.persistence.Entity;
 public class JefeDeRedactores extends Periodista implements Serializable {
 
    
-       public JefeDeRedactores () {
+    public JefeDeRedactores () {
         
     }
     
