@@ -37,7 +37,10 @@ public class Administrador  extends JefeDeRedactores implements Serializable{
    @OneToMany(mappedBy="administrador")
     private List<Anuncio> anuncios;
     
-    
+   public Administrador(){
+       
+   }
+   
     @Override
     public int hashCode() {
         int hash = 0;
