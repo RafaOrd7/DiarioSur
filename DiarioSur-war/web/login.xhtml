@@ -8,32 +8,31 @@
         <title>Login Diario Sur</title>
     </h:head>
     <h:body>
+        <h:form>
         
         <h1 align="center">Diario SUR login</h1>
         <h2 align="center">
-            <p:inputText id="user" value="" placeholder="Usuario"/>
+            <p><p:inputText id="correo" value="#{ctrlUsuarios.usuario.email}" placeholder="Email"/></p>
+            <p:password id="pass" value="#{ctrlUsuarios.usuario.password}" placeholder="Contraseña"/>
         </h2>
         <h3 align="center">
-            <p:password id="pass" value="#{passwordView.password1}" placeholder="Contraseña"/>
+            <h:commandButton value="Iniciar sesión" action="#{ctrlUsuarios.logIn}"/>
         </h3>
-        <h4 align="center">
-            <p:button outcome="index" value="Iniciar Sesion" icon="ui-icon-person"></p:button>
-        </h4>
-        <h5 align="center">
+        <!--h4 align="center">
             <h:outputText value="Recordar mis datos " />
-            <p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
-        </h5>
-        <h6 align="center">
+            <p:selectBooleanCheckbox value="" />
+        </h4-->
+        <h5 align="center">
             <p:link outcome="forgpass" value="¿Olvidaste tu contraseña?">
             </p:link>
-        </h6>
-        <h7>
+        </h5>
+        <h6 align="center">
             <p align="center">¿No tienes cuenta?
             <p:link outcome="register" value=" ¡Regístrate! :)">
             </p:link>
             </p>
-        </h7>
-        
+        </h6>
+        </h:form>
     </h:body>
 </html>
 

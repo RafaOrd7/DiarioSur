@@ -11,6 +11,8 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 /**
@@ -23,7 +25,7 @@ public class ctrlUsuarios {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     private String nombre, apellidos, email, dni, password, password2;
-    private List<UsuarioRegistrado> usuarios;
+    private List<UsuarioRegistrado> usuarios = new ArrayList<>();
 
     @Inject
     private BdBean bd;
@@ -35,6 +37,39 @@ public class ctrlUsuarios {
     public String nuevoUsuario() {
         bd.crearUR(usuario);
         return "registerSuccess.xhtml";
+    }
+    
+    public String logIn(){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        int cont = 0;
+        UsuarioRegistrado user = null;
+        boolean esta = false, passok = false;
+        
+        while(cont < usuarios.size() && !esta){
+            user = usuarios.get(cont);
+            if(user.getEmail().equals(usuario.getEmail())){
+                esta = true;
+                if(user.getPassword().equals(usuario.getPassword())){
+                    passok = true;
+                }
+            }
+            cont++;
+        }
+        
+        if(!esta){
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " 
+                    + getUsuario()+ " no está registrado.", "El usuario "+getUsuario()+
+                            " no está registrado."));
+            return null;
+        }else{
+            if(!passok){
+                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                        "Error, contraseña incorrecta.", "Error, contraseña incorrecta."));
+                return "registerSuccess.xhtml";
+            }
+        }
+        setUsuario(user);
+        return "index.xhtml";
     }
 
     
