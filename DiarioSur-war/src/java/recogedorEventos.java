@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import diariosur.Anuncio;
 import diariosur.Evento;
 import diariosur.UsuarioRegistrado;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -21,6 +23,7 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "recogedorEventos")
 @RequestScoped
 public class recogedorEventos {
+
     private String nombre;
     private String descripcion;
     private File imagen;
@@ -29,7 +32,81 @@ public class recogedorEventos {
     private String tipo;
     private float precio;
     private String tags;
+    private Boolean verificado = false;
+    private Boolean borrado = false;
     private UsuarioRegistrado like;
+    private UsuarioRegistrado usuario;
+
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
+    }
+    private Anuncio anuncio;
+    
+    @Inject
+    private BdBean bd;
+
+    private Evento seleccionado;
+
+    public Boolean getVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(Boolean verificado) {
+        this.verificado = verificado;
+    }
+
+    public Boolean getBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(Boolean borrado) {
+        this.borrado = borrado;
+    }
+
+    public UsuarioRegistrado getLike() {
+        return like;
+    }
+
+    public void setLike(UsuarioRegistrado like) {
+        this.like = like;
+    }
+
+    public UsuarioRegistrado getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioRegistrado usuario) {
+        this.usuario = usuario;
+    }
+
+    public BdBean getBd() {
+        return bd;
+    }
+
+    public void setBd(BdBean bd) {
+        this.bd = bd;
+    }
+
+    public Evento getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Evento seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public String ver(Evento evento) {
+        seleccionado = evento;
+        return "evento.xhtml";
+    }
+
+    public List<Evento> getEventos() {
+        return bd.getEv();
+    }
 
     public String getLugar() {
         return lugar;
@@ -70,35 +147,43 @@ public class recogedorEventos {
     public void setTags(String tags) {
         this.tags = tags;
     }
-    
-    
-     public String getNombre() {
+
+    public String getNombre() {
         return nombre;
     }
-      
-        public void setNombre(String t) {
-        nombre=t;
+
+    public void setNombre(String t) {
+        nombre = t;
     }
-        
-         public String getDescripcion() {
+
+    public String getDescripcion() {
         return descripcion;
     }
-      
-        public void setDescripcion(String d) {
-        descripcion=d;
+
+    public void setDescripcion(String d) {
+        descripcion = d;
     }
-        
-         public File getImagen() {
+
+    public File getImagen() {
         return imagen;
     }
-      
-        public void setImagen(File f) {
-        imagen=f;
+
+    public void setImagen(File f) {
+        imagen = f;
     }
-       
-       public void mostrarTipo(){
-           System.out.println(tipo);
-       }
-    
-    
+
+    public void mostrarTipo() {
+        System.out.println(tipo);
+    }
+
+    public recogedorEventos() {
+
+    }
+
+    public String enviarEvento() {
+        Evento aux = new Evento(nombre, fecha, tipo, precio, descripcion, tags, usuario, verificado, borrado, anuncio);
+        bd.crearEvento(aux);
+        return "evento.xhtml";
+    }
+
 }
