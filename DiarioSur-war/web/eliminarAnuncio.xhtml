@@ -9,36 +9,16 @@
     </h:head>
     <h:body>
        
-   
-        <h:form> 
-            <p:dataScroller value="#{dataScrollerView.anuncios}" var="anuncio" chunkSize="10">
-                <f:facet name="header">
-                    Anuncios Publicados
-                </f:facet>
- 
-              <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                  <p:graphicImage name="#{anuncio.multimedia}" /> 
- 
-                        <p:outputPanel>
-                     <h:panelGrid columns="2" cellpadding="5">
-                        
-                        <h:outputText value="Nombre Anuncio:" />
-                        <h:outputText value="#{anuncio()}" style="font-weight: bold"/>
-                         
-                         <h:outputText value="Id:" />
-                        <h:outputText value="#{anuncio.getId()}" style="font-weight: bold"/>
-
-                        <h:outputText value="Prioridad" />
-                        <h:outputText value="#{anuncio.getPrioridad()}" style="font-weight: bold"/>
-
-                        <h:outputText value="Dias Contratados:" />
-                        <h:outputText value="#{anuncio.getDiasContratados()}" style="font-weight: bold"/>
-                        <input type="submit" value="Eliminar" action="#{dataScrollerView.Eliminar(anuncio)}" />
-                     </h:panelGrid>
-                 </p:outputPanel>
-              </h:panelGrid>
-            </p:dataScroller>
-        </h:form>
+        <h1>Reportes</h1>
+        <h:form>
+            <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
+            <p:column headerText="Nombre empresa">              
+                <h:commandLink action="#{publicarAnuncio.nombreEmpresa}"/>
+            </p:column>
+            <p:column headerText="Comentario">
+                <h:outputText value="#{publicarAnuncio.prioridad}" />
+            </p:column>
+        </p:dataTable>   
     </h:body>
 </html>
 

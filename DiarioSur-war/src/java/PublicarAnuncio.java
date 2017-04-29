@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 /**
  *
  * @author pablo
@@ -30,7 +29,7 @@ public class PublicarAnuncio {
     private Date fechaExpiracion;
     private File multimedia;
     private String tags;
-    private static List<Anuncio> anuncios = new ArrayList<Anuncio>();
+    static List<Anuncio> anuncios = new ArrayList<Anuncio>();
     private Anuncio anuncio;
    
     /**
@@ -40,6 +39,7 @@ public class PublicarAnuncio {
     }
     
     public void crear(){
+        anuncio = new Anuncio();
         anuncio.setDimensiones(dimensiones);
         anuncio.setEmpresa(nombreEmpresa);
         anuncio.setId_anuncio(id);
@@ -53,27 +53,31 @@ public class PublicarAnuncio {
     }
     
   
-       
-        
-    
-     
-    private void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    
-    
-    public void insertar(){
-        crear();
-        anuncios.add(anuncio);
-        addMessage("Anuncio subido correctamente!!");
+    public String insertar(){
+        //crear();
+        Anuncio a = new Anuncio();
+        a.setEmpresa("pepe");
+        a.setPrioridad("7");
+        anuncios.add(a);
+        Anuncio b = new Anuncio();
+        b.setEmpresa("pepe");
+        b.setPrioridad("7");
+        anuncios.add(b);
+        return "eliminarAnuncio.xhtml";
     }
     public void eliminar(PublicarAnuncio anuncio){
         anuncios.remove(this.anuncio);
     }
 
-    public Anuncio getAnuncio() {
-        return anuncio;
+    public List<String> getAnuncios() {
+        List<String>aux=new ArrayList<>();
+        int i=0;
+        aux.add(anuncios.get(0).getEmpresa());
+        for(Anuncio r:anuncios){
+            aux.add(anuncios.get(i).getEmpresa());
+            i++;
+        }
+        return aux;
     }
 
     /**

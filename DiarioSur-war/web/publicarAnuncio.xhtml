@@ -41,9 +41,13 @@
             
         </form>
         
-        <h:form>
+        <h:form enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true" />
+            <p:fileUpload value="#{publicarAnuncio.multimedia}" mode="simple" skinSimple="true"/>
+        </h:form>
         
-        <p:commandButton value="Publicar" id="Publicar" actionListener="#{publicarAnuncio.insertar()}" icon="ui-icon-disk" ajax="false"/>
+        <h:form>
+        <p:commandButton value="Publicar" action="#{publicarAnuncio.insertar()}" icon="ui-icon-disk"/>
         </h:form>
        
         <a href="index.xhtml"><p:button  value="Cancelar">
