@@ -29,23 +29,7 @@
              <h3>Prioridad:</h3>
              <p:inputTextarea rows="5" cols="30" counter="display" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" value="#{publicarAnuncio.prioridad}"/>
              <h:outputText id="display4" />
-             
-        </h:form>
-
-        <form>
-            <h3>Fecha Publicacion:</h3>
-            <input type="Date" action="#{publicarAnuncio.fechaPublicacion}"/>
-             <h3>Fecha Expiracion:</h3>
-            <input type="Date" action="#{publicarAnuncio.fechaExpiracion}"/>
-            
-            
-        </form>
-        
-        <h:form enctype="multipart/form-data">
-            <p:growl id="messages" showDetail="true" />
-            <p:fileUpload value="#{publicarAnuncio.multimedia}" mode="simple" skinSimple="true"/>
-        </h:form>
-        
+   
         <h:form>
         <p:commandButton value="Publicar" action="#{publicarAnuncio.insertar()}" icon="ui-icon-disk"/>
         </h:form>
@@ -53,6 +37,19 @@
         <a href="index.xhtml"><p:button  value="Cancelar">
         <f:param name="productId2" value="10" />
        </p:button></a>
+       </h:form> 
+        
+        <form>
+            <h3>Fecha Publicacion:</h3>
+            <input type="Date" action="#{publicarAnuncio.fechaPublicacion}"/>
+             <h3>Fecha Expiracion:</h3>
+            <input type="Date" action="#{publicarAnuncio.fechaExpiracion}"/>
+     </form>
+        
+        <h:form enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true" />
+            <p:fileUpload value="#{publicarAnuncio.multimedia}" mode="simple" skinSimple="true"/>
+        </h:form>
         
     </h:body>
 </html>

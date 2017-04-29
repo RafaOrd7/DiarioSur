@@ -25,7 +25,7 @@ public class PublicarAnuncio {
     private String nombreEmpresa;
     private long id;
     private String dimensiones;
-    private int prioridad;
+    private String prioridad;
     private Date fechaPublicacion;
     private Date fechaExpiracion;
     private File multimedia;
@@ -60,6 +60,9 @@ public class PublicarAnuncio {
     public String insertar(){
        Anuncio a = new Anuncio();
         a.setEmpresa(nombreEmpresa);
+        a.setDimensiones(dimensiones);
+        a.setPrioridad(prioridad);
+        a.setTags(tags);
         bd.crearAnuncio(a);        
        
         return "eliminarAnuncio.xhtml";
@@ -122,14 +125,14 @@ public class PublicarAnuncio {
     /**
      * @return the prioridad
      */
-    public int getPrioridad() {
+    public String getPrioridad() {
         return prioridad;
     }
 
     /**
      * @param prioridad the prioridad to set
      */
-    public void setPrioridad(int prioridad) {
+    public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
 
