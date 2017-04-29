@@ -1,15 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         
         <h1 align="center">Diario SUR</h1>
-        
-        Bueeeeeeeeeenasssssss register!!
+        <p:messages id="messages" autoUpdate="true" showIcon="false"  />
+        <h:form>
+            <table border="0" cellspacing="20">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p:inputText id="nombre" placeholder="Nombre" value="#{ctrlUsuarios.usuario.nombre}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:inputText id="apellidos" placeholder="Apellidos" value="#{ctrlUsuarios.usuario.apellidos}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:inputText id="email" placeholder="Correo electrónico" value="#{ctrlUsuarios.usuario.email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:inputText id="dni" placeholder="DNI/NIF/NIE"  value="#{ctrlUsuarios.usuario.dni}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:password id="password" label="pasword1" validatorMessage="payasos todos"  value="#{ctrlUsuarios.usuario.password}" match="password2"  feedback="true" placeholder="Contraseña"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="password" styleClass="submit"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            
+        </h:form>
     </h:body>
 </html>
 

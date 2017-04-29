@@ -1,15 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login Diario Sur</title>
     </h:head>
     <h:body>
+        <h:form>
         
-        <h1 align="center">Diario SUR</h1>
-        
-        Bueeeeeeeeeeenas Login
+        <h1 align="center">Diario SUR login</h1>
+        <h2 align="center">
+            <p><p:inputText id="correo" value="#{ctrlUsuarios.usuario.email}" placeholder="Email"/></p>
+            <p:password id="pass" value="#{ctrlUsuarios.usuario.password}" placeholder="Contraseña"/>
+        </h2>
+        <h3 align="center">
+            <h:commandButton value="Iniciar sesión" action="#{ctrlUsuarios.logIn}"/>
+        </h3>
+        <!--h4 align="center">
+            <h:outputText value="Recordar mis datos " />
+            <p:selectBooleanCheckbox value="" />
+        </h4-->
+        <h5 align="center">
+            <p:link outcome="forgpass" value="¿Olvidaste tu contraseña?">
+            </p:link>
+        </h5>
+        <h6 align="center">
+            <p align="center">¿No tienes cuenta?
+            <p:link outcome="register" value=" ¡Regístrate! :)">
+            </p:link>
+            </p>
+        </h6>
+        </h:form>
     </h:body>
 </html>
 
