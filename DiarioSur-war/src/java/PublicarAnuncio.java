@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 /**
  *
  * @author pablo
@@ -31,7 +32,10 @@ public class PublicarAnuncio {
     private String tags;
     static List<Anuncio> anuncios = new ArrayList<Anuncio>();
     private Anuncio anuncio;
-   
+  
+    @Inject
+    private BdBean bd;
+        
     /**
      * Creates a new instance of PublicarAnuncio
      */
@@ -40,14 +44,14 @@ public class PublicarAnuncio {
     
     public void crear(){
         anuncio = new Anuncio();
-        anuncio.setDimensiones(dimensiones);
-        anuncio.setEmpresa(nombreEmpresa);
-        anuncio.setId_anuncio(id);
-        anuncio.setFechaPublicacion(fechaPublicacion);
-        anuncio.setFechaExpiracion(getFechaExpiracion());
-        anuncio.setMultimedia(multimedia);
-        anuncio.setPrioridad(dimensiones);
-        anuncio.setTags(getTags());
+        getAnuncio().setDimensiones(dimensiones);
+        getAnuncio().setEmpresa(nombreEmpresa);
+        getAnuncio().setId_anuncio(id);
+        getAnuncio().setFechaPublicacion(fechaPublicacion);
+        getAnuncio().setFechaExpiracion(getFechaExpiracion());
+        getAnuncio().setMultimedia(multimedia);
+        getAnuncio().setPrioridad(dimensiones);
+        getAnuncio().setTags(getTags());
         
         
     }
@@ -63,30 +67,23 @@ public class PublicarAnuncio {
         b.setEmpresa("pepe");
         b.setPrioridad("7");
         anuncios.add(b);
-        return "eliminarAnuncio.xhtml";
+        bd.crearReporte(a);        
+        bd.crearReporte(b);
+        return "index.xhtml";
     }
     public void eliminar(PublicarAnuncio anuncio){
-        anuncios.remove(this.anuncio);
+        anuncios.remove(this.getAnuncio());
     }
 
-    public List<String> getAnuncios() {
-        List<String>aux=new ArrayList<>();
-        int i=0;
-        aux.add(anuncios.get(0).getEmpresa());
-        for(Anuncio r:anuncios){
-            aux.add(anuncios.get(i).getEmpresa());
-            i++;
-        }
-        return aux;
+    public List<Anuncio> getAnuncios() {
+       return bd.getAnu();
     }
-
-    /**
-     * @param anuncio the anuncio to set
-     */
     public void setAnuncio(Anuncio anuncio) {
         this.anuncio = anuncio;
     }
-    
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
     /**
      * @return the nombreAnuncio
      */
@@ -212,6 +209,11 @@ public class PublicarAnuncio {
     public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
+
+    /**
+     * @return the anuncio
+     */
+    
     
     
 }

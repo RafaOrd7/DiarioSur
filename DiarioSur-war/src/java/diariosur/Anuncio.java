@@ -159,7 +159,6 @@ public class Anuncio implements Serializable {
      * @param multimedia the multimedia to set
      */
     public void setMultimedia(File multimedia) {
-        this.multimedia = multimedia;
+        this.multimedia = multimedia;   
     }
-    
 }

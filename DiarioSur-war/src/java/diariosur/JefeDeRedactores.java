@@ -18,7 +18,17 @@ import javax.persistence.Entity;
 public class JefeDeRedactores extends Periodista implements Serializable {
 
    
+<<<<<<< HEAD
    
+=======
+    public JefeDeRedactores () {
+        
+    }
+    
+    public JefeDeRedactores (String idUser, String nombre, String apellidos, String dni, String email, String password, String empresa, String cargo, String telefono) {
+        super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
+    }
+>>>>>>> origin/master
 
      @Override
     public int hashCode() {

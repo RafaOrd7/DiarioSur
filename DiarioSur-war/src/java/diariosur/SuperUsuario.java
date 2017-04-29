@@ -31,6 +31,20 @@ public class SuperUsuario extends UsuarioRegistrado  implements Serializable {
     @Column(nullable  = false, length=50)
     private String empresa;
     
+<<<<<<< HEAD
+=======
+        
+    /////////////// CONSTRUCTORES ////////////
+    public SuperUsuario () {
+        
+    }
+    
+    public SuperUsuario (String idUser, String nombre, String apellidos, String dni, String email, String password, String empresa) {
+        super(idUser, nombre, apellidos, dni, email, password);
+        this.empresa=empresa;
+    }
+    
+>>>>>>> origin/master
     @Override
     public int hashCode() {
         int hash = 0;
