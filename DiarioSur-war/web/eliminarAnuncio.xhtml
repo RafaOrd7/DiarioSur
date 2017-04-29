@@ -9,11 +9,17 @@
     </h:head>
     <h:body>
        
-        <h1>Reportes</h1>
+        <h1>Anuncios</h1>
         <h:form>
             <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
             <p:column headerText="Empresa">
                 <h:outputText value="#{anuncio.empresa}" />
+            </p:column>
+            <p:column headerText="Prioridad">
+                <h:outputText value="#{anuncio.prioridad}" />
+            </p:column>
+            <p:column headerText="Tags">
+                <h:outputText value="#{anuncio.tags}" />
             </p:column>
         </p:dataTable>
         

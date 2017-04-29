@@ -30,7 +30,7 @@ public class PublicarAnuncio {
     private Date fechaExpiracion;
     private File multimedia;
     private String tags;
-    static List<Anuncio> anuncios = new ArrayList<Anuncio>();
+    
     private Anuncio anuncio;
   
     @Inject
@@ -44,35 +44,28 @@ public class PublicarAnuncio {
     
     public void crear(){
         anuncio = new Anuncio();
-        getAnuncio().setDimensiones(dimensiones);
+       // getAnuncio().setDimensiones(dimensiones);
         getAnuncio().setEmpresa(nombreEmpresa);
-        getAnuncio().setId_anuncio(id);
+     /*   getAnuncio().setId_anuncio(id);
         getAnuncio().setFechaPublicacion(fechaPublicacion);
         getAnuncio().setFechaExpiracion(getFechaExpiracion());
         getAnuncio().setMultimedia(multimedia);
         getAnuncio().setPrioridad(dimensiones);
-        getAnuncio().setTags(getTags());
+        getAnuncio().setTags(getTags());*/
         
         
     }
     
   
     public String insertar(){
-        //crear();
-        Anuncio a = new Anuncio();
-        a.setEmpresa("pepe");
-        a.setPrioridad("7");
-        anuncios.add(a);
-        Anuncio b = new Anuncio();
-        b.setEmpresa("pepe");
-        b.setPrioridad("7");
-        anuncios.add(b);
-        bd.crearReporte(a);        
-        bd.crearReporte(b);
-        return "index.xhtml";
+       Anuncio a = new Anuncio();
+        a.setEmpresa(nombreEmpresa);
+        bd.crearAnuncio(a);        
+       
+        return "eliminarAnuncio.xhtml";
     }
     public void eliminar(PublicarAnuncio anuncio){
-        anuncios.remove(this.getAnuncio());
+
     }
 
     public List<Anuncio> getAnuncios() {
