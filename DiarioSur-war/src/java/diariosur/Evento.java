@@ -56,7 +56,25 @@ public class Evento implements Serializable {
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
+    
+    public Evento(){
+        
+    }
 
+    public Evento(Long id, String n,Date d, String t, Float p, String ta, Boolean ver, Boolean bo, UsuarioRegistrado usuarioR,
+            Anuncio a){
+        id_evento=id;
+        nombre=n;
+        fecha=d;
+        tipo=t;
+        precio=p;
+        tags=ta;
+        verificado= ver;
+        borrado=bo;
+        usuarioRegistrado=usuarioR;
+        anuncio=a;       
+    }
+    
     public Long getId() {
         return id_evento;
     }
