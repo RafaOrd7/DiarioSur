@@ -7,14 +7,21 @@
         <title>Diario Sur</title>
     </h:head>
     <h:body>
+        
         <h1>Reportes</h1>
         <h:form>
         <p:dataTable var="reporte" value="#{recogedorReportes.getReportes()}">
-            <p:column headerText="Tipo de Reporte">              
-               <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.tipo}"/>
+            <p:column headerText="Id">              
+               <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.id_reporte}"/>
             </p:column>
-            <p:column headerText="Comentario">
-                <h:outputText value="#{reporte.texto}" />
+            <p:column headerText="Usuario">
+                <h:outputText value="#{reporte.usuarioRegistrado}" />
+            </p:column>
+            <p:column headerText="Tipo de reporte">
+                <h:outputText value="#{reporte.tipo}" />
+            </p:column>
+            <p:column headerText="Fecha">
+                <h:outputText value="#{reporte.fecha}" />
             </p:column>
         </p:dataTable>
         
