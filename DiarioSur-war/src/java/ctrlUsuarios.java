@@ -76,14 +76,38 @@ public class ctrlUsuarios {
         public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
-        
-    public boolean comprobarUser(String id){
-        if(usuarioLogeado.getIdUser().substring(0,1).equals(id)){
-            return true;
-        } 
-        return false;
-    }
 
+    public int comprobarUserAdmin(){
+        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("A")){
+            return 2;
+        }
+        return 1;
+    }    
+    public int comprobarUserJDR(){
+        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("J")){
+            return 2;
+        }
+        return 1;
+    }    
+    public int comprobarUserPeriodista(){
+        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("P")){
+            return 2;
+        }
+        return 1;
+    }    
+    public int comprobarUserSU(){
+        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("S")){
+            return 2;
+        }
+        return 1;
+    }    
+    public int comprobarUserRegistrado(){
+        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("U")){
+            return 2;
+        }
+        return 1;
+    }    
+    
     public static void setUsuarioLogeado(UsuarioRegistrado usuarioLogeado) {
         ctrlUsuarios.usuarioLogeado = usuarioLogeado;
     }

@@ -27,13 +27,18 @@
 
                         <c:if test="#{!empty ctrlUsuarios.getUsuarioLogeado()}">
                             <td>Bienvenido, #{ctrlUsuarios.getUsuarioLogeado().getNombre()}</td>
-
+                            <!-- LOG OUT-->
                         </c:if>
 
                     </tr> 
+
+                    <tr>
+                        <td><p:inputText id="busqueda" placeholder="Buscar..." /></td>
+                        <td></td>
+                    </tr>
                 </table>
 
-                <div align="right"><p:inputText id="busqueda" placeholder="Buscar..." /></div>
+
 
                 <br/><br/>     
             </h:form>
@@ -43,62 +48,65 @@
         <div id="botones">
             <h:form id="botonesForm">
                 <table>
-                    <c:if test="#{ctrlUsuarios.comprobarUser("A")}">
-                        <h1>Administrador</h1>
-                        <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                        <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                        <tr><p:button outcome="anuncio" value="Publicar Anuncio" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="gestAnuncio" value="Gestión Anuncios" icon="ui-icon-person"></p:button></tr>
+                    <c:choose>
+                        <c:when test="#{ctrlUsuarios.comprobarUserAdmin() > 1}">
 
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-                    </c:if>
+                            <h1>Administrador</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="anuncio" value="Publicar Anuncio" icon="ui-icon-person"></p:button></tr>
+                            <tr><p:button outcome="gestAnuncio" value="Gestión Anuncios" icon="ui-icon-person"></p:button></tr>
 
-                    <c:if test="#{ctrlUsuarios.comprobarUser("J")}">
-                        <h1>Jefe de Redactores</h1>
-                        <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                        <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
 
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-                    </c:if>
+                        </c:when>
 
-                    <c:if test="#{ctrlUsuarios.comprobarUser("P")}">
-                        <h1>Periodista</h1>
-                        <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                        <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                        <c:when test="#{ctrlUsuarios.comprobarUserJDR() > 1}">
+                            <h1>Jefe de Redactores</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
 
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-                    </c:if>
+                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                        </c:when>
+                        
+                        <c:when test="#{ctrlUsuarios.comprobarUserPeriodista() > 1}">
+                            <h1>Periodista</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
 
-                    <c:if test="#{ctrlUsuarios.comprobarUser("S")}">
-                        <h1>SuperUsuario</h1>
-                        <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                        <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                        </c:when>
 
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-                    </c:if>
+                        <c:when test="#{ctrlUsuarios.comprobarUserSU() > 1}">
+                            <h1>SuperUsuario</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
 
-                    <c:if test="#{ctrlUsuarios.comprobarUser("U")}">
-                        <h1>Usuario Registrado</h1>
-                        <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                        <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                        </c:when>
 
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-                    </c:if>
+                        <c:when test="#{ctrlUsuarios.comprobarUserRegistrado() > 1}">
+                            <h1>Usuario Registrado</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
 
-                    <c:otherwise>
-                        <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                        <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr>    
-                    </c:otherwise>
+                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                        </c:when>
+                        
+                        <c:otherwise>
+                            <tr><p>HIII</p></tr>     
+                        </c:otherwise>
+                    </c:choose>
                 </table>
             </h:form>
         </div>
