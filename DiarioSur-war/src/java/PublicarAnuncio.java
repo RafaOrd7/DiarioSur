@@ -41,21 +41,6 @@ public class PublicarAnuncio {
      */
     public PublicarAnuncio() {
     }
-    
-    public void crear(){
-        anuncio = new Anuncio();
-       // getAnuncio().setDimensiones(dimensiones);
-        getAnuncio().setEmpresa(nombreEmpresa);
-     /*   getAnuncio().setId_anuncio(id);
-        getAnuncio().setFechaPublicacion(fechaPublicacion);
-        getAnuncio().setFechaExpiracion(getFechaExpiracion());
-        getAnuncio().setMultimedia(multimedia);
-        getAnuncio().setPrioridad(dimensiones);
-        getAnuncio().setTags(getTags());*/
-        
-        
-    }
-    
   
     public String insertar(){
        Anuncio a = new Anuncio();
@@ -63,6 +48,10 @@ public class PublicarAnuncio {
         a.setDimensiones(dimensiones);
         a.setPrioridad(prioridad);
         a.setTags(tags);
+        a.setFechaPublicacion(fechaPublicacion);
+        a.setFechaExpiracion(fechaExpiracion);
+        a.setMultimedia(multimedia);
+        
         bd.crearAnuncio(a);        
        
         return "eliminarAnuncio.xhtml";
