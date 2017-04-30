@@ -30,8 +30,8 @@ public class recogedorValoraciones {
     private Date fecha = new Date();
     private File archivo;
     private Evento evento;
-    private UsuarioRegistrado usuario = new UsuarioRegistrado();
-    private static Valoracion seleccionada = new Valoracion();
+    private UsuarioRegistrado usuario ;
+    private static Valoracion seleccionada;
     @Inject
     private BdBean bd;
 
@@ -46,6 +46,17 @@ public class recogedorValoraciones {
         return bd.getVal();
     }
 
+    public List<Valoracion> getValev(Evento seleccionado) {
+        List<Valoracion> valevento = new ArrayList<>();
+        List<Valoracion> valoraciones= bd.getVal();
+        for(Valoracion aux: valoraciones){
+            if(aux.getEvento().getId_evento().equals(seleccionado.getId_evento())){
+                valevento.add(aux);
+            }
+        }
+        return valevento;
+    }
+    
     public Evento getEvento() {
         return evento;
     }
@@ -102,10 +113,11 @@ public class recogedorValoraciones {
         comentario = m;
     }
     
-    public String enviarValoracion() {
+    public String enviarValoracion(Evento seleccionado) {
+        evento= seleccionado;
         Valoracion aux = new Valoracion(rating, comentario, fecha, usuario, evento);
+        setSeleccionada (aux);
         bd.crearValoracion(aux);
-        System.out.println(comentario);
         return "evento.xhtml";
     }
 }
