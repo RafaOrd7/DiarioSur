@@ -116,9 +116,13 @@ public class Reporte implements Serializable {
         this.id_reporte = id;
     }
 
+<<<<<<< HEAD
 
     public Reporte(Long id, String tx, Date fech, String tipo, Evento ev, Valoracion val, UsuarioRegistrado us){
         setId(id);
+=======
+    public Reporte(String tx, Date fech, String tipo, Evento ev, Valoracion val, UsuarioRegistrado us){
+>>>>>>> origin/master
         setTexto(tx);
         setFecha(fech);
         setTipo(tipo);

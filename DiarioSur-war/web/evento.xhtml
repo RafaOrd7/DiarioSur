@@ -1,0 +1,96 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">Evento</ui:define>
+
+
+    <ui:define name="content">
+        <table align="center">                
+
+            <tr>
+                <td> IMAGEN #{recogedorEventos.imagen}</td>
+            </tr>
+            <tr>
+                <td><p:button  value="Me gusta" icon="ui-icon-star" onclick="recogedorEventos.megusta()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Compartir" icon="ui-icon-star" onclick="recogedorEventos.compartir()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Reportar" icon="ui-icon-star" onclick="recogedorEventos.reportar()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="recogedorEventos.imprimir()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Editar" icon="ui-icon-star" onclick="recogedorEventos.editar()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Eliminar" icon="ui-icon-star" onclick="recogedorEventos.eliminar()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+                <td><p:button  value="Comprar" icon="ui-icon-star" onclick="recogedorEventos.darMegusta()">
+                        <f:param name="productId" value="10" />
+                    </p:button></td>
+            </tr>
+            <tr>
+                <td><h4>Nombre del evento: #{recogedorEventos.getNombre()} </h4></td>
+            </tr>
+            <tr>
+                <td><h4>Tipo: #{recogedorEventos.getTipo()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Fecha: #{recogedorEventos.getFecha()} </h4></td>
+            </tr>
+            <tr>
+                <td><h4>Lugar: #{recogedorEventos.getLugar()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Precio: #{recogedorEventos.getPrecio()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Descripción: #{recogedorEventos.getDescripcion()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Tags: #{recogedorEventos.getTags()} </h4></td>
+            </tr>
+        </table>
+
+        <h:form><h3 align="center">Danos tu opinión</h3>
+            <table align="center">
+                <tr>
+                    <td><p:growl id="messages" showDetail="true" />
+                        <h:panelGrid columns="2" cellpadding="1">
+                            <h:outputText value="" />
+                            <p:rating value="#{recogedorValoraciones.rating}" />
+                        </h:panelGrid></td>
+                </tr>
+                <tr>                    
+                    <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
+                    <br/>
+                </tr>
+                <tr>
+                    <td><p:commandButton value="Enviar" oncomplete="PF('dlg').show()" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion()}"></p:commandButton></td>
+                </tr>
+            </table>
+        </h:form>
+        <h:form>
+            <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValoraciones()}">
+                <p:column headerText="Fecha">
+                <h:outputText value="#{valoracion.fechaPublicacion}" />
+                </p:column>
+                 <p:column headerText="Calificación">
+                <p:rating stars="#{valoracion.calificacion} " />
+                 </p:column>
+                 <p:column headerText="Comentario">
+                <h:outputText value="#{valoracion.comentario}" />
+                 </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -48,6 +48,20 @@ public class Valoracion implements Serializable {
     @OneToMany (mappedBy="valoracion")
     private List<Reporte> reportes;
     
+    
+    public Valoracion(Integer c, String co, Date fecha, UsuarioRegistrado u,Evento e){
+        calificacion=c;
+        comentario=co;
+        fechaPublicacion=fecha;
+        usuarioRegistrado=u;
+        evento=e;
+    }
+    
+    
+    public Valoracion(){
+       
+    }
+    
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -101,6 +115,8 @@ public class Valoracion implements Serializable {
     public void setId(Long id) {
         this.idValoracion = id;
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -127,4 +143,8 @@ public class Valoracion implements Serializable {
         return "proyectogrupo.Valoracion[ id=" + idValoracion + " ]";
     }
     
+   
+    
 }
+
+

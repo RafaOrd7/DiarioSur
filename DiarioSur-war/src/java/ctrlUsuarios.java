@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,15 +25,18 @@ import javax.inject.Inject;
 public class ctrlUsuarios {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
-    private String nombre, apellidos, email, dni, password, password2;
-    private List<UsuarioRegistrado> usuarios = new ArrayList<>();
-
+    
+    private static UsuarioRegistrado usuarioLogeado;
+    
     @Inject
     private BdBean bd;
+
+
     
     public ctrlUsuarios() {  
-        usuarios = new ArrayList<>();
     }
+
+    
     
     public String nuevoUsuario() {
         bd.crearUR(usuario);
@@ -40,103 +44,41 @@ public class ctrlUsuarios {
     }
     
     public String logIn(){
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        int cont = 0;
-        UsuarioRegistrado user = null;
-        boolean esta = false, passok = false;
+        /* Utiliza BdBean y comprueba que esta en la base de datos y que los
+           datos introducidos son correctos */
         
-        while(cont < usuarios.size() && !esta){
-            user = usuarios.get(cont);
-            if(user.getEmail().equals(usuario.getEmail())){
-                esta = true;
-                if(user.getPassword().equals(usuario.getPassword())){
-                    passok = true;
-                }
+        UsuarioRegistrado user=bd.buscarPorEmail(usuario);
+        String pag = null;
+        
+        if(user != null){
+            if(user.getPassword().equals(usuario.getPassword())){
+                pag = "index.xhtml";
+                usuarioLogeado = user;
             }
-            cont++;
-        }
-        
-        if(!esta){
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " 
-                    + getUsuario()+ " no está registrado.", "El usuario "+getUsuario()+
-                            " no está registrado."));
-            return null;
         }else{
-            if(!passok){
-                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                        "Error, contraseña incorrecta.", "Error, contraseña incorrecta."));
-                return "registerSuccess.xhtml";
-            }
+           FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación, "
+                    + "pareja email - contraseña incorrectos.", "Error de autenticación, "
+                            + "pareja email - contraseña incorrectos."));
         }
-        setUsuario(user);
-        return "index.xhtml";
+        return pag;
     }
 
     
     public UsuarioRegistrado getUsuario() {
         return usuario;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPassword2() {
-        return password2;
-    }
-
-    public List<UsuarioRegistrado> getUsuarios() {
-        return usuarios;
-    }
-
     
-    public void setUsuario(UsuarioRegistrado usuario) {
+    public static UsuarioRegistrado getUsuarioLogeado() {
+        return usuarioLogeado;
+    }
+    
+        public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public static void setUsuarioLogeado(UsuarioRegistrado usuarioLogeado) {
+        ctrlUsuarios.usuarioLogeado = usuarioLogeado;
     }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
-
-    public void setUsuarios(List<UsuarioRegistrado> usuarios) {
-        this.usuarios = usuarios;
-    }
-    
     
 }

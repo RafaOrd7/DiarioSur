@@ -63,7 +63,7 @@ public class BdBean implements Serializable{
     }
     
     public void crearAnuncio(Anuncio a){
-        contId++;
+       contId++;
        a.setId_anuncio(contId);
        anu.add(a);
     }
@@ -173,7 +173,15 @@ public class BdBean implements Serializable{
     }
     
     public void eliminarReporte(Reporte a){
-        rep.remove(a);
+       /* Long idaux=a.getId_reporte();
+        for(Reporte aux:rep){
+            if(idaux.equals(aux.getId_reporte())){
+                rep.remove(aux);
+                break;
+            }
+        }*/
+       rep.remove(a);
+        
     }
     
     public void crearSU(SuperUsuario a){
@@ -209,6 +217,37 @@ public class BdBean implements Serializable{
         }
         return null;
     }
+    
+    public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a){
+        for(UsuarioRegistrado aux:ur){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(SuperUsuario aux:superu){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(Periodista aux:peri){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(JefeDeRedactores aux:jdr){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(Administrador aux:admin){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        
+        return null;
+    }
+    
     
     public void eliminarUR(UsuarioRegistrado a){
         ur.remove(a);

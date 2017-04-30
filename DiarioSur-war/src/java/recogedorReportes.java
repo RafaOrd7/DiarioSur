@@ -7,10 +7,13 @@
 import diariosur.Reporte;
 import diariosur.UsuarioRegistrado;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 /**
@@ -24,10 +27,10 @@ public class recogedorReportes {
     private int tipoReporte;
     private String comentario;
     private UsuarioRegistrado usuario;
-    
+
     @Inject
     private BdBean bd;
-    
+
     private Reporte seleccionado;
 
     public Reporte getSeleccionado() {
@@ -37,17 +40,22 @@ public class recogedorReportes {
     public void setSeleccionado(Reporte seleccionado) {
         this.seleccionado = seleccionado;
     }
-    
-    public String ver(Reporte reporte){
-        seleccionado=reporte;
+
+    public String ver(Reporte reporte) {
+        seleccionado = reporte;
         return "VerReporte.xhtml";
     }
-    
-    
-    public List<Reporte> getReportes(){
+
+    public String eliminar() {
+        bd.eliminarReporte(seleccionado);
+        return "GestionarReporte";
+
+    }
+
+    public List<Reporte> getReportes() {
         return bd.getRep();
     }
-    
+
     public int getTipoReporte() {
         return tipoReporte;
     }
@@ -65,14 +73,14 @@ public class recogedorReportes {
     }
 
     public recogedorReportes() {
-       
+
     }
 
     public String enviarReporte() {
-        
-        Reporte aux = new Reporte(comentario, String.valueOf(tipoReporte));
+        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), null, null, null);
         bd.crearReporte(aux);
         return "index.xhtml";
     }
-    
+
+
 }

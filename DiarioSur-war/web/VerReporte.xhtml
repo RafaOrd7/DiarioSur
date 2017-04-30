@@ -5,23 +5,42 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-     <ui:define name="title">Diario Sur Evento</ui:define>
+    <ui:define name="title">Diario Sur Evento</ui:define>
 
+
+    <ui:define name="content">
+
+        <h1 align="center">REPORTE</h1>  
+
+        Id: #{recogedorReportes.getSeleccionado().getId()}
+        Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado()}
+        Fecha: #{recogedorReportes.getSeleccionado().getFecha()}
+        Tipo: #{recogedorReportes.getSeleccionado().getTipo()}
+        Comentario: #{recogedorReportes.getSeleccionado().getTexto()}
+        Evento:  <h:commandLink action="index.xhtml" value="#{recogedorReportes.getSeleccionado().getValoracion()}"/>
+
+
+
+        <h:form>           
+           
+
+            <p:commandButton value="Eliminar Reporte">
+                <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
+            </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:button value="Si" outcome="#{recogedorReportes.eliminar()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
         
-     <ui:define name="content">
-         
-         <h1 align="center">REPORTE</h1>
-         #{recogedorReportes.getSeleccionado().getTipo()}
-         #{recogedorReportes.getSeleccionado().getTexto()}
-         
-         
-       
-    
-         
-         
-         
-         
-     </ui:define>
+
+
+
+
+
+
+    </ui:define>
 
 </ui:composition>
 
