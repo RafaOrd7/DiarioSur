@@ -167,7 +167,7 @@ public class recogedorEventos {
     public String enviarEvento() {
         Evento aux = new Evento(nombre, fecha, tipo, precio, descripcion, tags, usuario, verificado, borrado, anuncio);
         bd.crearEvento(aux);
-        return "evento.xhtml";
+        return "evento";
     }
 
 }
