@@ -7,7 +7,7 @@
 
 
     <ui:define name="title">Evento</ui:define>
-    
+
     <ui:define name="content">
         <table align="center">                
 
@@ -58,13 +58,12 @@
             </tr>
         </table>
 
-        <h:form><h3 align="center">Danos tu opinión</h3>
+        <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
             <table align="center">
                 <tr>
                     <td><p:growl id="messages" showDetail="true" />
                         <h:panelGrid columns="2" cellpadding="1">
-                            <h:outputText value="" />
-                            <p:rating value="#{recogedorValoraciones.rating}" />
+                            <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
                         </h:panelGrid></td>
                 </tr>
                 <tr>                    
@@ -72,21 +71,22 @@
                     <br/>
                 </tr>
                 <tr>
-                    <td><p:commandButton   value="Enviar" oncomplete="PF('dlg').show()" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion()}"></p:commandButton></td>
+                    <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado())}"></h:commandButton ></td>
                 </tr>
             </table>
         </h:form>
+        <h3 align="center"> COMENTARIOS </h3>
         <h:form>
-            <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValoraciones()}">
+            <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                 <p:column headerText="Fecha">
-                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                    <h:outputText value="#{valoracion.getFechaPublicacion()}" />
                 </p:column>
-                 <p:column headerText="Calificación">
-                <p:rating stars="#{valoracion.getCalificacion()} " />
-                 </p:column>
-                 <p:column headerText="Comentario">
-                <h:outputText value="#{valoracion.getComentario()}" />
-                 </p:column>
+                <p:column headerText="Calificación">
+                    <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
+                </p:column>
+                <p:column headerText="Comentario">
+                    <h:outputText value="#{valoracion.getComentario()}" />
+                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>
