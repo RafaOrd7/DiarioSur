@@ -218,6 +218,37 @@ public class BdBean implements Serializable{
         return null;
     }
     
+    public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a){
+        for(UsuarioRegistrado aux:ur){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(SuperUsuario aux:superu){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(Periodista aux:peri){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(JefeDeRedactores aux:jdr){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        for(Administrador aux:admin){
+            if(a.getEmail().equals(aux.getEmail())){
+                return aux;
+            }
+        }
+        
+        return null;
+    }
+    
+    
     public void eliminarUR(UsuarioRegistrado a){
         ur.remove(a);
     }
