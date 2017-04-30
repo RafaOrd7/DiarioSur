@@ -40,7 +40,7 @@ public class recogedorReportes {
     }
 
     public void setSeleccionado(Reporte seleccionado) {
-        this.seleccionado = seleccionado;
+        recogedorReportes.seleccionado = seleccionado;
     }
 
     public String ver(Reporte reporte) {

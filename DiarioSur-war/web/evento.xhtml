@@ -21,9 +21,7 @@
                 <td><p:button  value="Compartir" icon="ui-icon-star" onclick="recogedorEventos.compartir()">
                         <f:param name="productId" value="10" />
                     </p:button></td>
-                <td><p:button  value="Reportar" icon="ui-icon-star" onclick="recogedorEventos.reportar()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
+                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
                 <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="recogedorEventos.imprimir()">
                         <f:param name="productId" value="10" />
                     </p:button></td>
@@ -38,7 +36,7 @@
                     </p:button></td>
             </tr>
             <tr>
-                <td><h4>Nombre del evento: #{recogedorEventos.getNombre()} </h4></td>
+                <td><h4>Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
             </tr>
             <tr>
                 <td><h4>Tipo: #{recogedorEventos.getTipo()}</h4></td>
