@@ -62,6 +62,13 @@ public class Valoracion implements Serializable {
        
     }
     
+    public Evento getEvento(){
+        return evento;
+    }
+    
+    public void setEvento(Evento e){
+        evento=e;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

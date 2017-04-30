@@ -387,7 +387,8 @@ public class BdBean implements Serializable{
     public List<Valoracion> getVal() {
         return val;
     }
-
+    
+    
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
