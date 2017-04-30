@@ -76,6 +76,13 @@ public class ctrlUsuarios {
         public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
+        
+    public boolean comprobarUser(String id){
+        if(usuarioLogeado.getIdUser().substring(0,1).equals(id)){
+            return true;
+        } 
+        return false;
+    }
 
     public static void setUsuarioLogeado(UsuarioRegistrado usuarioLogeado) {
         ctrlUsuarios.usuarioLogeado = usuarioLogeado;
