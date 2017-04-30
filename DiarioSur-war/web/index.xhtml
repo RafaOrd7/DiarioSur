@@ -12,7 +12,7 @@
 <ui:define name="content">
     
     <h:form> 
-        <p:dataScroller value="#{bdBean.ev}" var="evento" chunkSize="10">
+        <p:dataScroller value="#{bdBean.ev}" var="evento">
         <f:facet name="header">
             Eventos
         </f:facet>
@@ -22,12 +22,12 @@
         </f:facet>
  
         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-            <p:graphicImage name="#{evento.imagen}" /> 
+           
  
             <p:outputPanel>
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="Nombre:" />
-                    <h:outputText value="#{evento.nombre}" style="font-weight: bold"/>
+                    <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
  
                     <h:outputText value="Fecha:" />
                     <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
