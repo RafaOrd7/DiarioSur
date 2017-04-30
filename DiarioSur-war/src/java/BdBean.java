@@ -63,7 +63,7 @@ public class BdBean implements Serializable{
     }
     
     public void crearAnuncio(Anuncio a){
-        contId++;
+       contId++;
        a.setId_anuncio(contId);
        anu.add(a);
     }
@@ -173,7 +173,15 @@ public class BdBean implements Serializable{
     }
     
     public void eliminarReporte(Reporte a){
-        rep.remove(a);
+       /* Long idaux=a.getId_reporte();
+        for(Reporte aux:rep){
+            if(idaux.equals(aux.getId_reporte())){
+                rep.remove(aux);
+                break;
+            }
+        }*/
+       rep.remove(a);
+        
     }
     
     public void crearSU(SuperUsuario a){
