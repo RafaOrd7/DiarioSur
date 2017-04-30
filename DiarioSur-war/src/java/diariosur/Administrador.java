@@ -26,13 +26,6 @@ public class Administrador  extends JefeDeRedactores implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
-
-
-   @OneToMany(mappedBy="administrador")
-    private List<Anuncio> anuncios;
-    
-    
-
     public Administrador () {
 
     }
@@ -41,9 +34,10 @@ public class Administrador  extends JefeDeRedactores implements Serializable{
         super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
     }
 
+   @OneToMany(mappedBy="administrador")
+    private List<Anuncio> anuncios;
     
    
-
     @Override
     public int hashCode() {
         int hash = 0;

@@ -49,14 +49,12 @@ public class UsuarioRegistrado implements Serializable {
     private String dni;
     @Column(nullable  = false, length=50)
     private String email;
-    @Column(nullable  = true, length=50)
+    @Column(nullable  = false, length=50)
     private String preferencias;
     @Column(nullable  = true)
     private byte multimedia;
-    @Column(nullable  = false, length=50)
+    @Column(nullable  = true, length=50)
     private String password;
-    @Column(nullable  = false)
-    private boolean borrado;
     @Column(nullable  = false, length=100)
     private String historialEventos;
     
@@ -83,7 +81,22 @@ public class UsuarioRegistrado implements Serializable {
     
     
     
+    /////////////// CONSTRUCTORES ////////////
+    public UsuarioRegistrado () {
+        
+    }
     
+    public UsuarioRegistrado (String idUser, String nombre, String apellidos, String dni, String email, String password) {
+        this.idUser=idUser;
+        this.nombre=nombre;
+        this.apellidos=apellidos;
+        this.dni=dni;
+        this.email=email;
+        this.password=password;
+    }
+    
+    
+    //////////////// MÉTODOS ///////////////
     
    
     @Override
@@ -235,20 +248,6 @@ public class UsuarioRegistrado implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the borrado
-     */
-    public boolean isBorrado() {
-        return borrado;
-    }
-
-    /**
-     * @param borrado the borrado to set
-     */
-    public void setBorrado(boolean borrado) {
-        this.borrado = borrado;
     }
 
     /**
