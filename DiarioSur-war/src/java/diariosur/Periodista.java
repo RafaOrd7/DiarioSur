@@ -25,6 +25,9 @@ public class Periodista extends SuperUsuario implements Serializable {
     @Column(nullable= false)
     private String telefono;
 
+
+   
+
        /////////////// CONSTRUCTORES ////////////
     public Periodista () {
         
@@ -36,7 +39,7 @@ public class Periodista extends SuperUsuario implements Serializable {
         this.telefono=telefono;
     }
     
-    
+
     
     public String getCargo() {
         return cargo;
