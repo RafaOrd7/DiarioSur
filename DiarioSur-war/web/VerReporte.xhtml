@@ -16,12 +16,13 @@
         Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado()}
         Fecha: #{recogedorReportes.getSeleccionado().getFecha()}
         Tipo: #{recogedorReportes.getSeleccionado().getTipo()}
-        Comentario: #{recogedorReportes.getSeleccionado().getTexto()}
-        Evento:  <h:commandLink action="index.xhtml" value="#{recogedorReportes.getSeleccionado().getValoracion()}"/>
+        Comentario: #{recogedorReportes.getSeleccionado().getTexto()} 
+        <h:form>   
+        Evento:  <h:commandLink action="enveto.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
 
 
 
-        <h:form>           
+               
            
 
             <p:commandButton value="Eliminar Reporte">
