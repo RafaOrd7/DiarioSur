@@ -49,8 +49,7 @@ public class Valoracion implements Serializable {
     private List<Reporte> reportes;
     
     
-    public Valoracion(Long id, Integer c, String co, Date fecha, UsuarioRegistrado u,Evento e){
-        idValoracion=id;
+    public Valoracion(Integer c, String co, Date fecha, UsuarioRegistrado u,Evento e){
         calificacion=c;
         comentario=co;
         fechaPublicacion=fecha;
