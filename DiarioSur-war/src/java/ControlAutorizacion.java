@@ -21,49 +21,13 @@ import javax.enterprise.context.RequestScoped;
 public class ControlAutorizacion {
     
     private UsuarioRegistrado usuario;
-    private SuperUsuario superUsuario;
-    private Periodista periodista;
-    private JefeDeRedactores jefeRedactores;
-    private Administrador administrador;
-    
+
     public UsuarioRegistrado getUsuario() {
         return usuario;
     }
 
     public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
-    }
-
-    public SuperUsuario getSuperUsuario() {
-        return superUsuario;
-    }
-
-    public void setSuperUsuario(SuperUsuario superUsuario) {
-        this.superUsuario = superUsuario;
-    }
-    
-    public Periodista getPeriodista() {
-        return periodista;
-    }
-
-    public void setPeriodista(Periodista periodista) {
-        this.periodista = periodista;
-    }
-    
-    public JefeDeRedactores getJefeRedactores() {
-        return jefeRedactores;
-    }
-
-    public void setJefeRedactores(JefeDeRedactores jefeRedactores) {
-        this.jefeRedactores = jefeRedactores;
-    }
-    
-    public Administrador getAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
     }
     
     /**
