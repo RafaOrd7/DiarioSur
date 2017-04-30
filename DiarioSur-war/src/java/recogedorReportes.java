@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
+import diariosur.Evento;
 import diariosur.Reporte;
 import diariosur.UsuarioRegistrado;
+import diariosur.Valoracion;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,9 +33,9 @@ public class recogedorReportes {
     @Inject
     private BdBean bd;
 
-    private Reporte seleccionado;
+    private static Reporte seleccionado;
 
-    public Reporte getSeleccionado() {
+    public static Reporte getSeleccionado() {
         return seleccionado;
     }
 
@@ -46,14 +48,23 @@ public class recogedorReportes {
         return "VerReporte.xhtml";
     }
 
-    public String eliminar() {
-        bd.eliminarReporte(seleccionado);
+    public String eliminarVal() {
+        bd.eliminarReporteVal(seleccionado);
+        return "GestionarReporte";
+
+    }
+    public String eliminarEv() {
+        bd.eliminarReporteEv(seleccionado);
         return "GestionarReporte";
 
     }
 
-    public List<Reporte> getReportes() {
-        return bd.getRep();
+    public List<Reporte> getReportesEv() {
+        return bd.getRepEv();
+    }
+    
+    public List<Reporte> getReportesVal() {
+        return bd.getRepVal();
     }
 
     public int getTipoReporte() {
@@ -77,8 +88,16 @@ public class recogedorReportes {
     }
 
     public String enviarReporte() {
-        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), null, null, null);
-        bd.crearReporte(aux);
+        Evento ev=recogedorEventos.getSeleccionado();
+        UsuarioRegistrado user=ctrlUsuarios.getUsuarioLogeado();
+        Valoracion val=null;//recogedorValoraciones.getSeleccionado();
+        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
+        if(val==null){
+            bd.crearReporteEv(aux);
+        }else if(ev==null){
+            bd.crearReporteVal(aux);
+        }
+        
         return "index.xhtml";
     }
 
