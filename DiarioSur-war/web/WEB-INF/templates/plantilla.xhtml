@@ -27,14 +27,14 @@
 
                         <c:if test="#{!empty ctrlUsuarios.getUsuarioLogeado()}">
                             <td>Bienvenido, #{ctrlUsuarios.getUsuarioLogeado().getNombre()}</td>
-                            <!-- LOG OUT-->
+                            <td><h:commandLink action="#{ctrlUsuarios.logout()}" value="Salir"/></td>
                         </c:if>
 
                     </tr> 
 
                     <tr>
                         <td><p:inputText id="busqueda" placeholder="Buscar..." /></td>
-                        <td></td>
+                        <td><p:button outcome="busqueda" value="GO" icon="ui-icon-plusthick"></p:button></td>
                     </tr>
                 </table>
 
