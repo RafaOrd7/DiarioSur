@@ -78,6 +78,19 @@
                 </tr>
             </table>
         </h:form>
+        <h:form>
+            <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValoraciones()}">
+                <p:column headerText="Fecha">
+                <h:outputText value="#{valoracion.fechaPublicacion}" />
+                </p:column>
+                 <p:column headerText="Calificación">
+                <p:rating stars="#{valoracion.calificacion} " />
+                 </p:column>
+                 <p:column headerText="Comentario">
+                <h:outputText value="#{valoracion.comentario}" />
+                 </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 
 </ui:composition>

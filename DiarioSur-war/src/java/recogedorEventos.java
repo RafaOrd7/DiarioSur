@@ -34,8 +34,12 @@ public class recogedorEventos {
     private String tags;
     private Boolean verificado = false;
     private Boolean borrado = false;
-    private UsuarioRegistrado like;
-    private UsuarioRegistrado usuario;
+    private UsuarioRegistrado usuario = new UsuarioRegistrado();
+
+    @Inject
+    private BdBean bd;
+
+    private static Evento seleccionado = new Evento();
 
     public Anuncio getAnuncio() {
         return anuncio;
@@ -45,11 +49,6 @@ public class recogedorEventos {
         this.anuncio = anuncio;
     }
     private Anuncio anuncio;
-    
-    @Inject
-    private BdBean bd;
-
-    private Evento seleccionado;
 
     public Boolean getVerificado() {
         return verificado;
@@ -67,13 +66,6 @@ public class recogedorEventos {
         this.borrado = borrado;
     }
 
-    public UsuarioRegistrado getLike() {
-        return like;
-    }
-
-    public void setLike(UsuarioRegistrado like) {
-        this.like = like;
-    }
 
     public UsuarioRegistrado getUsuario() {
         return usuario;
@@ -83,15 +75,7 @@ public class recogedorEventos {
         this.usuario = usuario;
     }
 
-    public BdBean getBd() {
-        return bd;
-    }
-
-    public void setBd(BdBean bd) {
-        this.bd = bd;
-    }
-
-    public Evento getSeleccionado() {
+    public static Evento getSeleccionado() {
         return seleccionado;
     }
 
