@@ -108,6 +108,14 @@ public class ctrlUsuarios {
         return 1;
     }    
     
+    public String logout(){
+        // Destruye la sesión (y con ello, el ámbito de este bean)
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.getExternalContext().invalidateSession();
+        usuarioLogeado = null;
+        return "index.xhtml";
+    }
+    
     public static void setUsuarioLogeado(UsuarioRegistrado usuarioLogeado) {
         ctrlUsuarios.usuarioLogeado = usuarioLogeado;
     }
