@@ -5,6 +5,7 @@
  */
 package diariosur;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,8 @@ public class Evento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    
+   
     private Long id_evento;
     @Column(nullable = false)
     private String nombre;
@@ -56,7 +58,65 @@ public class Evento implements Serializable {
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
+    private File imagen;
 
+    public Long getId_evento() {
+        return id_evento;
+    }
+
+    public void setId_evento(Long id_evento) {
+        this.id_evento = id_evento;
+    }
+
+    public List<Valoracion> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(List<Valoracion> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
+    public List<Reporte> getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(List<Reporte> reportes) {
+        this.reportes = reportes;
+    }
+
+    public UsuarioRegistrado getUsuarioRegistrado() {
+        return usuarioRegistrado;
+    }
+
+    public void setUsuarioRegistrado(UsuarioRegistrado usuarioRegistrado) {
+        this.usuarioRegistrado = usuarioRegistrado;
+    }
+
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
+    }
+
+    public List<UsuarioRegistrado> getUser_megusta() {
+        return user_megusta;
+    }
+
+    public void setUser_megusta(List<UsuarioRegistrado> user_megusta) {
+        this.user_megusta = user_megusta;
+    }
+
+    public File getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(File imagen) {
+        this.imagen = imagen;
+    }
+    
+    
     public Evento() {
 
     }

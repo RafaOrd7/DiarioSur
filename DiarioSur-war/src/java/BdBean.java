@@ -397,6 +397,7 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
+        //ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
     }
     
 }
