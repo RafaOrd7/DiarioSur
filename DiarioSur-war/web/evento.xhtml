@@ -5,9 +5,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+
     <ui:define name="title">Evento</ui:define>
-
-
+    
     <ui:define name="content">
         <table align="center">                
 
@@ -74,20 +74,20 @@
                     <br/>
                 </tr>
                 <tr>
-                    <td><p:commandButton value="Enviar" oncomplete="PF('dlg').show()" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion()}"></p:commandButton></td>
+                    <td><p:commandButton   value="Enviar" oncomplete="PF('dlg').show()" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion()}"></p:commandButton></td>
                 </tr>
             </table>
         </h:form>
         <h:form>
             <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValoraciones()}">
                 <p:column headerText="Fecha">
-                <h:outputText value="#{valoracion.fechaPublicacion}" />
+                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
                 </p:column>
                  <p:column headerText="Calificación">
-                <p:rating stars="#{valoracion.calificacion} " />
+                <p:rating stars="#{valoracion.getCalificacion()} " />
                  </p:column>
                  <p:column headerText="Comentario">
-                <h:outputText value="#{valoracion.comentario}" />
+                <h:outputText value="#{valoracion.getComentario()}" />
                  </p:column>
             </p:dataTable>
         </h:form>
