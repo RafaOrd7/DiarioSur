@@ -1,12 +1,84 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Subir Evento
-    </h:body>
-</html>
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <ui:define name="title">Evento</ui:define>
+
+
+    <ui:define name="content">
+
+        <h:form enctype="multipart/form-data" id="form">
+            <p:growl id="msgs" showDetail="true" />
+            <table align="center">
+                <tr>
+                    <td><h4>Subir imagen:</h4></td>
+                </tr>  
+                <tr>
+                    <td><input type="file" id="files" name="files[]" value="#{recogedorEventos.imagen}"/></td>
+                </tr>
+                <tr>
+                    <td><h4>Nombre evento:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:inputText value="#{recogedorEventos.nombre}"/></td>
+                </tr>
+
+                <tr>
+                    <td><h4>Tipo:</h4></td>
+                </tr>
+                <tr>
+                    <td> <h:selectOneRadio value="#{recogedorEventos.tipo}">
+                            <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                            <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                            <f:selectItem itemValue="musical" itemLabel="Musical" />
+                            <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                            <f:selectItem itemValue="teatral" itemLabel="teatral" />
+                            <f:selectItem itemValue="otro"  itemLabel="otro" />
+                        </h:selectOneRadio></td>
+                </tr>
+                <tr>
+                    <td><h4>Fecha:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:outputLabel for="datetime" />
+        <p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
+                </tr>
+                <tr>
+                    <td><h4>Lugar:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:inputText value="#{recogedorEventos.lugar}"/></td>
+                </tr> 
+                <tr>
+                    <td><h4>Precio:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:inputNumber  value="#{recogedorEventos.precio}"/></td>
+                </tr>
+                <tr>
+                    <td><h4>Descripción del evento:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:inputTextarea  rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}" /></td>
+                </tr>
+                <tr>
+                    <td><h4>Tags:</h4></td>
+                </tr>
+                <tr>
+                    <td><p:inputTextarea rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" /></td>
+                </tr>
+                <tr>
+                    <td><p:commandButton value="Subir" action="#{recogedorEventos.enviarEvento()}"></p:commandButton></td>
+                </tr>
+            </table>
+        </h:form>
+
+        #{recogedorEventos.mostrarTipo()}
+
+
+    </ui:define>
+
+</ui:composition>
