@@ -8,7 +8,16 @@ and open the template in the editor.
     Author     : Garri
 */
 
+#top a:link, #top a:visited {
+  color: royalblue;
+  font-weight: bold;
+  text-decoration: none;
+}
 
-#titulo:hover{
-    color:green;
+#top a:hover {
+    color: black;
+}
+
+#content{
+    text-align: center;
 }
