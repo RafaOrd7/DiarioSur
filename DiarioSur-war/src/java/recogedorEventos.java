@@ -39,7 +39,7 @@ public class recogedorEventos {
     @Inject
     private BdBean bd;
 
-    private static Evento seleccionado = new Evento();
+    private static Evento seleccionado;
 
     public Anuncio getAnuncio() {
         return anuncio;
@@ -66,7 +66,6 @@ public class recogedorEventos {
         this.borrado = borrado;
     }
 
-
     public UsuarioRegistrado getUsuario() {
         return usuario;
     }
@@ -80,7 +79,7 @@ public class recogedorEventos {
     }
 
     public void setSeleccionado(Evento seleccionado) {
-        this.seleccionado = seleccionado;
+        recogedorEventos.seleccionado = seleccionado;
     }
 
     public String ver(Evento evento) {
@@ -164,10 +163,17 @@ public class recogedorEventos {
 
     }
 
+    public String reportar() {    
+        
+        return "EnviarReporte";
+    }
+
     public String enviarEvento() {
+       
         Evento aux = new Evento(nombre, fecha, tipo, precio, descripcion, tags, usuario, verificado, borrado, anuncio);
+        setSeleccionado(aux);
         bd.crearEvento(aux);
-        return "evento.xhtml";
+        return "evento";
     }
 
 }

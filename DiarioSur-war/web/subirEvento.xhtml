@@ -70,15 +70,11 @@
                 <tr>
                     <td><p:inputTextarea rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" /></td>
                 </tr>
-                <tr>
-                    <td><p:commandButton value="Subir" action="#{recogedorEventos.enviarEvento()}"></p:commandButton></td>
+                <tr>                   
+                     <td><h:commandButton value="Subir" action="#{recogedorEventos.enviarEvento()}"></h:commandButton></td>
                 </tr>
             </table>
         </h:form>
-
-        #{recogedorEventos.mostrarTipo()}
-
-
     </ui:define>
 
 </ui:composition>

@@ -16,12 +16,13 @@
         Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado()}
         Fecha: #{recogedorReportes.getSeleccionado().getFecha()}
         Tipo: #{recogedorReportes.getSeleccionado().getTipo()}
-        Comentario: #{recogedorReportes.getSeleccionado().getTexto()}
-        Evento:  <h:commandLink action="index.xhtml" value="#{recogedorReportes.getSeleccionado().getValoracion()}"/>
+        Comentario: #{recogedorReportes.getSeleccionado().getTexto()} 
+        <h:form>   
+        Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
 
 
 
-        <h:form>           
+               
            
 
             <p:commandButton value="Eliminar Reporte">
@@ -29,7 +30,7 @@
             </p:commandButton>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:button value="Si" outcome="#{recogedorReportes.eliminar()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:button value="Si" outcome="#{recogedorReportes.eliminarEv()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
         </h:form>
