@@ -25,7 +25,7 @@ import javax.enterprise.context.Dependent;
  *
  * @author Garri
  */
-@Named(value = "bdBean")
+@Named(value = "BdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
@@ -321,6 +321,16 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
+        Administrador adm = new Administrador();
+        adm.setNombre("Francisco");
+        adm.setApellidos("Chicano");
+        adm.setDni("12345678A");
+        adm.setEmail("admin");
+        adm.setPassword("admin");
+        adm.setEmpresa("UMA");
+        adm.setCargo("Profesor");
+        adm.setTelefono("9521 32815");
+        crearAdmin(adm);
     }
     
 }

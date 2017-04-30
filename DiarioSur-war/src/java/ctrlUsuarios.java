@@ -36,7 +36,11 @@ public class ctrlUsuarios {
     
     public String nuevoUsuario() {
         bd.crearUR(usuario);
-        return "registerSuccess.xhtml";
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Usuario " + usuario.getEmail() + " registrado correctamente.",
+                "Usuario " + usuario.getEmail() + " registrado correctamente."));
+        return null;
     }
     
     public String logIn(){
