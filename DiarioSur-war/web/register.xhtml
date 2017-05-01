@@ -12,48 +12,40 @@
         <h1 align="center">Diario SUR</h1>
         <p:messages id="messages" autoUpdate="true" showIcon="false"  />
         <h:form>
-            <table border="0" cellspacing="20">
-                <tbody>
-                    <tr>
-                        <td>
-                            <p:inputText id="nombre" placeholder="Nombre" value="#{ctrlUsuarios.usuario.nombre}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:inputText id="apellidos" placeholder="Apellidos" value="#{ctrlUsuarios.usuario.apellidos}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:inputText id="email" placeholder="Correo electrónico" value="#{ctrlUsuarios.usuario.email}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:inputText id="dni" placeholder="DNI/NIF/NIE"  value="#{ctrlUsuarios.usuario.dni}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.usuario.password}" match="password2"  feedback="true" placeholder="Contraseña"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="password" styleClass="submit"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <h:panelGrid id="panel" columns="1" cellpadding="5">
+                <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.usuario.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
+
+                <p:inputText id="apellidos" placeholder="Apellidos*" value="#{ctrlUsuarios.usuario.apellidos}" required="true" requiredMessage="Campo apellidos obligatorio" />
+
+                <p:inputText id="email" placeholder="Correo electrónico*" value="#{ctrlUsuarios.usuario.email}" required="true" requiredMessage="Campo email obligatorio" 
+                             validatorMessage="El email no es correcto">
+                    <f:validateRegex pattern="^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                </p:inputText>
+
+                <p:inputText id="dni" placeholder="DNI/NIF/NIE*"  value="#{ctrlUsuarios.usuario.dni}" required="true" requiredMessage="Campo dni obligatorio"
+                validatorMessage="El dni no es correcto">
+                <f:validateRegex pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" />
+                </p:inputText>
+               
+                <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.usuario.password}" 
+                            match="password2"  feedback="true" placeholder="Contraseña*" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                
+                <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña*" required="true" 
+                            requiredMessage="Campo contraseña2 obligatorio"/>
+
+            </h:panelGrid>  
+            <h:panelGrid columns="1" cellpadding="5">
+              
+                Al crear tu cuenta, aceptas la <a href="http://www.vocento.com/politica-privacidad/" target="_blank"><strong>política de privacidad</strong></a>, 
+                la <a href="http://www.vocento.com/politica-cookies/" target="_blank"><strong>política de cookies</strong></a> de Vocento y las 
+                <a href="http://www.diariosur.es/condiciones-uso.html" target="_blank"><strong>condiciones de uso</strong></a> del portal.
+                
+                <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="panel" styleClass="submit"/>
+            </h:panelGrid>
+
+                    
+
 
             
         </h:form>
