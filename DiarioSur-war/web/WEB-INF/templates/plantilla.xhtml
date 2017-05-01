@@ -3,57 +3,114 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
+    <h:head>
         <link href="./resources/css/estilos.css" rel="stylesheet" type="text/css" />
         <title>
             <ui:insert name="title">Diario Sur Eventos</ui:insert>
         </title>
     </h:head>
+
     <h:body>
+        <!--Muestra la cabecera de la pagina-->
         <div id="top" class="top">
             <h:form id="cabecera">
-                <h:commandLink id="titulo" action="index.xhtml" value="SUR"/>
+                <h:commandLink action="index.xhtml" value="SUR"/>
                 <p:messages id="messages" autoUpdate="true" showIcon="false"  />
-                <c:if test="#{empty controlAutorizacion.usuario}">
-                    <table align="right">
-                        <tr>
+                <table align="right">
+                    <tr>
+                        <c:if test="#{empty ctrlUsuarios.getUsuarioLogeado()}">
                             <td><p:button outcome="login" value="Login" icon="ui-icon-person"></p:button></td>
-                            <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td>  
-                        </tr> 
-                    </table>
+                            <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td> 
+                            <td></td>
+                        </c:if>
 
-                </c:if>
-                <c:if test="#{!empty controlAutorizacion.usuario}">
-                    Bienvenido, #{controlAutorizacion.usuario.getNombre()}
-                    <h:commandLink action="#{controlAutorizacion.logout()}" value="Salir"/>
-                </c:if> 
+                        <c:if test="#{!empty ctrlUsuarios.getUsuarioLogeado()}">
+                            <td>Bienvenido, #{ctrlUsuarios.getUsuarioLogeado().getNombre()}</td>
+                            <td></td>
+                            <td><h:commandLink action="#{ctrlUsuarios.logout()}" value="Salir"/></td>
+                        </c:if>
+
+                    </tr> 
+
+                    <tr>
+                        <td colspan="2"><p:inputText id="busqueda" placeholder="Buscar..." /></td>
+                        <td><p:button outcome="busqueda" value="GO" icon="ui-icon-plusthick"></p:button></td>
+                    </tr>
+                </table>
+
+
+
+                <br/><br/>     
             </h:form>
         </div>
 
+        <!--Muestra los botones laterales de la pagina, varia en funcion del usuario-->
         <div id="botones">
             <h:form id="botonesForm">
                 <table>
-                    <tr><td><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-person"></p:button></td></tr> 
-                    <tr><td><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></td></tr> 
-                    <tr><td><p:button outcome="moderacion" value="Moderación" icon="ui-icon-person"></p:button></td></tr> 
-                    <tr><td><p:button outcome="gestAnuncio" value="Gestión Anuncios" icon="ui-icon-person"></p:button></td></tr> 
-                    <tr><td><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></td></tr> 
-                    <tr><td><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></td></tr> 
+                    <c:choose>
+                        <c:when test="#{ctrlUsuarios.comprobarUserAdmin() > 1}">
 
+                            <h1>Administrador</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="publicarAnuncio" value="Publicar Anuncio" icon="ui-icon-document"></p:button></tr>
+                            <tr><p:button outcome="gestionAnuncio" value="Gestión Anuncios" icon="ui-icon-folder-collapsed"></p:button></tr>
+                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
+                            <tr><p:button outcome="GestionarReporte" value="Gestión Reporte" icon="ui-icon-copy"></p:button></tr> 
+                        </c:when>
+
+                        <c:when test="#{ctrlUsuarios.comprobarUserJDR() > 1}">
+                            <h1>Jefe de Redactores</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
+                                               
+                        </c:when>
+                        
+                        <c:when test="#{ctrlUsuarios.comprobarUserPeriodista() > 1}">
+                            <h1>Periodista</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                              
+                        </c:when>
+
+                        <c:when test="#{ctrlUsuarios.comprobarUserSU() > 1}">
+                            <h1>SuperUsuario</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
+                        </c:when>
+
+                        <c:when test="#{ctrlUsuarios.comprobarUserRegistrado() > 1}">
+                            <h1>Usuario Registrado</h1>
+                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
+                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
+                        </c:when>
+                        
+                        <c:otherwise>
+                            <tr><h2>Si desea navegar por la pagina, registrese</h2></tr>     
+                        </c:otherwise>
+                    </c:choose>
                 </table>
-
-                </h:form>
+            </h:form>
         </div>
 
-
-        <div id="content" class="center_content">
+        <!--Muestra el contenido de la pagina-->
+        <div id="content">
             <ui:insert name="content">Content</ui:insert>
         </div>
-
-
 
     </h:body>
 </html>

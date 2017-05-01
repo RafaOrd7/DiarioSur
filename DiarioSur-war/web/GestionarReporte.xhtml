@@ -4,13 +4,33 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="title">Diario Sur</ui:define>
+    <ui:define name="title">Gestionar Reporte</ui:define>
 
 
     <ui:define name="content">
         <h1>Reportes</h1>
         <h:form>
-            <p:dataTable var="reporte" value="#{recogedorReportes.getReportes()}">
+            <h2>Eventos</h2>
+            <p:dataTable var="reporte" value="#{recogedorReportes.getReportesEv()}">
+                <p:column headerText="Id">              
+                    <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.id_reporte}"/>
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{reporte.usuarioRegistrado}" />
+                </p:column>
+                <p:column headerText="Tipo de reporte">
+                    <h:outputText value="#{reporte.tipo}" />
+                </p:column>
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{reporte.fecha}" />
+                </p:column>
+                <p:column headerText="Evento">
+                    <h:outputText value="#{reporte.evento.nombre}" />
+                </p:column>
+            </p:dataTable>
+
+            <h2>Valoraciones</h2>
+            <p:dataTable var="valoracion" value="#{recogedorReportes.getReportesVal()}">
                 <p:column headerText="Id">              
                     <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.id_reporte}"/>
                 </p:column>
@@ -24,7 +44,6 @@
                     <h:outputText value="#{reporte.fecha}" />
                 </p:column>
             </p:dataTable>
-
         </h:form>
     </ui:define>
 </ui:composition>

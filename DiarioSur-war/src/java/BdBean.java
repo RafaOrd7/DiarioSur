@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 
 /**
  *
  * @author Garri
  */
-@Named(value = "bdBean")
+@Named(value = "BdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
@@ -38,7 +37,8 @@ public class BdBean implements Serializable{
     private List<JefeDeRedactores> jdr=new ArrayList<>();
     private List<Notificacion> notif=new ArrayList<>();
     private List<Periodista> peri=new ArrayList<>();
-    private List<Reporte> rep=new ArrayList<>();
+    private List<Reporte> repEv=new ArrayList<>();
+    private List<Reporte> repVal=new ArrayList<>();
     private List<SuperUsuario> superu=new ArrayList<>();
     private List<UsuarioRegistrado> ur=new ArrayList<>();
     private List<Valoracion> val=new ArrayList<>();
@@ -157,14 +157,14 @@ public class BdBean implements Serializable{
         peri.remove(a);
     }
     
-    public void crearReporte(Reporte a){
+    public void crearReporteEv(Reporte a){
         contId++;
        a.setId(contId);
-       rep.add(a);
+       repEv.add(a);
     }
     
-    public Reporte buscarReporte(Reporte a){
-        for(Reporte aux:rep){
+    public Reporte buscarReporteEv(Reporte a){
+        for(Reporte aux:repEv){
             if(a.getId_reporte().equals(aux.getId_reporte())){
                 return aux;
             }
@@ -172,15 +172,42 @@ public class BdBean implements Serializable{
         return null;
     }
     
-    public void eliminarReporte(Reporte a){
+    public void eliminarReporteEv(Reporte a){
        /* Long idaux=a.getId_reporte();
         for(Reporte aux:rep){
             if(idaux.equals(aux.getId_reporte())){
-                rep.remove(aux);
+                repEv.remove(aux);
                 break;
             }
         }*/
-       rep.remove(a);
+       repEv.remove(a);
+        
+    }
+    
+     public void crearReporteVal(Reporte a){
+        contId++;
+       a.setId(contId);
+       repVal.add(a);
+    }
+    
+    public Reporte buscarReporteVal(Reporte a){
+        for(Reporte aux:repVal){
+            if(a.getId_reporte().equals(aux.getId_reporte())){
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public void eliminarReporteVal(Reporte a){
+       /* Long idaux=a.getId_reporte();
+        for(Reporte aux:rep){
+            if(idaux.equals(aux.getId_reporte())){
+                repEv.remove(aux);
+                break;
+            }
+        }*/
+       repVal.remove(a);
         
     }
     
@@ -323,13 +350,23 @@ public class BdBean implements Serializable{
         this.peri = peri;
     }
 
-    public List<Reporte> getRep() {
-        return rep;
+    public List<Reporte> getRepEv() {
+        return repEv;
     }
 
-    public void setRep(List<Reporte> rep) {
-        this.rep = rep;
+    public void setRepEv(List<Reporte> repEv) {
+        this.repEv = repEv;
     }
+
+    public List<Reporte> getRepVal() {
+        return repVal;
+    }
+
+    public void setRepVal(List<Reporte> repVal) {
+        this.repVal = repVal;
+    }
+
+    
 
     public List<SuperUsuario> getSuperu() {
         return superu;
@@ -350,7 +387,8 @@ public class BdBean implements Serializable{
     public List<Valoracion> getVal() {
         return val;
     }
-
+    
+    
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
@@ -360,6 +398,21 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
+        Administrador adm = new Administrador();
+        adm.setNombre("Francisco");
+        adm.setApellidos("Chicano");
+        adm.setDni("12345678A");
+        adm.setEmail("admin@uma.es");
+        adm.setPassword("admin");
+        adm.setEmpresa("UMA");
+        adm.setCargo("Profesor");
+        adm.setTelefono("9521 32815");
+        crearAdmin(adm);
+      
+        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"intentoo",null,null,null,null,null));
+      
+        superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
     
 }
