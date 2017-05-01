@@ -35,6 +35,7 @@ public class BdBean implements Serializable{
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
     private List<Evento> ev=new ArrayList<>();
+    private List<Evento> busqueda=new ArrayList<>();
     private List<JefeDeRedactores> jdr=new ArrayList<>();
     private List<Notificacion> notif=new ArrayList<>();
     private List<Periodista> peri=new ArrayList<>();
@@ -247,6 +248,35 @@ public class BdBean implements Serializable{
         return null;
     }
     
+    public boolean existeUsuario (UsuarioRegistrado a) {
+        for (UsuarioRegistrado aux : ur) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (SuperUsuario aux : superu) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (Periodista aux : peri) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (JefeDeRedactores aux : jdr) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (Administrador aux : admin) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a){
         for(UsuarioRegistrado aux:ur){
             if(a.getEmail().equals(aux.getEmail())){
@@ -394,7 +424,14 @@ public class BdBean implements Serializable{
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
+    
+    public List<Evento> getBusqueda() {
+        return busqueda;
+    }
 
+    public void setBusqueda(List<Evento> busqueda) {
+        this.busqueda = busqueda;
+    }
    public Boolean buscarEv(Evento e){
         if(megusta.containsKey(e)){
             return true;
@@ -418,7 +455,20 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
-        //ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
+        Administrador adm = new Administrador();
+        adm.setNombre("Francisco");
+        adm.setApellidos("Chicano");
+        adm.setDni("12345678A");
+        adm.setEmail("admin@uma.es");
+        adm.setPassword("admin");
+        adm.setEmpresa("UMA");
+        adm.setCargo("Profesor");
+        adm.setTelefono("9521 32815");
+        crearAdmin(adm);
+      
+        ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
+      
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
     

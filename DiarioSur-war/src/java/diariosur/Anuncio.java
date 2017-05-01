@@ -5,7 +5,9 @@
  */
 package diariosur;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,6 +31,14 @@ public class Anuncio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_anuncio;
+    @Column(nullable  = false, length=100)
+    @Temporal(value=TemporalType.DATE)
+    private Date fechaPublicacion;
+    @Column(nullable  = false, length=100)
+    @Temporal(value=TemporalType.DATE)
+    private Date fechaExpiracion;
+    @Column(nullable  = false, length=1000)
+    private File multimedia;
     @Column(nullable  = false, length=50)
     private String empresa;
     @Column(nullable  = false , length=10)
@@ -40,6 +52,15 @@ public class Anuncio implements Serializable {
     private Administrador administrador;
     @OneToMany (mappedBy="anuncio")
     private List<Evento> evento;
+
+    public List<Evento> getEvento() {
+        return evento;
+    }
+
+    public void setEvento(List<Evento> evento) {
+        this.evento = evento;
+    }
+    
 
     public String getEmpresa() {
         return empresa;
@@ -105,6 +126,48 @@ public class Anuncio implements Serializable {
     @Override
     public String toString() {
         return "diariosur.Anuncio[ id=" + id_anuncio + " ]";
+    }
+
+    /**
+     * @return the fechaPublicacion
+     */
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    /**
+     * @param fechaPublicacion the fechaPublicacion to set
+     */
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
+
+    /**
+     * @return the fechaExpiracion
+     */
+    public Date getFechaExpiracion() {
+        return fechaExpiracion;
+    }
+
+    /**
+     * @param fechaExpiracion the fechaExpiracion to set
+     */
+    public void setFechaExpiracion(Date fechaExpiracion) {
+        this.fechaExpiracion = fechaExpiracion;
+    }
+
+    /**
+     * @return the multimedia
+     */
+    public File getMultimedia() {
+        return multimedia;
+    }
+
+    /**
+     * @param multimedia the multimedia to set
+     */
+    public void setMultimedia(File multimedia) {
+        this.multimedia = multimedia;
     }
     
 }
