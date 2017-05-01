@@ -40,6 +40,7 @@ public class recogedorEventos {
     private BdBean bd;
 
     private static Evento seleccionado;
+    
 
     public Anuncio getAnuncio() {
         return anuncio;
@@ -83,6 +84,7 @@ public class recogedorEventos {
     }
 
     public String ver(Evento evento) {
+        buscarAnuncio(evento);
         seleccionado = evento;
         return "evento.xhtml";
     }
@@ -174,6 +176,17 @@ public class recogedorEventos {
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
+    }
+
+    private void buscarAnuncio(Evento evento) {
+        for(Anuncio a:bd.getAnu()){
+            for(Evento e:a.getEvento()){
+                if(e.getId_evento().equals(evento.getId())){
+                    evento.setAnuncio(a);
+                    return;
+                }
+            }
+        }
     }
 
 }
