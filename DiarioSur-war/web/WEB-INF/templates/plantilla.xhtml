@@ -35,8 +35,8 @@
                     </tr> 
 
                     <tr>
-                        <td colspan="2"><p:inputText id="busqueda" placeholder="Buscar..." /></td>
-                        <td><p:button outcome="busqueda" value="GO" icon="ui-icon-plusthick"></p:button></td>
+                        <td colspan="2"><p:inputText id="busqueda" placeholder="Buscar..." value="#{recogedorBusquedas.busqueda}"/></td>
+                        <td><p:button outcome="#{recogedorBusquedas.buscar()}" value="GO" icon="ui-icon-plusthick"></p:button></td>
                     </tr>
                 </table>
 
