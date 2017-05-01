@@ -24,7 +24,7 @@ import javax.inject.Named;
  *
  * @author Garri
  */
-@Named(value = "BdBean")
+@Named(value = "bdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
@@ -34,6 +34,7 @@ public class BdBean implements Serializable{
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
     private List<Evento> ev=new ArrayList<>();
+    private List<Evento> busqueda=new ArrayList<>();
     private List<JefeDeRedactores> jdr=new ArrayList<>();
     private List<Notificacion> notif=new ArrayList<>();
     private List<Periodista> peri=new ArrayList<>();
@@ -421,10 +422,14 @@ public class BdBean implements Serializable{
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
+    
+    public List<Evento> getBusqueda() {
+        return busqueda;
+    }
 
-   
-    
-    
+    public void setBusqueda(List<Evento> busqueda) {
+        this.busqueda = busqueda;
+    }
     
     public BdBean() {
         Administrador adm = new Administrador();
@@ -438,8 +443,8 @@ public class BdBean implements Serializable{
         adm.setTelefono("9521 32815");
         crearAdmin(adm);
       
-        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
-        ev.add(new Evento("prueba",null,"1",4F,"intentoo",null,null,null,null,null));
+        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso","sobac",null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"intentoo","si",null,null,null,null));
       
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
