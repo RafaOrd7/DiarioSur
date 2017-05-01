@@ -44,7 +44,7 @@ public class ctrlUsuarios {
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Usuario " + usuario.getEmail() + " registrado correctamente.",
                 "Usuario " + usuario.getEmail() + " registrado correctamente."));
-        return null;
+        return "index.xhtml";
     }
     
     public String logIn(){

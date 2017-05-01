@@ -15,7 +15,8 @@
     <h:body>
         <div id="top" class="top">
             <h:form id="cabecera">
-                <h:commandLink id="titulo" action="index.xhtml" value="SUR"/>                
+                <h:commandLink id="titulo" action="index.xhtml" value="SUR"/>
+                <p:messages id="messages" autoUpdate="true" showIcon="false" closable="true"/>                
                 <c:if test="#{empty controlAutorizacion.usuario}">
                     <table align="right">
                         <tr>
