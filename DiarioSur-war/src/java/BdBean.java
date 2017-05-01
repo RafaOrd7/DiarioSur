@@ -24,7 +24,7 @@ import javax.inject.Named;
  *
  * @author Garri
  */
-@Named(value = "bdBean")
+@Named(value = "BdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
@@ -398,11 +398,21 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
+        Administrador adm = new Administrador();
+        adm.setNombre("Francisco");
+        adm.setApellidos("Chicano");
+        adm.setDni("12345678A");
+        adm.setEmail("admin@uma.es");
+        adm.setPassword("admin");
+        adm.setEmpresa("UMA");
+        adm.setCargo("Profesor");
+        adm.setTelefono("9521 32815");
+        crearAdmin(adm);
+      
         ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
         ev.add(new Evento("prueba",null,"1",4F,"intentoo",null,null,null,null,null));
-
+      
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
-        admin.add(new Administrador("A123","titi","chetos",null,"b@gmail.com","123",null,null,null));
     }
     
 }
