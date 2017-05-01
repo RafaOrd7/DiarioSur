@@ -398,8 +398,11 @@ public class BdBean implements Serializable{
     
     
     public BdBean() {
-        //ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
+        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"intentoo",null,null,null,null,null));
+
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
+        admin.add(new Administrador("A123","titi","chetos",null,"b@gmail.com","123",null,null,null));
     }
     
 }
