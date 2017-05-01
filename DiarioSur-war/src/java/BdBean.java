@@ -402,7 +402,7 @@ public class BdBean implements Serializable{
         adm.setNombre("Francisco");
         adm.setApellidos("Chicano");
         adm.setDni("12345678A");
-        adm.setEmail("admin");
+        adm.setEmail("admin@uma.es");
         adm.setPassword("admin");
         adm.setEmpresa("UMA");
         adm.setCargo("Profesor");
