@@ -3,25 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Recuperación de contraseña</title>
     </h:head>
     <h:body>
         Introduce tu correo electrónico
-        <h1>
-            <p:inputText id="email" value=""/>
-        </h1>
+        
         <h:form>
+            <h1>
+                <p:inputText id="email" value="#{ctrlUsuarios.usuario.email}"/>
+            </h1>
             <p:button outcome="index" value="Volver" icon="ui-icon-person"></p:button>
-            
-            <p:commandButton value="Enviar" type="button" onclick="PF('dlg3').show();" />
-            <p:dialog header="¡Mensaje enviado!" widgetVar="dlg3" showEffect="explode" hideEffect="explode">
-            <h:outputText value="Comprueba tu correo electrónico" />
-            <h2 align="center">
-                <p:button outcome="index" value="Aceptar" icon="ui-icon-person"></p:button>
-            </h2>
-            </p:dialog>
+            <p:commandButton value="Enviar" action="#{ctrlUsuarios.validarEmail}" styleClass="submit"/>
+            <p:messages id="messages" autoUpdate="true" showIcon="false"  />
             
         </h:form>
         

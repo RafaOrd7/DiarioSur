@@ -31,7 +31,7 @@ public class SuperUsuario extends UsuarioRegistrado  implements Serializable {
     @Column(nullable  = false, length=50)
     private String empresa;
     
-        
+    
     /////////////// CONSTRUCTORES ////////////
     public SuperUsuario () {
         

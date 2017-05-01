@@ -18,22 +18,25 @@
         <div id="top" class="top">
             <h:form id="cabecera">
                 <h:commandLink action="index.xhtml" value="SUR"/>
+                <p:messages id="messages" autoUpdate="true" showIcon="false"  />
                 <table align="right">
                     <tr>
                         <c:if test="#{empty ctrlUsuarios.getUsuarioLogeado()}">
                             <td><p:button outcome="login" value="Login" icon="ui-icon-person"></p:button></td>
                             <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td> 
+                            <td></td>
                         </c:if>
 
                         <c:if test="#{!empty ctrlUsuarios.getUsuarioLogeado()}">
                             <td>Bienvenido, #{ctrlUsuarios.getUsuarioLogeado().getNombre()}</td>
+                            <td></td>
                             <td><h:commandLink action="#{ctrlUsuarios.logout()}" value="Salir"/></td>
                         </c:if>
 
                     </tr> 
 
                     <tr>
-                        <td><p:inputText id="busqueda" placeholder="Buscar..." /></td>
+                        <td colspan="2"><p:inputText id="busqueda" placeholder="Buscar..." /></td>
                         <td><p:button outcome="busqueda" value="GO" icon="ui-icon-plusthick"></p:button></td>
                     </tr>
                 </table>
@@ -55,12 +58,11 @@
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="anuncio" value="Publicar Anuncio" icon="ui-icon-person"></p:button></tr>
-                            <tr><p:button outcome="gestAnuncio" value="Gestión Anuncios" icon="ui-icon-person"></p:button></tr>
-
-                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
-
+                            <tr><p:button outcome="publicarAnuncio" value="Publicar Anuncio" icon="ui-icon-document"></p:button></tr>
+                            <tr><p:button outcome="gestionAnuncio" value="Gestión Anuncios" icon="ui-icon-folder-collapsed"></p:button></tr>
+                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
+                            <tr><p:button outcome="GestionarReporte" value="Gestión Reporte" icon="ui-icon-copy"></p:button></tr> 
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.comprobarUserJDR() > 1}">
@@ -68,9 +70,9 @@
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-
-                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
+                                               
                         </c:when>
                         
                         <c:when test="#{ctrlUsuarios.comprobarUserPeriodista() > 1}">
@@ -78,9 +80,7 @@
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-
-                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                              
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.comprobarUserSU() > 1}">
@@ -88,9 +88,7 @@
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-
-                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.comprobarUserRegistrado() > 1}">
@@ -98,13 +96,11 @@
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-
-                            <tr><p:button outcome="EnviarReporte" value="Garrido" icon="ui-icon-person"></p:button></tr> 
-                            <tr><p:button outcome="GestionarReporte" value="gestionarReporte" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
                         
                         <c:otherwise>
-                            <tr><p>HIII</p></tr>     
+                            <tr><h2>Si desea navegar por la pagina, registrese</h2></tr>     
                         </c:otherwise>
                     </c:choose>
                 </table>
