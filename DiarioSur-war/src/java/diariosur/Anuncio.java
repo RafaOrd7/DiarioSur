@@ -52,6 +52,14 @@ public class Anuncio implements Serializable {
     private Administrador administrador;
     @OneToMany (mappedBy="anuncio")
     private List<Evento> evento;
+
+    public List<Evento> getEvento() {
+        return evento;
+    }
+
+    public void setEvento(List<Evento> evento) {
+        this.evento = evento;
+    }
     
 
     public String getEmpresa() {
