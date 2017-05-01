@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">Anuncio</ui:define>
+    
+    
+    <ui:define name="content">
+        
+        <table align="center">
+             <tr>
+                <td><h4>Id: #{enviarAnuncio.getSeleccionado.getIdAnuncio()}</h4></td>
+            </tr>
+             <tr>
+                <td><h4>Empresa: #{enviarAnuncio.getSeleccionado().getNombre()} </h4></td>
+            </tr>           
+            <tr>
+                <td><h4>Fecha de inicio: #{enviarAnuncio.getSeleccionado().getFechaInicio()} </h4></td>
+            </tr>
+             <tr>
+                <td><h4>Fecha de expiracion: #{enviarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
+            </tr>
+            <tr>
+                <td><h4>Prioridad #{enviarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Descripción: #{enviarAnuncio.getSeleccionado().getTags()}</h4></td>
+            </tr>
+            
+        </table>
+             
+        
+        
+    </ui:define>
+    
+    
+</ui:composition>

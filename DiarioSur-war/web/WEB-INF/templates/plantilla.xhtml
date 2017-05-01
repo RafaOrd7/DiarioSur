@@ -18,6 +18,7 @@
         <div id="top" class="top">
             <h:form id="cabecera">
                 <h:commandLink action="index.xhtml" value="SUR"/>
+                <p:messages id="messages" autoUpdate="true" showIcon="false"  />
                 <table align="right">
                     <tr>
                         <c:if test="#{empty ctrlUsuarios.getUsuarioLogeado()}">
