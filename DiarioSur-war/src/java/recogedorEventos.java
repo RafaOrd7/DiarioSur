@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 
 /**
@@ -31,17 +32,38 @@ public class recogedorEventos {
     private String lugar;
     private String tipo;
     private float precio;
+    private String compra;
     private String tags;
     private Boolean verificado = false;
     private Boolean borrado = false;
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
-
+    @ManagedProperty("#{request.requestURI}")
+    private String url; // +setter
     @Inject
     private BdBean bd;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     private static Evento seleccionado;
     
 
+    
+    
+
+    public String getCompra() {
+        return compra;
+    }
+
+    public void setCompra(String compra) {
+        this.compra = compra;
+    }
+    
     public Anuncio getAnuncio() {
         return anuncio;
     }
@@ -169,10 +191,21 @@ public class recogedorEventos {
         
         return "EnviarReporte";
     }
+    
+    public String eliminarEvento(){
+        bd.eliminarEvento(seleccionado);
+        return "index";
+    }
+    
+    public void megusta(){
+        usuario=ctrlUsuarios.getUsuarioLogeado();
+        System.out.println(usuario.getPassword());
+        bd.MeGusta(seleccionado, usuario);
+    }
 
     public String enviarEvento() {
-       
-        Evento aux = new Evento(nombre, fecha, tipo, precio, descripcion, tags, usuario, verificado, borrado, anuncio);
+        usuario=ctrlUsuarios.getUsuarioLogeado();
+        Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
