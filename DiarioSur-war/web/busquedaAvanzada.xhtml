@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Busqueda Avanzada</title>
+    </h:head>
+    <h:body>
+        <h3>Busqueda</h3>
+        <tr>
+            <td><p:inputText id="busqueda" placeholder="Palabras clave..." /></td>
+            <td><p:inputText id="tipo" value="#{busquedaAvanzada.tipo}" placeholder="Tipo"/></td>
+            <td><p:inputText id="precio" value="#{busquedaAvanzada.precio}" placeholder="precio"/></td>
+            <td><p:inputText id="fecha" value="#{busquedaAvanzada.fecha}" placeholder="fecha"/></td>
+            <td><p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="lugar"/></td>
+            <td><p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="descripcion"/></td>
+            <td><p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="tags"/></td>
+            
+            
+            <h:form>
+                <p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick"/>
+            </h:form>
+            
+           
+        </tr>
+    </h:body>
+</html>
+
