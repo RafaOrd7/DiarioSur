@@ -30,7 +30,7 @@
                     <h:outputText value="#{usuario.dni}" />
                 </p:column>
                 <p:column headerText="Editar, Eliminar">
-                    <h:commandButton value="Editar" action="register.xhtml"/>
+                    <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(usuario)}"/>
                     <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarUR(usuario)}"/>
                 </p:column>
             </p:dataTable>
