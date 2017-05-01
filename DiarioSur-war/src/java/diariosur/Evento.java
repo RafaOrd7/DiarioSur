@@ -39,6 +39,7 @@ public class Evento implements Serializable {
     @Column(name = "descripción")
     private String descripcion;
     @Column(nullable = false)
+    private String compra;
     private Boolean verificado;
     @Column(name = "geolocalización")
     private String geolocalizacion;
@@ -59,6 +60,17 @@ public class Evento implements Serializable {
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
     private File imagen;
+    
+    
+    
+
+    public String getCompra() {
+        return compra;
+    }
+
+    public void setCompra(String compra) {
+        this.compra = compra;
+    }
 
     public Long getId_evento() {
         return id_evento;
@@ -121,11 +133,12 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String t, Float p, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve, Boolean bo, Anuncio a) {
+    public Evento(String n, Date d, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve, Boolean bo, Anuncio a) {
         nombre = n;
         fecha = d;
         tipo = t;
         precio = p;
+        compra=c;
         descripcion= des;
         tags = ta;
         verificado = ve;

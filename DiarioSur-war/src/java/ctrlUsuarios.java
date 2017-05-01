@@ -42,16 +42,23 @@ public class ctrlUsuarios {
     
     public ctrlUsuarios() {  
     }
-
     
     
     public String nuevoUsuario() {
-        bd.crearUR(usuario);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Usuario " + usuario.getEmail() + " registrado correctamente.",
-                "Usuario " + usuario.getEmail() + " registrado correctamente."));
-        return "index.xhtml";
+        String pag = null;
+        if (bd.existeUsuario(usuario)) {
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "El email " + usuario.getEmail() + " está en uso por otro usuario.",
+                    "El email " + usuario.getEmail() + " está en uso por otro usuario."));
+        } else {
+            bd.crearUR(usuario);  
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario " + usuario.getEmail() + " registrado correctamente.",
+                    "Usuario " + usuario.getEmail() + " registrado correctamente."));
+            pag="index.xhtml";
+        }
+        return pag;
     }
     
     public String logIn(){
@@ -74,6 +81,8 @@ public class ctrlUsuarios {
         }
         return pag;
     }
+    
+
     
     public String validarEmail(){
         

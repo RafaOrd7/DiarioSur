@@ -7,7 +7,33 @@
     <ui:define name="title">Anuncio</ui:define>
     
     
-    
+    <ui:define name="content">
+        
+        <table align="center">
+             <tr>
+                <td><h4>Id: #{enviarAnuncio.getSeleccionado.getIdAnuncio()}</h4></td>
+            </tr>
+             <tr>
+                <td><h4>Empresa: #{enviarAnuncio.getSeleccionado().getNombre()} </h4></td>
+            </tr>           
+            <tr>
+                <td><h4>Fecha de inicio: #{enviarAnuncio.getSeleccionado().getFechaInicio()} </h4></td>
+            </tr>
+             <tr>
+                <td><h4>Fecha de expiracion: #{enviarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
+            </tr>
+            <tr>
+                <td><h4>Prioridad #{enviarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
+            </tr>
+            <tr>
+                <td><h4>Descripción: #{enviarAnuncio.getSeleccionado().getTags()}</h4></td>
+            </tr>
+            
+        </table>
+             
+        
+        
+    </ui:define>
     
     
 </ui:composition>
