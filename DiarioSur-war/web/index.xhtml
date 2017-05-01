@@ -12,7 +12,7 @@
 
     <ui:define name="content">
         <c:choose>
-            <c:when test="#{empty recogedorBusquedas.getEventos()}">
+            <c:when test="#{!recogedorBusquedas.isEncontrado()}">
                 <h:form> 
                     <p:dataScroller value="#{bdBean.ev}" var="evento">
                         <f:facet name="header">
@@ -43,7 +43,7 @@
                 
             <c:otherwise>
                 <h:form> 
-                    <p:dataScroller value="#{recogedorBusquedas.eventos}" var="busqEv">
+                    <p:dataScroller value="#{bdBean.busqueda}" var="busqEv">
                         <f:facet name="header">
                             YUjuu
                         </f:facet>

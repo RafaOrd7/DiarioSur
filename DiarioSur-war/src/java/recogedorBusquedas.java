@@ -19,38 +19,26 @@ import javax.inject.Inject;
 @RequestScoped
 public class recogedorBusquedas {
 
-    private String busqueda;
-    private static List<Evento> eventos;
+    private String busqueda = "";
+    private static boolean encontrado;
 
-
-    
     @Inject
     private BdBean bd;
-    
-    
-    
-    public String buscar(){
-        
-        if(busqueda != null){
-            for(Evento e : bd.getEv()){
-                if(e.getDescripcion() != null){
-                    if(e.getNombre().contains(busqueda) || e.getDescripcion().contains(busqueda)){
-                        eventos.add(e);
-                    }  
+
+    public String buscar() {
+        List<Evento> aux = new ArrayList<Evento>();
+        encontrado = false;
+        if (!busqueda.equals("")) {
+            for (Evento e : bd.getEv()) {
+                if (e.getNombre().contains(busqueda) || e.getDescripcion().contains(busqueda)) {
+                    aux.add(e);
                 }
             }
+            encontrado = true;
+            bd.setBusqueda(aux);
         }
-        
-        return "index";
-    }
-    
-    
-    public static List<Evento> getEventos() {
-        return eventos;
-    }
 
-    public static void setEventos(List<Evento> eventos) {
-        recogedorBusquedas.eventos = eventos;
+        return "index";
     }
 
     public String getBusqueda() {
@@ -68,11 +56,18 @@ public class recogedorBusquedas {
     public void setBd(BdBean bd) {
         this.bd = bd;
     }
-    
+
+    public static boolean isEncontrado() {
+        return encontrado;
+    }
+
+    public static void setEncontrado(boolean encontrado) {
+        recogedorBusquedas.encontrado = encontrado;
+    }
     
     /**
      * Creates a new instance of recogedorBusquedas
      */
-    public recogedorBusquedas(){
+    public recogedorBusquedas() {
     }
 }

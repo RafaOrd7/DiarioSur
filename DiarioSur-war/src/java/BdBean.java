@@ -34,6 +34,7 @@ public class BdBean implements Serializable{
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
     private List<Evento> ev=new ArrayList<>();
+    private List<Evento> busqueda=new ArrayList<>();
     private List<JefeDeRedactores> jdr=new ArrayList<>();
     private List<Notificacion> notif=new ArrayList<>();
     private List<Periodista> peri=new ArrayList<>();
@@ -392,10 +393,14 @@ public class BdBean implements Serializable{
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
+    
+    public List<Evento> getBusqueda() {
+        return busqueda;
+    }
 
-   
-    
-    
+    public void setBusqueda(List<Evento> busqueda) {
+        this.busqueda = busqueda;
+    }
     
     public BdBean() {
         ev.add(new Evento("sobaco",null,"1",2F,"sobacaso","sobac",null,null,null,null));
