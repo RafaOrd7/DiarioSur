@@ -24,7 +24,7 @@ import javax.inject.Named;
  *
  * @author Garri
  */
-@Named(value = "BdBean")
+@Named(value = "bdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
