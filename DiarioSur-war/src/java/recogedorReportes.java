@@ -32,6 +32,8 @@ public class recogedorReportes {
 
     @Inject
     private BdBean bd;
+    @Inject
+    private ctrlAutorizacion cta;
 
     private static Reporte seleccionado;
 
@@ -89,7 +91,7 @@ public class recogedorReportes {
 
     public String enviarReporte() {
         Evento ev=recogedorEventos.getSeleccionado();
-        UsuarioRegistrado user=ctrlUsuarios.getUsuarioLogeado();
+        UsuarioRegistrado user=cta.getUsuarioLogeado();
         Valoracion val=null;//recogedorValoraciones.getSeleccionado();
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
         if(val==null){

@@ -29,8 +29,6 @@ import javax.inject.Named;
 @ApplicationScoped
 public class BdBean implements Serializable{
 
-    
-    
     private Long contId=0L;
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
@@ -473,9 +471,25 @@ public class BdBean implements Serializable{
         adm.setTelefono("9521 32815");
         crearAdmin(adm);
       
+        UsuarioRegistrado u = new UsuarioRegistrado();
+        u.setNombre("Michael");
+        u.setApellidos("Delgado");
+        u.setDni("26502951M");
+        u.setEmail("user@uma.es");
+        u.setPassword("asdf");
+        crearUR(u);
+        
+        UsuarioRegistrado a = new UsuarioRegistrado();
+        a.setNombre("Juanan");
+        a.setApellidos("Crack");
+        a.setDni("12345678K");
+        a.setEmail("jajipe@uma.es");
+        a.setPassword("asdf");
+        crearUR(a);
+        
         ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
         ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
-      
+        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
     
