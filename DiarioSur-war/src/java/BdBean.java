@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -100,6 +100,13 @@ public class BdBean implements Serializable{
     }
     
     public void eliminarEvento(Evento a){
+        /*Long idaux=a.getId_evento();
+        for(Evento aux:ev){
+            if(idaux.equals(aux.getId_evento())){
+                ev.remove(aux);
+                break;
+            }
+        }*/
         ev.remove(a);
     }
     
