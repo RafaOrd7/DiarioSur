@@ -65,6 +65,14 @@ public class recogedorBusquedas {
         recogedorBusquedas.encontrado = encontrado;
     }
     
+    public List<Evento> getListaEvento(){
+        return bd.getEv();
+    }
+    
+    public List<Evento> getListaBusqueda(){
+        return bd.getBusqueda();
+    }
+    
     /**
      * Creates a new instance of recogedorBusquedas
      */
