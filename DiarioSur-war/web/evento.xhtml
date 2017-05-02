@@ -16,8 +16,8 @@
                 </tr>
                 
                 <tr>
-                    <td><p:button value="Me gusta"   outcome="index">   
-                        </p:button></td>
+                    <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
+                    </td>
                     <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
                         </p:button>
                     </td>
@@ -32,7 +32,7 @@
                     </td>
                     <td><p:button  value="Editar" icon="ui-icon-star" >
                         </p:button></td>
-                    <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getCompra()}" >
+                    <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                         </p:button></td>
                 </tr>
             </h:form>
@@ -55,10 +55,7 @@
             </tr>
             <tr>
                 <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-            </tr>     
-            <tr>
-                <td><h4>Web Compra: #{recogedorEventos.getSeleccionado().getCompra()}</h4></td>
-            </tr>
+            </tr> 
             <tr>
                 <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
             </tr>

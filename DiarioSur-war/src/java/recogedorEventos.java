@@ -211,15 +211,7 @@ public class recogedorEventos {
     public String enviarEvento() {
         usuario=cta.getUsuarioLogeado();
         anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
-        
-        
-   
-        Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
-        
-        
-        
-        
-        
+        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);  
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
