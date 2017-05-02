@@ -21,6 +21,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -30,22 +31,21 @@ import javax.inject.Inject;
  */
 @Named(value = "ctrlUsuarios")
 @RequestScoped
-public class ctrlUsuarios {
+public class ctrlUsuarios implements Serializable {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
+    private UsuarioRegistrado u = new UsuarioRegistrado();
     private SuperUsuario su = new SuperUsuario();
     private Periodista p = new Periodista();
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
-    
-    
+    private String rol = new String();
     
     @Inject
     private BdBean bd;
     
     @Inject
     private ctrlAutorizacion cta;
-
 
     
     public ctrlUsuarios() {  
@@ -91,8 +91,52 @@ public class ctrlUsuarios {
         return pag;
     }
 
+    public UsuarioRegistrado getU() {
+        return u;
+    }
+
+    public void setU(UsuarioRegistrado u) {
+        this.u = u;
+    }
+
     public Administrador getA() {
         return a;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setSu(SuperUsuario su) {
+        this.su = su;
+    }
+
+    public void setP(Periodista p) {
+        this.p = p;
+    }
+
+    public void setJdr(JefeDeRedactores jdr) {
+        this.jdr = jdr;
+    }
+
+    public void setA(Administrador a) {
+        this.a = a;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public SuperUsuario getSu() {
+        return su;
+    }
+
+    public Periodista getP() {
+        return p;
+    }
+
+    public JefeDeRedactores getJdr() {
+        return jdr;
     }
     
 
@@ -174,22 +218,36 @@ public class ctrlUsuarios {
     
     public String mostrarUsuario(UsuarioRegistrado usuario) {
         switch (usuario.getIdUser().charAt(0)) {
-            case 'A': this.a=bd.buscarAdmin((Administrador) usuario);
+            case 'A':   this.a=bd.buscarAdmin((Administrador) usuario);
+                        this.rol="Administrador";
             break;
-            case 'J': this.jdr = bd.buscarJDR((JefeDeRedactores) usuario);
+            case 'J':   this.jdr = bd.buscarJDR((JefeDeRedactores) usuario);
+                        this.rol="JefeDeRedactores";
             break;
-            case 'P': this.p = bd.buscarPeriodista((Periodista) usuario);
+            case 'P':   this.p = bd.buscarPeriodista((Periodista) usuario);
+                        this.rol="Periodista";
             break;
-            case 'S': this.su = bd.buscarSU((SuperUsuario) usuario);
+            case 'S':   this.su = bd.buscarSU((SuperUsuario) usuario);
+                        this.rol="SuperUsuario";
             break;
-            case 'U': this.usuario=usuario;
+            case 'U':   this.u=usuario;
+                        this.rol="UsuarioRegistrado";
             break;
         }
         return "EditarUsuario.xhtml";
     }
     
     public String editarUsuarioRegistrado () {
-        switch (rol) {
+
+            //(rol.equals("UsuarioRegistrado")) 
+                    UsuarioRegistrado aux = bd.buscarPorId(u.getIdUser());
+                    aux.setNombre(usuario.getNombre());
+                    aux.setApellidos(usuario.getApellidos());
+                    aux.setDni(usuario.getDni());
+                    aux.setEmail(usuario.getEmail());
+                    return "gestionUsuario.xhtml";
+
+       /* switch (rol) {
             case "Administrador":
                 
                 break;
@@ -200,14 +258,16 @@ public class ctrlUsuarios {
             case "SuperUsuario":
                 break;
             case "UsuarioRegistrado":
+                UsuarioRegistrado aux = bd.buscarUR(usuario);
+                aux.setNombre(usuario.getNombre());
+                aux.setApellidos(usuario.getApellidos());
+                aux.setDni(usuario.getDni());
+                aux.setEmail(usuario.getEmail());  
                 break;
-            
-        }
-        bd.buscarUR(usuario);
-        
+        }*/
+
+
         //usuario.set
-        // Por implementar
-        return null;
     }
     
     public String editarSuperUsuario() {

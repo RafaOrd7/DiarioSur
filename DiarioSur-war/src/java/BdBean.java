@@ -253,6 +253,16 @@ public class BdBean implements Serializable{
         return null;
     }
     
+    public UsuarioRegistrado buscarPorId (String id) {
+        for (UsuarioRegistrado aux : ur) {
+            System.err.println("//////////////// " + aux.getIdUser() + ", " + id + " ////////////////");
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
     public boolean existeUsuario (UsuarioRegistrado a) {
         for (UsuarioRegistrado aux : ur) {
             if (a.getEmail().equals(aux.getEmail())) {
