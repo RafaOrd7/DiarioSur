@@ -443,8 +443,9 @@ public class BdBean implements Serializable{
        List<UsuarioRegistrado> mg= new ArrayList<>();
        Boolean encontrado=buscarEv(e);
        if(encontrado){  
+           if(!(megusta.get(e).contains(u))){
           megusta.get(e).add(u);
-          e.setUser_megusta(megusta.get(e));
+          e.setUser_megusta(megusta.get(e));}
        }
        else{
            mg.add(u);
@@ -467,7 +468,6 @@ public class BdBean implements Serializable{
       
         ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
         ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
-        ev.add(new Evento("RQUWPOUR",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
       
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
