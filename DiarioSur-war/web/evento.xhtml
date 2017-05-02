@@ -17,7 +17,7 @@
                     <td> IMAGEN #{recogedorEventos.imagen}</td>
                 </tr>
                 <tr>
-                    <td><p:button value="Me gusta"   outcome="evento" onclick="#{recogedorEventos.megusta()}">   
+                    <td><p:button value="Me gusta"   outcome="index">   
                         </p:button></td>
                     <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
                         </p:button>
@@ -30,7 +30,7 @@
                         </p:button></td>
                     <td><p:button  value="Editar" icon="ui-icon-star" >
                         </p:button></td>
-                    <td><p:button  value="Eliminar" icon="ui-icon-star" outcome="#{recogedorEventos.eliminarEvento()}">
+                    <td><p:button  value="Eliminar" icon="ui-icon-star" outcome="index">
                         </p:button></td>
                     <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getCompra()}" >
                         </p:button></td>
