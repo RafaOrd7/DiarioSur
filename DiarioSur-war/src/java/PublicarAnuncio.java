@@ -156,7 +156,7 @@ public class PublicarAnuncio {
     
     public String ver(Anuncio anuncio){
         seleccionado=anuncio;
-        return "anuncio.xthml";
+        return "anuncio.xhtml";
     }
     
     public Anuncio getSeleccionado(){
