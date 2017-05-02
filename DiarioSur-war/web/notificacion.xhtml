@@ -1,12 +1,29 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        
+         <ui:define name="title">Notificaciones</ui:define>
+         
+         
+         <ui:define name="content">
+        <h:form>
+            <h1>Notificaciones</h1>
+            
+            <p:dataTable var="notificacion" value="#{ctrlUsuarios.getListaNotif()}">
+                <p:column headerText="Información">              
+                    <h:outputText value="#{notificacion.texto}" />
+                </p:column>
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{notificacion.fecha}" />
+                </p:column>
+                <p:column headerText=" ">
+                    <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarNotif(notificacion)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+    
+</ui:composition>
 

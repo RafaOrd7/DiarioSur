@@ -9,34 +9,37 @@
     <ui:define name="title">Evento</ui:define>
 
     <ui:define name="content">
-        <table align="center">                
 
+
+        <table align="center">                
+            <h:form>
+                <tr>
+                    <td> IMAGEN #{recogedorEventos.imagen}</td>
+                </tr>
+                <tr>
+                    <td><p:button value="Me gusta"   outcome="index">   
+                        </p:button></td>
+                    <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
+                        </p:button>
+                    </td>
+                    <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
+                        </p:button>
+                    </td>
+                    <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
+                    <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
+                        </p:button></td>
+                    <td><p:button  value="Editar" icon="ui-icon-star" >
+                        </p:button></td>
+                    <td><p:button  value="Eliminar" icon="ui-icon-star" outcome="index">
+                        </p:button></td>
+                    <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getCompra()}" >
+                        </p:button></td>
+                </tr>
+            </h:form>
+        </table>
+        <table align="center"> 
             <tr>
-                <td> IMAGEN #{recogedorEventos.imagen}</td>
-            </tr>
-            <tr>
-                <td><p:button  value="Me gusta" icon="ui-icon-star" onclick="recogedorEventos.megusta()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-                <td><p:button  value="Compartir" icon="ui-icon-star" onclick="recogedorEventos.compartir()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="recogedorEventos.imprimir()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-                <td><p:button  value="Editar" icon="ui-icon-star" onclick="recogedorEventos.editar()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-                <td><p:button  value="Eliminar" icon="ui-icon-star" onclick="recogedorEventos.eliminar()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-                <td><p:button  value="Comprar" icon="ui-icon-star" onclick="recogedorEventos.darMegusta()">
-                        <f:param name="productId" value="10" />
-                    </p:button></td>
-            </tr>
-            <tr>
-                <td><h4>Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
+                <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
             </tr>
             <tr>
                 <td><h4>Tipo: #{recogedorEventos.getTipo()}</h4></td>
@@ -49,6 +52,9 @@
             </tr>
             <tr>
                 <td><h4>Precio: #{recogedorEventos.getPrecio()}</h4></td>
+            </tr>     
+            <tr>
+                <td><h4>Web Compra: #{recogedorEventos.getCompra()}</h4></td>
             </tr>
             <tr>
                 <td><h4>Descripción: #{recogedorEventos.getDescripcion()}</h4></td>

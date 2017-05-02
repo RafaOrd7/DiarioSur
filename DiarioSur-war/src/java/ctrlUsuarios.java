@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 
+import diariosur.Administrador;
+import diariosur.JefeDeRedactores;
+import diariosur.Notificacion;
+import diariosur.Periodista;
 import diariosur.Reporte;
+import diariosur.SuperUsuario;
 import diariosur.UsuarioRegistrado;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +111,43 @@ public class ctrlUsuarios {
         }
         return page;
     }
+    
+    
+    
+    public List<Notificacion> getListaNotif(){
+        return bd.getNotif();
+    }
+    
+     public String eliminarNotif(Notificacion n){
+        bd.eliminarNotificacion(n);
+        return null;
+    }
+    
+    
+    public String eliminarUR(UsuarioRegistrado u){
+        bd.eliminarUR(u);
+        return null;
+    }
+    
+    public List<UsuarioRegistrado> getListaUR(){
+        return bd.getUr();
+    }
+    
+    public List<SuperUsuario> getListaSU(){
+        return bd.getSuperu();
+    }
+    
+    public List<JefeDeRedactores> getListaJDR(){
+        return bd.getJdr();
+    }
 
+    public List<Periodista> getListaP(){
+        return bd.getPeri();
+    }
+    
+    public List<Administrador> getListaA(){
+        return bd.getAdmin();
+    }
     
     public UsuarioRegistrado getUsuario() {
         return usuario;

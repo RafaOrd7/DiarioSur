@@ -16,6 +16,7 @@ import diariosur.UsuarioRegistrado;
 import diariosur.Valoracion;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -43,6 +44,7 @@ public class BdBean implements Serializable{
     private List<SuperUsuario> superu=new ArrayList<>();
     private List<UsuarioRegistrado> ur=new ArrayList<>();
     private List<Valoracion> val=new ArrayList<>();
+    private HashMap<Evento, List<UsuarioRegistrado>> megusta = new HashMap<>();
 
     public void crearAdmin(Administrador a){
        contId++;
@@ -430,6 +432,27 @@ public class BdBean implements Serializable{
     public void setBusqueda(List<Evento> busqueda) {
         this.busqueda = busqueda;
     }
+   public Boolean buscarEv(Evento e){
+        if(megusta.containsKey(e)){
+            return true;
+        }
+        return false;
+    }
+    
+   public void MeGusta(Evento e, UsuarioRegistrado u){
+       List<UsuarioRegistrado> mg= new ArrayList<>();
+       Boolean encontrado=buscarEv(e);
+       if(encontrado){  
+           if(!(megusta.get(e).contains(u))){
+          megusta.get(e).add(u);
+          e.setUser_megusta(megusta.get(e));}
+       }
+       else{
+           mg.add(u);
+           megusta.put(e, mg);
+       }
+   }
+    
     
     public BdBean() {
         Administrador adm = new Administrador();
@@ -443,8 +466,8 @@ public class BdBean implements Serializable{
         adm.setTelefono("9521 32815");
         crearAdmin(adm);
       
-        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso","sobac",null,null,null,null));
-        ev.add(new Evento("prueba",null,"1",4F,"intentoo","si",null,null,null,null));
+        ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
       
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
