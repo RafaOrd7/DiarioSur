@@ -472,6 +472,14 @@ public class BdBean implements Serializable{
         u.setPassword("asdf");
         crearUR(u);
         
+        UsuarioRegistrado a = new UsuarioRegistrado();
+        a.setNombre("Juanan");
+        a.setApellidos("Crack");
+        a.setDni("12345678K");
+        a.setEmail("jajipe@uma.es");
+        a.setPassword("asdf");
+        crearUR(a);
+        
         ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
         ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
       
