@@ -37,32 +37,35 @@
             </h:form>
         </table>
         <table align="center"> 
+             <tr>
+                <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
+            </tr>
             <tr>
                 <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Tipo: #{recogedorEventos.getTipo()}</h4></td>
+                <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Fecha: #{recogedorEventos.getFecha()} </h4></td>
+                <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Lugar: #{recogedorEventos.getLugar()}</h4></td>
+                <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Precio: #{recogedorEventos.getPrecio()}</h4></td>
+                <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
             </tr>     
             <tr>
-                <td><h4>Web Compra: #{recogedorEventos.getCompra()}</h4></td>
+                <td><h4>Web Compra: #{recogedorEventos.getSeleccionado().getCompra()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Descripción: #{recogedorEventos.getDescripcion()}</h4></td>
+                <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Tags: #{recogedorEventos.getTags()} </h4></td>
+                <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
             </tr>
         </table>
-        <h1>#{recogedorEventos.getAnuncio()}</h1>
+        <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
         <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
             <table align="center">
                 <tr>
