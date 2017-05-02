@@ -9,15 +9,6 @@
     <ui:define name="title">Evento</ui:define>
 
     <ui:define name="content">
-
-        <h:form>
-            <table align="center">
-                <tr>
-                    <td>Para eliminar este evento, haga click <h:commandLink action="#{recogedorEventos.eliminarEvento()}" value="aquí"/>.</td>
-                </tr>
-            </table>
-        </h:form>
-        
         <table align="center">                
             <h:form>
                 <tr>
@@ -36,6 +27,9 @@
                     <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
                     <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
                         </p:button></td>
+                    <td>
+                        <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
+                    </td>
                     <td><p:button  value="Editar" icon="ui-icon-star" >
                         </p:button></td>
                     <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getCompra()}" >
