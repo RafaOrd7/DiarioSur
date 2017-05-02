@@ -1,12 +1,63 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="title">Busqueda Avanzada</ui:define>
+    <ui:define name="content">
+        <h3>Busqueda</h3>
+        <tr>
+            <br><td><p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/></td></br>
+            <br><td><p:inputText id="tipo" value="#{busquedaAvanzada.tipo}" placeholder="Tipo"/></td></br>
+            <br>precio<td><p:inputText id="precio" value="#{busquedaAvanzada.precio}" placeholder="precio"/></td></br>
+            <br><td><p:inputText id="fecha" value="#{busquedaAvanzada.fecha}" placeholder="fecha"/></td></br>
+            <br><td><p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="lugar"/></td></br>
+            <br><td><p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="descripcion"/></td></br>
+            <br><td><p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="tags"/></td></br>
+            
+            
+           <br>
+               <h:form>
+                    <p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick"/>
+               </h:form>
+            </br>
+        </tr>
+        
+        <c:when test="#{empty busquedaAvanzada.busqueda}"></c:when>
+        <c:otherwise>
+        <h1>Resultados</h1>
+        <h:form> 
+            <p:dataScroller value="#{busquedaAvanzada.busqueda}" var="evento">
+                <f:facet name="header">
+                    Eventos
+                </f:facet>
 
+                <f:facet name="loader">
+                    <p:commandButton type="button" value="Más" icon="ui-icon-circle-triangle-s"/>
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Nombre:" />
+                            <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
+
+                            <h:outputText value="Fecha:" />
+                            <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
+
+                            <h:outputText value="Lugar" />
+                            <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+        </c:otherwise>
+    </ui:define>
+</ui:composition>

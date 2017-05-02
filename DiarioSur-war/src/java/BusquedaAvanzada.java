@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 
-import java.util.Date;
+import diariosur.Evento;
+import java.util.*;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 
 /**
  *
@@ -16,21 +18,50 @@ import javax.enterprise.context.Dependent;
 @Dependent
 public class BusquedaAvanzada {
     
+    private String nombre;
     private String tipo;
-    private int precio;
+    private float precio;
     private Date fecha;
     private String lugar;
     private String descripcion;
     private String tags;
+    private List<Evento> busqueda;
+    
+    private Evento evento;
+    @Inject
+    private BdBean bd;
 
     public BusquedaAvanzada() {}
 
-    public String buscar(){
-        return "index.xhtml";
+    public void buscar(){
+        List<Evento> eventos = bd.getEv();
+        ListIterator it = eventos.listIterator();
+        while(it.hasNext()){
+            evento = (Evento) it.next();
+            if(evento.getNombre().toUpperCase().contains(getNombre().toUpperCase())){
+                
+                if(evento.getDescripcion().toUpperCase().equals(descripcion.toUpperCase())){
+                    busqueda.add(evento);
+                }else if(evento.getFecha().equals(fecha)){
+                    busqueda.add(evento);
+                }else if(evento.getGeolocalizacion().toUpperCase().equals(lugar.toUpperCase())){
+                    busqueda.add(evento);
+                }else if(evento.getTipo().toUpperCase().equals(tipo.toUpperCase())){
+                    busqueda.add(evento);
+                }else if(evento.getTags().toUpperCase().equals(tags.toUpperCase())){
+                    busqueda.add(evento);
+                }else if(evento.getPrecio().equals(precio)){
+                    busqueda.add(evento);
+                }
+            }
+        }
     }
     /**
      * @return the tipo
      */
+    public List<Evento> getBusqueda(){
+        return busqueda;
+    }
     public String getTipo() {
         return tipo;
     }
@@ -45,14 +76,14 @@ public class BusquedaAvanzada {
     /**
      * @return the precio
      */
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
     /**
      * @param precio the precio to set
      */
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -110,6 +141,20 @@ public class BusquedaAvanzada {
      */
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }
