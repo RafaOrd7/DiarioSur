@@ -32,6 +32,10 @@ import javax.inject.Inject;
 public class ctrlUsuarios {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
+    private SuperUsuario su = new SuperUsuario();
+    private Periodista p = new Periodista();
+    private JefeDeRedactores jdr = new JefeDeRedactores();
+    private Administrador a = new Administrador();
     
     private static UsuarioRegistrado usuarioLogeado;
     
@@ -204,4 +208,24 @@ public class ctrlUsuarios {
         ctrlUsuarios.usuarioLogeado = usuarioLogeado;
     }
     
+    public String mostrarUsuario(UsuarioRegistrado usuario) {
+        switch (usuario.getIdUser().charAt(0)) {
+            case 'A': this.a=bd.buscarAdmin((Administrador) usuario);
+            break;
+            case 'J': this.jdr = bd.buscarJDR((JefeDeRedactores) usuario);
+            break;
+            case 'P': this.p = bd.buscarPeriodista((Periodista) usuario);
+            break;
+            case 'S': this.su = bd.buscarSU((SuperUsuario) usuario);
+            break;
+            case 'U': this.usuario=usuario;
+            break;
+        }
+        return "EditarUsuario.xhtml";
+    }
+    
+    public String editarUsuario (UsuarioRegistrado u) {
+        // Por implementar
+        return null;
+    }
 }
