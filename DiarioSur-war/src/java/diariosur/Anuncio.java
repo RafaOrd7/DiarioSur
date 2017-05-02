@@ -170,4 +170,23 @@ public class Anuncio implements Serializable {
         this.multimedia = multimedia;
     }
     
+    public Anuncio(Date fP,Date fE,File m,String em,String dim,String pri,String tag,Administrador ad,List<Evento> ev){
+        fechaPublicacion=fP;
+        fechaExpiracion=fE;
+        multimedia=m;
+        empresa=em;
+        dimensiones=dim;
+        prioridad=pri;
+        tags=tag;
+        administrador=ad;
+        evento=ev;
+        
+        
+        
+    }
+    
+    public Anuncio(){
+        
+    }
+    
 }
