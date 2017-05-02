@@ -86,6 +86,10 @@ public class ctrlUsuarios implements Serializable{
         }
         return pag;
     }
+
+    public Administrador getA() {
+        return a;
+    }
     
 
     
@@ -226,7 +230,15 @@ public class ctrlUsuarios implements Serializable{
     }
     
     public String editarUsuario (UsuarioRegistrado u) {
+        usuario.setNombre(u.getNombre());
+        usuario.setApellidos(u.getApellidos());
+        usuario.setDni(u.getDni());
+        usuario.setEmail(u.getEmail());
+        usuario.setPassword(u.getPassword());
+        //usuario.set
         // Por implementar
         return null;
     }
+    
+    
 }
