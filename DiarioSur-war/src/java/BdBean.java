@@ -489,7 +489,7 @@ public class BdBean implements Serializable{
         
         ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
         ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
-      
+        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
     
