@@ -17,7 +17,7 @@
                     <td> IMAGEN #{recogedorEventos.imagen}</td>
                 </tr>
                 <tr>
-                    <td><p:button value="Me gusta"   outcome="evento" onclick="#{recogedorEventos.megusta()}">   
+                    <td><p:button value="Me gusta"   outcome="#{recogedorEventos.megusta()}" >   
                         </p:button></td>
                     <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
                         </p:button>
@@ -42,25 +42,25 @@
                 <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Tipo: #{recogedorEventos.getTipo()}</h4></td>
+                <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Fecha: #{recogedorEventos.getFecha()} </h4></td>
+                <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Lugar: #{recogedorEventos.getLugar()}</h4></td>
+                <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Precio: #{recogedorEventos.getPrecio()}</h4></td>
+                <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
             </tr>     
             <tr>
-                <td><h4>Web Compra: #{recogedorEventos.getCompra()}</h4></td>
+                <td><h4>Web Compra: #{recogedorEventos.getSeleccionado().getCompra()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Descripción: #{recogedorEventos.getDescripcion()}</h4></td>
+                <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Tags: #{recogedorEventos.getTags()} </h4></td>
+                <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
             </tr>
         </table>
         <h1>#{recogedorEventos.getAnuncio()}</h1>
@@ -69,7 +69,7 @@
                 <tr>
                     <td><p:growl id="messages" showDetail="true" />
                         <h:panelGrid columns="2" cellpadding="1">
-                            <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                            <p:rating  value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
                         </h:panelGrid></td>
                 </tr>
                 <tr>                    
@@ -95,6 +95,7 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+        <h2> #{recogedorEventos.getSeleccionado().user_megusta.size()} </h2>
     </ui:define>
 
 </ui:composition>

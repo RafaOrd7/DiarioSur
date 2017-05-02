@@ -197,10 +197,11 @@ public class recogedorEventos {
         return "index";
     }
     
-    public void megusta(){
+    public String megusta(){
         usuario=ctrlUsuarios.getUsuarioLogeado();
-        System.out.println(usuario.getPassword());
         bd.MeGusta(seleccionado, usuario);
+        return "evento";
+        
     }
 
     public String enviarEvento() {
