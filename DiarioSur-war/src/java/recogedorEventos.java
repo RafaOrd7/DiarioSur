@@ -107,7 +107,7 @@ public class recogedorEventos {
 
     public String ver(Evento evento) {
         buscarAnuncio(evento);
-        seleccionado = evento;
+        setSeleccionado(evento);
         return "evento.xhtml";
     }
 
@@ -193,8 +193,11 @@ public class recogedorEventos {
     }
     
     public String eliminarEvento(){
+        System.out.println("PUYTAVIDA");
         bd.eliminarEvento(seleccionado);
-        return "index";
+       
+                
+        return "index.xhtml";
     }
     
     public void megusta(){
