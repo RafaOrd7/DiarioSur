@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,6 +16,7 @@ import diariosur.UsuarioRegistrado;
 import diariosur.Valoracion;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -24,7 +25,7 @@ import javax.inject.Named;
  *
  * @author Garri
  */
-@Named(value = "BdBean")
+@Named(value = "bdBean")
 @ApplicationScoped
 public class BdBean implements Serializable{
 
@@ -34,6 +35,7 @@ public class BdBean implements Serializable{
     private List<Administrador> admin=new ArrayList<>();
     private List<Anuncio> anu=new ArrayList<>();
     private List<Evento> ev=new ArrayList<>();
+    private List<Evento> busqueda=new ArrayList<>();
     private List<JefeDeRedactores> jdr=new ArrayList<>();
     private List<Notificacion> notif=new ArrayList<>();
     private List<Periodista> peri=new ArrayList<>();
@@ -42,6 +44,7 @@ public class BdBean implements Serializable{
     private List<SuperUsuario> superu=new ArrayList<>();
     private List<UsuarioRegistrado> ur=new ArrayList<>();
     private List<Valoracion> val=new ArrayList<>();
+    private HashMap<Evento, List<UsuarioRegistrado>> megusta = new HashMap<>();
 
     public void crearAdmin(Administrador a){
        contId++;
@@ -97,6 +100,13 @@ public class BdBean implements Serializable{
     }
     
     public void eliminarEvento(Evento a){
+        /*Long idaux=a.getId_evento();
+        for(Evento aux:ev){
+            if(idaux.equals(aux.getId_evento())){
+                ev.remove(aux);
+                break;
+            }
+        }*/
         ev.remove(a);
     }
     
@@ -243,6 +253,35 @@ public class BdBean implements Serializable{
             }
         }
         return null;
+    }
+    
+    public boolean existeUsuario (UsuarioRegistrado a) {
+        for (UsuarioRegistrado aux : ur) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (SuperUsuario aux : superu) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (Periodista aux : peri) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (JefeDeRedactores aux : jdr) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        for (Administrador aux : admin) {
+            if (a.getEmail().equals(aux.getEmail())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a){
@@ -392,9 +431,34 @@ public class BdBean implements Serializable{
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
-
-   
     
+    public List<Evento> getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(List<Evento> busqueda) {
+        this.busqueda = busqueda;
+    }
+   public Boolean buscarEv(Evento e){
+        if(megusta.containsKey(e)){
+            return true;
+        }
+        return false;
+    }
+    
+   public void MeGusta(Evento e, UsuarioRegistrado u){
+       List<UsuarioRegistrado> mg= new ArrayList<>();
+       Boolean encontrado=buscarEv(e);
+       if(encontrado){  
+           if(!(megusta.get(e).contains(u))){
+          megusta.get(e).add(u);
+          e.setUser_megusta(megusta.get(e));}
+       }
+       else{
+           mg.add(u);
+           megusta.put(e, mg);
+       }
+   }
     
     
     public BdBean() {
@@ -409,8 +473,8 @@ public class BdBean implements Serializable{
         adm.setTelefono("9521 32815");
         crearAdmin(adm);
       
-        ev.add(new Evento("sobaco",null,"1",2F,"sobacaso",null,null,null,null,null));
-        ev.add(new Evento("prueba",null,"1",4F,"intentoo",null,null,null,null,null));
+        ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
+        ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
       
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }

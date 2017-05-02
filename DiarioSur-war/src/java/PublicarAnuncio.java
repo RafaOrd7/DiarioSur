@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import diariosur.Anuncio;
+import diariosur.Evento;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,54 @@ public class PublicarAnuncio {
 
     private String nombreEmpresa;
     private long id;
+
+    public boolean isConcierto() {
+        return concierto;
+    }
+
+    public void setConcierto(boolean concierto) {
+        this.concierto = concierto;
+    }
+
+    public boolean isExposicion() {
+        return exposicion;
+    }
+
+    public void setExposicion(boolean exposicion) {
+        this.exposicion = exposicion;
+    }
+
+    public boolean isMusical() {
+        return musical;
+    }
+
+    public void setMusical(boolean musical) {
+        this.musical = musical;
+    }
+
+    public boolean isDeportivo() {
+        return deportivo;
+    }
+
+    public void setDeportivo(boolean deportivo) {
+        this.deportivo = deportivo;
+    }
+
+    public boolean isTeatral() {
+        return teatral;
+    }
+
+    public void setTeatral(boolean teatral) {
+        this.teatral = teatral;
+    }
+
+    public boolean isOtro() {
+        return otro;
+    }
+
+    public void setOtro(boolean otro) {
+        this.otro = otro;
+    }
     private String dimensiones;
     private int prioridad;
     private Date fechaPublicacion;
@@ -31,6 +80,21 @@ public class PublicarAnuncio {
     private File multimedia;
     private String tags;
     private static Anuncio seleccionado;
+    private String eventos;
+    private boolean concierto;
+    private boolean exposicion;
+    private boolean musical;
+    private boolean deportivo;
+    private boolean teatral;
+    private boolean otro;
+
+    public String getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(String eventos) {
+        this.eventos = eventos;
+    }
    
     private Anuncio anuncio;
     @Inject
@@ -52,7 +116,27 @@ public class PublicarAnuncio {
         anuncio.setMultimedia(multimedia);
         anuncio.setPrioridad(dimensiones);
         anuncio.setTags(getTags());
-        
+        List<Evento> eventos=new ArrayList<>();
+        for(Evento ev:bd.getEv()){
+            if(ev.getTipo().equals("1") && concierto==true){
+                eventos.add(ev);
+            }
+            if(ev.getTipo().equals("2") && exposicion==true){
+                eventos.add(ev);
+            }
+            if(ev.getTipo().equals("3") && musical==true){
+                eventos.add(ev);
+            }
+            if(ev.getTipo().equals("4") && deportivo==true){
+                eventos.add(ev);
+            }
+            if(ev.getTipo().equals("5") && teatral==true){
+                eventos.add(ev);
+            }
+            if(ev.getTipo().equals("6") && otro==true){
+                eventos.add(ev);
+            }
+        }
         
     }
     
@@ -60,6 +144,7 @@ public class PublicarAnuncio {
     public String subirAnuncio(){
         crear();
         bd.crearAnuncio(anuncio);
+       
         
         
         return "index.xhtml";
@@ -71,7 +156,7 @@ public class PublicarAnuncio {
     
     public String ver(Anuncio anuncio){
         seleccionado=anuncio;
-        return "anuncio.xthml";
+        return "anuncio.xhtml";
     }
     
     public Anuncio getSeleccionado(){
