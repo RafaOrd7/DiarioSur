@@ -77,6 +77,7 @@ public class ctrlUsuarios implements Serializable{
             if(user.getPassword().equals(usuario.getPassword())){
                 pag = "index.xhtml";
                 usuarioLogeado = user;
+
             }
         }else{
            FacesContext ctx = FacesContext.getCurrentInstance();
@@ -84,6 +85,7 @@ public class ctrlUsuarios implements Serializable{
                     + "pareja email - contraseña incorrectos.", "Error de autenticación, "
                             + "pareja email - contraseña incorrectos."));
         }
+        usuario = new UsuarioRegistrado();
         return pag;
     }
     
