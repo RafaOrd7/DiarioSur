@@ -171,9 +171,6 @@ public class ctrlUsuarios {
         this.usuario = usuario;
     }
 
-        
-    
-
     
     public String mostrarUsuario(UsuarioRegistrado usuario) {
         switch (usuario.getIdUser().charAt(0)) {
@@ -191,12 +188,51 @@ public class ctrlUsuarios {
         return "EditarUsuario.xhtml";
     }
     
-    public String editarUsuario (UsuarioRegistrado u) {
-        usuario.setNombre(u.getNombre());
-        usuario.setApellidos(u.getApellidos());
-        usuario.setDni(u.getDni());
-        usuario.setEmail(u.getEmail());
-        usuario.setPassword(u.getPassword());
+    public String editarUsuarioRegistrado () {
+        switch (rol) {
+            case "Administrador":
+                
+                break;
+            case "JefeDeRedactores":
+                break;
+            case "Periodista":
+                break;
+            case "SuperUsuario":
+                break;
+            case "UsuarioRegistrado":
+                break;
+            
+        }
+        bd.buscarUR(usuario);
+        
+        //usuario.set
+        // Por implementar
+        return null;
+    }
+    
+    public String editarSuperUsuario() {
+
+        //usuario.set
+        // Por implementar
+        return null;
+    }
+    
+    public String editarPeriodista() {
+
+        //usuario.set
+        // Por implementar
+        return null;
+    }
+    
+    public String editarJefeDeRedactores() {
+
+        //usuario.set
+        // Por implementar
+        return null;
+    }
+    
+    public String editarAdministrador() {
+        
         //usuario.set
         // Por implementar
         return null;
