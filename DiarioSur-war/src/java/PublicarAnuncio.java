@@ -116,33 +116,16 @@ public class PublicarAnuncio {
         anuncio.setMultimedia(multimedia);
         anuncio.setPrioridad(dimensiones);
         anuncio.setTags(getTags());
-        List<Evento> eventos=new ArrayList<>();
-        for(Evento ev:bd.getEv()){
-            if(ev.getTipo().equals("1") && concierto==true){
-                eventos.add(ev);
-            }
-            if(ev.getTipo().equals("2") && exposicion==true){
-                eventos.add(ev);
-            }
-            if(ev.getTipo().equals("3") && musical==true){
-                eventos.add(ev);
-            }
-            if(ev.getTipo().equals("4") && deportivo==true){
-                eventos.add(ev);
-            }
-            if(ev.getTipo().equals("5") && teatral==true){
-                eventos.add(ev);
-            }
-            if(ev.getTipo().equals("6") && otro==true){
-                eventos.add(ev);
-            }
-        }
+        
+        
+        
         
     }
     
   
     public String subirAnuncio(){
         crear();
+        
         bd.crearAnuncio(anuncio);
        
         
@@ -299,6 +282,6 @@ public class PublicarAnuncio {
     public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
-    
-    
+
+          
 }

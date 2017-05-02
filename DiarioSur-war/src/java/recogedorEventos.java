@@ -11,6 +11,7 @@ import java.io.File;
 import static java.time.Clock.system;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -108,7 +109,6 @@ public class recogedorEventos {
     }
 
     public String ver(Evento evento) {
-        buscarAnuncio(evento);
         setSeleccionado(evento);
         return "evento.xhtml";
     }
@@ -210,21 +210,21 @@ public class recogedorEventos {
 
     public String enviarEvento() {
         usuario=cta.getUsuarioLogeado();
+        anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
+        
+        
+   
         Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
+        
+        
+        
+        
+        
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
     }
 
-    private void buscarAnuncio(Evento evento) {
-        for(Anuncio a:bd.getAnu()){
-            for(Evento e:a.getEvento()){
-                if(e.getId_evento().equals(evento.getId())){
-                    evento.setAnuncio(a);
-                    return;
-                }
-            }
-        }
-    }
+   
 
 }
