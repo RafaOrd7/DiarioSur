@@ -10,12 +10,20 @@
 
     <ui:define name="content">
 
-
+        <h:form>
+            <table align="center">
+                <tr>
+                    <td>Para eliminar este evento, haga click <h:commandLink action="#{recogedorEventos.eliminarEvento()}" value="aquí"/>.</td>
+                </tr>
+            </table>
+        </h:form>
+        
         <table align="center">                
             <h:form>
                 <tr>
                     <td> IMAGEN #{recogedorEventos.imagen}</td>
                 </tr>
+                
                 <tr>
                     <td><p:button value="Me gusta"   outcome="index">   
                         </p:button></td>
@@ -30,7 +38,6 @@
                         </p:button></td>
                     <td><p:button  value="Editar" icon="ui-icon-star" >
                         </p:button></td>
-                    <td><h:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}"/></td>
                     <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getCompra()}" >
                         </p:button></td>
                 </tr>

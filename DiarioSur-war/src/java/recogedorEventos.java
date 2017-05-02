@@ -42,6 +42,8 @@ public class recogedorEventos {
     private String url; // +setter
     @Inject
     private BdBean bd;
+    @Inject
+    private ctrlAutorizacion cta;
 
     public String getUrl() {
         return url;
@@ -201,17 +203,17 @@ public class recogedorEventos {
     }
     
     public void megusta(){
-        usuario=ctrlUsuarios.getUsuarioLogeado();
+        usuario=cta.getUsuarioLogeado();
         System.out.println(usuario.getPassword());
         bd.MeGusta(seleccionado, usuario);
     }
 
     public String enviarEvento() {
-        usuario=ctrlUsuarios.getUsuarioLogeado();
+        usuario=cta.getUsuarioLogeado();
         anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
         
         
-        
+   
         Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
         
         

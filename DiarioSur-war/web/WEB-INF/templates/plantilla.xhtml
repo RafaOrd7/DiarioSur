@@ -21,16 +21,16 @@
                 <p:messages id="messages" autoUpdate="true" showIcon="false"  />
                 <table align="right">
                     <tr>
-                        <c:if test="#{empty ctrlUsuarios.getUsuarioLogeado()}">
+                        <c:if test="#{empty ctrlAutorizacion.getUsuarioLogeado()}">
                             <td><p:button outcome="login" value="Login" icon="ui-icon-person"></p:button></td>
                             <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td> 
                             <td></td>
                         </c:if>
 
-                        <c:if test="#{!empty ctrlUsuarios.getUsuarioLogeado()}">
-                            <td>Bienvenido, #{ctrlUsuarios.getUsuarioLogeado().getNombre()}</td>
+                        <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
+                            <td>Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}</td>
                             <td></td>
-                            <td><h:commandLink action="#{ctrlUsuarios.logout()}" value="Salir"/></td>
+                            <td><h:commandLink action="#{ctrlAutorizacion.logout()}" value="Salir"/></td>
                         </c:if>
 
                     </tr> 
@@ -50,7 +50,7 @@
             <h:form id="botonesForm">
                 <table>
                     <c:choose>
-                        <c:when test="#{ctrlUsuarios.comprobarUserAdmin() > 1}">
+                        <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
 
                             <h1>Administrador</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
@@ -63,7 +63,7 @@
                             <tr><p:button outcome="GestionarReporte" value="Gestión Reporte" icon="ui-icon-copy"></p:button></tr> 
                         </c:when>
 
-                        <c:when test="#{ctrlUsuarios.comprobarUserJDR() > 1}">
+                        <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
                             <h1>Jefe de Redactores</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
@@ -73,7 +73,7 @@
                                                
                         </c:when>
                         
-                        <c:when test="#{ctrlUsuarios.comprobarUserPeriodista() > 1}">
+                        <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
                             <h1>Periodista</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
@@ -81,7 +81,7 @@
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                              
                         </c:when>
 
-                        <c:when test="#{ctrlUsuarios.comprobarUserSU() > 1}">
+                        <c:when test="#{ctrlAutorizacion.comprobarUserSU() > 1}">
                             <h1>SuperUsuario</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
@@ -89,7 +89,7 @@
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
 
-                        <c:when test="#{ctrlUsuarios.comprobarUserRegistrado() > 1}">
+                        <c:when test="#{ctrlAutorizacion.comprobarUserRegistrado() > 1}">
                             <h1>Usuario Registrado</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
                             <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 

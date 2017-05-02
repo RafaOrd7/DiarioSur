@@ -11,6 +11,7 @@ import diariosur.Periodista;
 import diariosur.Reporte;
 import diariosur.SuperUsuario;
 import diariosur.UsuarioRegistrado;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,11 +33,18 @@ import javax.inject.Inject;
 public class ctrlUsuarios {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
+    private SuperUsuario su = new SuperUsuario();
+    private Periodista p = new Periodista();
+    private JefeDeRedactores jdr = new JefeDeRedactores();
+    private Administrador a = new Administrador();
     
-    private static UsuarioRegistrado usuarioLogeado;
+    
     
     @Inject
     private BdBean bd;
+    
+    @Inject
+    private ctrlAutorizacion cta;
 
 
     
@@ -71,7 +79,7 @@ public class ctrlUsuarios {
         if(user != null){
             if(user.getPassword().equals(usuario.getPassword())){
                 pag = "index.xhtml";
-                usuarioLogeado = user;
+                cta.setUsuarioLogeado(user);
             }
         }else{
            FacesContext ctx = FacesContext.getCurrentInstance();
@@ -79,6 +87,7 @@ public class ctrlUsuarios {
                     + "pareja email - contraseña incorrectos.", "Error de autenticación, "
                             + "pareja email - contraseña incorrectos."));
         }
+        usuario = new UsuarioRegistrado();
         return pag;
     }
     
@@ -153,55 +162,33 @@ public class ctrlUsuarios {
         return usuario;
     }
     
-    public static UsuarioRegistrado getUsuarioLogeado() {
-        return usuarioLogeado;
-    }
     
-        public void setUsuario(UsuarioRegistrado usuario) {
+    public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
 
-    public int comprobarUserAdmin(){
-        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("A")){
-            return 2;
-        }
-        return 1;
-    }    
-    public int comprobarUserJDR(){
-        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("J")){
-            return 2;
-        }
-        return 1;
-    }    
-    public int comprobarUserPeriodista(){
-        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("P")){
-            return 2;
-        }
-        return 1;
-    }    
-    public int comprobarUserSU(){
-        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("S")){
-            return 2;
-        }
-        return 1;
-    }    
-    public int comprobarUserRegistrado(){
-        if(getUsuarioLogeado()!= null && getUsuarioLogeado().getIdUser().substring(0,1).equals("U")){
-            return 2;
-        }
-        return 1;
-    }    
+        
     
-    public String logout(){
-        // Destruye la sesión (y con ello, el ámbito de este bean)
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.getExternalContext().invalidateSession();
-        usuarioLogeado = null;
-        return "index.xhtml";
+
+    
+    public String mostrarUsuario(UsuarioRegistrado usuario) {
+        switch (usuario.getIdUser().charAt(0)) {
+            case 'A': this.a=bd.buscarAdmin((Administrador) usuario);
+            break;
+            case 'J': this.jdr = bd.buscarJDR((JefeDeRedactores) usuario);
+            break;
+            case 'P': this.p = bd.buscarPeriodista((Periodista) usuario);
+            break;
+            case 'S': this.su = bd.buscarSU((SuperUsuario) usuario);
+            break;
+            case 'U': this.usuario=usuario;
+            break;
+        }
+        return "EditarUsuario.xhtml";
     }
     
-    public static void setUsuarioLogeado(UsuarioRegistrado usuarioLogeado) {
-        ctrlUsuarios.usuarioLogeado = usuarioLogeado;
+    public String editarUsuario (UsuarioRegistrado u) {
+        // Por implementar
+        return null;
     }
-    
 }
