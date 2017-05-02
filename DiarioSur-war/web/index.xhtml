@@ -14,7 +14,7 @@
         <c:choose>
             <c:when test="#{!recogedorBusquedas.isEncontrado()}">
                 <h:form> 
-                    <p:dataScroller value="#{bdBean.ev}" var="evento">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento">
                         <f:facet name="header">
                             Evento
                         </f:facet>
@@ -43,9 +43,9 @@
                 
             <c:otherwise>
                 <h:form> 
-                    <p:dataScroller value="#{bdBean.busqueda}" var="busqEv">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaBusqueda()}" var="busqEv">
                         <f:facet name="header">
-                            YUjuu
+                          Buscados
                         </f:facet>
 
                         <f:facet name="loader">

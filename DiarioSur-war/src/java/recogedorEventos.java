@@ -41,6 +41,8 @@ public class recogedorEventos {
     private String url; // +setter
     @Inject
     private BdBean bd;
+    @Inject
+    private ctrlAutorizacion cta;
 
     public String getUrl() {
         return url;
@@ -107,7 +109,7 @@ public class recogedorEventos {
 
     public String ver(Evento evento) {
         buscarAnuncio(evento);
-        seleccionado = evento;
+        setSeleccionado(evento);
         return "evento.xhtml";
     }
 
@@ -193,18 +195,21 @@ public class recogedorEventos {
     }
     
     public String eliminarEvento(){
+        System.out.println("PUYTAVIDA");
         bd.eliminarEvento(seleccionado);
-        return "index";
+       
+                
+        return "index.xhtml";
     }
     
     public void megusta(){
-        usuario=ctrlUsuarios.getUsuarioLogeado();
+        usuario=cta.getUsuarioLogeado();
         System.out.println(usuario.getPassword());
         bd.MeGusta(seleccionado, usuario);
     }
 
     public String enviarEvento() {
-        usuario=ctrlUsuarios.getUsuarioLogeado();
+        usuario=cta.getUsuarioLogeado();
         Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
         setSeleccionado(aux);
         bd.crearEvento(aux);
