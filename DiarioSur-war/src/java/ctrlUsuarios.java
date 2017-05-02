@@ -11,6 +11,7 @@ import diariosur.Periodista;
 import diariosur.Reporte;
 import diariosur.SuperUsuario;
 import diariosur.UsuarioRegistrado;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,8 +29,8 @@ import javax.inject.Inject;
  * @author Garri
  */
 @Named(value = "ctrlUsuarios")
-@RequestScoped
-public class ctrlUsuarios {
+@SessionScoped
+public class ctrlUsuarios implements Serializable{
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     private SuperUsuario su = new SuperUsuario();
