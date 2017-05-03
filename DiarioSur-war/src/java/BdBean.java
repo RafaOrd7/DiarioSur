@@ -51,6 +51,51 @@ public class BdBean implements Serializable{
        admin.add(a);
     }
     
+    public Administrador buscarAdminPorId(String id) {
+        for (Administrador aux : admin) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public JefeDeRedactores buscarJDRPorId(String id) {
+        for (JefeDeRedactores aux : jdr) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public Periodista buscarPeriodistaPorId(String id) {
+        for (Periodista aux : peri) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public SuperUsuario buscarSUPorId(String id) {
+        for (SuperUsuario aux : superu) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public UsuarioRegistrado buscarURPorId(String id) {
+        for (UsuarioRegistrado aux : ur) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
     public Administrador buscarAdmin(Administrador a){
         for(Administrador aux:admin){
             if(a.getIdUser().equals(aux.getIdUser())){
@@ -252,6 +297,15 @@ public class BdBean implements Serializable{
     public UsuarioRegistrado buscarUR(UsuarioRegistrado a){
         for(UsuarioRegistrado aux:ur){
             if(a.getIdUser().equals(aux.getIdUser())){
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public UsuarioRegistrado buscarPorId (String id) {
+        for (UsuarioRegistrado aux : ur) {
+            if (id.equals(aux.getIdUser())) {
                 return aux;
             }
         }
@@ -504,6 +558,11 @@ public class BdBean implements Serializable{
         a.setPassword("asdf");
         crearUR(a);
         
+        superu.add(new SuperUsuario("S4", "titi", "chetos", "12312312K", "a@gmail.com", "123", "Ayuntamiento Málaga"));
+        peri.add(new Periodista("P5", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696"));
+        jdr.add(new JefeDeRedactores("J6", "Faso", "Erje", "12312332K", "jefe@uma.es", "asdf", "Burguer king", "friepapas", "676969696"));
+        contId = contId+3;
+        
         Anuncio an= new Anuncio(null,null,null,"Sobaco S.L.",null,null,null,null,null);
         anu.add(an);
         
@@ -517,11 +576,8 @@ public class BdBean implements Serializable{
         contId++;
         ev.add(e2);
        
-        
-        superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
-        //super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
-        peri.add(new Periodista("P6","Dista","Perio","12312312K","peri@uma.es","asdf","McDonalds","Barrendero","696969696"));
-        jdr.add(new JefeDeRedactores("J1222","Faso","Erje","12312332K","jefe@uma.es","asdf","Burguer king","friepapas","676969696"));
+        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
+
     }
     
 }
