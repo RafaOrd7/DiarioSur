@@ -38,6 +38,7 @@ public class ctrlUsuarios {
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
     
+    private String rol = "";
     
     
     @Inject
@@ -49,6 +50,13 @@ public class ctrlUsuarios {
 
     
     public ctrlUsuarios() {  
+    }
+    
+    public int rolAdm(){
+        if (rol.equals("Administrador")){
+            return 2;
+        }
+        return 1;
     }
     
     
@@ -169,6 +177,44 @@ public class ctrlUsuarios {
     
     public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
+    }
+    
+    
+    public SuperUsuario getSu() {
+        return su;
+    }
+
+    public void setSu(SuperUsuario su) {
+        this.su = su;
+    }
+
+    public Periodista getP() {
+        return p;
+    }
+
+    public void setP(Periodista p) {
+        this.p = p;
+    }
+
+    public JefeDeRedactores getJdr() {
+        return jdr;
+    }
+
+    public void setJdr(JefeDeRedactores jdr) {
+        this.jdr = jdr;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    public String  asigRol(String rol) {
+        this.rol = rol;
+        return null;
     }
 
         

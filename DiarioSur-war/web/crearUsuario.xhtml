@@ -10,7 +10,6 @@
     
     <ui:define name="content">
         
-        <p:messages id="messages" autoUpdate="true" showIcon="false"  />
         <h:form>
             <h:panelGrid id="panel" columns="1" cellpadding="5">
                 <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.usuario.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
@@ -33,32 +32,29 @@
                 
                 <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña*" required="true" 
                             requiredMessage="Campo contraseña2 obligatorio"/>
-
-            </h:panelGrid>  
-            <h:panelGrid columns="1" cellpadding="5">
-                <p:outputLabel for="console" value="Console:"  />
-                <p:selectOneRadio id="rol" value="#{radioView.console}" >
-                    <f:selectItem itemLabel="Administrador"  itemValue="Administrador" />
-                    <f:selectItem itemLabel="Jefe de Redactores" itemValue="JefeDeRedactores" />
-                    <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                    <f:selectItem itemLabel="Super Usuario" itemValue="SuperUsuario" />
-                    <f:selectItem itemLabel="Usuario Registrado" itemValue="UsuarioRegistrado" />
-                </p:selectOneRadio>
                 
-                <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="panel" styleClass="submit"/>
-            </h:panelGrid>
+            </h:panelGrid>  
+            
+            <h:form>
+                <p:selectOneMenu id="Rol" value="#{ctrlUsuarios.rol}" style="width:125px">
+                    <f:selectItem itemLabel="Usuario Registrado" itemValue="UsuarioRegistrado" />
+                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectOneMenu>
+            </h:form>
             
             <c:choose>
-                <c:when test="rol==Administrador">
-                    <p:inputText id="cargo" placeholder="Cargo" value="#{ctrlUsuarios.a.cargo}" required="true" requiredMessage="Campo cargo obligatorio" />
+                <c:when test="#{ctrlUsuarios.rolAdm() > 1}">
+                    <h:commandButton value="Iniciar sesión" action=""/>
 
                 </c:when>
 
                 <c:otherwise>
-                    <tr><h2></h2></tr>     
+                    <h:commandButton value="Im donnete" action="index.xhtml"/>   
                 </c:otherwise>
             </c:choose>
-
+             <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="panel" styleClass="submit"/>
         </h:form>
     </ui:define>
 </ui:composition>
