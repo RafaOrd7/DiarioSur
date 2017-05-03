@@ -9,13 +9,9 @@
     
     <ui:define name="content">
         <h:form>
+            <p:inputText type="hidden" value="#{ctrlUsuarios.u.idUser}" required="true"/>
             <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
-
-                <h:outputLabel value="ID Usuario: " />
-                <!--p:inplace id="id"-->
-                    <p:inputText  value="#{ctrlUsuarios.u.idUser}" disabled="true" required="true"/>
-                <!--/p:inplace-->
-                
+                                
                 <h:outputLabel for="nombre" value="Nombre: " />
                 <p:inplace id="nombre">
                     <p:inputText  value="#{ctrlUsuarios.u.nombre}" required="true"/>
@@ -23,7 +19,7 @@
                 
                 <h:outputLabel for="apellidos" value="Apellidos: " />
                 <p:inplace id="apellidos">
-                    <p:inputText value="#{ctrlUsuarios.u.apellidos}"  required="true"/>
+                    <p:inputText value="#{ctrlUsuarios.u.apellidos}" rendered="true" required="true"/>
                 </p:inplace>
                 
                 <h:outputLabel for="email" value="Email: " />
@@ -44,7 +40,7 @@
                     <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                 </p:selectOneMenu>
                 
-                <p:commandButton value="Confirmar" update="panel" action="#{ctrlUsuarios.editarUsuarioRegistrado()}"/>
+                <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarUsuarioRegistrado()}"/>
             </h:panelGrid>
         </h:form>
     </ui:define>

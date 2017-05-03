@@ -19,9 +19,7 @@ import java.util.regex.Pattern;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -239,17 +237,8 @@ public class ctrlUsuarios implements Serializable {
     
     public String editarUsuarioRegistrado () {
 
-            //(rol.equals("UsuarioRegistrado")) 
-                    UsuarioRegistrado aux = bd.buscarPorId(u.getIdUser());
-                    aux.setNombre(usuario.getNombre());
-                    aux.setApellidos(usuario.getApellidos());
-                    aux.setDni(usuario.getDni());
-                    aux.setEmail(usuario.getEmail());
-                    return "gestionUsuario.xhtml";
-
-       /* switch (rol) {
+        switch (rol) {
             case "Administrador":
-                
                 break;
             case "JefeDeRedactores":
                 break;
@@ -264,11 +253,10 @@ public class ctrlUsuarios implements Serializable {
                 aux.setDni(usuario.getDni());
                 aux.setEmail(usuario.getEmail());  
                 break;
-        }*/
-
-
-        //usuario.set
+        }
+        return "gestionusuario.xhtml";
     }
+    
     
     public String editarSuperUsuario() {
 
