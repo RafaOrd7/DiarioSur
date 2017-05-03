@@ -77,6 +77,41 @@ public class ctrlUsuarios {
         return pag;
     }
     
+    
+    public String nuevoUsuarioGestion(){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        String pag = null;
+        if (bd.existeUsuario(a)) {
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "El email " + a.getEmail() + " está en uso por otro usuario.",
+                    "El email " + a.getEmail() + " está en uso por otro usuario."));
+        } else {
+            /*dependiendo del tipo de usuario*/
+            switch (rol.charAt(0)) {
+                case 'A':
+                    bd.crearAdmin(a);
+                    break;
+                case 'J':
+                    bd.crearJDR(a);
+                    break;
+                case 'P':
+                    bd.crearPeriodista(a);
+                    break;
+                case 'S':
+                    bd.crearSU(a);
+                    break;
+                case 'U':
+                    bd.crearUR(a);
+                    break;
+            } 
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario " + a.getEmail() + " registrado correctamente.",
+                    "Usuario " + a.getEmail() + " registrado correctamente."));
+            pag = "gestionUsuario.xhtml";
+        }
+        return pag;
+    }
+    
     public String logIn(){
         /* Utiliza BdBean y comprueba que esta en la base de datos y que los
            datos introducidos son correctos */
@@ -147,6 +182,26 @@ public class ctrlUsuarios {
     
     public String eliminarUR(UsuarioRegistrado u){
         bd.eliminarUR(u);
+        return null;
+    }
+    
+    public String eliminarSU(SuperUsuario u) {
+        bd.eliminarSU(u);
+        return null;
+    }
+    
+    public String eliminarP(Periodista u) {
+        bd.eliminarPeriodista(u);
+        return null;
+    }
+    
+    public String eliminarJDR(JefeDeRedactores u) {
+        bd.eliminarJDR(u);
+        return null;
+    }
+    
+    public String eliminarA(Administrador u) {
+        bd.eliminarAdmin(u);
         return null;
     }
     
