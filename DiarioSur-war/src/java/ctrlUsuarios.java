@@ -38,6 +38,7 @@ public class ctrlUsuarios {
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
     
+    private String rol = "";
     
     
     @Inject
@@ -49,6 +50,13 @@ public class ctrlUsuarios {
 
     
     public ctrlUsuarios() {  
+    }
+    
+    public int rolAdm(){
+        if (rol.equals("Administrador")){
+            return 2;
+        }
+        return 1;
     }
     
     
@@ -65,6 +73,41 @@ public class ctrlUsuarios {
                     "Usuario " + usuario.getEmail() + " registrado correctamente.",
                     "Usuario " + usuario.getEmail() + " registrado correctamente."));
             pag="index.xhtml";
+        }
+        return pag;
+    }
+    
+    
+    public String nuevoUsuarioGestion(){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        String pag = null;
+        if (bd.existeUsuario(a)) {
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "El email " + a.getEmail() + " está en uso por otro usuario.",
+                    "El email " + a.getEmail() + " está en uso por otro usuario."));
+        } else {
+            /*dependiendo del tipo de usuario*/
+            switch (rol.charAt(0)) {
+                case 'A':
+                    bd.crearAdmin(a);
+                    break;
+                case 'J':
+                    bd.crearJDR(a);
+                    break;
+                case 'P':
+                    bd.crearPeriodista(a);
+                    break;
+                case 'S':
+                    bd.crearSU(a);
+                    break;
+                case 'U':
+                    bd.crearUR(a);
+                    break;
+            } 
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario " + a.getEmail() + " registrado correctamente.",
+                    "Usuario " + a.getEmail() + " registrado correctamente."));
+            pag = "gestionUsuario.xhtml";
         }
         return pag;
     }
@@ -89,6 +132,10 @@ public class ctrlUsuarios {
         }
         usuario = new UsuarioRegistrado();
         return pag;
+    }
+
+    public Administrador getA() {
+        return a;
     }
     
 
@@ -138,6 +185,26 @@ public class ctrlUsuarios {
         return null;
     }
     
+    public String eliminarSU(SuperUsuario u) {
+        bd.eliminarSU(u);
+        return null;
+    }
+    
+    public String eliminarP(Periodista u) {
+        bd.eliminarPeriodista(u);
+        return null;
+    }
+    
+    public String eliminarJDR(JefeDeRedactores u) {
+        bd.eliminarJDR(u);
+        return null;
+    }
+    
+    public String eliminarA(Administrador u) {
+        bd.eliminarAdmin(u);
+        return null;
+    }
+    
     public List<UsuarioRegistrado> getListaUR(){
         return bd.getUr();
     }
@@ -166,6 +233,44 @@ public class ctrlUsuarios {
     public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
+    
+    
+    public SuperUsuario getSu() {
+        return su;
+    }
+
+    public void setSu(SuperUsuario su) {
+        this.su = su;
+    }
+
+    public Periodista getP() {
+        return p;
+    }
+
+    public void setP(Periodista p) {
+        this.p = p;
+    }
+
+    public JefeDeRedactores getJdr() {
+        return jdr;
+    }
+
+    public void setJdr(JefeDeRedactores jdr) {
+        this.jdr = jdr;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    public String  asigRol(String rol) {
+        this.rol = rol;
+        return null;
+    }
 
         
     
@@ -188,7 +293,15 @@ public class ctrlUsuarios {
     }
     
     public String editarUsuario (UsuarioRegistrado u) {
+        usuario.setNombre(u.getNombre());
+        usuario.setApellidos(u.getApellidos());
+        usuario.setDni(u.getDni());
+        usuario.setEmail(u.getEmail());
+        usuario.setPassword(u.getPassword());
+        //usuario.set
         // Por implementar
         return null;
     }
+    
+    
 }

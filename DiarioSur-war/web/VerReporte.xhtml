@@ -4,11 +4,15 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="title">Diario Sur Evento</ui:define>
 
 
     <ui:define name="content">
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+        
         <h:form>  
             <h1 align="center">REPORTE</h1>  
             <table align="center">
@@ -58,6 +62,26 @@
 
 
 
+
+                <h:form>
+                    <p:commandButton value="Eliminar Reporte">
+                        <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:button value="Si" outcome="#{recogedorReportes.eliminarEv()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+
+
+
+
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>
 
 
     </ui:define>
