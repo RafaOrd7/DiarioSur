@@ -45,6 +45,19 @@ public class ctrlAutorizacion implements Serializable {
         return "index.xhtml";
     }
 
+    public boolean checkAdm(){
+        if(usuarioLogeado!=null && usuarioLogeado.getIdUser().charAt(0) == 'A'){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean checkLog() {
+        return usuarioLogeado != null;
+    }
+    
+    
+    
     public UsuarioRegistrado getUsuarioLogeado() {
         return usuarioLogeado;
     }
@@ -84,6 +97,24 @@ public class ctrlAutorizacion implements Serializable {
         return 1;
     }
 
+    public int comprobarUserSUEv(){
+        if((usuarioLogeado!= null && usuarioLogeado.getIdUser().substring(0,1).equals("S"))){
+            if(usuarioLogeado.getIdUser().equals(recogedorEventos.getSeleccionado().getUsuarioRegistrado().getIdUser())){
+                return 2;
+            }
+            return 1;
+        }
+        return 1;
+    }    
+    public int comprobarUserRegistradoEv(){
+        if(usuarioLogeado!= null && usuarioLogeado.getIdUser().substring(0,1).equals("U")){
+            if(usuarioLogeado.getIdUser().equals(recogedorEventos.getSeleccionado().getUsuarioRegistrado().getIdUser())){
+                return 2;
+            }
+            return 1;
+        }
+        return 1;
+    }
 
     
 }

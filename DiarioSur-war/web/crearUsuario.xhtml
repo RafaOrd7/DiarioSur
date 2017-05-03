@@ -9,46 +9,52 @@
     <ui:define name="title">Nuevo Usuario</ui:define>
     
     <ui:define name="content">
-        
-        <h:form>
-            <h:panelGrid id="panel" columns="1" cellpadding="5">
-                <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.a.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+                <h:form>
+                    <h:panelGrid id="panel" columns="1" cellpadding="5">
+                        <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.a.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
 
-                <p:inputText id="apellidos" placeholder="Apellidos*" value="#{ctrlUsuarios.a.apellidos}" required="true" requiredMessage="Campo apellidos obligatorio" />
+                        <p:inputText id="apellidos" placeholder="Apellidos*" value="#{ctrlUsuarios.a.apellidos}" required="true" requiredMessage="Campo apellidos obligatorio" />
 
-                <p:inputText id="email" placeholder="Correo electrónico*" value="#{ctrlUsuarios.a.email}" required="true" requiredMessage="Campo email obligatorio" 
-                             validatorMessage="El email no es correcto">
-                    <f:validateRegex pattern="^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
-                </p:inputText>
+                        <p:inputText id="email" placeholder="Correo electrónico*" value="#{ctrlUsuarios.a.email}" required="true" requiredMessage="Campo email obligatorio" 
+                                     validatorMessage="El email no es correcto">
+                            <f:validateRegex pattern="^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                        </p:inputText>
 
-                <p:inputText id="dni" placeholder="DNI/NIF/NIE*"  value="#{ctrlUsuarios.a.dni}" required="true" requiredMessage="Campo dni obligatorio"
-                validatorMessage="El dni no es correcto">
-                <f:validateRegex pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" />
-                </p:inputText>
-               
-                <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.a.password}" 
-                            match="password2"  feedback="true" placeholder="Contraseña*" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
-                
-                <p:password id="password2" label="password2" value="#{ctrlUsuarios.a.password}" placeholder="Repita contraseña*" required="true" 
-                            requiredMessage="Campo contraseña2 obligatorio"/>
-                
-                <p:inputText id="empresa" placeholder="Empresa" value="#{ctrlUsuarios.a.empresa}"/>
-                
-                <p:inputText id="cargo" placeholder="Cargo" value="#{ctrlUsuarios.a.cargo}"/>
-                
-                <p:inputText id="telefono" placeholder="Telefono" value="#{ctrlUsuarios.a.telefono}"/>
-                
-                <p:selectOneMenu id="Rol" value="#{ctrlUsuarios.rol}" style="width:125px">
-                    <f:selectItem itemLabel="Usuario Registrado" itemValue="U" />  
-                    <f:selectItem itemLabel="Super Usuario" itemValue="S" />
-                    <f:selectItem itemLabel="Periodista" itemValue="P" />
-                    <f:selectItem itemLabel="Jefe De Redactores" itemValue="J" />
-                    <f:selectItem itemLabel="Administrador" itemValue="A" />
-                </p:selectOneMenu>
-            </h:panelGrid>  
-            
-            <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.nuevoUsuarioGestion()}" update="panel" styleClass="submit"/>
-        </h:form>
+                        <p:inputText id="dni" placeholder="DNI/NIF/NIE*"  value="#{ctrlUsuarios.a.dni}" required="true" requiredMessage="Campo dni obligatorio"
+                        validatorMessage="El dni no es correcto">
+                        <f:validateRegex pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" />
+                        </p:inputText>
+
+                        <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.a.password}" 
+                                    match="password2"  feedback="true" placeholder="Contraseña*" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                    goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+
+                        <p:password id="password2" label="password2" value="#{ctrlUsuarios.a.password}" placeholder="Repita contraseña*" required="true" 
+                                    requiredMessage="Campo contraseña2 obligatorio"/>
+
+                        <p:inputText id="empresa" placeholder="Empresa" value="#{ctrlUsuarios.a.empresa}"/>
+
+                        <p:inputText id="cargo" placeholder="Cargo" value="#{ctrlUsuarios.a.cargo}"/>
+
+                        <p:inputText id="telefono" placeholder="Telefono" value="#{ctrlUsuarios.a.telefono}"/>
+
+                        <p:selectOneMenu id="Rol" value="#{ctrlUsuarios.rol}" style="width:125px">
+                            <f:selectItem itemLabel="Usuario Registrado" itemValue="U" />  
+                            <f:selectItem itemLabel="Super Usuario" itemValue="S" />
+                            <f:selectItem itemLabel="Periodista" itemValue="P" />
+                            <f:selectItem itemLabel="Jefe De Redactores" itemValue="J" />
+                            <f:selectItem itemLabel="Administrador" itemValue="A" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>  
+
+                    <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.nuevoUsuarioGestion()}" update="panel" styleClass="submit"/>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>

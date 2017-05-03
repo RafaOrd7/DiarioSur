@@ -208,16 +208,27 @@ public class recogedorEventos {
         return "index.xhtml";
     }
     
-    public void megusta(){
+    public String megusta(){
         usuario=cta.getUsuarioLogeado();
-        System.out.println(usuario.getPassword());
         bd.MeGusta(seleccionado, usuario);
+        return "evento.xhtml";
+    }
+    
+    public int getNumeroMG(){
+        if(bd.getMegusta().isEmpty()){
+            return 0;
+        }
+        else if(bd.getMegusta().get(getSeleccionado())==null){
+            return 0;
+        }
+        return bd.getMegusta().get(getSeleccionado()).size();
     }
 
     public String enviarEvento() {
         usuario=cta.getUsuarioLogeado();
         anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
-        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);  
+        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
+        aux.setImagen(imagen);
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";

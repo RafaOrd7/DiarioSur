@@ -9,9 +9,13 @@
     <ui:define name="title">Gestión de Usuarios</ui:define>
     
     <ui:define name="content">
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
                 <c:choose>
+                    <h1>Editar usuario</h1>
                     <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
                         <h:form>
+                            <h:outputLabel for="rolUR" value="Rol: " />
                             <p:selectOneMenu id="rolUR" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
@@ -56,6 +60,7 @@
                     
                     <c:when test="#{ctrlUsuarios.rol=='SuperUsuario'}">
                         <h:form>
+                            <h:outputLabel for="rolSU" value="Rol: " />
                             <p:selectOneMenu id="rolSU" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
@@ -105,6 +110,7 @@
                     
                     <c:when test="#{ctrlUsuarios.rol=='Periodista'}">
                         <h:form>
+                            <h:outputLabel for="rolP" value="Rol: " />
                             <p:selectOneMenu id="rolP" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
@@ -164,6 +170,7 @@
                     
                     <c:when test="#{ctrlUsuarios.rol=='JefeDeRedactores'}">
                         <h:form>
+                            <h:outputLabel for="rolJDR" value="Rol: " />
                             <p:selectOneMenu id="rolJDR" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
@@ -223,6 +230,7 @@
                     
                     <c:when test="#{ctrlUsuarios.rol=='Administrador'}">
                         <h:form>
+                            <h:outputLabel for="rolA" value="Rol: " />
                             <p:selectOneMenu id="rolA" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
@@ -284,6 +292,11 @@
                         <tr><h2>Error, contacte con un administrador</h2></tr>     
                     </c:otherwise>
                 </c:choose>
-
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>       
+    
     </ui:define>
 </ui:composition>

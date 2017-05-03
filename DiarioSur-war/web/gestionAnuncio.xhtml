@@ -3,27 +3,33 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <ui:define name="title">Gestión anuncios</ui:define>
 
     <ui:define name="content">
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
 
-        
-        <h:form>
-            <h2>Anuncios</h2>
-            <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
-                <p:column headerText="Id">              
-                    <h:commandLink action="#{publicarAnuncio.ver(anuncio)}" value="#{anuncio.id_anuncio}"/>
-                </p:column>
-                <p:column headerText="Nombre de la empresa">
-                    <h:outputText value="#{anuncio.getEmpresa()}" />
-                </p:column>
-            </p:dataTable>
+                <h:form>
+                    <h2>Anuncios</h2>
+                    <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
+                        <p:column headerText="Id">              
+                            <h:commandLink action="#{publicarAnuncio.ver(anuncio)}" value="#{anuncio.id_anuncio}"/>
+                        </p:column>
+                        <p:column headerText="Nombre de la empresa">
+                            <h:outputText value="#{anuncio.getEmpresa()}" />
+                        </p:column>
+                    </p:dataTable>
 
-        </h:form>
-
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>  
     </ui:define>
 
 </ui:composition>
