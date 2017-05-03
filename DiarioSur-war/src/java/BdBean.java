@@ -258,6 +258,15 @@ public class BdBean implements Serializable{
         return null;
     }
     
+    public UsuarioRegistrado buscarPorId (String id) {
+        for (UsuarioRegistrado aux : ur) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
     public boolean existeUsuario (UsuarioRegistrado a) {
         for (UsuarioRegistrado aux : ur) {
             if (a.getEmail().equals(aux.getEmail())) {
@@ -504,6 +513,11 @@ public class BdBean implements Serializable{
         a.setPassword("asdf");
         crearUR(a);
         
+        superu.add(new SuperUsuario("S4", "titi", "chetos", "12312312K", "a@gmail.com", "123", "Ayuntamiento Málaga"));
+        peri.add(new Periodista("P5", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696"));
+        jdr.add(new JefeDeRedactores("J6", "Faso", "Erje", "12312332K", "jefe@uma.es", "asdf", "Burguer king", "friepapas", "676969696"));
+        contId = contId+3;
+        
         Anuncio an= new Anuncio(null,null,null,"Sobaco S.L.",null,null,null,null,null);
         anu.add(an);
         
@@ -517,11 +531,8 @@ public class BdBean implements Serializable{
         contId++;
         ev.add(e2);
        
-        
-        superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
-        //super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
-        peri.add(new Periodista("P6","Dista","Perio","12312312K","peri@uma.es","asdf","McDonalds","Barrendero","696969696"));
-        jdr.add(new JefeDeRedactores("J1222","Faso","Erje","12312332K","jefe@uma.es","asdf","Burguer king","friepapas","676969696"));
+        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
+
     }
     
 }
