@@ -45,19 +45,19 @@ public class recogedorEventos {
     private ctrlAutorizacion cta;
     private static Evento seleccionado;
 
-    public String editarEvento(){
+    public String editarEvento() {
         System.out.println(seleccionado.getId_evento());
-        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado,  anuncio);
+        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setId_evento(seleccionado.getId_evento());
         seleccionado = aux;
         bd.editarEvento(seleccionado);
         return "evento.xhtml";
     }
-     public String editar(){
+
+    public String editar() {
         return "editarEvento.xhtml";
     }
-    
-     
+
     public String getUrl() {
         return url;
     }
@@ -66,12 +66,6 @@ public class recogedorEventos {
         this.url = url;
     }
 
-    
-    
-
-    
-    
-
     public String getCompra() {
         return compra;
     }
@@ -79,7 +73,7 @@ public class recogedorEventos {
     public void setCompra(String compra) {
         this.compra = compra;
     }
-    
+
     public Anuncio getAnuncio() {
         return anuncio;
     }
@@ -96,7 +90,6 @@ public class recogedorEventos {
     public void setVerificado(Boolean verificado) {
         this.verificado = verificado;
     }
-    
 
     public UsuarioRegistrado getUsuario() {
         return usuario;
@@ -195,45 +188,41 @@ public class recogedorEventos {
 
     }
 
-    public String reportar() {    
-        
+    public String reportar() {
+
         return "EnviarReporte";
     }
-    
-    public String eliminarEvento(){
+
+    public String eliminarEvento() {
         System.out.println("PUYTAVIDA");
         bd.eliminarEvento(seleccionado);
-       
-                
+
         return "index.xhtml";
     }
-    
-    public String megusta(){
-        usuario=cta.getUsuarioLogeado();
+
+    public String megusta() {
+        usuario = cta.getUsuarioLogeado();
         bd.MeGusta(seleccionado, usuario);
         return "evento.xhtml";
     }
-    
-    public int getNumeroMG(){
-        if(bd.getMegusta().isEmpty()){
+
+    public int getNumeroMG() {
+        if (bd.getMegusta().isEmpty()) {
             return 0;
-        }
-        else if(bd.getMegusta().get(getSeleccionado())==null){
+        } else if (bd.getMegusta().get(getSeleccionado()) == null) {
             return 0;
         }
         return bd.getMegusta().get(getSeleccionado()).size();
     }
 
     public String enviarEvento() {
-        usuario=cta.getUsuarioLogeado();
-        anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
-        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
+        usuario = cta.getUsuarioLogeado();
+        anuncio = bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
+        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
     }
-
-   
 
 }
