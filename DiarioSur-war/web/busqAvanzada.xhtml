@@ -9,75 +9,84 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:define name="title">Busqueda Avanzada</ui:define>
     <ui:define name="content">
-        <h:form>
-            <h3>Busqueda</h3>
-            <table align="center">
-                <tr>
-                    <td><p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/></td>
-                </tr>
-                <tr>
-                    <td>#{busquedaAvanzada.nombre} Palabra Clave</td>
-                </tr>
-                <tr>
-                    <td> <h:selectOneRadio value="#{busquedaAvanzada.tipo}">
-                            <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
-                            <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
-                            <f:selectItem itemValue="musical" itemLabel="Musical" />
-                            <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
-                            <f:selectItem itemValue="teatral" itemLabel="teatral" />
-                            <f:selectItem itemValue="otro"  itemLabel="otro" />
-                        </h:selectOneRadio></td>
-                </tr>
-                <tr>
-                    <td><p:inputNumber id="precio" value="#{busquedaAvanzada.precio}"/></td>
-                </tr>
-                <tr>
-                    <td><p:outputLabel for="datetime" /><p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha"/></td>
-                </tr>
-                <tr>
-                    <td><p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="Lugar"/></td>
-                </tr>
-                <tr>
-                    <td><p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="Descripcion"/></td>
-                </tr>
-                <tr>
-                    <td><p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="Tags"/></td>
-                </tr>
-                <tr>
-                    <td><p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick" ajax="false"/></td>
-                </tr>
-            </table>
-        </h:form>
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkLog()}">
+        
+                <h:form>
+                    <h3>Busqueda</h3>
+                    <table align="center">
+                        <tr>
+                            <td><p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/></td>
+                        </tr>
+                        <tr>
+                            <td>#{busquedaAvanzada.nombre} Palabra Clave</td>
+                        </tr>
+                        <tr>
+                            <td> <h:selectOneRadio value="#{busquedaAvanzada.tipo}">
+                                    <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                                    <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                                    <f:selectItem itemValue="musical" itemLabel="Musical" />
+                                    <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                                    <f:selectItem itemValue="teatral" itemLabel="teatral" />
+                                    <f:selectItem itemValue="otro"  itemLabel="otro" />
+                                </h:selectOneRadio></td>
+                        </tr>
+                        <tr>
+                            <td><p:inputNumber id="precio" value="#{busquedaAvanzada.precio}"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:outputLabel for="datetime" /><p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="Lugar"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="Descripcion"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="Tags"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick" ajax="false"/></td>
+                        </tr>
+                    </table>
+                </h:form>
 
-        <c:if test="#{busquedaAvanzada.isEncontrado()}">
-            <h1>Resultados</h1>
-            <h:form> 
-                <p:dataScroller value="#{busquedaAvanzada.getListaBusqueda()}" var="evento">
-                    <f:facet name="header">
-                        Eventos
-                    </f:facet>
+                <c:if test="#{busquedaAvanzada.isEncontrado()}">
+                    <h1>Resultados</h1>
+                    <h:form> 
+                        <p:dataScroller value="#{busquedaAvanzada.getListaBusqueda()}" var="evento">
+                            <f:facet name="header">
+                                Eventos
+                            </f:facet>
 
-                    <f:facet name="loader">
-                        <p:commandButton type="button" value="Más" icon="ui-icon-circle-triangle-s"/>
-                    </f:facet>
+                            <f:facet name="loader">
+                                <p:commandButton type="button" value="Más" icon="ui-icon-circle-triangle-s"/>
+                            </f:facet>
 
-                    <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                        <p:outputPanel>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputText value="Nombre:" />
-                                <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
 
-                                <h:outputText value="Fecha:" />
-                                <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
 
-                                <h:outputText value="Lugar" />
-                                <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
+                                        <h:outputText value="Lugar" />
+                                        <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
                             </h:panelGrid>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:dataScroller>
-            </h:form>
-        </c:if>
+                        </p:dataScroller>
+                    </h:form>
+                </c:if>
+        
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>  
     </ui:define>
 </ui:composition>
 

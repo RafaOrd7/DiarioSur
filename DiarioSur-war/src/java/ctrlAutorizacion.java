@@ -45,6 +45,19 @@ public class ctrlAutorizacion implements Serializable {
         return "index.xhtml";
     }
 
+    public boolean checkAdm(){
+        if(usuarioLogeado!=null && usuarioLogeado.getIdUser().charAt(0) == 'A'){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean checkLog() {
+        return usuarioLogeado != null;
+    }
+    
+    
+    
     public UsuarioRegistrado getUsuarioLogeado() {
         return usuarioLogeado;
     }

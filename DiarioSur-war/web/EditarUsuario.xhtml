@@ -2,40 +2,51 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:define name="title">Gestión de Usuarios</ui:define>
     
     <ui:define name="content">
-        <h:form>
-            <h:panelGrid columns="2"  columnClasses="column" cellpadding="5">
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+        
+                <h:form>
+                    <h:panelGrid columns="2"  columnClasses="column" cellpadding="5">
 
-                <h:outputLabel value="ID Usuario: " />
-                #{ctrlUsuarios.usuario.idUser}
-                
-                <h:outputLabel for="nombre" value="Nombre: " />
-                <p:inplace id="nombre">
-                    <p:inputText value="#{ctrlUsuarios.usuario.nombre}" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="apellidos" value="Apellidos: " />
-                <p:inplace id="apellidos">
-                    <p:inputText value="#{ctrlUsuarios.usuario.apellidos}" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="email" value="Email: " />
-                <p:inplace id="email">
-                    <p:inputText value="#{ctrlUsuarios.usuario.email}" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
-                <p:inplace id="dni">
-                    <p:inputText value="#{ctrlUsuarios.usuario.dni}" required="true"/>
-                </p:inplace>                              
-                
-                <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.editarUsuario}" styleClass="submit"/>
-                <p:commandButton value="Cancelar" id="cancel" action="#{ctrlUsuarios.editarUsuario}" styleClass="submit"/>
-            </h:panelGrid>
-        </h:form>
+                        <h:outputLabel value="ID Usuario: " />
+                        #{ctrlUsuarios.usuario.idUser}
+
+                        <h:outputLabel for="nombre" value="Nombre: " />
+                        <p:inplace id="nombre">
+                            <p:inputText value="#{ctrlUsuarios.usuario.nombre}" required="true"/>
+                        </p:inplace>
+
+                        <h:outputLabel for="apellidos" value="Apellidos: " />
+                        <p:inplace id="apellidos">
+                            <p:inputText value="#{ctrlUsuarios.usuario.apellidos}" required="true"/>
+                        </p:inplace>
+
+                        <h:outputLabel for="email" value="Email: " />
+                        <p:inplace id="email">
+                            <p:inputText value="#{ctrlUsuarios.usuario.email}" required="true"/>
+                        </p:inplace>
+
+                        <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                        <p:inplace id="dni">
+                            <p:inputText value="#{ctrlUsuarios.usuario.dni}" required="true"/>
+                        </p:inplace>                              
+
+                        <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.editarUsuario}" styleClass="submit"/>
+                        <p:commandButton value="Cancelar" id="cancel" action="#{ctrlUsuarios.editarUsuario}" styleClass="submit"/>
+                    </h:panelGrid>
+                </h:form>
+   
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>       
+    
     </ui:define>
 </ui:composition>
