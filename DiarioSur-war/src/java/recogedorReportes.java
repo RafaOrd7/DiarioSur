@@ -55,6 +55,7 @@ public class recogedorReportes {
         return "GestionarReporte";
 
     }
+
     public String eliminarEv() {
         bd.eliminarReporteEv(seleccionado);
         return "GestionarReporte";
@@ -62,10 +63,17 @@ public class recogedorReportes {
     }
 
     public List<Reporte> getReportesEv() {
+        
+        if(bd.getRepEv().size()==0){
+            return null;
+        }
         return bd.getRepEv();
     }
-    
+
     public List<Reporte> getReportesVal() {
+        if(bd.getRepVal().size()==0){
+            return null;
+        }
         return bd.getRepVal();
     }
 
@@ -90,18 +98,26 @@ public class recogedorReportes {
     }
 
     public String enviarReporte() {
-        Evento ev=recogedorEventos.getSeleccionado();
-        UsuarioRegistrado user=cta.getUsuarioLogeado();
-        Valoracion val=null;//recogedorValoraciones.getSeleccionado();
+        Evento ev = recogedorEventos.getSeleccionado();
+        UsuarioRegistrado user = cta.getUsuarioLogeado();
+        Valoracion val = null;//recogedorValoraciones.getSeleccionado();
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
-        if(val==null){
-            bd.crearReporteEv(aux);
-        }else if(ev==null){
-            bd.crearReporteVal(aux);
-        }
-        
+
+        bd.crearReporteEv(aux);
+
         return "index.xhtml";
     }
 
+    public String enviarReporteVal() {
+        Evento ev = recogedorEventos.getSeleccionado();
+        UsuarioRegistrado user = cta.getUsuarioLogeado();
+        Valoracion val = recogedorValoraciones.getSeleccionada();
+        val.setEvento(ev);
+        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
+
+        bd.crearReporteVal(aux);
+
+        return "index.xhtml";
+    }
 
 }
