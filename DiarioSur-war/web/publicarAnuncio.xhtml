@@ -45,8 +45,6 @@
                         <tr>
                             <td><p:inputText value="#{publicarAnuncio.prioridad}"/></td>
                         </tr>
-
-
                         <tr>
                             <td><h4>Tags:</h4></td>
                         </tr>
@@ -59,43 +57,14 @@
                         <tr>
                             <td><p:inputText value="#{publicarAnuncio.eventos}"/></td>
                         </tr>
-
                         <tr>
                             <td><h4>Tipos de eventos en los que quiere que aparezca el anuncio:</h4></td>
-                        </tr>
-                        <tr>
-                            <p:growl id="msg" />
-
-                            <h:panelGrid  columns="2" style="margin-bottom:10px" cellpadding="5">
-                                <h:outputText value="Concierto: " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.concierto}" />
-
-                                <h:outputText value="Exposicion " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.exposicion}"/>
-
-                                <h:outputText value="Musical " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.musical}"/>
-
-                                <h:outputText value="Deportivo " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.deportivo}"/>
-
-                                <h:outputText value="Teatral " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.teatral}"/>
-
-                                <h:outputText value="Otro " />
-                                <p:selectBooleanCheckbox value="#{publicarAnuncio.otro}"/>
-
-
-
-                            </h:panelGrid>
-                        </tr>
+                        </tr>                       
                         <tr>                   
                             <td><h:commandButton value="Subir" action="#{publicarAnuncio.subirAnuncio()}"></h:commandButton></td>
                         </tr>
                     </table>
-
-                </h:form>
-                
+                </h:form>                
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>

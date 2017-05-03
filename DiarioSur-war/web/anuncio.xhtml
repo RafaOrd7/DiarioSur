@@ -8,30 +8,43 @@
     
     
     <ui:define name="content">
-        
+        <h:form>
         <table align="center">
              <tr>
-                <td><h4>Id: #{enviarAnuncio.getSeleccionado.getIdAnuncio()}</h4></td>
+                <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
             </tr>
              <tr>
-                <td><h4>Empresa: #{enviarAnuncio.getSeleccionado().getNombre()} </h4></td>
+                <td><h4>Empresa: #{publicarAnuncio.getSeleccionado().getEmpresa()} </h4></td>
             </tr>           
             <tr>
-                <td><h4>Fecha de inicio: #{enviarAnuncio.getSeleccionado().getFechaInicio()} </h4></td>
+                <td><h4>Fecha de inicio: #{publicarAnuncio.getSeleccionado().getFechaPublicacion()} </h4></td>
             </tr>
              <tr>
-                <td><h4>Fecha de expiracion: #{enviarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
+                <td><h4>Fecha de expiracion: #{publicarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Prioridad #{enviarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
+                <td><h4>Prioridad #{publicarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Descripción: #{enviarAnuncio.getSeleccionado().getTags()}</h4></td>
+                <td><h4>Descripción: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
             </tr>
             
-        </table>
+        <tr> 
+                    <td>
+                        <p:commandButton value="Eliminar Anuncio">
+                            <p:confirm header="Eliminar Anuncio" message="¿Estás seguro de que quieres eliminar el anuncio?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </td>
+
+                </tr>
+            </table>
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:button value="Si" outcome="#{publicarAnuncio.eliminarAnuncio()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
              
-        
+    </h:form>
         
     </ui:define>
     
