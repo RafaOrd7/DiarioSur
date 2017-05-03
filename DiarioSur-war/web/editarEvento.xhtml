@@ -23,14 +23,14 @@
                     <td><h4>Nombre evento:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText placeholder="#{recogedorEventos.getSeleccionado().getNombre()}" value="#{recogedorEventos.nombre}"/></td>
+                    <td><p:inputText id="Nombre_evento" required="true" placeholder="#{recogedorEventos.getSeleccionado().getNombre()}" value="#{recogedorEventos.nombre}"/></td>
                 </tr>
 
                 <tr>
                     <td><h4>Tipo:</h4></td>
                 </tr>
                 <tr>
-                    <td> <h:selectOneRadio  value="#{recogedorEventos.tipo}">
+                    <td> <h:selectOneRadio id="Tipo" required="true"  value="#{recogedorEventos.tipo}">
                             <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
                             <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
                             <f:selectItem itemValue="musical" itemLabel="Musical" />
@@ -43,44 +43,44 @@
                     <td><h4>Fecha:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:outputLabel for="datetime" />
-                        <p:calendar  placeholder="#{recogedorEventos.getSeleccionado().getFecha()}" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
+                    <td><p:outputLabel  for="datetime" />
+                        <p:calendar required="true"  placeholder="#{recogedorEventos.getSeleccionado().getFecha()}" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
                 </tr>
                 <tr>
                     <td><h4>Lugar:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText placeholder="#{recogedorEventos.getSeleccionado().getGeolocalizacion()}" value="#{recogedorEventos.lugar}"/></td>
+                    <td><p:inputText id="Lugar"placeholder="#{recogedorEventos.getSeleccionado().getGeolocalizacion()}" value="#{recogedorEventos.lugar}"/></td>
                 </tr> 
                 <tr>
                     <td><h4>Precio:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputNumber placeholder="#{recogedorEventos.getSeleccionado().getPrecio()}" value="#{recogedorEventos.precio}"/></td>
+                    <td><p:inputNumber id="Precio" required="true"placeholder="#{recogedorEventos.getSeleccionado().getPrecio()}" value="#{recogedorEventos.precio}"/></td>
                 </tr>
                 <tr>
                     <td><h4>Web compra:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText placeholder="#{recogedorEventos.getSeleccionado().getCompra()}"  value="#{recogedorEventos.compra}"/></td>
+                    <td><p:inputText id="Web" required="true" placeholder="#{recogedorEventos.getSeleccionado().getCompra()}"  value="#{recogedorEventos.compra}"/></td>
                 </tr>
                 <tr>
                     <td><h4>Verificado </h4></td>
                     </tr>
                 <tr>
-                    <td><p:selectBooleanButton  id="value1" value="#{recogedorEventos.verificado}" onLabel="Si" offLabel="No" /></td>
+                    <td><p:selectBooleanButton id="Verificado" required="true" id="value1" value="#{recogedorEventos.verificado}" onLabel="Si" offLabel="No" /></td>
                 </tr>
                 <tr>
                     <td><h4>Descripción del evento:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputTextarea placeholder="#{recogedorEventos.getSeleccionado().getDescripcion()}" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}"/></td>
+                    <td><p:inputTextarea id="Descripcion" placeholder="#{recogedorEventos.getSeleccionado().getDescripcion()}" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}"/></td>
                 </tr>
                 <tr>
                     <td><h4>Tags:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputTextarea placeholder="#{recogedorEventos.getSeleccionado().getTags()}" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}"/></td>
+                    <td><p:inputTextarea id="Tags" required="true" placeholder="#{recogedorEventos.getSeleccionado().getTags()}" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}"/></td>
                 </tr>
                 <tr>                   
                     <td><h:commandButton value="Subir" action="#{recogedorEventos.editarEvento()}"></h:commandButton></td>

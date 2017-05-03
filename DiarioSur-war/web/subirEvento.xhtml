@@ -23,14 +23,14 @@
                     <td><h4>Nombre evento:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText value="#{recogedorEventos.nombre}"/></td>
+                    <td><p:inputText id="Nombre_evento" required="true" value="#{recogedorEventos.nombre}"/></td>
                 </tr>
 
                 <tr>
                     <td><h4>Tipo:</h4></td>
                 </tr>
                 <tr>
-                    <td> <h:selectOneRadio value="#{recogedorEventos.tipo}">
+                    <td> <h:selectOneRadio id="Tipo" required="true" value="#{recogedorEventos.tipo}">
                             <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
                             <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
                             <f:selectItem itemValue="musical" itemLabel="Musical" />
@@ -44,43 +44,43 @@
                 </tr>
                 <tr>
                     <td><p:outputLabel for="datetime" />
-                        <p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
+                        <p:calendar required="true" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
                 </tr>
                 <tr>
                     <td><h4>Lugar:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText value="#{recogedorEventos.lugar}"/></td>
+                    <td><p:inputText id="Lugar" value="#{recogedorEventos.lugar}"/></td>
                 </tr> 
                 <tr>
                     <td><h4>Precio:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputNumber  value="#{recogedorEventos.precio}"/></td>
+                    <td><p:inputNumber id="Precio" required="true" value="#{recogedorEventos.precio}"/></td>
                 </tr>
                 <tr>
                 <td><h4>Web compra:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputText  value="#{recogedorEventos.compra}"/></td>
+                    <td><p:inputText id="Web" required="true" value="#{recogedorEventos.compra}"/></td>
                 </tr>
                  <tr>
                     <td><h4>Verificado </h4></td>
                     </tr>
                 <tr>
-                    <td><p:selectBooleanButton id="value1" value="#{recogedorEventos.verificado}" onLabel="Si" offLabel="No" /></td>
+                    <td><p:selectBooleanButton id="Verificado" required="true"  value="#{recogedorEventos.verificado}" onLabel="Si" offLabel="No" /></td>
                 </tr>
                 <tr>
                     <td><h4>Descripción del evento:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputTextarea  rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}" /></td>
+                    <td><p:inputTextarea id="Descripción" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}" /></td>
                 </tr>
                 <tr>
                     <td><h4>Tags:</h4></td>
                 </tr>
                 <tr>
-                    <td><p:inputTextarea rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" /></td>
+                    <td><p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" /></td>
                 </tr>
                 <tr>                   
                     <td><h:commandButton value="Subir" action="#{recogedorEventos.enviarEvento()}"></h:commandButton></td>
