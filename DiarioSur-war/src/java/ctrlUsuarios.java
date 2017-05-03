@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -37,7 +38,7 @@ public class ctrlUsuarios implements Serializable {
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
     
-    private String rol = "";
+    private static String rol = "";
     
     
     @Inject
@@ -46,6 +47,9 @@ public class ctrlUsuarios implements Serializable {
     @Inject
     private ctrlAutorizacion cta;
 
+    public String pene() {
+        return "index.xhtml";
+    }
     
     public ctrlUsuarios() {  
         this.p = new Periodista("P1333", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696");
@@ -296,54 +300,441 @@ public class ctrlUsuarios implements Serializable {
     }
     
     public String editarUsuarioRegistrado () {
-
         switch (rol) {
             case "Administrador":
+                Administrador adm = new Administrador();
+                adm.setIdUser("A" + usuario.getIdUser().substring(1));
+                adm.setNombre(usuario.getNombre());
+                adm.setApellidos(usuario.getApellidos());
+                adm.setDni(usuario.getDni());
+                adm.setEmail(usuario.getEmail());
+                adm.setPassword(usuario.getPassword());
+                adm.setPreferencias(usuario.getPreferencias());
+                adm.setMultimedia(usuario.getMultimedia());
+                adm.setHistorialEventos(usuario.getHistorialEventos());
+                
+                bd.getAdmin().add(adm);
+                bd.eliminarUR(usuario);
                 break;
             case "JefeDeRedactores":
+                JefeDeRedactores jdre = new JefeDeRedactores();
+                jdre.setIdUser("J" + usuario.getIdUser().substring(1));
+                jdre.setNombre(usuario.getNombre());
+                jdre.setApellidos(usuario.getApellidos());
+                jdre.setDni(usuario.getDni());
+                jdre.setEmail(usuario.getEmail());
+                jdre.setPassword(usuario.getPassword());
+                jdre.setPreferencias(usuario.getPreferencias());
+                jdre.setMultimedia(usuario.getMultimedia());
+                jdre.setHistorialEventos(usuario.getHistorialEventos());
+
+                bd.getJdr().add(jdre);
+                bd.eliminarUR(usuario);
                 break;
             case "Periodista":
+                Periodista per = new Periodista();
+                per.setIdUser("P" + usuario.getIdUser().substring(1));
+                per.setNombre(usuario.getNombre());
+                per.setApellidos(usuario.getApellidos());
+                per.setDni(usuario.getDni());
+                per.setEmail(usuario.getEmail());
+                per.setPassword(usuario.getPassword());
+                per.setPreferencias(usuario.getPreferencias());
+                per.setMultimedia(usuario.getMultimedia());
+                per.setHistorialEventos(usuario.getHistorialEventos());
+
+                bd.getPeri().add(per);
+                bd.eliminarUR(usuario);
                 break;
             case "SuperUsuario":
+                SuperUsuario sup = new SuperUsuario();
+                sup.setIdUser("S" + usuario.getIdUser().substring(1));
+                sup.setNombre(usuario.getNombre());
+                sup.setApellidos(usuario.getApellidos());
+                sup.setDni(usuario.getDni());
+                sup.setEmail(usuario.getEmail());
+                sup.setPassword(usuario.getPassword());
+                sup.setPreferencias(usuario.getPreferencias());
+                sup.setMultimedia(usuario.getMultimedia());
+                sup.setHistorialEventos(usuario.getHistorialEventos());
+
+                bd.getSuperu().add(sup);
+                bd.eliminarUR(usuario);
                 break;
             case "UsuarioRegistrado":
                 UsuarioRegistrado aux = bd.buscarUR(usuario);
                 aux.setNombre(usuario.getNombre());
                 aux.setApellidos(usuario.getApellidos());
                 aux.setDni(usuario.getDni());
-                aux.setEmail(usuario.getEmail());  
+                aux.setEmail(usuario.getEmail());
+                aux.setPassword(usuario.getPassword());
+                aux.setPreferencias(usuario.getPreferencias());
+                aux.setMultimedia(usuario.getMultimedia());
+                aux.setHistorialEventos(usuario.getHistorialEventos());
+
                 break;
         }
-        return "gestionusuario.xhtml";
+        return "gestionUsuario.xhtml";
     }
     
-    
     public String editarSuperUsuario() {
+        switch (rol) {
+            case "Administrador":
+                Administrador adm = new Administrador();
+                adm.setIdUser("A" + su.getIdUser().substring(1));
+                adm.setNombre(su.getNombre());
+                adm.setApellidos(su.getApellidos());
+                adm.setDni(su.getDni());
+                adm.setEmail(su.getEmail());
+                adm.setPassword(su.getPassword());
+                adm.setPreferencias(su.getPreferencias());
+                adm.setMultimedia(su.getMultimedia());
+                adm.setHistorialEventos(su.getHistorialEventos());
 
-        //usuario.set
-        // Por implementar
-        return null;
+                adm.setEmpresa(su.getEmpresa());
+                
+                bd.getAdmin().add(adm);
+                bd.eliminarSU(su);
+                break;
+            case "JefeDeRedactores":
+                JefeDeRedactores jdre = new JefeDeRedactores();
+                jdre.setIdUser("J" + su.getIdUser().substring(1));
+                jdre.setNombre(su.getNombre());
+                jdre.setApellidos(su.getApellidos());
+                jdre.setDni(su.getDni());
+                jdre.setEmail(su.getEmail());
+                jdre.setPassword(su.getPassword());
+                jdre.setPreferencias(su.getPreferencias());
+                jdre.setMultimedia(su.getMultimedia());
+                jdre.setHistorialEventos(su.getHistorialEventos());
+
+                jdre.setEmpresa(su.getEmpresa());
+                
+                bd.getJdr().add(jdre);
+                bd.eliminarSU(su);
+                break;
+            case "Periodista":
+                Periodista per = new Periodista();
+                per.setIdUser("P" + su.getIdUser().substring(1));
+                per.setNombre(su.getNombre());
+                per.setApellidos(su.getApellidos());
+                per.setDni(su.getDni());
+                per.setEmail(su.getEmail());
+                per.setPassword(su.getPassword());
+                per.setPreferencias(su.getPreferencias());
+                per.setMultimedia(su.getMultimedia());
+                per.setHistorialEventos(su.getHistorialEventos());
+
+                per.setEmpresa(su.getEmpresa());
+                
+                bd.getPeri().add(per);
+                bd.eliminarSU(su);
+                break;
+            case "SuperUsuario":
+                SuperUsuario sup = bd.buscarSU(su);
+                sup.setNombre(su.getNombre());
+                sup.setApellidos(su.getApellidos());
+                sup.setDni(su.getDni());
+                sup.setEmail(su.getEmail());
+                sup.setPassword(su.getPassword());
+                sup.setPreferencias(su.getPreferencias());
+                sup.setMultimedia(su.getMultimedia());
+                sup.setHistorialEventos(su.getHistorialEventos());
+                
+                sup.setEmpresa(su.getEmpresa());
+                
+                break;
+            case "UsuarioRegistrado":
+                UsuarioRegistrado ure = new UsuarioRegistrado();
+                ure.setIdUser("U" + su.getIdUser().substring(1));
+                ure.setNombre(su.getNombre());
+                ure.setApellidos(su.getApellidos());
+                ure.setDni(su.getDni());
+                ure.setEmail(su.getEmail());
+                ure.setPassword(su.getPassword());
+                ure.setPreferencias(su.getPreferencias());
+                ure.setMultimedia(su.getMultimedia());
+                ure.setHistorialEventos(su.getHistorialEventos());
+
+                bd.getUr().add(ure);
+                bd.eliminarSU(su);
+                break;
+        }
+        return "gestionUsuario.xhtml";
     }
     
     public String editarPeriodista() {
+             switch (rol) {
+            case "Administrador":
+                Administrador adm = new Administrador();
+                adm.setIdUser("A" + p.getIdUser().substring(1));
+                adm.setNombre(p.getNombre());
+                adm.setApellidos(p.getApellidos());
+                adm.setDni(p.getDni());
+                adm.setEmail(p.getEmail());
+                adm.setPassword(p.getPassword());
+                adm.setPreferencias(p.getPreferencias());
+                adm.setMultimedia(p.getMultimedia());
+                adm.setHistorialEventos(p.getHistorialEventos());
 
-        //usuario.set
-        // Por implementar
-        return null;
+                adm.setEmpresa(p.getEmpresa());
+                adm.setCargo(p.getCargo());
+                adm.setTelefono(p.getTelefono());
+                
+                bd.getAdmin().add(adm);
+                bd.eliminarPeriodista(p);
+                break;
+            case "JefeDeRedactores":
+                JefeDeRedactores jdre = new JefeDeRedactores();
+                jdre.setIdUser("J" + p.getIdUser().substring(1));
+                jdre.setNombre(p.getNombre());
+                jdre.setApellidos(p.getApellidos());
+                jdre.setDni(p.getDni());
+                jdre.setEmail(p.getEmail());
+                jdre.setPassword(p.getPassword());
+                jdre.setPreferencias(p.getPreferencias());
+                jdre.setMultimedia(p.getMultimedia());
+                jdre.setHistorialEventos(p.getHistorialEventos());
+
+                jdre.setEmpresa(p.getEmpresa());
+                jdre.setCargo(p.getCargo());
+                jdre.setTelefono(p.getTelefono());
+                
+                bd.getJdr().add(jdre);
+                bd.eliminarPeriodista(p);
+                break;
+            case "Periodista":
+                Periodista per = bd.buscarPeriodista(p);
+                per.setNombre(p.getNombre());
+                per.setApellidos(p.getApellidos());
+                per.setDni(p.getDni());
+                per.setEmail(p.getEmail());
+                per.setPassword(p.getPassword());
+                per.setPreferencias(p.getPreferencias());
+                per.setMultimedia(p.getMultimedia());
+                per.setHistorialEventos(p.getHistorialEventos());
+
+                per.setEmpresa(p.getEmpresa());
+                per.setCargo(p.getCargo());
+                per.setTelefono(p.getTelefono());
+                break;
+            case "SuperUsuario":
+                SuperUsuario sup = new SuperUsuario();
+                sup.setIdUser("S" + p.getIdUser().substring(1));
+                sup.setNombre(p.getNombre());
+                sup.setApellidos(p.getApellidos());
+                sup.setDni(p.getDni());
+                sup.setEmail(p.getEmail());
+                sup.setPassword(p.getPassword());
+                sup.setPreferencias(p.getPreferencias());
+                sup.setMultimedia(p.getMultimedia());
+                sup.setHistorialEventos(p.getHistorialEventos());
+                
+                sup.setEmpresa(p.getEmpresa());
+                
+                bd.getSuperu().add(sup);
+                bd.eliminarPeriodista(p);
+                
+                break;
+            case "UsuarioRegistrado":
+                UsuarioRegistrado ure = new UsuarioRegistrado();
+                ure.setIdUser("U" + p.getIdUser().substring(1));
+                ure.setNombre(p.getNombre());
+                ure.setApellidos(p.getApellidos());
+                ure.setDni(p.getDni());
+                ure.setEmail(p.getEmail());
+                ure.setPassword(p.getPassword());
+                ure.setPreferencias(p.getPreferencias());
+                ure.setMultimedia(p.getMultimedia());
+                ure.setHistorialEventos(p.getHistorialEventos());
+
+                bd.getUr().add(ure);
+                bd.eliminarPeriodista(p);
+                break;
+        }
+        return "gestionUsuario.xhtml";
     }
     
     public String editarJefeDeRedactores() {
+        switch (rol) {
+            case "Administrador":
+                Administrador adm = new Administrador();
+                adm.setIdUser("A" + jdr.getIdUser().substring(1));
+                adm.setNombre(jdr.getNombre());
+                adm.setApellidos(jdr.getApellidos());
+                adm.setDni(jdr.getDni());
+                adm.setEmail(jdr.getEmail());
+                adm.setPassword(jdr.getPassword());
+                adm.setPreferencias(jdr.getPreferencias());
+                adm.setMultimedia(jdr.getMultimedia());
+                adm.setHistorialEventos(jdr.getHistorialEventos());
 
-        //usuario.set
-        // Por implementar
-        return null;
+                adm.setEmpresa(jdr.getEmpresa());
+                adm.setCargo(jdr.getCargo());
+                adm.setTelefono(jdr.getTelefono());
+
+                bd.getAdmin().add(adm);
+                bd.eliminarJDR(jdr);
+                break;
+            case "JefeDeRedactores":
+                JefeDeRedactores jdre = bd.buscarJDR(jdr);
+                jdre.setNombre(jdr.getNombre());
+                jdre.setApellidos(jdr.getApellidos());
+                jdre.setDni(jdr.getDni());
+                jdre.setEmail(jdr.getEmail());
+                jdre.setPassword(jdr.getPassword());
+                jdre.setPreferencias(jdr.getPreferencias());
+                jdre.setMultimedia(jdr.getMultimedia());
+                jdre.setHistorialEventos(jdr.getHistorialEventos());
+
+                jdre.setEmpresa(jdr.getEmpresa());
+                jdre.setCargo(jdr.getCargo());
+                jdre.setTelefono(jdr.getTelefono());
+                break;
+            case "Periodista":
+                Periodista per = new Periodista();
+                per.setIdUser("P" + jdr.getIdUser().substring(1));
+                per.setNombre(jdr.getNombre());
+                per.setApellidos(jdr.getApellidos());
+                per.setDni(jdr.getDni());
+                per.setEmail(jdr.getEmail());
+                per.setPassword(jdr.getPassword());
+                per.setPreferencias(jdr.getPreferencias());
+                per.setMultimedia(jdr.getMultimedia());
+                per.setHistorialEventos(jdr.getHistorialEventos());
+
+                per.setEmpresa(jdr.getEmpresa());
+                per.setCargo(jdr.getCargo());
+                per.setTelefono(jdr.getTelefono());
+                
+                bd.getPeri().add(per);
+                bd.eliminarJDR(jdr);
+                break;
+            case "SuperUsuario":
+                SuperUsuario sup = new SuperUsuario();
+                sup.setIdUser("S" + jdr.getIdUser().substring(1));
+                sup.setNombre(jdr.getNombre());
+                sup.setApellidos(jdr.getApellidos());
+                sup.setDni(jdr.getDni());
+                sup.setEmail(jdr.getEmail());
+                sup.setPassword(jdr.getPassword());
+                sup.setPreferencias(jdr.getPreferencias());
+                sup.setMultimedia(jdr.getMultimedia());
+                sup.setHistorialEventos(jdr.getHistorialEventos());
+
+                sup.setEmpresa(jdr.getEmpresa());
+
+                bd.getSuperu().add(sup);
+                bd.eliminarJDR(jdr);
+                break;
+            case "UsuarioRegistrado":
+                UsuarioRegistrado ure = new UsuarioRegistrado();
+                ure.setIdUser("U" + jdr.getIdUser().substring(1));
+                ure.setNombre(jdr.getNombre());
+                ure.setApellidos(jdr.getApellidos());
+                ure.setDni(jdr.getDni());
+                ure.setEmail(jdr.getEmail());
+                ure.setPassword(jdr.getPassword());
+                ure.setPreferencias(jdr.getPreferencias());
+                ure.setMultimedia(jdr.getMultimedia());
+                ure.setHistorialEventos(jdr.getHistorialEventos());
+
+                bd.getUr().add(ure);
+                bd.eliminarJDR(jdr);
+                break;
+        }
+        return "gestionUsuario.xhtml";
     }
     
     public String editarAdministrador() {
-        
-        //usuario.set
-        // Por implementar
-        return null;
+        switch (rol) {
+            case "Administrador":
+                Administrador adm = bd.buscarAdmin(a);
+                adm.setNombre(a.getNombre());
+                adm.setApellidos(a.getApellidos());
+                adm.setDni(a.getDni());
+                adm.setEmail(a.getEmail());
+                adm.setPassword(a.getPassword());
+                adm.setPreferencias(a.getPreferencias());
+                adm.setMultimedia(a.getMultimedia());
+                adm.setHistorialEventos(a.getHistorialEventos());
+
+                adm.setEmpresa(a.getEmpresa());
+                adm.setCargo(a.getCargo());
+                adm.setTelefono(a.getTelefono());
+                break;
+            case "JefeDeRedactores":
+                JefeDeRedactores jdre = new JefeDeRedactores();
+                jdre.setIdUser("J" + a.getIdUser().substring(1));
+                jdre.setNombre(a.getNombre());
+                jdre.setApellidos(a.getApellidos());
+                jdre.setDni(a.getDni());
+                jdre.setEmail(a.getEmail());
+                jdre.setPassword(a.getPassword());
+                jdre.setPreferencias(a.getPreferencias());
+                jdre.setMultimedia(a.getMultimedia());
+                jdre.setHistorialEventos(a.getHistorialEventos());
+
+                jdre.setEmpresa(a.getEmpresa());
+                jdre.setCargo(a.getCargo());
+                jdre.setTelefono(a.getTelefono());
+                
+                bd.getJdr().add(jdre);
+                bd.eliminarAdmin(a);
+                break;
+            case "Periodista":
+                Periodista per = new Periodista();
+                per.setIdUser("P" + a.getIdUser().substring(1));
+                per.setNombre(a.getNombre());
+                per.setApellidos(a.getApellidos());
+                per.setDni(a.getDni());
+                per.setEmail(a.getEmail());
+                per.setPassword(a.getPassword());
+                per.setPreferencias(a.getPreferencias());
+                per.setMultimedia(a.getMultimedia());
+                per.setHistorialEventos(a.getHistorialEventos());
+
+                per.setEmpresa(a.getEmpresa());
+                per.setCargo(a.getCargo());
+                per.setTelefono(a.getTelefono());
+
+                bd.getPeri().add(per);
+                bd.eliminarAdmin(a);
+                break;
+            case "SuperUsuario":
+                SuperUsuario sup = new SuperUsuario();
+                sup.setIdUser("S" + a.getIdUser().substring(1));
+                sup.setNombre(a.getNombre());
+                sup.setApellidos(a.getApellidos());
+                sup.setDni(a.getDni());
+                sup.setEmail(a.getEmail());
+                sup.setPassword(a.getPassword());
+                sup.setPreferencias(a.getPreferencias());
+                sup.setMultimedia(a.getMultimedia());
+                sup.setHistorialEventos(a.getHistorialEventos());
+
+                sup.setEmpresa(a.getEmpresa());
+
+                bd.getSuperu().add(sup);
+                bd.eliminarAdmin(a);
+                break;
+            case "UsuarioRegistrado":
+                UsuarioRegistrado ure = new UsuarioRegistrado();
+                ure.setIdUser("U" + a.getIdUser().substring(1));
+                ure.setNombre(a.getNombre());
+                ure.setApellidos(a.getApellidos());
+                ure.setDni(a.getDni());
+                ure.setEmail(a.getEmail());
+                ure.setPassword(a.getPassword());
+                ure.setPreferencias(a.getPreferencias());
+                ure.setMultimedia(a.getMultimedia());
+                ure.setHistorialEventos(a.getHistorialEventos());
+
+                bd.getUr().add(ure);
+                bd.eliminarAdmin(a);
+                break;
+        }
+        return "gestionUsuario.xhtml";
     }
     
     
