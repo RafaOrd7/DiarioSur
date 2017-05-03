@@ -36,7 +36,6 @@ public class recogedorEventos {
     private String compra;
     private String tags;
     private Boolean verificado = false;
-    private Boolean borrado = false;
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
@@ -44,7 +43,21 @@ public class recogedorEventos {
     private BdBean bd;
     @Inject
     private ctrlAutorizacion cta;
+    private static Evento seleccionado;
 
+    public String editarEvento(){
+        System.out.println(seleccionado.getId_evento());
+        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado,  anuncio);
+        aux.setId_evento(seleccionado.getId_evento());
+        seleccionado = aux;
+        bd.editarEvento(seleccionado);
+        return "evento.xhtml";
+    }
+     public String editar(){
+        return "editarEvento.xhtml";
+    }
+    
+     
     public String getUrl() {
         return url;
     }
@@ -53,7 +66,7 @@ public class recogedorEventos {
         this.url = url;
     }
 
-    private static Evento seleccionado;
+    
     
 
     
@@ -83,14 +96,7 @@ public class recogedorEventos {
     public void setVerificado(Boolean verificado) {
         this.verificado = verificado;
     }
-
-    public Boolean getBorrado() {
-        return borrado;
-    }
-
-    public void setBorrado(Boolean borrado) {
-        this.borrado = borrado;
-    }
+    
 
     public UsuarioRegistrado getUsuario() {
         return usuario;
@@ -211,15 +217,7 @@ public class recogedorEventos {
     public String enviarEvento() {
         usuario=cta.getUsuarioLogeado();
         anuncio=bd.getAnu().get(new Random().nextInt(bd.getAnu().size()));
-        
-        
-   
-        Evento aux = new Evento(nombre, fecha, tipo, precio, compra, descripcion, tags, usuario, verificado, borrado, anuncio);
-        
-        
-        
-        
-        
+        Evento aux = new Evento(nombre, fecha,lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);  
         setSeleccionado(aux);
         bd.crearEvento(aux);
         return "evento";
