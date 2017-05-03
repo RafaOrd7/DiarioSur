@@ -63,11 +63,17 @@ public class recogedorReportes {
     }
 
     public List<Reporte> getReportesEv() {
+        
+        if(bd.getRepEv().size()==0){
+            return null;
+        }
         return bd.getRepEv();
     }
 
     public List<Reporte> getReportesVal() {
-        System.out.println(bd.getRepVal().get(0).getTexto());
+        if(bd.getRepVal().size()==0){
+            return null;
+        }
         return bd.getRepVal();
     }
 
