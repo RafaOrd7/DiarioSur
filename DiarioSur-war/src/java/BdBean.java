@@ -564,6 +564,7 @@ public class BdBean implements Serializable{
         contId = contId+3;
         
         Anuncio an= new Anuncio(null,null,null,"Sobaco S.L.",null,null,null,null,null);
+        an.setId_anuncio(contId);
         anu.add(an);
         
         Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",adm,false,an);
@@ -576,7 +577,6 @@ public class BdBean implements Serializable{
         contId++;
         ev.add(e2);
        
-        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
 
     }
     
