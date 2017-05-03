@@ -10,55 +10,45 @@
     
     <ui:define name="content">
         
-        <p:messages id="messages" autoUpdate="true" showIcon="false"  />
         <h:form>
             <h:panelGrid id="panel" columns="1" cellpadding="5">
-                <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.usuario.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
+                <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.a.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
 
-                <p:inputText id="apellidos" placeholder="Apellidos*" value="#{ctrlUsuarios.usuario.apellidos}" required="true" requiredMessage="Campo apellidos obligatorio" />
+                <p:inputText id="apellidos" placeholder="Apellidos*" value="#{ctrlUsuarios.a.apellidos}" required="true" requiredMessage="Campo apellidos obligatorio" />
 
-                <p:inputText id="email" placeholder="Correo electrónico*" value="#{ctrlUsuarios.usuario.email}" required="true" requiredMessage="Campo email obligatorio" 
+                <p:inputText id="email" placeholder="Correo electrónico*" value="#{ctrlUsuarios.a.email}" required="true" requiredMessage="Campo email obligatorio" 
                              validatorMessage="El email no es correcto">
                     <f:validateRegex pattern="^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
                 </p:inputText>
 
-                <p:inputText id="dni" placeholder="DNI/NIF/NIE*"  value="#{ctrlUsuarios.usuario.dni}" required="true" requiredMessage="Campo dni obligatorio"
+                <p:inputText id="dni" placeholder="DNI/NIF/NIE*"  value="#{ctrlUsuarios.a.dni}" required="true" requiredMessage="Campo dni obligatorio"
                 validatorMessage="El dni no es correcto">
                 <f:validateRegex pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" />
                 </p:inputText>
                
-                <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.usuario.password}" 
+                <p:password id="password" label="pasword1" validatorMessage="Las contraseñas deben coincidir"  value="#{ctrlUsuarios.a.password}" 
                             match="password2"  feedback="true" placeholder="Contraseña*" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
                             goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
                 
-                <p:password id="password2" label="password2" value="#{ctrlUsuarios.usuario.password}" placeholder="Repita contraseña*" required="true" 
+                <p:password id="password2" label="password2" value="#{ctrlUsuarios.a.password}" placeholder="Repita contraseña*" required="true" 
                             requiredMessage="Campo contraseña2 obligatorio"/>
-
-            </h:panelGrid>  
-            <h:panelGrid columns="1" cellpadding="5">
-                <p:outputLabel for="console" value="Console:"  />
-                <p:selectOneRadio id="rol" value="#{radioView.console}" >
-                    <f:selectItem itemLabel="Administrador"  itemValue="Administrador" />
-                    <f:selectItem itemLabel="Jefe de Redactores" itemValue="JefeDeRedactores" />
-                    <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                    <f:selectItem itemLabel="Super Usuario" itemValue="SuperUsuario" />
-                    <f:selectItem itemLabel="Usuario Registrado" itemValue="UsuarioRegistrado" />
-                </p:selectOneRadio>
                 
-                <p:commandButton value="Regístrate" id="submit" action="#{ctrlUsuarios.nuevoUsuario}" update="panel" styleClass="submit"/>
-            </h:panelGrid>
+                <p:inputText id="empresa" placeholder="Empresa" value="#{ctrlUsuarios.a.empresa}"/>
+                
+                <p:inputText id="cargo" placeholder="Cargo" value="#{ctrlUsuarios.a.cargo}"/>
+                
+                <p:inputText id="telefono" placeholder="Telefono" value="#{ctrlUsuarios.a.telefono}"/>
+                
+                <p:selectOneMenu id="Rol" value="#{ctrlUsuarios.rol}" style="width:125px">
+                    <f:selectItem itemLabel="Usuario Registrado" itemValue="U" />  
+                    <f:selectItem itemLabel="Super Usuario" itemValue="S" />
+                    <f:selectItem itemLabel="Periodista" itemValue="P" />
+                    <f:selectItem itemLabel="Jefe De Redactores" itemValue="J" />
+                    <f:selectItem itemLabel="Administrador" itemValue="A" />
+                </p:selectOneMenu>
+            </h:panelGrid>  
             
-            <c:choose>
-                <c:when test="rol==Administrador">
-                    <p:inputText id="cargo" placeholder="Cargo" value="#{ctrlUsuarios.a.cargo}" required="true" requiredMessage="Campo cargo obligatorio" />
-
-                </c:when>
-
-                <c:otherwise>
-                    <tr><h2></h2></tr>
-                </c:otherwise>
-            </c:choose>
-
+            <p:commandButton value="Confirmar" id="submit" action="#{ctrlUsuarios.nuevoUsuarioGestion()}" update="panel" styleClass="submit"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -32,12 +32,13 @@ import javax.inject.Inject;
 public class ctrlUsuarios implements Serializable {
 
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
-    private UsuarioRegistrado u = new UsuarioRegistrado();
     private SuperUsuario su = new SuperUsuario();
     private Periodista p = new Periodista();
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
-    private String rol = new String();
+    
+    private String rol = "";
+    
     
     @Inject
     private BdBean bd;
@@ -47,6 +48,14 @@ public class ctrlUsuarios implements Serializable {
 
     
     public ctrlUsuarios() {  
+        this.p = new Periodista("P1333", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696");
+    }
+    
+    public int rolAdm(){
+        if (rol.equals("Administrador")){
+            return 2;
+        }
+        return 1;
     }
     
     
@@ -63,6 +72,41 @@ public class ctrlUsuarios implements Serializable {
                     "Usuario " + usuario.getEmail() + " registrado correctamente.",
                     "Usuario " + usuario.getEmail() + " registrado correctamente."));
             pag="index.xhtml";
+        }
+        return pag;
+    }
+    
+    
+    public String nuevoUsuarioGestion(){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        String pag = null;
+        if (bd.existeUsuario(a)) {
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "El email " + a.getEmail() + " está en uso por otro usuario.",
+                    "El email " + a.getEmail() + " está en uso por otro usuario."));
+        } else {
+            /*dependiendo del tipo de usuario*/
+            switch (rol.charAt(0)) {
+                case 'A':
+                    bd.crearAdmin(a);
+                    break;
+                case 'J':
+                    bd.crearJDR(a);
+                    break;
+                case 'P':
+                    bd.crearPeriodista(a);
+                    break;
+                case 'S':
+                    bd.crearSU(a);
+                    break;
+                case 'U':
+                    bd.crearUR(a);
+                    break;
+            } 
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Usuario " + a.getEmail() + " registrado correctamente.",
+                    "Usuario " + a.getEmail() + " registrado correctamente."));
+            pag = "gestionUsuario.xhtml";
         }
         return pag;
     }
@@ -88,56 +132,6 @@ public class ctrlUsuarios implements Serializable {
         usuario = new UsuarioRegistrado();
         return pag;
     }
-
-    public UsuarioRegistrado getU() {
-        return u;
-    }
-
-    public void setU(UsuarioRegistrado u) {
-        this.u = u;
-    }
-
-    public Administrador getA() {
-        return a;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setSu(SuperUsuario su) {
-        this.su = su;
-    }
-
-    public void setP(Periodista p) {
-        this.p = p;
-    }
-
-    public void setJdr(JefeDeRedactores jdr) {
-        this.jdr = jdr;
-    }
-
-    public void setA(Administrador a) {
-        this.a = a;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public SuperUsuario getSu() {
-        return su;
-    }
-
-    public Periodista getP() {
-        return p;
-    }
-
-    public JefeDeRedactores getJdr() {
-        return jdr;
-    }
-    
-
     
     public String validarEmail(){
         
@@ -184,6 +178,26 @@ public class ctrlUsuarios implements Serializable {
         return null;
     }
     
+    public String eliminarSU(SuperUsuario u) {
+        bd.eliminarSU(u);
+        return null;
+    }
+    
+    public String eliminarP(Periodista u) {
+        bd.eliminarPeriodista(u);
+        return null;
+    }
+    
+    public String eliminarJDR(JefeDeRedactores u) {
+        bd.eliminarJDR(u);
+        return null;
+    }
+    
+    public String eliminarA(Administrador u) {
+        bd.eliminarAdmin(u);
+        return null;
+    }
+    
     public List<UsuarioRegistrado> getListaUR(){
         return bd.getUr();
     }
@@ -212,10 +226,56 @@ public class ctrlUsuarios implements Serializable {
     public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
     }
+    
+       public Administrador getA() {
+        return a;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setSu(SuperUsuario su) {
+        this.su = su;
+    }
+
+    public void setP(Periodista p) {
+        this.p = p;
+    }
+
+    public void setJdr(JefeDeRedactores jdr) {
+        this.jdr = jdr;
+    }
+
+    public void setA(Administrador a) {
+        this.a = a;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public SuperUsuario getSu() {
+        return su;
+    }
+
+    public Periodista getP() {
+        return p;
+    }
+
+    public JefeDeRedactores getJdr() {
+        return jdr;
+    }
+
+    public String  asigRol(String rol) {
+        this.rol = rol;
+        return null;
+    }
 
     
     public String mostrarUsuario(UsuarioRegistrado usuario) {
         switch (usuario.getIdUser().charAt(0)) {
+            
             case 'A':   this.a=bd.buscarAdmin((Administrador) usuario);
                         this.rol="Administrador";
             break;
@@ -228,7 +288,7 @@ public class ctrlUsuarios implements Serializable {
             case 'S':   this.su = bd.buscarSU((SuperUsuario) usuario);
                         this.rol="SuperUsuario";
             break;
-            case 'U':   this.u=usuario;
+            case 'U':   this.usuario=usuario;
                         this.rol="UsuarioRegistrado";
             break;
         }

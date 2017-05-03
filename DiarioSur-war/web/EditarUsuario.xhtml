@@ -3,45 +3,162 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:define name="title">Gestión de Usuarios</ui:define>
     
     <ui:define name="content">
         <h:form>
-            <p:inputText type="hidden" value="#{ctrlUsuarios.u.idUser}" required="true"/>
-            <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
-                                
-                <h:outputLabel for="nombre" value="Nombre: " />
-                <p:inplace id="nombre">
-                    <p:inputText  value="#{ctrlUsuarios.u.nombre}" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="apellidos" value="Apellidos: " />
-                <p:inplace id="apellidos">
-                    <p:inputText value="#{ctrlUsuarios.u.apellidos}" rendered="true" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="email" value="Email: " />
-                <p:inplace id="email">
-                    <p:inputText value="#{ctrlUsuarios.u.email}" required="true"/>
-                </p:inplace>
-                
-                <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
-                <p:inplace id="dni">
-                    <p:inputText value="#{ctrlUsuarios.u.dni}" required="true"/>
-                </p:inplace>                              
-                
-                <p:selectOneMenu id="rol" value="#{ctrlUsuarios.rol}" style="width:125px">
-                    <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
-                    <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
-                    <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                </p:selectOneMenu>
-                
-                <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarUsuarioRegistrado()}"/>
-            </h:panelGrid>
+            <p:selectOneMenu id="rol" value="#{ctrlUsuarios.rol}" style="width:125px">
+                <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
+                <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
+                <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
+                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+            </p:selectOneMenu>
+                <c:choose>
+                    <c:when test="#{rol==UsuarioRegistrado}">
+                        <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
+                        <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
+
+                            <h:outputLabel for="nombre" value="Nombre: " />
+                            <p:inplace id="nombre">
+                                <p:inputText  value="#{ctrlUsuarios.usuario.nombre}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: " />
+                            <p:inplace id="apellidos">
+                                <p:inputText value="#{ctrlUsuarios.usuario.apellidos}" rendered="true" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="email" value="Email: " />
+                            <p:inplace id="email">
+                                <p:inputText value="#{ctrlUsuarios.usuario.email}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                            <p:inplace id="dni">
+                                <p:inputText value="#{ctrlUsuarios.usuario.dni}" required="true"/>
+                            </p:inplace>
+                        </h:panelGrid>
+                            <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarUsuarioRegistrado()}"/>
+                    </c:when>
+                    
+                    <c:when test="#{rol==SuperUsuario}">
+                        <p:inputText type="hidden" value="#{ctrlUsuarios.su.empresa}" required="true"/>
+                        <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
+
+                            <h:outputLabel for="nombre" value="Nombre: " />
+                            <p:inplace id="nombre">
+                                <p:inputText  value="#{ctrlUsuarios.su.nombre}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: " />
+                            <p:inplace id="apellidos">
+                                <p:inputText value="#{ctrlUsuarios.su.apellidos}" rendered="true" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="email" value="Email: " />
+                            <p:inplace id="email">
+                                <p:inputText value="#{ctrlUsuarios.su.email}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                            <p:inplace id="dni">
+                                <p:inputText value="#{ctrlUsuarios.su.dni}" required="true"/>
+                            </p:inplace>
+                        </h:panelGrid>
+                        <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarSuperUsuario()}"/>
+                    </c:when>
+                    
+                    <c:when test="#{rol==Periodista}">
+                        <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
+                        <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
+
+                            <h:outputLabel for="nombre" value="Nombre: " />
+                            <p:inplace id="nombre">
+                                <p:inputText  value="#{ctrlUsuarios.p.nombre}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: " />
+                            <p:inplace id="apellidos">
+                                <p:inputText value="#{ctrlUsuarios.p.apellidos}" rendered="true" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="email" value="Email: " />
+                            <p:inplace id="email">
+                                <p:inputText value="#{ctrlUsuarios.p.email}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                            <p:inplace id="dni">
+                                <p:inputText value="#{ctrlUsuarios.p.dni}" required="true"/>
+                            </p:inplace>
+                        </h:panelGrid>
+                        <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarPeriodista()}"/>
+                    </c:when>
+                    
+                    <c:when test="#{rol==JefeDeRedactores}">
+                        <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
+                        <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
+
+                            <h:outputLabel for="nombre" value="Nombre: " />
+                            <p:inplace id="nombre">
+                                <p:inputText  value="#{ctrlUsuarios.jdr.nombre}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: " />
+                            <p:inplace id="apellidos">
+                                <p:inputText value="#{ctrlUsuarios.jdr.apellidos}" rendered="true" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="email" value="Email: " />
+                            <p:inplace id="email">
+                                <p:inputText value="#{ctrlUsuarios.jdr.email}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                            <p:inplace id="dni">
+                                <p:inputText value="#{ctrlUsuarios.jdr.dni}" required="true"/>
+                            </p:inplace>
+                        </h:panelGrid>
+                        <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
+                    </c:when>
+                    
+                    <c:when test="#{rol==Administrador}">
+                        <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
+                        <h:panelGrid columns="2" id="panel" columnClasses="column" cellpadding="5">
+
+                            <h:outputLabel for="nombre" value="Nombre: " />
+                            <p:inplace id="nombre">
+                                <p:inputText  value="#{ctrlUsuarios.a.nombre}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: " />
+                            <p:inplace id="apellidos">
+                                <p:inputText value="#{ctrlUsuarios.a.apellidos}" rendered="true" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="email" value="Email: " />
+                            <p:inplace id="email">
+                                <p:inputText value="#{ctrlUsuarios.a.email}" required="true"/>
+                            </p:inplace>
+
+                            <h:outputLabel for="dni" value="DNI/NIF/NIE:" />
+                            <p:inplace id="dni">
+                                <p:inputText value="#{ctrlUsuarios.a.dni}" required="true"/>
+                            </p:inplace>
+                        </h:panelGrid>
+                        <p:commandButton value="Confirmar" update="panel"  action="#{ctrlUsuarios.editarAdministrador()}"/>
+                    </c:when>
+                    
+                    <c:otherwise>
+                        <tr><h2>Si desea navegar por la pagina, registrese</h2></tr>     
+                    </c:otherwise>
+                </c:choose>
+                        
+
         </h:form>
     </ui:define>
 </ui:composition>
