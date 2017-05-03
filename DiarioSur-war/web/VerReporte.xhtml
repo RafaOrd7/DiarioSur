@@ -9,32 +9,51 @@
 
 
     <ui:define name="content">
+        <h:form>  
+            <h1 align="center">REPORTE</h1>  
+            <table align="center">
+                <tr>
 
-        <h1 align="center">REPORTE</h1>  
+                    <td>Id: #{recogedorReportes.getSeleccionado().getId()}</td>
+                </tr>
+                <tr>
+                    <td>Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado().getNombre()}</td>
+                </tr>
+                <tr>
+                    <td> Fecha: #{recogedorReportes.getSeleccionado().getFecha()}   </td>
+                </tr>
+                <tr>               
+                    <td>Tipo: #{recogedorReportes.getSeleccionado().getTipo()}</td>
+                </tr>
+                <tr> 
+                    <td> Comentario: #{recogedorReportes.getSeleccionado().getTexto()}</td>
+                </tr>  
+                <tr> 
+                    <td>
+                        Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
+                    </td>
 
-        Id: #{recogedorReportes.getSeleccionado().getId()}
-        Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado()}
-        Fecha: #{recogedorReportes.getSeleccionado().getFecha()}
-        Tipo: #{recogedorReportes.getSeleccionado().getTipo()}
-        Comentario: #{recogedorReportes.getSeleccionado().getTexto()} 
-        <h:form>   
-        Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
+                </tr>
 
 
+                <tr> 
+                    <td>
+                        <p:commandButton value="Eliminar Reporte">
+                            <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </td>
 
-               
-           
-
-            <p:commandButton value="Eliminar Reporte">
-                <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
-            </p:commandButton>
+                </tr>
+            </table>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:button value="Si" outcome="#{recogedorReportes.eliminarEv()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+
+
         </h:form>
-        
+
 
 
 
