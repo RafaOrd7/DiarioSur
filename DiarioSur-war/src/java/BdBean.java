@@ -59,6 +59,10 @@ public class BdBean implements Serializable{
         }
         return null;
     }
+
+    public HashMap<Evento, List<UsuarioRegistrado>> getMegusta() {
+        return megusta;
+    }
     
     public void eliminarAdmin(Administrador a){
         admin.remove(a);
@@ -448,12 +452,15 @@ public class BdBean implements Serializable{
    public void MeGusta(Evento e, UsuarioRegistrado u){
        List<UsuarioRegistrado> mg= new ArrayList<>();
        Boolean encontrado=buscarEv(e);
-       if(encontrado){  
-           if(!(megusta.get(e).contains(u))){
+       if(encontrado && !(megusta.get(e).contains(u))){             
           megusta.get(e).add(u);
-          e.setUser_megusta(megusta.get(e));}
+          e.setUser_megusta(megusta.get(e));
        }
-       else{
+       else if(encontrado && (megusta.get(e).contains(u))){             
+          megusta.get(e).remove(u);
+          e.setUser_megusta(megusta.get(e));
+       }
+       else if (!encontrado){
            mg.add(u);
            megusta.put(e, mg);
        }
@@ -497,16 +504,20 @@ public class BdBean implements Serializable{
         a.setPassword("asdf");
         crearUR(a);
         
-        Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",adm,false,null);
+        Anuncio an= new Anuncio(null,null,null,"Sobaco S.L.",null,null,null,null,null);
+        anu.add(an);
+        
+        Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",adm,false,an);
         e1.setId_evento(contId);
+        
         contId++;
         ev.add(e1);
-        Evento e2= new Evento("hackers week",new Date(),"Málaga","1",4F,"http://www.ticketmaster.es/","semana cultural realizada en la ETSI Informatica","semana cultural",a,false,null);
+        Evento e2= new Evento("hackers week",new Date(),"Málaga","1",4F,"http://www.ticketmaster.es/","semana cultural realizada en la ETSI Informatica","semana cultural",a,false,an);
         e2.setId_evento(contId);
         contId++;
         ev.add(e2);
        
-        anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
+        
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
         //super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
         peri.add(new Periodista("P6","Dista","Perio","12312312K","peri@uma.es","asdf","McDonalds","Barrendero","696969696"));

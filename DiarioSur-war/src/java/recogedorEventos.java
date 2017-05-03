@@ -208,10 +208,20 @@ public class recogedorEventos {
         return "index.xhtml";
     }
     
-    public void megusta(){
+    public String megusta(){
         usuario=cta.getUsuarioLogeado();
-        System.out.println(usuario.getPassword());
         bd.MeGusta(seleccionado, usuario);
+        return "evento.xhtml";
+    }
+    
+    public int getNumeroMG(){
+        if(bd.getMegusta().isEmpty()){
+            return 0;
+        }
+        else if(bd.getMegusta().get(getSeleccionado())==null){
+            return 0;
+        }
+        return bd.getMegusta().get(getSeleccionado()).size();
     }
 
     public String enviarEvento() {
