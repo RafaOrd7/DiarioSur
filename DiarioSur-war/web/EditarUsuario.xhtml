@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-    <ui:define name="title">Gestión de Usuarios</ui:define>
+    <ui:define name="title">Editar usuario</ui:define>
     
     <ui:define name="content">
         <c:choose>
-            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+            <c:when test="#{ctrlAutorizacion.checkAdm() || ctrlAutorizacion.checkJDR()}">
                 <c:choose>
                     <h1>Editar usuario</h1>
                     <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
@@ -20,8 +20,10 @@
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
                                 <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
@@ -65,8 +67,10 @@
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
                                 <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.su.idUser}" required="true"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
@@ -115,8 +119,10 @@
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
                                 <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
@@ -175,8 +181,10 @@
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
                                 <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
@@ -235,8 +243,10 @@
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
                                 <f:selectItem itemLabel="Super usuario" itemValue="SuperUsuario" />
                                 <f:selectItem itemLabel="Periodista" itemValue="Periodista" />
-                                <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                                    <f:selectItem itemLabel="Jefe de redactores" itemValue="JefeDeRedactores" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
@@ -287,7 +297,6 @@
                             <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
                         </h:form>
                     </c:when>
-                    
                     <c:otherwise>
                         <tr><h2>Error, contacte con un administrador</h2></tr>     
                     </c:otherwise>
@@ -297,6 +306,5 @@
                 <h3>Error, acceso denegado.</h3>
             </c:otherwise>
         </c:choose>       
-    
     </ui:define>
 </ui:composition>

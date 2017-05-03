@@ -9,7 +9,8 @@
     
     <ui:define name="content">
         <c:choose>
-            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+            
+            <c:when test="#{(ctrlAutorizacion.checkAdm()) || (ctrlAutorizacion.checkJDR())}">
                 <h:form>
                     <h1>Usuarios</h1>
 
@@ -101,74 +102,78 @@
                             <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarP(p)}"/>
                         </p:column>
                     </p:dataTable>
+                </h:form> 
+            
+                <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                    <h:form> 
+                        <p>Jefes de Redactores</p>
 
-                    <p>Jefes de Redactores</p>
-
-                    <p:dataTable var="j" value="#{ctrlUsuarios.getListaJDR()}">
-                        <p:column headerText="Id Usuario">              
-                            <h:outputText value="#{j.idUser}" />
-                        </p:column>
-                        <p:column headerText="Apellidos, Nombre">
-                            <h:outputText value="#{j.apellidos}, #{j.nombre}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{j.email}" />
-                        </p:column>
-                        <p:column headerText="Contraseña">
-                            <h:outputText value="#{j.password}" />
-                        </p:column>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{j.dni}" />
-                        </p:column>
-                        <p:column headerText="Empresa">
-                            <h:outputText value="#{j.empresa}" />
-                        </p:column>
-                        <p:column headerText="Cargo">
-                            <h:outputText value="#{j.cargo}" />
-                        </p:column>
-                        <p:column headerText="Teléfono">
-                            <h:outputText value="#{j.telefono}" />
-                        </p:column>
-                        <p:column headerText="Editar, Eliminar">
-                            <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(j)}"/>
-                            <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarJDR(j)}"/>
-                        </p:column>
-                    </p:dataTable>
+                        <p:dataTable var="j" value="#{ctrlUsuarios.getListaJDR()}">
+                            <p:column headerText="Id Usuario">              
+                                <h:outputText value="#{j.idUser}" />
+                            </p:column>
+                            <p:column headerText="Apellidos, Nombre">
+                                <h:outputText value="#{j.apellidos}, #{j.nombre}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{j.email}" />
+                            </p:column>
+                            <p:column headerText="Contraseña">
+                                <h:outputText value="#{j.password}" />
+                            </p:column>
+                            <p:column headerText="DNI">
+                                <h:outputText value="#{j.dni}" />
+                            </p:column>
+                            <p:column headerText="Empresa">
+                                <h:outputText value="#{j.empresa}" />
+                            </p:column>
+                            <p:column headerText="Cargo">
+                                <h:outputText value="#{j.cargo}" />
+                            </p:column>
+                            <p:column headerText="Teléfono">
+                                <h:outputText value="#{j.telefono}" />
+                            </p:column>
+                            <p:column headerText="Editar, Eliminar">
+                                <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(j)}"/>
+                                <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarJDR(j)}"/>
+                            </p:column>
+                        </p:dataTable>
 
 
-                    <p>Administradores</p>
+                        <p>Administradores</p>
 
-                    <p:dataTable var="a" value="#{ctrlUsuarios.getListaA()}">
-                        <p:column headerText="Id Usuario">              
-                            <h:outputText value="#{a.idUser}" />
-                        </p:column>
-                        <p:column headerText="Apellidos, Nombre">
-                            <h:outputText value="#{a.apellidos}, #{a.nombre}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{a.email}" />
-                        </p:column>
-                        <p:column headerText="Contraseña">
-                            <h:outputText value="#{a.password}" />
-                        </p:column>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{a.dni}" />
-                        </p:column>
-                        <p:column headerText="Empresa">
-                            <h:outputText value="#{a.empresa}" />
-                        </p:column>
-                        <p:column headerText="Cargo">
-                            <h:outputText value="#{a.cargo}" />
-                        </p:column>
-                        <p:column headerText="Teléfono">
-                            <h:outputText value="#{a.telefono}" />
-                        </p:column>
-                        <p:column headerText="Editar, Eliminar">
-                            <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(a)}"/>
-                            <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarA(a)}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
+                        <p:dataTable var="a" value="#{ctrlUsuarios.getListaA()}">
+                            <p:column headerText="Id Usuario">              
+                                <h:outputText value="#{a.idUser}" />
+                            </p:column>
+                            <p:column headerText="Apellidos, Nombre">
+                                <h:outputText value="#{a.apellidos}, #{a.nombre}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{a.email}" />
+                            </p:column>
+                            <p:column headerText="Contraseña">
+                                <h:outputText value="#{a.password}" />
+                            </p:column>
+                            <p:column headerText="DNI">
+                                <h:outputText value="#{a.dni}" />
+                            </p:column>
+                            <p:column headerText="Empresa">
+                                <h:outputText value="#{a.empresa}" />
+                            </p:column>
+                            <p:column headerText="Cargo">
+                                <h:outputText value="#{a.cargo}" />
+                            </p:column>
+                            <p:column headerText="Teléfono">
+                                <h:outputText value="#{a.telefono}" />
+                            </p:column>
+                            <p:column headerText="Editar, Eliminar">
+                                <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(a)}"/>
+                                <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarA(a)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                </c:if>
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>
