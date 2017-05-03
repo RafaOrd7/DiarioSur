@@ -283,5 +283,9 @@ public class PublicarAnuncio {
         this.fechaExpiracion = fechaExpiracion;
     }
 
+    public String eliminarAnuncio(){
+        bd.eliminarAnuncio(seleccionado);       
+        return "index";
+    }
           
 }

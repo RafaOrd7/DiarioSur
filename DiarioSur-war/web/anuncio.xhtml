@@ -8,7 +8,7 @@
     
     
     <ui:define name="content">
-        
+        <h:form>
         <table align="center">
              <tr>
                 <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
@@ -29,9 +29,22 @@
                 <td><h4>Descripción: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
             </tr>
             
-        </table>
+        <tr> 
+                    <td>
+                        <p:commandButton value="Eliminar Anuncio">
+                            <p:confirm header="Eliminar Anuncio" message="¿Estás seguro de que quieres eliminar el anuncio?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </td>
+
+                </tr>
+            </table>
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:button value="Si" outcome="#{publicarAnuncio.eliminarAnuncio()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
              
-        
+    </h:form>
         
     </ui:define>
     
