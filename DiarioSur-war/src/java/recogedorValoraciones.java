@@ -38,7 +38,7 @@ public class recogedorValoraciones {
     
     public String reportar(Valoracion v) {    
         seleccionada=v;
-        return "EnviarReporte.xhtml";
+        return "EnviarReporteVal.xhtml";
     }
    
     public String ver(Valoracion va) {
