@@ -15,9 +15,7 @@
                 <tr>
                     <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
                 </tr>
-                <tr>
-                    <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                </tr>
+                
                 <tr>
                     <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                 </tr>
@@ -43,7 +41,8 @@
                     <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                 </tr>
             </table>
-            <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+            <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+            <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
             <h3 align="center"> COMENTARIOS </h3>
             <h:form>
                 <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
@@ -74,30 +73,29 @@
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
+
+                            <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
+                                </p:button>
+                            </td>
+                            <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
+                                </p:button>
+                            </td>
+                            <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
+                            <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
+                                </p:button></td>
+                            <td>
+                                <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
+                            </td>
+                            <td>
+                                <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                            </td>
+                            <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
+                                </p:button></td>
                             </tr>
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -123,7 +121,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
@@ -137,7 +136,7 @@
                                 <br/>
                             </tr>
                             <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado())}"></h:commandButton ></td>
+                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado())}"  ></h:commandButton ></td>
                             </tr>
                         </table>
                     </h:form>
@@ -190,9 +189,7 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -218,7 +215,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
@@ -285,9 +283,7 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -313,7 +309,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
@@ -381,9 +378,7 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -409,7 +404,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
@@ -476,9 +472,7 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -504,7 +498,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
@@ -566,9 +561,7 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-                        <tr>
-                            <td><h4 >Id: #{recogedorEventos.getSeleccionado().getId()} </h4></td>
-                        </tr>
+                        
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -594,7 +587,8 @@
                             <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
                         </tr>
                     </table>
-                    <h1>Nombre de empresa: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
+                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
