@@ -36,7 +36,11 @@ public class recogedorValoraciones {
     private BdBean bd;
 
     
-    
+    public String reportar(Valoracion v) {    
+        seleccionada=v;
+        return "EnviarReporte.xhtml";
+    }
+   
     public String ver(Valoracion va) {
         seleccionada = va;
         return "evento.xhtml";

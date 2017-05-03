@@ -12,7 +12,7 @@
         <table align="center">                
             <h:form>
                 <tr>
-                    <td> IMAGEN #{recogedorEventos.imagen}</td>
+                    <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
                 </tr>
                 
                 <tr>
@@ -30,8 +30,9 @@
                     <td>
                         <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                     </td>
-                    <td><p:button  value="Editar" icon="ui-icon-star" >
-                        </p:button></td>
+                    <td>
+                        <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                    </td>
                     <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                         </p:button></td>
                 </tr>
@@ -55,6 +56,9 @@
             </tr>
             <tr>
                 <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
+            </tr> 
+            <tr>
+                <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
             </tr> 
             <tr>
                 <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
@@ -92,6 +96,9 @@
                 </p:column>
                 <p:column headerText="Comentario">
                     <h:outputText value="#{valoracion.getComentario()}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                 </p:column>
             </p:dataTable>
         </h:form>

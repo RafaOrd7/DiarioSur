@@ -43,8 +43,6 @@ public class Evento implements Serializable {
     private Boolean verificado;
     @Column(name = "geolocalización")
     private String geolocalizacion;
-    @Column(nullable = false)
-    private Boolean borrado;
     @OneToMany(mappedBy = "evento")
     private List<Valoracion> valoraciones;
     @OneToMany(mappedBy = "evento")
@@ -133,7 +131,7 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve, Boolean bo, Anuncio a) {
+    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
         nombre = n;
         fecha = d;
         geolocalizacion=l;
@@ -143,7 +141,6 @@ public class Evento implements Serializable {
         descripcion= des;
         tags = ta;
         verificado = ve;
-        borrado = bo;
         usuarioRegistrado = usuarioR;
         anuncio = a;
     }
@@ -218,14 +215,6 @@ public class Evento implements Serializable {
 
     public void setGeolocalizacion(String geolocalizacion) {
         this.geolocalizacion = geolocalizacion;
-    }
-
-    public Boolean getBorrado() {
-        return borrado;
-    }
-
-    public void setBorrado(Boolean borrado) {
-        this.borrado = borrado;
     }
 
     @Override
