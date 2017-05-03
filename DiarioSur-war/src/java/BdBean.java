@@ -468,6 +468,15 @@ public class BdBean implements Serializable{
        }
    }
     
+    public void editarEvento(Evento e){
+        for(Evento aux: ev){
+            if(aux.getId_evento()==e.getId_evento()){
+                ev.remove(aux);
+                ev.add(e);
+            }
+        }
+        
+    }
     
     public BdBean() {
         Administrador adm = new Administrador();
@@ -497,8 +506,15 @@ public class BdBean implements Serializable{
         a.setPassword("asdf");
         crearUR(a);
         
-        ev.add(new Evento("sobaco",null,"1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null,null));
-        ev.add(new Evento("prueba",null,"1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null,null));
+        Evento e1=new Evento("sobaco",null,"Málaga","1",2F,"http://www.ticketmaster.es/","sobacaso","sobac",null,null,null);
+        e1.setId_evento(contId);
+        contId++;
+        ev.add(e1);
+        Evento e2= new Evento("prueba",null,"Málaga","1",4F,"http://www.ticketmaster.es/","intentoo","si",null,null,null);
+        e2.setId_evento(contId);
+        contId++;
+        ev.add(e2);
+       
         anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
     }
