@@ -39,7 +39,7 @@
                         <h2>Valoraciones</h2>
                         <p:dataTable var="valoracion" value="#{recogedorReportes.getReportesVal()}">
                             <p:column headerText="Id">              
-                                <h:commandLink action="#{recogedorReportes.ver(valoracion)}" value="#{valoracion.id_reporte}"/>
+                                <h:commandLink action="#{recogedorReportes.verVal(valoracion)}" value="#{valoracion.id_reporte}"/>
                             </p:column>
                             <p:column headerText="Usuario">
                                 <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />

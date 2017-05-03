@@ -49,7 +49,11 @@ public class recogedorReportes {
         seleccionado = reporte;
         return "VerReporte.xhtml";
     }
-
+public String verVal(Reporte reporte) {
+        seleccionado = reporte;
+        return "VerReporteVal.xhtml";
+    }
+    
     public String eliminarVal() {
         bd.eliminarReporteVal(seleccionado);
         return "GestionarReporte";
