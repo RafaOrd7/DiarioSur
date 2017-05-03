@@ -51,6 +51,51 @@ public class BdBean implements Serializable{
        admin.add(a);
     }
     
+    public Administrador buscarAdminPorId(String id) {
+        for (Administrador aux : admin) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public JefeDeRedactores buscarJDRPorId(String id) {
+        for (JefeDeRedactores aux : jdr) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public Periodista buscarPeriodistaPorId(String id) {
+        for (Periodista aux : peri) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public SuperUsuario buscarSUPorId(String id) {
+        for (SuperUsuario aux : superu) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public UsuarioRegistrado buscarURPorId(String id) {
+        for (UsuarioRegistrado aux : ur) {
+            if (id.equals(aux.getIdUser())) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
     public Administrador buscarAdmin(Administrador a){
         for(Administrador aux:admin){
             if(a.getIdUser().equals(aux.getIdUser())){

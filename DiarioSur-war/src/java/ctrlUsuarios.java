@@ -37,7 +37,7 @@ public class ctrlUsuarios implements Serializable {
     private Periodista p = new Periodista();
     private JefeDeRedactores jdr = new JefeDeRedactores();
     private Administrador a = new Administrador();
-    
+    private static boolean propio = false; // flag que indica si la edición de usuario es de sí mismo(confUsuario)
     private static String rol = "";
     
     
@@ -299,6 +299,35 @@ public class ctrlUsuarios implements Serializable {
         return "EditarUsuario.xhtml";
     }
     
+    public String mostrarUsuarioPropio() {
+        UsuarioRegistrado u = cta.getUsuarioLogeado();
+        switch (u.getIdUser().charAt(0)) {
+            case 'A':
+                this.a = bd.buscarAdmin((Administrador) u);
+                this.rol = "Administrador";
+                break;
+            case 'J':
+                this.jdr = bd.buscarJDR((JefeDeRedactores) u);
+                this.rol = "JefeDeRedactores";
+                break;
+            case 'P':
+                this.p = bd.buscarPeriodista((Periodista) u);
+                this.rol = "Periodista";
+                break;
+            case 'S':
+                this.su = bd.buscarSU((SuperUsuario) u);
+                this.rol = "SuperUsuario";
+                break;
+            case 'U':
+                this.usuario = bd.buscarUR(u);
+                this.rol = "UsuarioRegistrado";
+                break;
+        }   
+        propio = true;
+        return "confUsuario.xhtml";
+        
+    }
+    
     public String editarUsuarioRegistrado () {
         switch (rol) {
             case "Administrador":
@@ -374,7 +403,7 @@ public class ctrlUsuarios implements Serializable {
 
                 break;
         }
-        return "gestionUsuario.xhtml";
+        return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
     
     public String editarSuperUsuario() {
@@ -460,7 +489,7 @@ public class ctrlUsuarios implements Serializable {
                 bd.eliminarSU(su);
                 break;
         }
-        return "gestionUsuario.xhtml";
+        return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
     
     public String editarPeriodista() {
@@ -552,7 +581,7 @@ public class ctrlUsuarios implements Serializable {
                 bd.eliminarPeriodista(p);
                 break;
         }
-        return "gestionUsuario.xhtml";
+        return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
     
     public String editarJefeDeRedactores() {
@@ -643,7 +672,7 @@ public class ctrlUsuarios implements Serializable {
                 bd.eliminarJDR(jdr);
                 break;
         }
-        return "gestionUsuario.xhtml";
+        return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
     
     public String editarAdministrador() {
@@ -734,7 +763,7 @@ public class ctrlUsuarios implements Serializable {
                 bd.eliminarAdmin(a);
                 break;
         }
-        return "gestionUsuario.xhtml";
+        return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
     
     

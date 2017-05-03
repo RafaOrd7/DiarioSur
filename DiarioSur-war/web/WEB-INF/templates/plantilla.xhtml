@@ -53,7 +53,7 @@
                         <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
                             <h1>Administrador</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="publicarAnuncio" value="Publicar Anuncio" icon="ui-icon-document"></p:button></tr>
                             <tr><p:button outcome="gestionAnuncio" value="Gestión Anuncios" icon="ui-icon-folder-collapsed"></p:button></tr>
@@ -65,7 +65,7 @@
                         <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
                             <h1>Jefe de Redactores</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
@@ -75,7 +75,7 @@
                         <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
                             <h1>Periodista</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                              
                         </c:when>
@@ -83,7 +83,7 @@
                         <c:when test="#{ctrlAutorizacion.comprobarUserSU() > 1}">
                             <h1>SuperUsuario</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
@@ -91,7 +91,7 @@
                         <c:when test="#{ctrlAutorizacion.comprobarUserRegistrado() > 1}">
                             <h1>Usuario Registrado</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:button outcome="confUsuario" value="Configuración Usuario" icon="ui-icon-person"></p:button></tr> 
+                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
