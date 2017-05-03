@@ -497,11 +497,11 @@ public class BdBean implements Serializable{
         a.setPassword("asdf");
         crearUR(a);
         
-        Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",null,false,null);
+        Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",adm,false,null);
         e1.setId_evento(contId);
         contId++;
         ev.add(e1);
-        Evento e2= new Evento("hackers week",new Date(),"Málaga","1",4F,"http://www.ticketmaster.es/","semana cultural realizada en la ETSI Informatica","semana cultural",null,false,null);
+        Evento e2= new Evento("hackers week",new Date(),"Málaga","1",4F,"http://www.ticketmaster.es/","semana cultural realizada en la ETSI Informatica","semana cultural",a,false,null);
         e2.setId_evento(contId);
         contId++;
         ev.add(e2);
