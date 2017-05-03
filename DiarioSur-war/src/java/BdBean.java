@@ -508,7 +508,7 @@ public class BdBean implements Serializable{
         anu.add(new Anuncio(null,null,null,"empresa Sobaco",null,null,null,null,null));
         superu.add(new SuperUsuario("S123","titi","chetos",null,"a@gmail.com","123",null));
         //super(idUser, nombre, apellidos, dni, email, password, empresa, cargo, telefono);
-        peri.add(new Periodista("P1333","Dista","Perio","12312312K","peri@uma.es","asdf","McDonalds","Barrendero","696969696"));
+        peri.add(new Periodista("P6","Dista","Perio","12312312K","peri@uma.es","asdf","McDonalds","Barrendero","696969696"));
         jdr.add(new JefeDeRedactores("J1222","Faso","Erje","12312332K","jefe@uma.es","asdf","Burguer king","friepapas","676969696"));
     }
     
