@@ -11,22 +11,22 @@
         
         <table align="center">
              <tr>
-                <td><h4>Id: #{enviarAnuncio.getSeleccionado.getIdAnuncio()}</h4></td>
+                <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
             </tr>
              <tr>
-                <td><h4>Empresa: #{enviarAnuncio.getSeleccionado().getNombre()} </h4></td>
+                <td><h4>Empresa: #{publicarAnuncio.getSeleccionado().getEmpresa()} </h4></td>
             </tr>           
             <tr>
-                <td><h4>Fecha de inicio: #{enviarAnuncio.getSeleccionado().getFechaInicio()} </h4></td>
+                <td><h4>Fecha de inicio: #{publicarAnuncio.getSeleccionado().getFechaPublicacion()} </h4></td>
             </tr>
              <tr>
-                <td><h4>Fecha de expiracion: #{enviarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
+                <td><h4>Fecha de expiracion: #{publicarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
             </tr>
             <tr>
-                <td><h4>Prioridad #{enviarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
+                <td><h4>Prioridad #{publicarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
             </tr>
             <tr>
-                <td><h4>Descripción: #{enviarAnuncio.getSeleccionado().getTags()}</h4></td>
+                <td><h4>Descripción: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
             </tr>
             
         </table>
