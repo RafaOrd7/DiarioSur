@@ -7,6 +7,7 @@
 import Entidades.Anuncio;
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
 import static java.time.Clock.system;
@@ -207,7 +208,7 @@ public class recogedorEventos {
         return "index.xhtml";
     }
 
-    public String megusta() {
+    public String megusta() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         bd.MeGusta(seleccionado, usuario);
         negocio.meGusta(seleccionado, usuario);
