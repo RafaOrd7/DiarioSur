@@ -7,6 +7,7 @@ package Negocio;
 
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,7 +52,8 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
-         compruebaLogin(u);
+        compruebaLogin(u);
+        
         UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
         em.refresh(aux);
         return aux;
@@ -74,8 +76,20 @@ public class NegocioImpl implements Negocio {
     }
     
     @Override
-    public void meGusta(Evento e, UsuarioRegistrado u){
+    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException{
+        Evento aux = em.find(Evento.class, e.getId_evento());
         
+        if (aux == null) {
+            throw new EventoNoEncontradoException();
+        } else {
+            List<UsuarioRegistrado> mg = aux.getUser_megusta();
+            
+            if(mg.contains(u)) mg.remove(u);   
+            else mg.add(u);
+            
+            aux.setUser_megusta(mg);
+            em.merge(aux);
+        }
     }
 
 }
