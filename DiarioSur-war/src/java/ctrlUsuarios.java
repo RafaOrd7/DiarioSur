@@ -10,8 +10,10 @@ import Entidades.Notificacion;
 import Entidades.Periodista;
 import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
+import Negocio.ContraseniaInvalidaException;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
+import Negocio.UsuarioNoRegistradoException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -118,32 +120,48 @@ public class ctrlUsuarios implements Serializable {
         return pag;
     }
     
-    public String logIn(){
+    public String logIn() throws DiarioSurException{
         /* Utiliza BdBean y comprueba que esta en la base de datos y que los
            datos introducidos son correctos */
         
-        UsuarioRegistrado user=bd.buscarPorEmail(usuario);
-        UsuarioRegistrador u=negocio;
-        String pag = null;
+        //UsuarioRegistrado user=bd.buscarPorEmail(usuario);
+       
+        try{
+            negocio.compruebaLogin(usuario);
         
-        if(user != null){
-            if(user.getPassword().equals(usuario.getPassword())){
-                pag = "index.xhtml";
-                cta.setUsuarioLogeado(user);
-            }else{
+        
+        
+        
+        
+        
+        //if(user != null){
+            //if(user.getPassword().equals(usuario.getPassword())){
+                
+                cta.setUsuarioLogeado(negocio.refrescarUsuario(usuario));
+                 //usuario = new UsuarioRegistrado();
+                return "index.xhtml";
+               //cta.setUsuarioLogeado(user);
+            /*}else{
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación, "
                         + "pareja email - contraseña incorrectos.", "Error de autenticación, "
                         + "pareja email - contraseña incorrectos.")); 
-            }
-        }else{
+            }*/
+        //}
+        /*else{
            FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación, "
                     + "pareja email - contraseña incorrectos.", "Error de autenticación, "
                             + "pareja email - contraseña incorrectos."));
-        }
-        usuario = new UsuarioRegistrado();
-        return pag;
+        }*/
+       
+        
+        }catch(UsuarioNoRegistradoException | ContraseniaInvalidaException e){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación, "
+                    + "pareja email - contraseña incorrectos.", "Error de autenticación, "
+                            + "pareja email - contraseña incorrectos."));
+        }return null;
     }
     
     public String validarEmail(){

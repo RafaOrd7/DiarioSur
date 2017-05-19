@@ -25,6 +25,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
@@ -38,8 +39,8 @@ import javax.persistence.Persistence;
 public class UsuarioRegistrado implements Serializable {
    
     private static long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+     @Column(nullable  = false, length=50)
+   
     private String idUser;
     @Column(nullable  = false, length=50)
     private String nombre;
@@ -47,7 +48,9 @@ public class UsuarioRegistrado implements Serializable {
     private String apellidos;
     @Column(nullable  = false, length=50)
     private String dni;
-    @Column(nullable  = false, length=50)
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String email;
     @Column(nullable  = true, length=50)
     private String preferencias;

@@ -17,6 +17,7 @@ public interface Negocio {
     
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException;
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException;
-    
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException;
+    public UsuarioRegistrado encontrarUsuario (UsuarioRegistrado u) throws DiarioSurException;
     
 }
