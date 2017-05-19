@@ -4,22 +4,21 @@
  * and open the template in the editor.
  */
 
-import diariosur.Administrador;
-import diariosur.JefeDeRedactores;
-import diariosur.Notificacion;
-import diariosur.Periodista;
-import diariosur.Reporte;
-import diariosur.SuperUsuario;
-import diariosur.UsuarioRegistrado;
+import Entidades.Administrador;
+import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
+import Entidades.Periodista;
+import Entidades.SuperUsuario;
+import Entidades.UsuarioRegistrado;
+import Negocio.DiarioSurException;
+import Negocio.Negocio;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -43,6 +42,8 @@ public class ctrlUsuarios implements Serializable {
     
     @Inject
     private BdBean bd;
+    @EJB
+    private Negocio negocio;
     
     @Inject
     private ctrlAutorizacion cta;
@@ -61,7 +62,7 @@ public class ctrlUsuarios implements Serializable {
     }
     
     
-    public String nuevoUsuario() {
+    public String nuevoUsuario() throws DiarioSurException {
         FacesContext ctx = FacesContext.getCurrentInstance();
         String pag = null;
         if (bd.existeUsuario(usuario)) {
@@ -69,7 +70,11 @@ public class ctrlUsuarios implements Serializable {
                     "El email " + usuario.getEmail() + " está en uso por otro usuario.",
                     "El email " + usuario.getEmail() + " está en uso por otro usuario."));
         } else {
-            bd.crearUR(usuario);  
+            bd.crearUR(usuario);
+            usuario.setHistorialEventos("Ninguno");
+            usuario.setBorrado(false);
+            negocio.registrarUsuario(usuario);
+           
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario " + usuario.getEmail() + " registrado correctamente.",
                     "Usuario " + usuario.getEmail() + " registrado correctamente."));
@@ -118,6 +123,7 @@ public class ctrlUsuarios implements Serializable {
            datos introducidos son correctos */
         
         UsuarioRegistrado user=bd.buscarPorEmail(usuario);
+        UsuarioRegistrador u=negocio;
         String pag = null;
         
         if(user != null){

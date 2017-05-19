@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-import diariosur.Anuncio;
-import diariosur.Evento;
-import diariosur.UsuarioRegistrado;
+import Entidades.Anuncio;
+import Entidades.Evento;
+import Entidades.UsuarioRegistrado;
 import java.io.File;
 import static java.time.Clock.system;
 import java.util.Date;

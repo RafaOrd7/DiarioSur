@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-import diariosur.Administrador;
-import diariosur.Anuncio;
-import diariosur.Evento;
-import diariosur.JefeDeRedactores;
-import diariosur.Notificacion;
-import diariosur.Periodista;
-import diariosur.Reporte;
-import diariosur.SuperUsuario;
-import diariosur.UsuarioRegistrado;
-import diariosur.Valoracion;
+import Entidades.Administrador;
+import Entidades.Anuncio;
+import Entidades.Evento;
+import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
+import Entidades.Periodista;
+import Entidades.Reporte;
+import Entidades.SuperUsuario;
+import Entidades.UsuarioRegistrado;
+import Entidades.Valoracion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
