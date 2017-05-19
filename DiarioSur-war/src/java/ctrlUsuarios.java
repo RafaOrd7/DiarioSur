@@ -47,9 +47,7 @@ public class ctrlUsuarios implements Serializable {
     @Inject
     private ctrlAutorizacion cta;
 
-    public String pene() {
-        return "index.xhtml";
-    }
+  
     
     public ctrlUsuarios() {  
         this.p = new Periodista("P1333", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696");

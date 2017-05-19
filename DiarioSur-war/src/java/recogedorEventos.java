@@ -43,11 +43,11 @@ public class recogedorEventos {
     private BdBean bd;
     @Inject
     private ctrlAutorizacion cta;
-    private static Evento seleccionado;
+    private static Evento seleccionado=new Evento();
 
     public String editarEvento() {
         System.out.println(seleccionado.getId_evento());
-        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
+        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
         seleccionado = aux;
         bd.editarEvento(seleccionado);
