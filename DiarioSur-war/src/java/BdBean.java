@@ -28,29 +28,29 @@ import javax.inject.Named;
  */
 @Named(value = "bdBean")
 @ApplicationScoped
-public class BdBean implements Serializable{
+public class BdBean implements Serializable {
 
-    private Long contId=0L;
-    private List<Administrador> admin=new ArrayList<>();
-    private List<Anuncio> anu=new ArrayList<>();
-    private List<Evento> ev=new ArrayList<>();
-    private List<Evento> busqueda=new ArrayList<>();
-    private List<JefeDeRedactores> jdr=new ArrayList<>();
-    private List<Notificacion> notif=new ArrayList<>();
-    private List<Periodista> peri=new ArrayList<>();
-    private List<Reporte> repEv=new ArrayList<>();
-    private List<Reporte> repVal=new ArrayList<>();
-    private List<SuperUsuario> superu=new ArrayList<>();
-    private List<UsuarioRegistrado> ur=new ArrayList<>();
-    private List<Valoracion> val=new ArrayList<>();
+    private Long contId = 0L;
+    private List<Administrador> admin = new ArrayList<>();
+    private List<Anuncio> anu = new ArrayList<>();
+    private List<Evento> ev = new ArrayList<>();
+    private List<Evento> busqueda = new ArrayList<>();
+    private List<JefeDeRedactores> jdr = new ArrayList<>();
+    private List<Notificacion> notif = new ArrayList<>();
+    private List<Periodista> peri = new ArrayList<>();
+    private List<Reporte> repEv = new ArrayList<>();
+    private List<Reporte> repVal = new ArrayList<>();
+    private List<SuperUsuario> superu = new ArrayList<>();
+    private List<UsuarioRegistrado> ur = new ArrayList<>();
+    private List<Valoracion> val = new ArrayList<>();
     private HashMap<Evento, List<UsuarioRegistrado>> megusta = new HashMap<>();
 
-    public void crearAdmin(Administrador a){
-       contId++;
-       a.setIdUser("A"+contId);
-       admin.add(a);
+    public void crearAdmin(Administrador a) {
+        contId++;
+        a.setIdUser("A" + contId);
+        admin.add(a);
     }
-    
+
     public Administrador buscarAdminPorId(String id) {
         for (Administrador aux : admin) {
             if (id.equals(aux.getIdUser())) {
@@ -59,7 +59,7 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
+
     public JefeDeRedactores buscarJDRPorId(String id) {
         for (JefeDeRedactores aux : jdr) {
             if (id.equals(aux.getIdUser())) {
@@ -68,7 +68,7 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
+
     public Periodista buscarPeriodistaPorId(String id) {
         for (Periodista aux : peri) {
             if (id.equals(aux.getIdUser())) {
@@ -77,7 +77,7 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
+
     public SuperUsuario buscarSUPorId(String id) {
         for (SuperUsuario aux : superu) {
             if (id.equals(aux.getIdUser())) {
@@ -86,7 +86,7 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
+
     public UsuarioRegistrado buscarURPorId(String id) {
         for (UsuarioRegistrado aux : ur) {
             if (id.equals(aux.getIdUser())) {
@@ -95,10 +95,10 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
-    public Administrador buscarAdmin(Administrador a){
-        for(Administrador aux:admin){
-            if(a.getIdUser().equals(aux.getIdUser())){
+
+    public Administrador buscarAdmin(Administrador a) {
+        for (Administrador aux : admin) {
+            if (a.getIdUser().equals(aux.getIdUser())) {
                 return aux;
             }
         }
@@ -108,46 +108,46 @@ public class BdBean implements Serializable{
     public HashMap<Evento, List<UsuarioRegistrado>> getMegusta() {
         return megusta;
     }
-    
-    public void eliminarAdmin(Administrador a){
+
+    public void eliminarAdmin(Administrador a) {
         admin.remove(a);
     }
-    
-    public void crearAnuncio(Anuncio a){
-       contId++;
-       a.setId_anuncio(contId);
-       anu.add(a);
+
+    public void crearAnuncio(Anuncio a) {
+        contId++;
+        a.setId_anuncio(contId);
+        anu.add(a);
     }
-    
-    public Anuncio buscarAnuncio(Anuncio a){
-        for(Anuncio aux:anu){
-            if(a.getId_anuncio().equals(aux.getId_anuncio())){
+
+    public Anuncio buscarAnuncio(Anuncio a) {
+        for (Anuncio aux : anu) {
+            if (a.getId_anuncio().equals(aux.getId_anuncio())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarAnuncio(Anuncio a){      
+
+    public void eliminarAnuncio(Anuncio a) {
         anu.remove(a);
     }
-    
-    public void crearEvento(Evento a){
+
+    public void crearEvento(Evento a) {
         contId++;
-       a.setId(contId);
-       ev.add(a);
+        a.setId(contId);
+        ev.add(a);
     }
-    
-    public Evento buscarAnuncio(Evento a){
-        for(Evento aux:ev){
-            if(a.getId().equals(aux.getId())){
+
+    public Evento buscarAnuncio(Evento a) {
+        for (Evento aux : ev) {
+            if (a.getId().equals(aux.getId())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarEvento(Evento a){
+
+    public void eliminarEvento(Evento a) {
         /*Long idaux=a.getId_evento();
         for(Evento aux:ev){
             if(idaux.equals(aux.getId_evento())){
@@ -157,153 +157,153 @@ public class BdBean implements Serializable{
         }*/
         ev.remove(a);
     }
-    
-    public void crearJDR(JefeDeRedactores a){
-       contId++;
-       a.setIdUser("J"+contId);
-       jdr.add(a);
+
+    public void crearJDR(JefeDeRedactores a) {
+        contId++;
+        a.setIdUser("J" + contId);
+        jdr.add(a);
     }
-    
-    public JefeDeRedactores buscarJDR(JefeDeRedactores a){
-        for(JefeDeRedactores aux:jdr){
-            if(a.getIdUser().equals(aux.getIdUser())){
+
+    public JefeDeRedactores buscarJDR(JefeDeRedactores a) {
+        for (JefeDeRedactores aux : jdr) {
+            if (a.getIdUser().equals(aux.getIdUser())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarJDR(JefeDeRedactores a){
+
+    public void eliminarJDR(JefeDeRedactores a) {
         jdr.remove(a);
     }
-    
-    public void crearNotificacion(Notificacion a){
+
+    public void crearNotificacion(Notificacion a) {
         contId++;
-       a.setId(contId);
-       notif.add(a);
+        a.setId(contId);
+        notif.add(a);
     }
-    
-    public Notificacion buscarNotificacion(Notificacion a){
-        for(Notificacion aux:notif){
-            if(a.getId().equals(aux.getId())){
+
+    public Notificacion buscarNotificacion(Notificacion a) {
+        for (Notificacion aux : notif) {
+            if (a.getId().equals(aux.getId())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarNotificacion(Notificacion a){
+
+    public void eliminarNotificacion(Notificacion a) {
         notif.remove(a);
     }
-    
-    public void crearPeriodista(Periodista a){
-         contId++;
-       a.setIdUser("P"+contId);
-       peri.add(a);
+
+    public void crearPeriodista(Periodista a) {
+        contId++;
+        a.setIdUser("P" + contId);
+        peri.add(a);
     }
-    
-    public Periodista buscarPeriodista(Periodista a){
-        for(Periodista aux:peri){
-            if(a.getIdUser().equals(aux.getIdUser())){
+
+    public Periodista buscarPeriodista(Periodista a) {
+        for (Periodista aux : peri) {
+            if (a.getIdUser().equals(aux.getIdUser())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarPeriodista(Periodista a){
+
+    public void eliminarPeriodista(Periodista a) {
         peri.remove(a);
     }
-    
-    public void crearReporteEv(Reporte a){
+
+    public void crearReporteEv(Reporte a) {
         contId++;
-       a.setId(contId);
-       repEv.add(a);
+        a.setId(contId);
+        repEv.add(a);
     }
-    
-    public Reporte buscarReporteEv(Reporte a){
-        for(Reporte aux:repEv){
-            if(a.getId_reporte().equals(aux.getId_reporte())){
+
+    public Reporte buscarReporteEv(Reporte a) {
+        for (Reporte aux : repEv) {
+            if (a.getId_reporte().equals(aux.getId_reporte())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarReporteEv(Reporte a){
-       /* Long idaux=a.getId_reporte();
+
+    public void eliminarReporteEv(Reporte a) {
+        /* Long idaux=a.getId_reporte();
         for(Reporte aux:rep){
             if(idaux.equals(aux.getId_reporte())){
                 repEv.remove(aux);
                 break;
             }
         }*/
-       repEv.remove(a);
-        
+        repEv.remove(a);
+
     }
-    
-     public void crearReporteVal(Reporte a){
+
+    public void crearReporteVal(Reporte a) {
         contId++;
-       a.setId(contId);
-       repVal.add(a);
+        a.setId(contId);
+        repVal.add(a);
     }
-    
-    public Reporte buscarReporteVal(Reporte a){
-        for(Reporte aux:repVal){
-            if(a.getId_reporte().equals(aux.getId_reporte())){
+
+    public Reporte buscarReporteVal(Reporte a) {
+        for (Reporte aux : repVal) {
+            if (a.getId_reporte().equals(aux.getId_reporte())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarReporteVal(Reporte a){
-       /* Long idaux=a.getId_reporte();
+
+    public void eliminarReporteVal(Reporte a) {
+        /* Long idaux=a.getId_reporte();
         for(Reporte aux:rep){
             if(idaux.equals(aux.getId_reporte())){
                 repEv.remove(aux);
                 break;
             }
         }*/
-       repVal.remove(a);
-        
+        repVal.remove(a);
+
     }
-    
-    public void crearSU(SuperUsuario a){
-       contId++;
-       a.setIdUser("S"+contId);
-       superu.add(a);
+
+    public void crearSU(SuperUsuario a) {
+        contId++;
+        a.setIdUser("S" + contId);
+        superu.add(a);
     }
-    
-    public SuperUsuario buscarSU(SuperUsuario a){
-        for(SuperUsuario aux:superu){
-            if(a.getIdUser().equals(aux.getIdUser())){
+
+    public SuperUsuario buscarSU(SuperUsuario a) {
+        for (SuperUsuario aux : superu) {
+            if (a.getIdUser().equals(aux.getIdUser())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarSU(SuperUsuario a){
+
+    public void eliminarSU(SuperUsuario a) {
         superu.remove(a);
     }
-    
-    public void crearUR(UsuarioRegistrado a){
-       contId++;
-       a.setIdUser("U"+contId);
-       ur.add(a);
+
+    public void crearUR(UsuarioRegistrado a) {
+        contId++;
+        a.setIdUser("U" + contId);
+        ur.add(a);
     }
-    
-    public UsuarioRegistrado buscarUR(UsuarioRegistrado a){
-        for(UsuarioRegistrado aux:ur){
-            if(a.getIdUser().equals(aux.getIdUser())){
+
+    public UsuarioRegistrado buscarUR(UsuarioRegistrado a) {
+        for (UsuarioRegistrado aux : ur) {
+            if (a.getIdUser().equals(aux.getIdUser())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public UsuarioRegistrado buscarPorId (String id) {
+
+    public UsuarioRegistrado buscarPorId(String id) {
         for (UsuarioRegistrado aux : ur) {
             if (id.equals(aux.getIdUser())) {
                 return aux;
@@ -311,8 +311,8 @@ public class BdBean implements Serializable{
         }
         return null;
     }
-    
-    public boolean existeUsuario (UsuarioRegistrado a) {
+
+    public boolean existeUsuario(UsuarioRegistrado a) {
         for (UsuarioRegistrado aux : ur) {
             if (a.getEmail().equals(aux.getEmail())) {
                 return true;
@@ -340,64 +340,60 @@ public class BdBean implements Serializable{
         }
         return false;
     }
-    
-    public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a){
-        for(UsuarioRegistrado aux:ur){
-            if(a.getEmail().equals(aux.getEmail())){
+
+    public UsuarioRegistrado buscarPorEmail(UsuarioRegistrado a) {
+        for (UsuarioRegistrado aux : ur) {
+            if (a.getEmail().equals(aux.getEmail())) {
                 return aux;
             }
         }
-        for(SuperUsuario aux:superu){
-            if(a.getEmail().equals(aux.getEmail())){
+        for (SuperUsuario aux : superu) {
+            if (a.getEmail().equals(aux.getEmail())) {
                 return aux;
             }
         }
-        for(Periodista aux:peri){
-            if(a.getEmail().equals(aux.getEmail())){
+        for (Periodista aux : peri) {
+            if (a.getEmail().equals(aux.getEmail())) {
                 return aux;
             }
         }
-        for(JefeDeRedactores aux:jdr){
-            if(a.getEmail().equals(aux.getEmail())){
+        for (JefeDeRedactores aux : jdr) {
+            if (a.getEmail().equals(aux.getEmail())) {
                 return aux;
             }
         }
-        for(Administrador aux:admin){
-            if(a.getEmail().equals(aux.getEmail())){
+        for (Administrador aux : admin) {
+            if (a.getEmail().equals(aux.getEmail())) {
                 return aux;
             }
         }
-        
+
         return null;
     }
-    
-    
-    public void eliminarUR(UsuarioRegistrado a){
+
+    public void eliminarUR(UsuarioRegistrado a) {
         ur.remove(a);
     }
-    
-    
-    public void crearValoracion(Valoracion a){
+
+    public void crearValoracion(Valoracion a) {
         contId++;
-       a.setId(contId);
-       val.add(a);
+        a.setId(contId);
+        val.add(a);
     }
-    
-    public Valoracion buscarValoracion(Valoracion a){
-        for(Valoracion aux:val){
-            if(a.getIdValoracion().equals(aux.getIdValoracion())){
+
+    public Valoracion buscarValoracion(Valoracion a) {
+        for (Valoracion aux : val) {
+            if (a.getIdValoracion().equals(aux.getIdValoracion())) {
                 return aux;
             }
         }
         return null;
     }
-    
-    public void eliminarValoracion(Valoracion a){
+
+    public void eliminarValoracion(Valoracion a) {
         val.remove(a);
     }
-    
-    
-    
+
     public List<Administrador> getAdmin() {
         return admin;
     }
@@ -462,8 +458,6 @@ public class BdBean implements Serializable{
         this.repVal = repVal;
     }
 
-    
-
     public List<SuperUsuario> getSuperu() {
         return superu;
     }
@@ -483,12 +477,11 @@ public class BdBean implements Serializable{
     public List<Valoracion> getVal() {
         return val;
     }
-    
-    
+
     public void setVal(List<Valoracion> val) {
         this.val = val;
     }
-    
+
     public List<Evento> getBusqueda() {
         return busqueda;
     }
@@ -496,40 +489,40 @@ public class BdBean implements Serializable{
     public void setBusqueda(List<Evento> busqueda) {
         this.busqueda = busqueda;
     }
-   public Boolean buscarEv(Evento e){
-        if(megusta.containsKey(e)){
+
+    public Boolean buscarEv(Evento e) {
+        if (megusta.containsKey(e)) {
             return true;
         }
         return false;
     }
-    
-   public void MeGusta(Evento e, UsuarioRegistrado u){
-       List<UsuarioRegistrado> mg= new ArrayList<>();
-       Boolean encontrado=buscarEv(e);
-       if(encontrado && !(megusta.get(e).contains(u))){             
-          megusta.get(e).add(u);
-          e.setUser_megusta(megusta.get(e));
-       }
-       else if(encontrado && (megusta.get(e).contains(u))){             
-          megusta.get(e).remove(u);
-          e.setUser_megusta(megusta.get(e));
-       }
-       else if (!encontrado){
-           mg.add(u);
-           megusta.put(e, mg);
-       }
-   }
-    
-    public void editarEvento(Evento e){
-        for(Evento aux: ev){
-            if(aux.getId_evento()==e.getId_evento()){
-                ev.remove(aux);
-                ev.add(e);
+
+    public void MeGusta(Evento e, UsuarioRegistrado u) {
+        List<UsuarioRegistrado> mg = new ArrayList<>();
+        Boolean encontrado = buscarEv(e);
+        if (encontrado && !(megusta.get(e).contains(u))) {
+            megusta.get(e).add(u);
+            e.setUser_megusta(megusta.get(e));
+        } else if (encontrado && (megusta.get(e).contains(u))) {
+            megusta.get(e).remove(u);
+            e.setUser_megusta(megusta.get(e));
+        } else if (!encontrado) {
+            mg.add(u);
+            megusta.put(e, mg);
+        }
+    }
+
+    public void editarEvento(Evento e) {
+        int i=0;
+        for (Evento aux : ev) {
+            i++;
+            if (aux.getId_evento() == e.getId_evento()) {
+                ev.set(i-1, e);
             }
         }
-        
+
     }
-    
+
     public BdBean() {
         Administrador adm = new Administrador();
         adm.setNombre("Francisco");
@@ -541,7 +534,7 @@ public class BdBean implements Serializable{
         adm.setCargo("Profesor");
         adm.setTelefono("9521 32815");
         crearAdmin(adm);
-      
+
         UsuarioRegistrado u = new UsuarioRegistrado();
         u.setNombre("Michael");
         u.setApellidos("Delgado");
@@ -549,7 +542,7 @@ public class BdBean implements Serializable{
         u.setEmail("user@uma.es");
         u.setPassword("asdf");
         crearUR(u);
-        
+
         UsuarioRegistrado a = new UsuarioRegistrado();
         a.setNombre("Juanan");
         a.setApellidos("Crack");
@@ -557,28 +550,26 @@ public class BdBean implements Serializable{
         a.setEmail("jajipe@uma.es");
         a.setPassword("asdf");
         crearUR(a);
-        
+
         superu.add(new SuperUsuario("S4", "titi", "chetos", "12312312K", "a@gmail.com", "123", "Ayuntamiento Málaga"));
         peri.add(new Periodista("P5", "Dista", "Perio", "12312312K", "peri@uma.es", "asdf", "McDonalds", "Barrendero", "696969696"));
         jdr.add(new JefeDeRedactores("J6", "Faso", "Erje", "12312332K", "jefe@uma.es", "asdf", "Burguer king", "friepapas", "676969696"));
-        contId = contId+3;
-        
-        Anuncio an= new Anuncio(null,null,null,"Sobaco S.L.",null,null,null,null,null);
+        contId = contId + 3;
+
+        Anuncio an = new Anuncio(null, null, null, "Sobaco S.L.", null, null, null, null, null);
         an.setId_anuncio(contId);
         anu.add(an);
-        
-        Evento e1=new Evento("feria malaga",new Date(),"Málaga","1",2F,"http://www.ticketmaster.es/","feria realizada en malaga","feria malaga",adm,false,an);
+
+        Evento e1 = new Evento("feria malaga", new Date(), "Málaga", "exposicion", 2F, "http://www.ticketmaster.es/", "feria realizada en malaga", "feria malaga", adm, false, an);
         e1.setId_evento(contId);
-        
+
         contId++;
         ev.add(e1);
-        Evento e2= new Evento("hackers week",new Date(),"Málaga","1",4F,"http://www.ticketmaster.es/","semana cultural realizada en la ETSI Informatica","semana cultural",a,false,an);
+        Evento e2 = new Evento("hackers week", new Date(), "Málaga", "exposicion", 4F, "http://www.ticketmaster.es/", "semana cultural realizada en la ETSI Informatica", "semana cultural", a, false, an);
         e2.setId_evento(contId);
         contId++;
         ev.add(e2);
-       
-        
 
     }
-    
+
 }
