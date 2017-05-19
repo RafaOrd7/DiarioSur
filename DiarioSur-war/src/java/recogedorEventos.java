@@ -7,11 +7,13 @@
 import Entidades.Anuncio;
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import Negocio.Negocio;
 import java.io.File;
 import static java.time.Clock.system;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -41,6 +43,10 @@ public class recogedorEventos {
     private String url; // +setter
     @Inject
     private BdBean bd;
+    
+    @EJB
+    private Negocio negocio;
+    
     @Inject
     private ctrlAutorizacion cta;
     private static Evento seleccionado=new Evento();
@@ -51,6 +57,7 @@ public class recogedorEventos {
         aux.setId_evento(seleccionado.getId_evento());
         seleccionado = aux;
         bd.editarEvento(seleccionado);
+        negocio.editarEvento(seleccionado);
         return "evento.xhtml";
     }
 
@@ -194,8 +201,8 @@ public class recogedorEventos {
     }
 
     public String eliminarEvento() {
-        System.out.println("PUYTAVIDA");
         bd.eliminarEvento(seleccionado);
+        negocio.eliminarEvento(seleccionado);
 
         return "index.xhtml";
     }
@@ -203,6 +210,7 @@ public class recogedorEventos {
     public String megusta() {
         usuario = cta.getUsuarioLogeado();
         bd.MeGusta(seleccionado, usuario);
+        negocio.meGusta(seleccionado, usuario);
         return "evento.xhtml";
     }
 

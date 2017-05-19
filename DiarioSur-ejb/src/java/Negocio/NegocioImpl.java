@@ -5,6 +5,7 @@
  */
 package Negocio;
 
+import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,6 +61,21 @@ public class NegocioImpl implements Negocio {
     @Override
     public UsuarioRegistrado encontrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         return em.find(UsuarioRegistrado.class, u.getIdUser());
+    }
+    
+    @Override
+    public void editarEvento(Evento e){
+        em.merge(e);
+    }
+    
+    @Override
+    public void eliminarEvento(Evento e){
+        em.remove(em.merge(e));
+    }
+    
+    @Override
+    public void meGusta(Evento e, UsuarioRegistrado u){
+        
     }
 
 }
