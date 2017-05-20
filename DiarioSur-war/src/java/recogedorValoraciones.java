@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-import diariosur.Evento;
-import diariosur.Reporte;
-import diariosur.UsuarioRegistrado;
-import diariosur.Valoracion;
+import Entidades.Evento;
+import Entidades.Reporte;
+import Entidades.UsuarioRegistrado;
+import Entidades.Valoracion;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;

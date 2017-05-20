@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import diariosur.Evento;
+import Entidades.Evento;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;

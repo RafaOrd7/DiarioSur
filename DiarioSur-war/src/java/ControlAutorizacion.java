@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-import diariosur.Administrador;
-import diariosur.JefeDeRedactores;
-import diariosur.Periodista;
-import diariosur.SuperUsuario;
-import diariosur.UsuarioRegistrado;
+import Entidades.Administrador;
+import Entidades.JefeDeRedactores;
+import Entidades.Periodista;
+import Entidades.SuperUsuario;
+import Entidades.UsuarioRegistrado;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diariosur;
+package Entidades;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,21 +25,22 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author pablo
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="tipoUsuario", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("UsuarioRegistrado")
 
 public class UsuarioRegistrado implements Serializable {
    
     private static long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+     @Column(nullable  = false, length=50)
+   
     private String idUser;
     @Column(nullable  = false, length=50)
     private String nombre;
@@ -47,9 +48,11 @@ public class UsuarioRegistrado implements Serializable {
     private String apellidos;
     @Column(nullable  = false, length=50)
     private String dni;
-    @Column(nullable  = false, length=50)
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String email;
-    @Column(nullable  = false, length=50)
+    @Column(nullable  = true, length=50)
     private String preferencias;
     @Column(nullable  = true)
     private byte multimedia;
@@ -57,6 +60,56 @@ public class UsuarioRegistrado implements Serializable {
     private String password;
     @Column(nullable  = false, length=100)
     private String historialEventos;
+    @Column(nullable  = false, length=100)
+    private boolean borrado;
+
+    public boolean isBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(boolean borrado) {
+        this.borrado = borrado;
+    }
+
+    public List<Evento> getEvento() {
+        return evento;
+    }
+
+    public void setEvento(List<Evento> evento) {
+        this.evento = evento;
+    }
+
+    public List<Reporte> getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(List<Reporte> reporte) {
+        this.reporte = reporte;
+    }
+
+    public List<Valoracion> getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(List<Valoracion> valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public List<Notificacion> getNotificacion() {
+        return notificacion;
+    }
+
+    public void setNotificacion(List<Notificacion> notificacion) {
+        this.notificacion = notificacion;
+    }
+
+    public List<Evento> getMegusta() {
+        return megusta;
+    }
+
+    public void setMegusta(List<Evento> megusta) {
+        this.megusta = megusta;
+    }
     
     /////////////////RELACIONES////////////////
     
