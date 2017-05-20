@@ -5,6 +5,7 @@
  */
 package Negocio;
 
+import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,10 +22,12 @@ public class NegocioImpl implements Negocio {
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
+    
+    
 
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getIdUser());
+        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
         if (user != null) {
             // El usuario ya existe
             throw new CuentaRepetidaException();
@@ -32,7 +35,7 @@ public class NegocioImpl implements Negocio {
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
-
+        
     }
 
     @Override
@@ -58,8 +61,14 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public UsuarioRegistrado encontrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        return em.find(UsuarioRegistrado.class, u.getIdUser());
+    public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
+        boolean existe=false;
+        UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
+        if(aux!=null){
+            existe=true;
+        }
+        
+        return existe;
     }
 
 }
