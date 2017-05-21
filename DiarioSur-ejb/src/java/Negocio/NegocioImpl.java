@@ -139,16 +139,16 @@ public class NegocioImpl implements Negocio {
     @Override
     public void crearEvento(Evento e) {
         contId++;
-        e.setId(20L);
+        e.setId(contId);
         em.persist(e);
         
         
     
     }
     
-    
+    @Override
     public Anuncio devolverAnuncio(){
-        return em.find(Anuncio.class,69L );
+        return em.find(Anuncio.class,69L);
     }
 
     
