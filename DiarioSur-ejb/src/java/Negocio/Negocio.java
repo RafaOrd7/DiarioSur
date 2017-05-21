@@ -5,6 +5,8 @@
  */
 package Negocio;
 
+import Entidades.Anuncio;
+import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
 import javax.ejb.Local;
 
@@ -19,5 +21,9 @@ public interface Negocio {
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException;
     public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException;
     public boolean existeUsuario(UsuarioRegistrado u)throws DiarioSurException;
-    
+    public void editarEvento(Evento e);
+    public void eliminarEvento(Evento e);
+    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException;
+    public void crearEvento(Evento e);
+    public Anuncio devolverAnuncio();
 }

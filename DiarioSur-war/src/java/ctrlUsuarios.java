@@ -70,6 +70,7 @@ public class ctrlUsuarios implements Serializable {
         }else{
              usuario.setHistorialEventos("Ninguno");
             usuario.setBorrado(false);
+            
             negocio.registrarUsuario(usuario);
 
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
