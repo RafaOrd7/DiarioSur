@@ -37,7 +37,7 @@ public class Anuncio implements Serializable {
     @Column(nullable  = false, length=100)
     @Temporal(value=TemporalType.DATE)
     private Date fechaExpiracion;
-    @Column(nullable  = false, length=1000)
+    @Column(nullable  = true, length=1000)
     private File multimedia;
     @Column(nullable  = false, length=50)
     private String empresa;
@@ -50,6 +50,14 @@ public class Anuncio implements Serializable {
     @ManyToOne
     @JoinColumn(nullable  = false)
     private Administrador administrador;
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
     @OneToMany (mappedBy="anuncio")
     private List<Evento> evento;
 
