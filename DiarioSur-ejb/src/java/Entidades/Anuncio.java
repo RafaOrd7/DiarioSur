@@ -37,7 +37,7 @@ public class Anuncio implements Serializable {
     @Column(nullable  = false, length=100)
     @Temporal(value=TemporalType.DATE)
     private Date fechaExpiracion;
-    @Column(nullable  = false, length=1000)
+    @Column(nullable  = true, length=1000)
     private File multimedia;
     @Column(nullable  = false, length=50)
     private String empresa;

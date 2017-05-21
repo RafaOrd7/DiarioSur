@@ -231,6 +231,7 @@ public class recogedorEventos {
         aux.setImagen(imagen);
         setSeleccionado(aux);
         bd.crearEvento(aux);
+        negocio.crearEvento(aux);
         return "evento";
     }
 

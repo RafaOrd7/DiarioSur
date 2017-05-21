@@ -6,9 +6,14 @@
 package Negocio;
 
 
+import Entidades.Administrador;
+import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,6 +43,31 @@ public class NegocioImpl implements Negocio {
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
+        
+        Administrador ad = new Administrador();
+        ad.setApellidos("a");
+        ad.setBorrado(false);
+        ad.setCargo("si");
+        ad.setDni("12345678E");
+        ad.setEmail("prueba@uma.es");
+        ad.setEmpresa("si");
+        ad.setHistorialEventos("nada");
+        ad.setNombre("prueba");
+        ad.setPassword("123");
+        ad.setPreferencias("si");
+        ad.setTelefono("123456789");
+        ad.setIdUser("A"+ contId++);
+        em.persist(ad);
+        
+        Anuncio ano = new Anuncio();
+        ano.setDimensiones("si");
+        ano.setEmpresa("Prueba SL");
+        ano.setEvento(new ArrayList<Evento>());
+        ano.setFechaExpiracion(new Date());
+        ano.setFechaPublicacion(new Date());
+        ano.setId_anuncio(contId++);
+        ano.setPrioridad("mucha");
+        ano.setTags("vale");
         
     }
 
@@ -100,6 +130,13 @@ public class NegocioImpl implements Negocio {
             aux.setUser_megusta(mg);
             em.merge(aux);
         }
+    }
+    
+    @Override
+    public synchronized void crearEvento(Evento e) {
+        contId++;
+        e.setId(contId);
+        em.persist(e);
     }
 
 }

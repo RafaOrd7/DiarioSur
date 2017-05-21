@@ -23,5 +23,5 @@ public interface Negocio {
     public void editarEvento(Evento e);
     public void eliminarEvento(Evento e);
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException;
-    
+    public void crearEvento(Evento e);
 }
