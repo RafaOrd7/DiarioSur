@@ -5,12 +5,12 @@
  */
 package Negocio;
 
-
 import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import Entidades.Valoracion;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +30,6 @@ public class NegocioImpl implements Negocio {
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
-    
-    
 
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
@@ -43,8 +41,7 @@ public class NegocioImpl implements Negocio {
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
-        
-        
+
         /* Esto es un administrador para probar */
         Administrador ad = new Administrador();
         ad.setApellidos("a");
@@ -58,9 +55,9 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A"+ contId++);
+        ad.setIdUser("A" + contId++);
         em.persist(ad);
-        
+
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
         ano.setEmpresa("Prueba SL");
@@ -72,7 +69,7 @@ public class NegocioImpl implements Negocio {
         ano.setTags("vale");
         ano.setAdministrador(ad);
         em.persist(ano);
-        
+
     }
 
     @Override
@@ -91,66 +88,78 @@ public class NegocioImpl implements Negocio {
     @Override
     public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         compruebaLogin(u);
-        
-        UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
+
+        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
         em.refresh(aux);
         return aux;
-        
+
     }
 
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        boolean existe=false;
-        UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
-        if(aux!=null){
-            existe=true;
+        boolean existe = false;
+        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
+        if (aux != null) {
+            existe = true;
         }
-        
+
         return existe;
     }
-    
+
     @Override
-    public void editarEvento(Evento e){
+    public void editarEvento(Evento e) {
         em.merge(e);
     }
-    
+
     @Override
-    public void eliminarEvento(Evento e){
+    public void eliminarEvento(Evento e) {
         em.remove(em.merge(e));
     }
-    
+
     @Override
-    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException{
+    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException {
+
         Evento aux = em.find(Evento.class, e.getId_evento());
+        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getEmail());
         
-        if (aux == null) {
+        if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
             List<UsuarioRegistrado> mg = aux.getUser_megusta();
-            
-            if(mg.contains(u)) mg.remove(u);   
-            else mg.add(u);
-            
+            if (mg.contains(ur)) {
+                mg.remove(ur);
+            } else {
+                mg.add(ur);
+            }
+
+            List<Evento> mg2 = ur.getMegusta();
+           
+            if (mg2.contains(aux)) {
+                mg2.remove(aux);
+            } else {
+                mg2.add(aux);
+            }
+
             aux.setUser_megusta(mg);
-            em.merge(aux);
+            ur.setMegusta(mg2);
+
+            em.persist(aux);
+            em.persist(ur);
+
         }
     }
-    
+
     @Override
     public void crearEvento(Evento e) {
         contId++;
         e.setId(contId);
         em.persist(e);
-        
-        
-    
-    }
-    
-    @Override
-    public Anuncio devolverAnuncio(){
-        return em.find(Anuncio.class,69L);
+
     }
 
-    
+    @Override
+    public Anuncio devolverAnuncio() {
+        return em.find(Anuncio.class, 69L);
+    }
 
 }

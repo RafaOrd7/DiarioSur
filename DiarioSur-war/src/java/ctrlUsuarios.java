@@ -15,6 +15,7 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import Negocio.UsuarioNoRegistradoException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,7 +71,7 @@ public class ctrlUsuarios implements Serializable {
         }else{
              usuario.setHistorialEventos("Ninguno");
             usuario.setBorrado(false);
-            
+            usuario.setMegusta(new ArrayList<>());
             negocio.registrarUsuario(usuario);
 
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,

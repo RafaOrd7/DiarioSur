@@ -11,6 +11,7 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
 import static java.time.Clock.system;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -230,6 +231,7 @@ public class recogedorEventos {
         
         Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
+        aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
         bd.crearEvento(aux);
         negocio.crearEvento(aux);

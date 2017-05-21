@@ -8,10 +8,12 @@ import Entidades.Evento;
 import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
+import Negocio.Negocio;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -35,6 +37,9 @@ public class recogedorValoraciones {
     @Inject
     private BdBean bd;
 
+    @EJB
+    private Negocio negocio;
+    
     
     public String reportar(Valoracion v) {    
         seleccionada=v;
