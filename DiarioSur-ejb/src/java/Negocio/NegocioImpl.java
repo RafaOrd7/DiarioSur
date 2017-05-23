@@ -162,4 +162,22 @@ public class NegocioImpl implements Negocio {
         return em.find(Anuncio.class, 69L);
     }
 
+    @Override
+    public void crearValoracion(Valoracion v) throws DiarioSurException {
+        Evento aux=em.find(Evento.class,v.getEvento().getId());
+        if(aux==null){
+            throw new EventoNoEncontradoException();
+        }
+        
+        contId++;
+        v.setId(contId);
+        em.persist(v);
+        
+        
+        
+        
+        
+        
+    }
+
 }

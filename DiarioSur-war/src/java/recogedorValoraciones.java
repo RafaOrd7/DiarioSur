@@ -8,6 +8,7 @@ import Entidades.Evento;
 import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
+import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
 import java.util.ArrayList;
@@ -122,10 +123,13 @@ public class recogedorValoraciones {
         comentario = m;
     }
     
-    public String enviarValoracion(Evento seleccionado) {
+    public String enviarValoracion(Evento seleccionado, UsuarioRegistrado usuarior) throws DiarioSurException {
         evento= seleccionado;
+        usuario=usuarior;
         Valoracion aux = new Valoracion(rating, comentario, fecha, usuario, evento);
         setSeleccionada (aux);
+        
+        negocio.crearValoracion(aux);
         bd.crearValoracion(aux);
         return "evento.xhtml";
     }
