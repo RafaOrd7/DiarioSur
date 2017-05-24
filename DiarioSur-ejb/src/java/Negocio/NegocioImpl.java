@@ -10,6 +10,8 @@ import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
+import Entidades.JefeDeRedactores;
+import Entidades.Periodista;
 import Entidades.UsuarioRegistrado;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -32,7 +35,123 @@ public class NegocioImpl implements Negocio {
     private EntityManager em;
     
     
+    
+    @Override
+    public void addPeri(Periodista per){
+        Periodista p = em.find(Periodista.class, per.getEmail());
+        em.detach(p);
+        p.setIdUser(per.getIdUser());
+        p.setNombre(per.getNombre());
+        p.setApellidos(per.getApellidos());
+        p.setDni(per.getDni());
+        p.setEmail(per.getEmail());
+        p.setPassword(per.getPassword());
+        p.setPreferencias(per.getPreferencias());
+        p.setMultimedia(per.getMultimedia());
+        p.setHistorialEventos(per.getHistorialEventos());
+        em.persist(p);
+    }
+    
+    
+    @Override
+    public void addAdmin(Administrador adm){
+        em.merge(adm);
+    }
+    
+    @Override
+    public void addUR(UsuarioRegistrado ur){
+        em.merge(ur);
+    }
+    
+    @Override
+    public void addJdr(JefeDeRedactores jdre){
+        em.merge(jdre);
+    }
+    
+    @Override
+    public void addSuperu(SuperUsuario sup){
+       // no se si es necesario el detach
+       //em.detach(em.find(SuperUsuario.class, sup.getEmail()));
+        em.merge(sup);
+    }
+    
+    @Override
+    public void eliminarUR(UsuarioRegistrado a) {
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarSU(SuperUsuario a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarPeriodista(Periodista a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarJDR(JefeDeRedactores a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarAdmin(Administrador a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public List<UsuarioRegistrado> getUR(){
+        return em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.idUser LIKE 'U%'").getResultList();
 
+    }
+    
+    @Override
+    public List<SuperUsuario> getSuperu(){
+        return em.createQuery("SELECT u FROM SuperUsuario u WHERE u.idUser LIKE 'S%'").getResultList();
+    }
+    
+    @Override
+    public List<Periodista> getPeri(){
+        return em.createQuery("SELECT u FROM Periodista u WHERE u.idUser LIKE 'P%'").getResultList();
+    }
+    
+    @Override
+    public List<JefeDeRedactores> getJdr(){
+        return em.createQuery("SELECT u FROM JefeDeRedactores u WHERE u.idUser LIKE 'J%'").getResultList();
+    }
+    
+    @Override
+    public List<Administrador> getAdmin(){
+        return em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
+    }
+    
+    @Override
+    public Administrador buscarAdmin(Administrador a){
+        return em.find(Administrador.class, a.getEmail());
+    }
+    
+    @Override
+    public JefeDeRedactores buscarJDR(JefeDeRedactores a){
+        return em.find(JefeDeRedactores.class, a.getEmail());
+    }
+    
+    @Override
+    public Periodista buscarPeriodista(Periodista a){
+        return em.find(Periodista.class, a.getEmail());
+    }
+    
+    @Override
+    public SuperUsuario buscarSU(SuperUsuario a){
+        return em.find(SuperUsuario.class, a.getEmail());
+    }
+    
+    @Override
+    public UsuarioRegistrado buscarUR(UsuarioRegistrado a){
+        return em.find(UsuarioRegistrado.class, a.getEmail());
+    }
+    
+    
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());

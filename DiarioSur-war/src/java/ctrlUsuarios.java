@@ -83,6 +83,8 @@ public class ctrlUsuarios implements Serializable {
         return pag;
     }
 
+    
+    //POR HACER
     public String nuevoUsuarioGestion() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         String pag = null;
@@ -173,48 +175,48 @@ public class ctrlUsuarios implements Serializable {
     }
 
     public String eliminarUR(UsuarioRegistrado u) {
-        bd.eliminarUR(u);
+        negocio.eliminarUR(u);
         return null;
     }
 
     public String eliminarSU(SuperUsuario u) {
-        bd.eliminarSU(u);
+        negocio.eliminarSU(u);
         return null;
     }
 
     public String eliminarP(Periodista u) {
-        bd.eliminarPeriodista(u);
+        negocio.eliminarPeriodista(u);
         return null;
     }
 
     public String eliminarJDR(JefeDeRedactores u) {
-        bd.eliminarJDR(u);
+        negocio.eliminarJDR(u);
         return null;
     }
 
     public String eliminarA(Administrador u) {
-        bd.eliminarAdmin(u);
+        negocio.eliminarAdmin(u);
         return null;
     }
 
     public List<UsuarioRegistrado> getListaUR() {
-        return bd.getUr();
+        return negocio.getUR();
     }
 
     public List<SuperUsuario> getListaSU() {
-        return bd.getSuperu();
+        return negocio.getSuperu();
     }
 
     public List<JefeDeRedactores> getListaJDR() {
-        return bd.getJdr();
+        return negocio.getJdr();
     }
 
     public List<Periodista> getListaP() {
-        return bd.getPeri();
+        return negocio.getPeri();
     }
 
     public List<Administrador> getListaA() {
-        return bd.getAdmin();
+        return negocio.getAdmin();
     }
 
     public UsuarioRegistrado getUsuario() {
@@ -270,27 +272,27 @@ public class ctrlUsuarios implements Serializable {
         return null;
     }
 
-    public String mostrarUsuario(UsuarioRegistrado usuario) {
-        switch (usuario.getIdUser().charAt(0)) {
+    public String mostrarUsuario(UsuarioRegistrado user) {
+        switch (user.getIdUser().charAt(0)) {
 
             case 'A':
-                this.a = bd.buscarAdmin((Administrador) usuario);
+                this.a = negocio.buscarAdmin((Administrador) user);
                 this.rol = "Administrador";
                 break;
             case 'J':
-                this.jdr = bd.buscarJDR((JefeDeRedactores) usuario);
+                this.jdr = negocio.buscarJDR((JefeDeRedactores) user);
                 this.rol = "JefeDeRedactores";
                 break;
             case 'P':
-                this.p = bd.buscarPeriodista((Periodista) usuario);
+                this.p = negocio.buscarPeriodista((Periodista) user);
                 this.rol = "Periodista";
                 break;
             case 'S':
-                this.su = bd.buscarSU((SuperUsuario) usuario);
+                this.su = negocio.buscarSU((SuperUsuario) user);
                 this.rol = "SuperUsuario";
                 break;
             case 'U':
-                this.usuario = usuario;
+                this.usuario = user;
                 this.rol = "UsuarioRegistrado";
                 break;
         }
@@ -340,8 +342,8 @@ public class ctrlUsuarios implements Serializable {
                 adm.setMultimedia(usuario.getMultimedia());
                 adm.setHistorialEventos(usuario.getHistorialEventos());
 
-                bd.getAdmin().add(adm);
-                bd.eliminarUR(usuario);
+                negocio.eliminarUR(usuario);
+                negocio.addAdmin(adm);
                 break;
             case "JefeDeRedactores":
                 JefeDeRedactores jdre = new JefeDeRedactores();
@@ -355,8 +357,8 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setMultimedia(usuario.getMultimedia());
                 jdre.setHistorialEventos(usuario.getHistorialEventos());
 
-                bd.getJdr().add(jdre);
-                bd.eliminarUR(usuario);
+                negocio.eliminarUR(usuario);
+                negocio.addJdr(jdre);
                 break;
             case "Periodista":
                 Periodista per = new Periodista();
@@ -370,8 +372,8 @@ public class ctrlUsuarios implements Serializable {
                 per.setMultimedia(usuario.getMultimedia());
                 per.setHistorialEventos(usuario.getHistorialEventos());
 
-                bd.getPeri().add(per);
-                bd.eliminarUR(usuario);
+                negocio.eliminarUR(usuario);
+                negocio.addPeri(per);
                 break;
             case "SuperUsuario":
                 SuperUsuario sup = new SuperUsuario();
@@ -385,11 +387,11 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(usuario.getMultimedia());
                 sup.setHistorialEventos(usuario.getHistorialEventos());
 
-                bd.getSuperu().add(sup);
-                bd.eliminarUR(usuario);
+                negocio.eliminarUR(usuario);
+                negocio.addSuperu(sup);
                 break;
             case "UsuarioRegistrado":
-                UsuarioRegistrado aux = bd.buscarUR(usuario);
+                UsuarioRegistrado aux = negocio.buscarUR(usuario);
                 aux.setNombre(usuario.getNombre());
                 aux.setApellidos(usuario.getApellidos());
                 aux.setDni(usuario.getDni());
@@ -398,7 +400,9 @@ public class ctrlUsuarios implements Serializable {
                 aux.setPreferencias(usuario.getPreferencias());
                 aux.setMultimedia(usuario.getMultimedia());
                 aux.setHistorialEventos(usuario.getHistorialEventos());
-
+                
+                negocio.addUR(aux);
+                
                 break;
         }
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
