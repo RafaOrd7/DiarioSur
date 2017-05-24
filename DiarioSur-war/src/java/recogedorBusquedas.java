@@ -5,8 +5,10 @@
  */
 
 import Entidades.Evento;
+import Negocio.Negocio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -24,6 +26,9 @@ public class recogedorBusquedas {
 
     @Inject
     private BdBean bd;
+    
+    @EJB
+    private Negocio negocio;
 
     public String buscar() {
         List<Evento> aux = new ArrayList<Evento>();

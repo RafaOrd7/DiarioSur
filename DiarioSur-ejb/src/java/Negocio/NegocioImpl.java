@@ -161,5 +161,24 @@ public class NegocioImpl implements Negocio {
     public Anuncio devolverAnuncio() {
         return em.find(Anuncio.class, 69L);
     }
-
+    
+    @Override
+    public List<Evento> getEv() {
+        return em.createQuery("SELECT u FROM Evento u").getResultList();
+    }
+    
+    @Override
+    public int numMeGusta(Long id){
+        
+        Evento aux = em.find(Evento.class, id);
+        int num = -1;
+        if(aux != null){
+            if(aux.getUser_megusta().isEmpty()){
+               num = 0;
+           } else{
+               num = aux.getUser_megusta().size();
+           } 
+        }
+        return num;
+    }
 }
