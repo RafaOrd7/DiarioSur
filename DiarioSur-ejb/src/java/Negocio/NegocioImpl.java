@@ -5,7 +5,6 @@
  */
 package Negocio;
 
-
 import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.SuperUsuario;
@@ -13,6 +12,7 @@ import Entidades.Evento;
 import Entidades.JefeDeRedactores;
 import Entidades.Periodista;
 import Entidades.UsuarioRegistrado;
+import Entidades.Valoracion;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -140,16 +140,19 @@ public class NegocioImpl implements Negocio {
     
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
-        if (user != null) {
+        //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
+
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+
+        if (!lu.isEmpty()) {
             // El usuario ya existe
             throw new CuentaRepetidaException();
         }
+
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
-        
-        
+
         /* Esto es un administrador para probar */
         Administrador ad = new Administrador();
         ad.setApellidos("a");
@@ -163,9 +166,9 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A"+ contId++);
+        ad.setIdUser("A" + contId++);
         em.persist(ad);
-        
+
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
         ano.setEmpresa("Prueba SL");
@@ -177,17 +180,20 @@ public class NegocioImpl implements Negocio {
         ano.setTags("vale");
         ano.setAdministrador(ad);
         em.persist(ano);
-        
+
     }
 
     @Override
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
 
-        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
-        if (aux == null) {
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+
+        if (lu.isEmpty()) {
             throw new UsuarioNoRegistradoException();
         } else {
-            if (!aux.getPassword().equals(u.getPassword())) {
+            UsuarioRegistrado user = lu.get(0);
+            if (!user.getPassword().equals(u.getPassword())) {
                 throw new ContraseniaInvalidaException();
             }
         }
@@ -196,66 +202,111 @@ public class NegocioImpl implements Negocio {
     @Override
     public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         compruebaLogin(u);
-        
-        UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
-        em.refresh(aux);
-        return aux;
-        
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        UsuarioRegistrado user = lu.get(0);
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        em.refresh(user);
+        return user;
+
     }
 
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        boolean existe=false;
-        UsuarioRegistrado aux=em.find(UsuarioRegistrado.class,u.getEmail());
-        if(aux!=null){
-            existe=true;
+        boolean existe = false;
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
+         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        if (!lu.isEmpty()) {
+            existe = true;
         }
-        
+
         return existe;
     }
-    
+
     @Override
-    public void editarEvento(Evento e){
+    public void editarEvento(Evento e) {
         em.merge(e);
     }
-    
+
     @Override
-    public void eliminarEvento(Evento e){
+    public void eliminarEvento(Evento e) {
         em.remove(em.merge(e));
     }
-    
+
     @Override
-    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException{
+    public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException {
+
         Evento aux = em.find(Evento.class, e.getId_evento());
-        
-        if (aux == null) {
+        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getEmail());
+
+        if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
             List<UsuarioRegistrado> mg = aux.getUser_megusta();
-            
-            if(mg.contains(u)) mg.remove(u);   
-            else mg.add(u);
-            
+            if (mg.contains(ur)) {
+                mg.remove(ur);
+            } else {
+                mg.add(ur);
+            }
+
+            List<Evento> mg2 = ur.getMegusta();
+
+            if (mg2.contains(aux)) {
+                mg2.remove(aux);
+            } else {
+                mg2.add(aux);
+            }
+
             aux.setUser_megusta(mg);
+            ur.setMegusta(mg2);
+
             em.merge(aux);
+            em.merge(ur);
+
         }
     }
-    
+
     @Override
     public void crearEvento(Evento e) {
         contId++;
         e.setId(contId);
         em.persist(e);
-        
-        
-    
+
+    }
+
+    @Override
+    public Anuncio devolverAnuncio() {
+        return em.find(Anuncio.class, 69L);
     }
     
     @Override
-    public Anuncio devolverAnuncio(){
-        return em.find(Anuncio.class,69L);
+    public List<Evento> getEv() {
+        return em.createQuery("SELECT u FROM Evento u").getResultList();
+    }
+    
+    @Override
+    public int numMeGusta(Long id){
+        
+        Evento aux = em.find(Evento.class, id);
+        int num = -1;
+        if(aux != null){
+            if(aux.getUser_megusta().isEmpty()){
+               num = 0;
+           } else{
+               num = aux.getUser_megusta().size();
+           } 
+        }
+        return num;
     }
 
-    
+    @Override
+    public void crearValoracion(Valoracion v) throws DiarioSurException {
+        Evento aux = em.find(Evento.class, v.getEvento().getId());
+        if (aux == null) {
+            throw new EventoNoEncontradoException();
+        }
 
+        contId++;
+        v.setId(contId);
+        em.persist(v);
+    }
 }

@@ -45,6 +45,22 @@ public class Valoracion implements Serializable {
     @ManyToOne
     @JoinColumn(nullable=false)
     private Evento evento;
+
+    public UsuarioRegistrado getUsuarioRegistrado() {
+        return usuarioRegistrado;
+    }
+
+    public void setUsuarioRegistrado(UsuarioRegistrado usuarioRegistrado) {
+        this.usuarioRegistrado = usuarioRegistrado;
+    }
+
+    public List<Reporte> getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(List<Reporte> reportes) {
+        this.reportes = reportes;
+    }
     @OneToMany (mappedBy="valoracion")
     private List<Reporte> reportes;
     

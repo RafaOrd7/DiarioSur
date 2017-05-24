@@ -13,6 +13,8 @@ import Entidades.Periodista;
 import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
 import java.util.List;
+
+import Entidades.Valoracion;
 import javax.ejb.Local;
 
 /**
@@ -51,5 +53,8 @@ public interface Negocio {
     public void addJdr(JefeDeRedactores jdre);
     public void addSuperu(SuperUsuario sup);
     public void addUR(UsuarioRegistrado ur);
-    
+
+    public List<Evento> getEv();
+    public int numMeGusta(Long id);
+    public void crearValoracion(Valoracion v)throws DiarioSurException;
 }

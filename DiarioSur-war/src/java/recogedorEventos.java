@@ -10,13 +10,11 @@ import Entidades.UsuarioRegistrado;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
-import static java.time.Clock.system;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
@@ -42,8 +40,6 @@ public class recogedorEventos {
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
-    @Inject
-    private BdBean bd;
     
     @EJB
     private Negocio negocio;
@@ -57,7 +53,6 @@ public class recogedorEventos {
         Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
         seleccionado = aux;
-        bd.editarEvento(seleccionado);
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";
     }
@@ -121,7 +116,7 @@ public class recogedorEventos {
     }
 
     public List<Evento> getEventos() {
-        return bd.getEv();
+        return negocio.getEv();
     }
 
     public String getLugar() {
@@ -202,26 +197,18 @@ public class recogedorEventos {
     }
 
     public String eliminarEvento() {
-        bd.eliminarEvento(seleccionado);
         negocio.eliminarEvento(seleccionado);
-
         return "index.xhtml";
     }
 
     public String megusta() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
-        bd.MeGusta(seleccionado, usuario);
         negocio.meGusta(seleccionado, usuario);
         return "evento.xhtml";
     }
 
     public int getNumeroMG() {
-        if (bd.getMegusta().isEmpty()) {
-            return 0;
-        } else if (bd.getMegusta().get(getSeleccionado()) == null) {
-            return 0;
-        }
-        return bd.getMegusta().get(getSeleccionado()).size();
+       return negocio.numMeGusta(seleccionado.getId_evento());
     }
 
     public String enviarEvento() {
@@ -230,8 +217,8 @@ public class recogedorEventos {
         
         Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
+        aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
-        bd.crearEvento(aux);
         negocio.crearEvento(aux);
         return "evento";
     }
