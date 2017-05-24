@@ -9,6 +9,7 @@ import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
+import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
 import java.io.File;
@@ -203,5 +204,28 @@ public class NegocioImpl implements Negocio {
         contId++;
         v.setId(contId);
         em.persist(v);
+    }
+    public void eliminarReporte(Reporte r){
+        
+        em.remove(em.merge(r));
+    }
+    
+    @Override
+    public Reporte buscarReporte(Reporte r) throws ReporteNoEncontradoException{
+        
+         Reporte aux = em.find(Reporte.class, r.getId());
+        
+        if (aux == null) {
+            throw new ReporteNoEncontradoException();
+        } else {
+           return aux;
+        }  
+    }
+    @Override
+    public void crearReporte(Reporte r){
+        
+        contId++;
+        r.setId(contId);
+        em.persist(r);
     }
 }

@@ -7,6 +7,7 @@ package Negocio;
 
 import Entidades.Anuncio;
 import Entidades.Evento;
+import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import java.util.List;
 import Entidades.Valoracion;
@@ -32,4 +33,6 @@ public interface Negocio {
     public List<Evento> getEv();
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
+    public Reporte buscarReporte(Reporte r) throws ReporteNoEncontradoException;
+    public void crearReporte(Reporte r);
 }

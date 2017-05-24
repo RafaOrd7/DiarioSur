@@ -29,14 +29,14 @@ public class recogedorReportes {
     private int tipoReporte;
     private String comentario;
     private UsuarioRegistrado usuario;
-
-    @Inject
-    private BdBean bd;
-    @Inject
-    private ctrlAutorizacion cta;
-
     private static Reporte seleccionado;
-
+    private List<Reporte> RepEv;
+    private List<Reporte> RepVal;
+    private Negocio.NegocioImpl neg;
+    
+     @Inject
+    private ctrlAutorizacion cta;
+     
     public static Reporte getSeleccionado() {
         return seleccionado;
     }
@@ -55,31 +55,38 @@ public String verVal(Reporte reporte) {
     }
     
     public String eliminarVal() {
-        bd.eliminarReporteVal(seleccionado);
+        neg.eliminarReporte(seleccionado);
         return "GestionarReporte";
 
     }
 
     public String eliminarEv() {
-        bd.eliminarReporteEv(seleccionado);
+       neg.eliminarReporte(seleccionado);
         return "GestionarReporte";
 
     }
 
-    public List<Reporte> getReportesEv() {
+    public List<Reporte> getRepEv() {
         
-        if(bd.getRepEv().size()==0){
+        if(RepEv.size()==0){
             return null;
         }
-        return bd.getRepEv();
+        return RepEv;
+    }
+    public void setRepEv(List<Reporte> l){
+        RepEv = l;
     }
 
-    public List<Reporte> getReportesVal() {
-        if(bd.getRepVal().size()==0){
+    public List<Reporte> getRepVal() {
+        if(RepVal.size()==0){
             return null;
         }
-        return bd.getRepVal();
+        return RepVal;
     }
+    public void setRepVal(List<Reporte> l){
+        RepVal = l;
+    }
+    
 
     public int getTipoReporte() {
         return tipoReporte;
@@ -106,8 +113,8 @@ public String verVal(Reporte reporte) {
         UsuarioRegistrado user = cta.getUsuarioLogeado();
         Valoracion val = null;//recogedorValoraciones.getSeleccionado();
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
-
-        bd.crearReporteEv(aux);
+        RepVal.add(aux);
+        neg.crearReporte(aux);
 
         return "index.xhtml";
     }
@@ -118,8 +125,8 @@ public String verVal(Reporte reporte) {
         Valoracion val = recogedorValoraciones.getSeleccionada();
         val.setEvento(ev);
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
-
-        bd.crearReporteVal(aux);
+        RepEv.add(aux);
+        neg.crearReporte(aux);
 
         return "index.xhtml";
     }
