@@ -32,4 +32,5 @@ public interface Negocio {
     public List<Evento> getEv();
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
+    public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
 }

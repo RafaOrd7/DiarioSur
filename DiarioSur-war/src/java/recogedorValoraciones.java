@@ -52,20 +52,11 @@ public class recogedorValoraciones {
         return "evento.xhtml";
     }
 
-    public List<Valoracion> getValoraciones() {
-        return bd.getVal();
+    public List<Valoracion> getValev(Evento seleccionado) throws DiarioSurException {
+        /*System.out.println(negocio.getValoraciones(seleccionado).toString());*/
+        return negocio.getValoraciones(seleccionado);
     }
 
-    public List<Valoracion> getValev(Evento seleccionado) {
-        List<Valoracion> valevento = new ArrayList<>();
-        List<Valoracion> valoraciones= bd.getVal();
-        for(Valoracion aux: valoraciones){
-            if(aux.getEvento().getId_evento().equals(seleccionado.getId_evento())){
-                valevento.add(aux);
-            }
-        }
-        return valevento;
-    }
     
     public Evento getEvento() {
         return evento;
@@ -130,7 +121,6 @@ public class recogedorValoraciones {
         setSeleccionada (aux);
         
         negocio.crearValoracion(aux);
-        bd.crearValoracion(aux);
         return "evento.xhtml";
     }
 }

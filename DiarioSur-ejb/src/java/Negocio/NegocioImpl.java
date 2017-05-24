@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -34,8 +35,13 @@ public class NegocioImpl implements Negocio {
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
-
-        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        Query q;
+        List<UsuarioRegistrado> lu = new ArrayList<>();
+        
+        q = em.createQuery("select u from UsuarioRegistrado u where u.email=:email");
+        q.setParameter("email", u.getEmail());
+        lu =q.getResultList();
+        
 
         if (!lu.isEmpty()) {
             // El usuario ya existe
@@ -204,4 +210,25 @@ public class NegocioImpl implements Negocio {
         v.setId(contId);
         em.persist(v);
     }
-}
+    
+    @Override
+    public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException{
+        
+        Query q;
+        //Evento aux= em.find(Evento.class, e.getId_evento());
+        q=em.createQuery("select v from Valoracion v where v.evento=:evento");
+        q.setParameter("evento", e);
+        return q.getResultList();
+        
+        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
+        
+        /*if(aux==null){
+            throw new EventoNoEncontradoException();
+        }
+        else{
+            aux2= aux.getValoraciones();
+            System.out.println(aux2.isEmpty());
+        }*/
+        
+    }
+    }
