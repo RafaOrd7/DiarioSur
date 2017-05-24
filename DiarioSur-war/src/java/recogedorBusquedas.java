@@ -5,12 +5,12 @@
  */
 
 import Entidades.Evento;
+import Negocio.Negocio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
 /**
  *
  * @author alberto
@@ -21,21 +21,23 @@ public class recogedorBusquedas {
 
     private String busqueda = "";
     private static boolean encontrado;
-
-    @Inject
-    private BdBean bd;
+    
+    private List<Evento> busq = new ArrayList<>();
+    
+    @EJB
+    private Negocio negocio;
 
     public String buscar() {
         List<Evento> aux = new ArrayList<Evento>();
         encontrado = false;
         if (!busqueda.equals("")) {
-            for (Evento e : bd.getEv()) {
-                if (e.getNombre().contains(busqueda) || e.getDescripcion().contains(busqueda)) {
+            for (Evento e : negocio.getEv()) {
+                if (e.getNombre().toLowerCase().contains(busqueda.toLowerCase()) || e.getDescripcion().toLowerCase().contains(busqueda.toLowerCase())) {
                     aux.add(e);
                 }
             }
             encontrado = true;
-            bd.setBusqueda(aux);
+            busq = aux;
         }
 
         return "index";
@@ -49,14 +51,6 @@ public class recogedorBusquedas {
         this.busqueda = busqueda;
     }
 
-    public BdBean getBd() {
-        return bd;
-    }
-
-    public void setBd(BdBean bd) {
-        this.bd = bd;
-    }
-
     public static boolean isEncontrado() {
         return encontrado;
     }
@@ -66,11 +60,11 @@ public class recogedorBusquedas {
     }
     
     public List<Evento> getListaEvento(){
-        return bd.getEv();
+        return negocio.getEv();
     }
     
     public List<Evento> getListaBusqueda(){
-        return bd.getBusqueda();
+        return busq;
     }
     
     /**
