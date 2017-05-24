@@ -129,8 +129,10 @@ public class NegocioImpl implements Negocio {
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException {
 
         Evento aux = em.find(Evento.class, e.getId_evento());
-        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getEmail());
-
+        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getIdUser());
+        
+       
+        
         if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
