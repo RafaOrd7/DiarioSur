@@ -33,11 +33,15 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
-        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
-        if (user != null) {
+        //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
+
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+
+        if (!lu.isEmpty()) {
             // El usuario ya existe
             throw new CuentaRepetidaException();
         }
+
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
@@ -75,11 +79,14 @@ public class NegocioImpl implements Negocio {
     @Override
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
 
-        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
-        if (aux == null) {
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+
+        if (lu.isEmpty()) {
             throw new UsuarioNoRegistradoException();
         } else {
-            if (!aux.getPassword().equals(u.getPassword())) {
+            UsuarioRegistrado user = lu.get(0);
+            if (!user.getPassword().equals(u.getPassword())) {
                 throw new ContraseniaInvalidaException();
             }
         }
@@ -88,18 +95,20 @@ public class NegocioImpl implements Negocio {
     @Override
     public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         compruebaLogin(u);
-
-        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
-        em.refresh(aux);
-        return aux;
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        UsuarioRegistrado user = lu.get(0);
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        em.refresh(user);
+        return user;
 
     }
 
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
         boolean existe = false;
-        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
-        if (aux != null) {
+        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
+         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        if (!lu.isEmpty()) {
             existe = true;
         }
 
@@ -121,7 +130,7 @@ public class NegocioImpl implements Negocio {
 
         Evento aux = em.find(Evento.class, e.getId_evento());
         UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getEmail());
-        
+
         if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
@@ -133,7 +142,7 @@ public class NegocioImpl implements Negocio {
             }
 
             List<Evento> mg2 = ur.getMegusta();
-           
+
             if (mg2.contains(aux)) {
                 mg2.remove(aux);
             } else {
@@ -143,8 +152,8 @@ public class NegocioImpl implements Negocio {
             aux.setUser_megusta(mg);
             ur.setMegusta(mg2);
 
-            em.persist(aux);
-            em.persist(ur);
+            em.merge(aux);
+            em.merge(ur);
 
         }
     }
@@ -184,11 +193,11 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void crearValoracion(Valoracion v) throws DiarioSurException {
-        Evento aux=em.find(Evento.class,v.getEvento().getId());
-        if(aux==null){
+        Evento aux = em.find(Evento.class, v.getEvento().getId());
+        if (aux == null) {
             throw new EventoNoEncontradoException();
         }
-        
+
         contId++;
         v.setId(contId);
         em.persist(v);

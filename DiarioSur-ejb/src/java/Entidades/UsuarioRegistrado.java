@@ -39,8 +39,9 @@ import javax.persistence.UniqueConstraint;
 public class UsuarioRegistrado implements Serializable {
    
     private static long serialVersionUID = 1L;
-     @Column(nullable  = false, length=50)
-   
+     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String idUser;
     @Column(nullable  = false, length=50)
     private String nombre;
@@ -49,8 +50,7 @@ public class UsuarioRegistrado implements Serializable {
     @Column(nullable  = false, length=50)
     private String dni;
    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(nullable  = false, length=50, unique=true)
     private String email;
     @Column(nullable  = true, length=50)
     private String preferencias;
