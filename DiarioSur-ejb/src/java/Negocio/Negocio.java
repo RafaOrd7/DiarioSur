@@ -8,7 +8,9 @@ package Negocio;
 import Entidades.Anuncio;
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import java.util.List;
 import Entidades.Valoracion;
+
 import javax.ejb.Local;
 
 /**
@@ -27,5 +29,7 @@ public interface Negocio {
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException;
     public void crearEvento(Evento e);
     public Anuncio devolverAnuncio();
+    public List<Evento> getEv();
+    public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
 }
