@@ -38,18 +38,7 @@ public class NegocioImpl implements Negocio {
     
     @Override
     public void addPeri(Periodista per){
-        Periodista p = em.find(Periodista.class, per.getEmail());
-        em.detach(p);
-        p.setIdUser(per.getIdUser());
-        p.setNombre(per.getNombre());
-        p.setApellidos(per.getApellidos());
-        p.setDni(per.getDni());
-        p.setEmail(per.getEmail());
-        p.setPassword(per.getPassword());
-        p.setPreferencias(per.getPreferencias());
-        p.setMultimedia(per.getMultimedia());
-        p.setHistorialEventos(per.getHistorialEventos());
-        em.persist(p);
+        em.merge(per);
     }
     
     
@@ -70,8 +59,6 @@ public class NegocioImpl implements Negocio {
     
     @Override
     public void addSuperu(SuperUsuario sup){
-       // no se si es necesario el detach
-       //em.detach(em.find(SuperUsuario.class, sup.getEmail()));
         em.merge(sup);
     }
     
@@ -103,7 +90,6 @@ public class NegocioImpl implements Negocio {
     @Override
     public List<UsuarioRegistrado> getUR(){
         return em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.idUser LIKE 'U%'").getResultList();
-
     }
     
     @Override
@@ -125,7 +111,7 @@ public class NegocioImpl implements Negocio {
     public List<Administrador> getAdmin(){
         return em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
     }
-    
+    //AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     @Override
     public Administrador buscarAdmin(Administrador a){
         return em.find(Administrador.class, a.getEmail());
