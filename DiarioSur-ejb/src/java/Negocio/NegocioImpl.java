@@ -31,6 +31,8 @@ public class NegocioImpl implements Negocio {
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
 
+   
+    
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
@@ -46,8 +48,8 @@ public class NegocioImpl implements Negocio {
         u.setIdUser("U" + contId);
         em.persist(u);
 
-        /* Esto es un administrador para probar */
-        Administrador ad = new Administrador();
+         /* Esto es un administrador para probar */
+       /* Administrador ad = new Administrador();
         ad.setApellidos("a");
         ad.setBorrado(false);
         ad.setCargo("si");
@@ -60,18 +62,19 @@ public class NegocioImpl implements Negocio {
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + contId++);
-        em.persist(ad);
+        em.persist(ad);*/
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
-        ano.setEmpresa("Prueba SL");
+        ano.setEmpresa("Anuncios funcionan SL");
         ano.setEvento(new ArrayList<Evento>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(69L);
         ano.setPrioridad("mucha");
         ano.setTags("vale");
-        ano.setAdministrador(ad);
+        
+        ano.setAdministrador(em.find(Administrador.class, "A1"));
         em.persist(ano);
 
     }
@@ -204,4 +207,31 @@ public class NegocioImpl implements Negocio {
         v.setId(contId);
         em.persist(v);
     }
+    
+    public  void crearAnuncio(Anuncio anu){
+        contId++;
+        anu.setId_anuncio(contId);
+        
+        em.persist(anu);
+        
+        
+        
+    }
+  
+    public void borrarAnuncio(Anuncio anu)throws DiarioSurException{
+        Anuncio aux=em.find(Anuncio.class, anu.getId_anuncio());
+        
+        if(aux==null){
+            throw new DiarioSurException();
+        }else{
+            em.remove(em.merge(aux));
+        }
+    }
+
+    @Override
+    public List<Anuncio> getAnu() {
+        return em.createQuery("select a from Anuncio a").getResultList();
+    }
+  
+  
 }
