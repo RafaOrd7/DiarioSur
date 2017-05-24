@@ -57,4 +57,16 @@ public interface Negocio {
     public List<Evento> getEv();
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
+
+    public void crearAdmin(Administrador a);
+
+    public void crearJDR(JefeDeRedactores a);
+
+    public void crearPeriodista(Periodista a);
+
+    public void crearSU(SuperUsuario a);
+
+    public void crearUR(UsuarioRegistrado a);
+
+    public boolean checkDNI(UsuarioRegistrado a);
 }

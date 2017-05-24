@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -33,6 +34,61 @@ public class NegocioImpl implements Negocio {
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
+    
+    
+    
+    @Override
+    public boolean checkDNI(UsuarioRegistrado a){
+        boolean existe = false;
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.dni = '" + a.getDni() + "'").getResultList();
+        if (!lu.isEmpty()) {
+            existe = true;
+        }
+        return existe;
+    }
+    
+    
+    @Override
+    public void crearAdmin(Administrador a){
+        contId++;
+        a.setIdUser("A"+contId);
+        em.persist(a);
+    }
+    
+    @Override
+    public void crearJDR(JefeDeRedactores a){
+        contId++;
+        a.setIdUser("J"+contId);
+        em.persist(a);
+    }
+    
+    @Override
+    public void crearPeriodista(Periodista a){
+        contId++;
+        a.setIdUser("P" + contId);
+        em.persist(a);
+    }
+    
+    @Override
+    public void crearSU(SuperUsuario a){
+        contId++;
+        a.setIdUser("S" + contId);
+        em.persist(a);
+    }
+    
+    @Override
+    public void crearUR(UsuarioRegistrado a){
+        contId++;
+        a.setIdUser("U" + contId);
+        /*String query1 = "insert into UsuarioRegistrado (iduser,nombre,apellidos,email,password,historialEventos,dni) values"
+                + "('" + a.getIdUser() + "','" + a.getNombre() +"')" + "','" +a.getApellidos() + "','" +a.getEmail()
+                 + "','" +a.getPassword() + "','" +a.getHistorialEventos() + "','" +a.getDni()+"')";
+        Query q = em.createQuery(query1);
+        */
+        contId--;
+        contId++;
+        em.persist((UsuarioRegistrado)a);
+    }
     
     
     
@@ -111,30 +167,30 @@ public class NegocioImpl implements Negocio {
     public List<Administrador> getAdmin(){
         return em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
     }
-    //AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+    
     @Override
     public Administrador buscarAdmin(Administrador a){
-        return em.find(Administrador.class, a.getEmail());
+        return em.find(Administrador.class, a.getIdUser());
     }
     
     @Override
     public JefeDeRedactores buscarJDR(JefeDeRedactores a){
-        return em.find(JefeDeRedactores.class, a.getEmail());
+        return em.find(JefeDeRedactores.class, a.getIdUser());
     }
     
     @Override
     public Periodista buscarPeriodista(Periodista a){
-        return em.find(Periodista.class, a.getEmail());
+        return em.find(Periodista.class, a.getIdUser());
     }
     
     @Override
     public SuperUsuario buscarSU(SuperUsuario a){
-        return em.find(SuperUsuario.class, a.getEmail());
+        return em.find(SuperUsuario.class, a.getIdUser());
     }
     
     @Override
     public UsuarioRegistrado buscarUR(UsuarioRegistrado a){
-        return em.find(UsuarioRegistrado.class, a.getEmail());
+        return em.find(UsuarioRegistrado.class, a.getIdUser());
     }
     
     
@@ -166,8 +222,23 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A" + contId++);
+        ad.setIdUser("A" + ++contId);
         em.persist(ad);
+        
+        SuperUsuario su = new SuperUsuario();
+        su.setApellidos("supi");
+        su.setBorrado(false);
+        su.setDni("66666666E");
+        su.setEmail("su@uma.es");
+        su.setEmpresa("Mc Donalds");
+        su.setHistorialEventos("nada");
+        su.setNombre("Usi");
+        su.setPassword("123");
+        su.setPreferencias("si");
+        su.setIdUser("S" + ++contId);
+        em.persist(su);
+        
+        
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
@@ -221,6 +292,8 @@ public class NegocioImpl implements Negocio {
 
         return existe;
     }
+    
+    
 
     @Override
     public void editarEvento(Evento e) {

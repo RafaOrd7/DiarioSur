@@ -12,6 +12,9 @@
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkAdm()}">
                 <h:form>
+                    <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
+                    <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
+                    <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
                     <h:panelGrid id="panel" columns="1" cellpadding="5">
                         <p:inputText id="nombre" placeholder="Nombre*" value="#{ctrlUsuarios.a.nombre}" required="true" requiredMessage="Campo nombre obligatorio" />
 
