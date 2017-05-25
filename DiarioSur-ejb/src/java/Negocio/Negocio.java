@@ -74,4 +74,6 @@ public interface Negocio {
     public List<Notificacion> getNotif(UsuarioRegistrado u);
 
     public void eliminarNotificacion(Notificacion n);
+
+    public UsuarioRegistrado buscarURmail(String email);
 }

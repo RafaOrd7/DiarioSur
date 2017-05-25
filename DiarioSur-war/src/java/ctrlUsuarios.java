@@ -15,8 +15,11 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import Negocio.UsuarioNoRegistradoException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
@@ -25,6 +28,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -211,6 +221,99 @@ public class ctrlUsuarios implements Serializable {
         }
         return page;
     }
+    
+    public String sendEmail() throws DiarioSurException, AddressException, MessagingException, UnsupportedEncodingException{
+       String pag = validarEmail();
+       if(negocio.existeUsuario(usuario)){
+           UsuarioRegistrado u = negocio.buscarURmail(usuario.getEmail());
+           /*
+           Properties props = new Properties();
+            // Nombre del host de correo, es smtp.gmail.com
+           props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            // TLS si está disponible
+           props.setProperty("mail.smtp.starttls.enable", "true");
+            // Puerto de gmail para envio de correos
+           props.setProperty("mail.smtp.port", "587");
+            // Nombre del usuario
+           props.setProperty("mail.smtp.user", "sinfuma17@gmail.com");
+            // Si requiere o no usuario y password para conectarse.
+           props.setProperty("mail.smtp.auth", "true");
+           
+           Session session = Session.getDefaultInstance(props);
+           session.setDebug(true);
+           
+           MimeMessage message = new MimeMessage(session);
+           // Quien envia el correo
+           message.setFrom(new InternetAddress("sinfuma17@gmail.com"));
+           // A quien va dirigido
+           message.addRecipient(Message.RecipientType.TO, new InternetAddress(u.getEmail()));
+           
+           message.setSubject("Recuperación de contraseña Agenda El Sur");
+           
+           message.setText("Ha solicitado la recuperación de contraseña, su contraseña actual"
+                   + " es: " + u.getPassword());
+           
+           Transport t = session.getTransport("smtp");
+           
+           t.connect("sinfuma17@gmail.com", "topillosmike");
+           
+           t.sendMessage(message, message.getAllRecipients());
+           t.close();
+           */
+           
+           //Propiedades correo
+           Properties propiedades = new Properties();
+           propiedades.put("mail.smtp.host", "aspmx.l.google.com");
+           propiedades.put("mail.smtp.starttls.enable", "false");
+           propiedades.put("mail.smtp.port", "25");
+           propiedades.put("mail.smtp.auth", "false");
+           propiedades.put("mail.user", "sinfuma17@gmail.com");
+           propiedades.put("mail.password", "topillosmike");
+
+           Session session = Session.getInstance(propiedades, null);
+
+
+           try {
+               //Destinatarios
+               Message mensaje = new MimeMessage(session);
+               mensaje.setFrom(new InternetAddress("sinfuma17@gmail.com", "Recuperación de contraseña"));
+              // mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(u.getEmail()));
+              // mensaje.setRecipients(Message.RecipientType.TO, new InternetAddress.parse(u.getId(), false));
+               mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(u.getEmail()));
+               
+               //Asunto
+               mensaje.setSubject("Recuperación de contraseña Agenda El Sur");
+               mensaje.setHeader("X-Mailer", "JavaMail");
+              // DateFormat formatoFecha = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
+               //Date timeStamp = new Date();
+
+               //Cuerpo
+               String mensajeCuerpo = "Ha solicitado la recuperación de contraseña, su contraseña actual"
+                       + " es: " + u.getPassword();
+
+               mensaje.setText(mensajeCuerpo);
+               mensaje.setSentDate(new Date());
+
+               //Envio mensaje
+               Transport envio = session.getTransport("smtp");
+               envio.connect("sinfuma17@gmail.com", "topillosmike");
+               envio.sendMessage(mensaje, mensaje.getAllRecipients());
+               envio.close();
+
+           } catch (MessagingException ex) {
+
+           }
+
+           
+       }else{
+           
+       }
+       
+       
+       return pag;
+    }
+    
+    
 
     public List<Notificacion> getListaNotif() {
         return negocio.getNotif(cta.getUsuarioLogeado());

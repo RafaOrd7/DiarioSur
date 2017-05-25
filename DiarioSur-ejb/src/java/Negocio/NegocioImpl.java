@@ -265,6 +265,12 @@ public class NegocioImpl implements Negocio {
         return em.find(UsuarioRegistrado.class, a.getIdUser());
     }
     
+    @Override
+    public UsuarioRegistrado buscarURmail(String email){
+        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
+        return l.get(0);
+    }
+    
     
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
