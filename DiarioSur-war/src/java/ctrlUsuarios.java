@@ -231,16 +231,8 @@ public class ctrlUsuarios implements Serializable {
            return pag;
        }else{
            if (negocio.existeUsuario(usuario)) {
-               System.out.println("--------------------------------");
-               System.out.println(usuario.getEmail());
-               System.out.println("--------------------------------");
                UsuarioRegistrado u = negocio.buscarURmail(usuario.getEmail());
-               System.out.println("--------------------------------");
-               System.out.println(u.getEmail());
-               System.out.println("--------------------------------");
-               System.out.println("--------------------------------");
-               System.out.println(usuario.getEmail());
-               System.out.println("--------------------------------");
+
                final String username = "sinfuma17@gmail.com";
                final String password = "topillosmike";
                Properties props = new Properties();

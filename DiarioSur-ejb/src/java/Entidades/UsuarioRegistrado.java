@@ -33,6 +33,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="tipoUsuario", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("UsuarioRegistrado")
 
 public class UsuarioRegistrado implements Serializable {

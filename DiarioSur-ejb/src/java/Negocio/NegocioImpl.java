@@ -267,7 +267,7 @@ public class NegocioImpl implements Negocio {
     
     @Override
     public UsuarioRegistrado buscarURmail(String email){
-        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.email = '"+email+"'").getResultList();
+        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
         return l.get(0);
     }
     
@@ -301,7 +301,7 @@ public class NegocioImpl implements Negocio {
         em.persist(n);
         
 
-         /* Esto es un administrador para probar */
+        /* Esto es un administrador para probar */
         Administrador ad = new Administrador();
         ad.setApellidos("a");
         ad.setBorrado(false);
@@ -334,15 +334,14 @@ public class NegocioImpl implements Negocio {
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
-        ano.setEmpresa("Anuncios funcionan SL");
+        ano.setEmpresa("Prueba SL");
         ano.setEvento(new ArrayList<Evento>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(69L);
         ano.setPrioridad("mucha");
         ano.setTags("vale");
-        
-        ano.setAdministrador(em.find(Administrador.class, "A1"));
+        ano.setAdministrador(ad);
         em.persist(ano);
 
     }
@@ -402,10 +401,8 @@ public class NegocioImpl implements Negocio {
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException {
 
         Evento aux = em.find(Evento.class, e.getId_evento());
-        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getIdUser());
-        
-       
-        
+        UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getEmail());
+
         if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
@@ -477,31 +474,4 @@ public class NegocioImpl implements Negocio {
         v.setId(contId);
         em.persist(v);
     }
-    
-    public  void crearAnuncio(Anuncio anu){
-        contId++;
-        anu.setId_anuncio(contId);
-        
-        em.persist(anu);
-        
-        
-        
-    }
-  
-    public void borrarAnuncio(Anuncio anu)throws DiarioSurException{
-        Anuncio aux=em.find(Anuncio.class, anu.getId_anuncio());
-        
-        if(aux==null){
-            throw new DiarioSurException();
-        }else{
-            em.remove(em.merge(aux));
-        }
-    }
-
-    @Override
-    public List<Anuncio> getAnu() {
-        return em.createQuery("select a from Anuncio a").getResultList();
-    }
-  
-  
 }
