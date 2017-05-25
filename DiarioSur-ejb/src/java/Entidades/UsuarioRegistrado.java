@@ -46,7 +46,7 @@ public class UsuarioRegistrado implements Serializable {
     private String nombre;
     @Column(nullable  = false, length=50)
     private String apellidos;
-    @Column(nullable  = false, length=50)
+    @Column(nullable  = false, length=50, unique=true)
     private String dni;
    
    @Column(nullable  = false, length=50, unique=true)

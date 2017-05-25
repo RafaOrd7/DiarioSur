@@ -5,12 +5,17 @@
  */
 package Negocio;
 
+import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.Evento;
+import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
+import Entidades.Periodista;
+import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
 import java.util.List;
-import Entidades.Valoracion;
 
+import Entidades.Valoracion;
 import javax.ejb.Local;
 
 /**
@@ -29,6 +34,27 @@ public interface Negocio {
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException;
     public void crearEvento(Evento e);
     public Anuncio devolverAnuncio();
+    public void eliminarUR(UsuarioRegistrado u);
+    public List<UsuarioRegistrado> getUR();
+    public Administrador buscarAdmin(Administrador a);
+    public JefeDeRedactores buscarJDR(JefeDeRedactores a);
+    public Periodista buscarPeriodista(Periodista a);
+    public SuperUsuario buscarSU(SuperUsuario a);
+    public List<SuperUsuario> getSuperu();
+    public void eliminarSU(SuperUsuario a);
+    public List<Periodista> getPeri();
+    public void eliminarPeriodista(Periodista a);
+    public List<JefeDeRedactores> getJdr();
+    public void eliminarJDR(JefeDeRedactores a);
+    public List<Administrador> getAdmin();
+    public void eliminarAdmin(Administrador a);
+    public UsuarioRegistrado buscarUR(UsuarioRegistrado a);
+    public void addPeri(Periodista per);
+    public void addAdmin(Administrador adm);
+    public void addJdr(JefeDeRedactores jdre);
+    public void addSuperu(SuperUsuario sup);
+    public void addUR(UsuarioRegistrado ur);
+
     public List<Evento> getEv();
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
@@ -36,4 +62,22 @@ public interface Negocio {
 
     public void borrarAnuncio(Anuncio anuncio)throws DiarioSurException;
     public List<Anuncio> getAnu();
+
+    public void crearAdmin(Administrador a);
+
+    public void crearJDR(JefeDeRedactores a);
+
+    public void crearPeriodista(Periodista a);
+
+    public void crearSU(SuperUsuario a);
+
+    public void crearUR(UsuarioRegistrado a);
+
+    public boolean checkDNI(UsuarioRegistrado a);
+
+    public List<Notificacion> getNotif(UsuarioRegistrado u);
+
+    public void eliminarNotificacion(Notificacion n);
+
+    public UsuarioRegistrado buscarURmail(String email);
 }
