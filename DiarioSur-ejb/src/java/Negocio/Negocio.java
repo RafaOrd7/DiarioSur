@@ -9,6 +9,7 @@ import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.Evento;
 import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
 import Entidades.Periodista;
 import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
@@ -69,4 +70,8 @@ public interface Negocio {
     public void crearUR(UsuarioRegistrado a);
 
     public boolean checkDNI(UsuarioRegistrado a);
+
+    public List<Notificacion> getNotif(UsuarioRegistrado u);
+
+    public void eliminarNotificacion(Notificacion n);
 }

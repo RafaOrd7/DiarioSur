@@ -10,6 +10,7 @@ import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
 import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
 import Entidades.Periodista;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
@@ -36,6 +37,17 @@ public class NegocioImpl implements Negocio {
     private EntityManager em;
     
     
+    @Override
+    public List<Notificacion> getNotif(UsuarioRegistrado u){
+        return em.createQuery("select n from Notificacion n where n.usuarioRegistrado.idUser = '"
+                + u.getIdUser() + "'").getResultList();
+    }
+    
+    @Override
+    public void eliminarNotificacion(Notificacion n){
+        em.remove(em.merge(n));
+    }
+    
     
     @Override
     public boolean checkDNI(UsuarioRegistrado a){
@@ -52,42 +64,102 @@ public class NegocioImpl implements Negocio {
     public void crearAdmin(Administrador a){
         contId++;
         a.setIdUser("A"+contId);
+        
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
         em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+
+        em.merge(a);
+        em.persist(n);
     }
     
     @Override
     public void crearJDR(JefeDeRedactores a){
         contId++;
         a.setIdUser("J"+contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
         em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+
+        em.merge(a);
+        em.persist(n);
     }
     
     @Override
     public void crearPeriodista(Periodista a){
         contId++;
         a.setIdUser("P" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
         em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+
+        em.merge(a);
+        em.persist(n);
     }
     
     @Override
     public void crearSU(SuperUsuario a){
         contId++;
         a.setIdUser("S" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
         em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+
+        em.merge(a);
+        em.persist(n);
     }
     
     @Override
     public void crearUR(UsuarioRegistrado a){
         contId++;
         a.setIdUser("U" + contId);
-        /*String query1 = "insert into UsuarioRegistrado (iduser,nombre,apellidos,email,password,historialEventos,dni) values"
-                + "('" + a.getIdUser() + "','" + a.getNombre() +"')" + "','" +a.getApellidos() + "','" +a.getEmail()
-                 + "','" +a.getPassword() + "','" +a.getHistorialEventos() + "','" +a.getDni()+"')";
-        Query q = em.createQuery(query1);
-        */
-        contId--;
+        
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
         contId++;
-        em.persist((UsuarioRegistrado)a);
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+
+        em.merge(a);
+        em.persist(n);
     }
     
     
@@ -207,7 +279,21 @@ public class NegocioImpl implements Negocio {
 
         contId++;
         u.setIdUser("U" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte "+u.getNombre()+"! :D");
+        n.setUsuarioRegistrado(u);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        u.setNotificacion(new ArrayList<Notificacion>());
         em.persist(u);
+        List<Notificacion> l = u.getNotificacion();
+        l.add(n);
+        u.setNotificacion(l);
+        
+        em.merge(u);
+        em.persist(n);
+        
 
         /* Esto es un administrador para probar */
         Administrador ad = new Administrador();

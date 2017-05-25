@@ -213,11 +213,11 @@ public class ctrlUsuarios implements Serializable {
     }
 
     public List<Notificacion> getListaNotif() {
-        return bd.getNotif();
+        return negocio.getNotif(cta.getUsuarioLogeado());
     }
 
     public String eliminarNotif(Notificacion n) {
-        bd.eliminarNotificacion(n);
+        negocio.eliminarNotificacion(n);
         return null;
     }
 
