@@ -34,18 +34,20 @@
 
                                     <h:outputText value="Descripción:" />
                                     <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
+                                    <h:outputText value="Tipo" />
+                                    <h:outputText value="#{evento.tipo}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>
                     </p:dataScroller>
                 </h:form>
             </c:when>
-                
+
             <c:otherwise>
                 <h:form> 
                     <p:dataScroller value="#{recogedorBusquedas.getListaBusqueda()}" var="busqEv">
                         <f:facet name="header">
-                          Buscados
+                            Buscados
                         </f:facet>
 
                         <f:facet name="loader">
@@ -70,9 +72,6 @@
                 </h:form>
             </c:otherwise>
         </c:choose>
-
-
     </ui:define>
-
 </ui:composition>
 

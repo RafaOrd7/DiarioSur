@@ -5,12 +5,16 @@
  */
 
 import Entidades.Evento;
+import Entidades.Usuario;
 import Negocio.Negocio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+
 /**
  *
  * @author alberto
@@ -21,9 +25,13 @@ public class recogedorBusquedas {
 
     private String busqueda = "";
     private static boolean encontrado;
-    
+    private CookieHelper ch;
+
     private List<Evento> busq = new ArrayList<>();
-    
+
+    @Inject
+    private ctrlAutorizacion cta;
+
     @EJB
     private Negocio negocio;
 
@@ -58,18 +66,44 @@ public class recogedorBusquedas {
     public static void setEncontrado(boolean encontrado) {
         recogedorBusquedas.encontrado = encontrado;
     }
-    
-    public List<Evento> getListaEvento(){
-        return negocio.getEv();
+
+    public List<Evento> getListaEvento() {
+        List<Evento> lista = negocio.getEv();
+        
+       
+       ch.getCookie(cta.getUsuarioLogeado().getIdUser());
+       ;
+
+        lista=ordenarPorTipo(lista, cta.getC());
+
+        return lista;
     }
-    
-    public List<Evento> getListaBusqueda(){
+
+    public List<Evento> getListaBusqueda() {
         return busq;
     }
-    
+
     /**
      * Creates a new instance of recogedorBusquedas
      */
     public recogedorBusquedas() {
+    }
+
+    private List<Evento> ordenarPorTipo(List<Evento> lista, Cookie c) {
+        String tipo = c.getValue();
+        List<Evento> ordenada = new ArrayList<>();
+        List<Evento> aux = new ArrayList<>();
+        for (Evento e : lista) {
+            if (e.getTipo().equals(tipo)) {
+                ordenada.add(e);
+            }else{
+                aux.add(e);
+            }
+        }
+       
+       for(Evento e:aux){
+           ordenada.add(e);
+       }
+        return ordenada;
     }
 }

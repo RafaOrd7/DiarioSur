@@ -32,16 +32,13 @@ import javax.persistence.UniqueConstraint;
  * @author pablo
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorValue("UsuarioRegistrado")
 
-public class UsuarioRegistrado implements Serializable {
+public class UsuarioRegistrado extends Usuario implements Serializable {
    
     private static long serialVersionUID = 1L;
      
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String idUser;
+   
     @Column(nullable  = false, length=50)
     private String nombre;
     @Column(nullable  = false, length=50)
@@ -139,7 +136,7 @@ public class UsuarioRegistrado implements Serializable {
     }
     
     public UsuarioRegistrado (String idUser, String nombre, String apellidos, String dni, String email, String password) {
-        this.idUser=idUser;
+       
         this.nombre=nombre;
         this.apellidos=apellidos;
         this.dni=dni;
@@ -165,7 +162,7 @@ public class UsuarioRegistrado implements Serializable {
             return false;
         }
         UsuarioRegistrado other = (UsuarioRegistrado) object;
-        if ((this.getIdUser() == null && other.getIdUser() != null) || (this.getIdUser() != null && !this.idUser.equals(other.idUser))) {
+        if ((this.getIdUser() == null && other.getIdUser() != null) || (this.getIdUser() != null)) {
             return false;
         }
         return true;
@@ -193,16 +190,7 @@ public class UsuarioRegistrado implements Serializable {
     /**
      * @return the idUser
      */
-    public String getIdUser() {
-        return idUser;
-    }
-
-    /**
-     * @param idUser the idUser to set
-     */
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
+    
 
     /**
      * @return the nombre

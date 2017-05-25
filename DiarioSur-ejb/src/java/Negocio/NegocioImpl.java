@@ -208,6 +208,11 @@ public class NegocioImpl implements Negocio {
         em.persist(v);
     }
     
+    /**
+     *
+     * @param anu
+     */
+    @Override
     public  void crearAnuncio(Anuncio anu){
         contId++;
         anu.setId_anuncio(contId);
@@ -218,6 +223,7 @@ public class NegocioImpl implements Negocio {
         
     }
   
+    @Override
     public void borrarAnuncio(Anuncio anu)throws DiarioSurException{
         Anuncio aux=em.find(Anuncio.class, anu.getId_anuncio());
         

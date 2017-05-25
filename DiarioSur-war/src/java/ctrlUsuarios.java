@@ -124,7 +124,7 @@ public class ctrlUsuarios implements Serializable {
             negocio.compruebaLogin(usuario);
 
             cta.setUsuarioLogeado(negocio.refrescarUsuario(usuario));
-
+            
             return "index.xhtml";
 
         } catch (UsuarioNoRegistradoException | ContraseniaInvalidaException e) {

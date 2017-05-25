@@ -18,6 +18,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 
 /**
  *
@@ -111,6 +112,9 @@ public class recogedorEventos {
     }
 
     public String ver(Evento evento) {
+        Cookie c=cta.getC();
+        c.setValue(evento.getTipo());
+        cta.setC(c);
         setSeleccionado(evento);
         return "evento.xhtml";
     }

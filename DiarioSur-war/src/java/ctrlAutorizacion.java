@@ -5,11 +5,13 @@
  */
 
 import Entidades.Administrador;
+import Entidades.Anonimo;
 import Entidades.JefeDeRedactores;
 import Entidades.Notificacion;
 import Entidades.Periodista;
 import Entidades.Reporte;
 import Entidades.SuperUsuario;
+import Entidades.Usuario;
 import Entidades.UsuarioRegistrado;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 
 /**
  *
@@ -32,9 +35,20 @@ import javax.inject.Inject;
 @SessionScoped
 public class ctrlAutorizacion implements Serializable {
 
-    private UsuarioRegistrado usuarioLogeado;
+    private Usuario usuarioLogeado;
+    private Cookie c=new Cookie("recomendaciones","");
+
+    public Cookie getC() {
+        return c;
+    }
+
+    public void setC(Cookie c) {
+        this.c = c;
+    }
+    
     
     public ctrlAutorizacion() {
+        usuarioLogeado=new Anonimo();
     }
     
     public String logout() {
@@ -65,7 +79,7 @@ public class ctrlAutorizacion implements Serializable {
     
     
     
-    public UsuarioRegistrado getUsuarioLogeado() {
+    public Usuario getUsuarioLogeado() {
         return usuarioLogeado;
     }
 
