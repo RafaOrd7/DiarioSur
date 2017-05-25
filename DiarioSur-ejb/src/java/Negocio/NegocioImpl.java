@@ -267,7 +267,7 @@ public class NegocioImpl implements Negocio {
     
     @Override
     public UsuarioRegistrado buscarURmail(String email){
-        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
+        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.email = '" +email+"'").getResultList();
         return l.get(0);
     }
     
