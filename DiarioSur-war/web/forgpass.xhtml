@@ -16,7 +16,7 @@
                 <p:inputText id="email" value="#{ctrlUsuarios.usuario.email}"/>
             </h1>
             <p:button outcome="index" value="Volver" icon="ui-icon-person"></p:button>
-            <p:commandButton value="Enviar" action="#{ctrlUsuarios.sendEmail()}" styleClass="submit"/>
+            <p:commandButton value="Enviar" action="#{ctrlUsuarios.enviarMail()}" styleClass="submit"/>
             <p:messages id="messages" autoUpdate="true" showIcon="false"  />
             
         </h:form>
