@@ -44,4 +44,7 @@ public interface Negocio {
     public List<Reporte>getReportesEv();
     public void eliminarReporteEv(Reporte r)throws DiarioSurException;
     public void eliminarReporteVal(Reporte r)throws DiarioSurException;
+    
+    public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
+    
 }

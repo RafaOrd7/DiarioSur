@@ -31,7 +31,7 @@ import javax.persistence.Query;
 @Stateless
 public class NegocioImpl implements Negocio {
 
-    private static Long contId = 0L;
+    private static Long contId = 10L;
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
@@ -218,18 +218,7 @@ public class NegocioImpl implements Negocio {
         return num;
     }
 
-    @Override
-    public void crearValoracion(Valoracion v) throws DiarioSurException {
-        Evento aux = em.find(Evento.class, v.getEvento().getId());
-        if (aux == null) {
-            throw new EventoNoEncontradoException();
-        }
-
-        contId++;
-        v.setId(contId);
-        em.persist(v);
-    }
-
+    
     public void crearAnuncio(Anuncio anu) {
         contId++;
         anu.setId_anuncio(contId);
@@ -255,9 +244,10 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void enviarRepVal(Reporte r) {
-        r.setId_reporte(contId++);
+        contId++;
+        r.setId_reporte(contId);
         
-       // System.out.println(r.getId()+" "+r.getFecha()+" "+r.getTexto()+" "+r.getTipo()+" "+r.getEvento()+" "+r.getUsuarioRegistrado()+" "+r.getValoracion());
+        //System.out.println(r.getId()+" "+r.getFecha()+" "+r.getTexto()+" "+r.getTipo()+" "+r.getEvento()+" "+r.getUsuarioRegistrado()+" "+r.getValoracion());
         
         
         
@@ -266,7 +256,8 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void enviarRepEv(Reporte r) {
-        r.setId_reporte(contId++);
+        contId++;
+        r.setId_reporte(contId);
 
         em.persist(r);
     }
@@ -305,5 +296,36 @@ public class NegocioImpl implements Negocio {
             em.remove(em.merge(aux));
         }
     }
+@Override
+    public void crearValoracion(Valoracion v)throws DiarioSurException{
+        Evento aux = em.find(Evento.class, v.getEvento().getId());
+        if (aux == null) {
+            throw new EventoNoEncontradoException();
+        }
 
+        contId++;
+        v.setId(contId);
+        em.persist(v);
+    }
+    
+    @Override
+    public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException{
+        
+        Query q;
+        //Evento aux= em.find(Evento.class, e.getId_evento());
+        q=em.createQuery("select v from Valoracion v where v.evento=:evento");
+        q.setParameter("evento", e);
+        return q.getResultList();
+        
+        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
+        
+        /*if(aux==null){
+            throw new EventoNoEncontradoException();
+        }
+        else{
+            aux2= aux.getValoraciones();
+            System.out.println(aux2.isEmpty());
+        }*/
+        
+    }
 }
