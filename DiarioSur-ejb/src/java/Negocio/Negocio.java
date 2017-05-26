@@ -7,6 +7,7 @@ package Negocio;
 
 import Entidades.Anuncio;
 import Entidades.Evento;
+import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import java.util.List;
 import Entidades.Valoracion;
@@ -36,4 +37,14 @@ public interface Negocio {
     public void rellenarBd();
     public void borrarAnuncio(Anuncio anuncio)throws DiarioSurException;
     public List<Anuncio> getAnu();
+
+    public void enviarRepVal(Reporte r)throws DiarioSurException;
+    public void enviarRepEv(Reporte r)throws DiarioSurException;
+    public List<Reporte>getReportesVal();
+    public List<Reporte>getReportesEv();
+    public void eliminarReporteEv(Reporte r)throws DiarioSurException;
+    public void eliminarReporteVal(Reporte r)throws DiarioSurException;
+    
+    public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
+    
 }
