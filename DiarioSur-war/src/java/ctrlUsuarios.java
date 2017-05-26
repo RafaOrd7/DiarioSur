@@ -41,7 +41,7 @@ public class ctrlUsuarios implements Serializable {
     private Administrador a = new Administrador();
     private static boolean propio = false; // flag que indica si la edición de usuario es de sí mismo(confUsuario)
     private static String rol = "";
-
+    private static int cont=0;
     @Inject
     private BdBean bd;
     @EJB
@@ -63,6 +63,11 @@ public class ctrlUsuarios implements Serializable {
 
     public String nuevoUsuario() throws DiarioSurException {
         FacesContext ctx = FacesContext.getCurrentInstance();
+        if(cont==0){
+           negocio.rellenarBd(); 
+           cont++;
+        }
+        
         String pag = null;
         if(negocio.existeUsuario(usuario)){
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
