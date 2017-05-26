@@ -20,16 +20,13 @@
                         </tr>
                         <tr>
                             <td> <h:selectOneRadio value="#{busquedaAvanzada.tipo}">
-                                    <f:selectItem itemValue="1" itemLabel="Concierto"/>   
-                                    <f:selectItem itemValue="2" itemLabel="Exposición" />
-                                    <f:selectItem itemValue="3" itemLabel="Musical" />
-                                    <f:selectItem itemValue="4" itemLabel="Deportivo" />
-                                    <f:selectItem itemValue="5" itemLabel="teatral" />
-                                    <f:selectItem itemValue="6"  itemLabel="otro" />
+                                    <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                                    <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                                    <f:selectItem itemValue="musical" itemLabel="Musical" />
+                                    <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                                    <f:selectItem itemValue="teatral" itemLabel="Teatral" />
+                                    <f:selectItem itemValue="otro"  itemLabel="Otro" />
                                 </h:selectOneRadio></td>
-                        </tr>
-                        <tr>
-                            <td><p:inputNumber id="precio" value="#{busquedaAvanzada.precio}"/></td>
                         </tr>
                         <tr>
                             <td><p:outputLabel for="datetime" /><p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha"/></td>
@@ -70,7 +67,7 @@
                                         <h:outputText value="Fecha:" />
                                         <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Lugar" />
+                                        <h:outputText value="Descripcion: " />
                                         <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
                                     </h:panelGrid>
                                 </p:outputPanel>

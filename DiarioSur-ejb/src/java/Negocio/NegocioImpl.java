@@ -29,7 +29,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class NegocioImpl implements Negocio {
 
-    private static Long contId = 0L;
+    private static Long contId = 10L;
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
@@ -37,7 +37,6 @@ public class NegocioImpl implements Negocio {
    
     public void rellenarBd(){
        
-           
         Administrador ad = new Administrador();
         ad.setApellidos("a");
         ad.setBorrado(false);
@@ -50,7 +49,7 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A" + contId++);
+        ad.setIdUser("A" + 1L);
         
         em.persist(ad);
 
@@ -60,7 +59,7 @@ public class NegocioImpl implements Negocio {
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
-        ano.setId_anuncio(contId++);
+        ano.setId_anuncio(2L);
         ano.setPrioridad("mucha");
         ano.setTags("vale");       
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -73,11 +72,11 @@ public class NegocioImpl implements Negocio {
         e.setDescripcion("Evento de prueba");
         e.setFecha(new Date());
         e.setGeolocalizacion("Montilla");
-        e.setId(contId++);
+        e.setId(3L);
         e.setNombre("Evento inicial");
         e.setPrecio(0F);
         e.setTags("Ninguno");
-        e.setTipo("Musical");
+        e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
         
@@ -101,9 +100,6 @@ public class NegocioImpl implements Negocio {
         contId++;
         u.setIdUser("U" + contId);
         em.persist(u);
-
-      
-
     }
 
     @Override
@@ -200,7 +196,8 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public Anuncio devolverAnuncio() {
-        return em.find(Anuncio.class, 69L);
+        List<Anuncio>l=em.createQuery("select a from Anuncio a").getResultList();
+        return l.get(0);
     }
     
     @Override
