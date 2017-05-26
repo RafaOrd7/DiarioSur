@@ -15,6 +15,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +35,59 @@ public class NegocioImpl implements Negocio {
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
 
+   
+    public void rellenarBd(){
+       
+           
+        Administrador ad = new Administrador();
+        ad.setApellidos("a");
+        ad.setBorrado(false);
+        ad.setCargo("si");
+        ad.setDni("12345678E");
+        ad.setEmail("prueba@uma.es");
+        ad.setEmpresa("si");
+        ad.setHistorialEventos("nada");
+        ad.setNombre("prueba");
+        ad.setPassword("123");
+        ad.setPreferencias("si");
+        ad.setTelefono("123456789");
+        ad.setIdUser("A" + contId++);
+        
+        em.persist(ad);
+
+        Anuncio ano = new Anuncio();
+        ano.setDimensiones("si");
+        ano.setEmpresa("Anuncios funcionan SL");
+        ano.setEvento(new ArrayList<>());
+        ano.setFechaExpiracion(new Date());
+        ano.setFechaPublicacion(new Date());
+        ano.setId_anuncio(contId++);
+        ano.setPrioridad("mucha");
+        ano.setTags("vale");       
+        ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
+        
+        em.persist(ano);
+        
+        Evento e=new Evento();
+        e.setAnuncio(ano);
+        e.setCompra("Ninguna");
+        e.setDescripcion("Evento de prueba");
+        e.setFecha(new Date());
+        e.setGeolocalizacion("Montilla");
+        e.setId(contId++);
+        e.setNombre("Evento inicial");
+        e.setPrecio(0F);
+        e.setTags("Ninguno");
+        e.setTipo("Musical");
+        e.setVerificado(false);
+        e.setUsuarioRegistrado(ad);
+        
+        em.persist(e);
+    
+    
+    }
+    
+ 
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
@@ -52,33 +108,7 @@ public class NegocioImpl implements Negocio {
         u.setIdUser("U" + contId);
         em.persist(u);
 
-        /* Esto es un administrador para probar */
-        Administrador ad = new Administrador();
-        ad.setApellidos("a");
-        ad.setBorrado(false);
-        ad.setCargo("si");
-        ad.setDni("12345678E");
-        ad.setEmail("prueba@uma.es");
-        ad.setEmpresa("si");
-        ad.setHistorialEventos("nada");
-        ad.setNombre("prueba");
-        ad.setPassword("123");
-        ad.setPreferencias("si");
-        ad.setTelefono("123456789");
-        ad.setIdUser("A" + contId++);
-        em.persist(ad);
-
-        Anuncio ano = new Anuncio();
-        ano.setDimensiones("si");
-        ano.setEmpresa("Prueba SL");
-        ano.setEvento(new ArrayList<Evento>());
-        ano.setFechaExpiracion(new Date());
-        ano.setFechaPublicacion(new Date());
-        ano.setId_anuncio(69L);
-        ano.setPrioridad("mucha");
-        ano.setTags("vale");
-        ano.setAdministrador(ad);
-        em.persist(ano);
+      
 
     }
 
