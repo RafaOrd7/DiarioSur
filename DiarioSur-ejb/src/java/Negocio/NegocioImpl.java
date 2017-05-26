@@ -50,8 +50,8 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A" + contId++);
-
+        ad.setIdUser("A" + 1L);
+        
         em.persist(ad);
 
         Anuncio ano = new Anuncio();
@@ -60,7 +60,7 @@ public class NegocioImpl implements Negocio {
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
-        ano.setId_anuncio(contId++);
+        ano.setId_anuncio(2L);
         ano.setPrioridad("mucha");
         ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -73,11 +73,11 @@ public class NegocioImpl implements Negocio {
         e.setDescripcion("Evento de prueba");
         e.setFecha(new Date());
         e.setGeolocalizacion("Montilla");
-        e.setId(contId++);
+        e.setId(3L);
         e.setNombre("Evento inicial");
         e.setPrecio(0F);
         e.setTags("Ninguno");
-        e.setTipo("Musical");
+        e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
 
