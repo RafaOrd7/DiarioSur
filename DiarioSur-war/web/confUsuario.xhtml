@@ -15,6 +15,8 @@
                         <h1>Editar usuario</h1>
                         <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
                             <h:form>
+                                <p:panel header="Mi perfil (Usuario registrado)" style="margin-bottom:10px;">
+                                
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.historialEventos}"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.preferencias}"/>
@@ -50,11 +52,13 @@
 
                                 </h:panelGrid>
                                 <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
+                                </p:panel>
                             </h:form>
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.rol=='SuperUsuario'}">
                             <h:form>
+                                <p:panel header="Mi perfil (Super usuario)" style="margin-bottom:10px;">
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.su.idUser}" required="true"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.su.historialEventos}"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.su.preferencias}"/>
@@ -95,11 +99,13 @@
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarSuperUsuario()}"/>
+                                </p:panel>
                             </h:form>
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.rol=='Periodista'}">
                             <h:form>
+                                <p:panel header="Mi perfil (Periodista)" style="margin-bottom:10px;">
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.p.historialEventos}"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.p.preferencias}"/>
@@ -150,11 +156,13 @@
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarPeriodista()}"/>
+                                </p:panel>
                             </h:form>
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.rol=='JefeDeRedactores'}">
                             <h:form>
+                                <p:panel header="Mi perfil (Jefe de redactores)" style="margin-bottom:10px;">
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.historialEventos}"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.preferencias}"/>
@@ -205,11 +213,13 @@
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
+                                </p:panel>
                             </h:form>
                         </c:when>
 
                         <c:when test="#{ctrlUsuarios.rol=='Administrador'}">
                             <h:form>
+                                <p:panel header="Mi perfil (Administrador)" style="margin-bottom:10px;">
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
@@ -260,6 +270,7 @@
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
+                                </p:panel>
                             </h:form>
                         </c:when>
                         <c:otherwise>
