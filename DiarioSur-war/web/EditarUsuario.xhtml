@@ -26,6 +26,9 @@
                                 </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.historialEventos}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.preferencias}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.multimedia}"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreUR" value="NombreUR: " />
@@ -56,7 +59,7 @@
                                     <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR2" label="password2UR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
                                 
                             </h:panelGrid>
-                                <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
+                            <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
                             </h:form>
                     </c:when>
                     
@@ -73,6 +76,9 @@
                                 </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.su.idUser}" required="true"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.historialEventos}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.preferencias}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.multimedia}"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreSU" value="Nombre: " />
@@ -125,6 +131,9 @@
                                 </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.historialEventos}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.preferencias}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.multimedia}"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreP" value="Nombre: " />
@@ -187,6 +196,9 @@
                                 </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.historialEventos}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.preferencias}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.multimedia}"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreJDR" value="Nombre: " />
@@ -249,6 +261,9 @@
                                 </c:if>
                             </p:selectOneMenu>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
+                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
                             <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreA" value="Nombre: " />
