@@ -11,10 +11,9 @@
     <ui:define name="content">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkLog()}">
-        
+                <p:panel header="Búsqueda avanzada" style="margin-bottom:10px;">
                 <h:form>
-                    <h3>Busqueda</h3>
-                    <table align="center">
+                    <table>
                         <tr>
                             <td><p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/></td>
                         </tr>
@@ -29,9 +28,7 @@
                                 </h:selectManyCheckbox></td>
                         </tr>
                         <tr>
-                            <td><p:outputLabel for="datetime" />
-                                <p:calendar id="datetime" value="#{busquedaAvanzada.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha"/></td>
-                                
+                            <td><p:calendar id="datetime" value="#{busquedaAvanzada.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha"/></td>     
                         </tr>
                         <tr>
                             <td><p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="Lugar"/></td>
@@ -77,7 +74,7 @@
                         </p:dataScroller>
                     </h:form>
                 </c:if>
-        
+                </p:panel>
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>

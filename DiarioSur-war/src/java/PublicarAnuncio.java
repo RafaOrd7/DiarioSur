@@ -10,11 +10,8 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import Entidades.Anuncio;
 import Entidades.Evento;
-import Negocio.DiarioSurException;
-import Negocio.Negocio;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -28,9 +25,6 @@ public class PublicarAnuncio {
 
     private String nombreEmpresa;
     private long id;
-    @EJB
-    private Negocio negocio;
-    
 
     public boolean isConcierto() {
         return concierto;
@@ -133,8 +127,6 @@ public class PublicarAnuncio {
         crear();
         
         bd.crearAnuncio(anuncio);
-        
-        
        
         
         
@@ -155,9 +147,7 @@ public class PublicarAnuncio {
     }
 
     public List<Anuncio> getAnuncios() {
-        //return bd.getAnu();
-        return negocio.getAnu();
-        
+        return bd.getAnu();
     }
 
     /**
@@ -293,9 +283,8 @@ public class PublicarAnuncio {
         this.fechaExpiracion = fechaExpiracion;
     }
 
-    public String eliminarAnuncio() throws DiarioSurException{
-        //bd.eliminarAnuncio(seleccionado);      
-        negocio.borrarAnuncio(seleccionado);
+    public String eliminarAnuncio(){
+        bd.eliminarAnuncio(seleccionado);       
         return "index";
     }
           

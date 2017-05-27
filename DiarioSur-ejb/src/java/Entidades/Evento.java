@@ -16,7 +16,7 @@ import javax.persistence.*;
 
 /**
  *
- * @author VersusPC
+ * @author rafaord
  */
 @Entity
 public class Evento implements Serializable {
