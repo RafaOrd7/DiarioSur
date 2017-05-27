@@ -251,7 +251,7 @@ public class ctrlUsuarios implements Serializable {
                try {
 
                    Message message = new MimeMessage(session);
-                   message.setFrom(new InternetAddress("sinfuma17@gmail.com"));
+                   message.setFrom(new InternetAddress("Agenda MLG Diario Sur <sinfuma17@gmail.com>"));
                    message.setRecipients(Message.RecipientType.TO,
                            InternetAddress.parse(u.getEmail()));
                    message.setSubject("Recuperación de contraseña Agenda Diario El Sur");
@@ -277,7 +277,9 @@ public class ctrlUsuarios implements Serializable {
        return pag;
     }
     
-    
+    public boolean hayNotif() {
+        return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
+    }
 
     public List<Notificacion> getListaNotif() {
         return negocio.getNotif(cta.getUsuarioLogeado());

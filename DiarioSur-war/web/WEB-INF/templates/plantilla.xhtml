@@ -9,7 +9,7 @@
 
     <h:head>
         <link href="./resources/css/estilos.css" rel="stylesheet" type="text/css" />
-        <link rel="icon" type="image/png" href="./resources/favicon.ico" />
+        <link rel="icon" type="image/ico" href="./resources/favicon.ico" />
         <title>
             <ui:insert name="title">Agenda MLG - Diario Sur</ui:insert>
         </title>
@@ -28,12 +28,12 @@
              
                 <h:form id="menu">
                     <p:menubar>
-                        <p:menuitem value="Crear evento" outcome="subirEvento" icon="ui-icon-close" ajax="false" rendered="${ctrlAutorizacion.checkUR()}"></p:menuitem>
-                        <p:menuitem value="Publicar Anuncio" outcome="publicarAnuncio" icon="ui-icon-document" ajax="false" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
-                        <p:submenu label="Gestión" icon="ui-icon-document" rendered="${ctrlAutorizacion.checkP()}">
-                            <p:menuitem value="Anuncios" outcome="gestionAnuncio"  ajax="false" icon="ui-icon-folder-collapsed" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
-                            <p:menuitem value="Usuarios" outcome="gestionUsuario" ajax="false" icon="ui-icon-tag" rendered="${ctrlAutorizacion.checkJDR()}"></p:menuitem>
-                            <p:menuitem value="Reportes" outcome="GestionarReporte" ajax="false" icon="ui-icon-copy"></p:menuitem> 
+                        <p:menuitem value="Crear evento" outcome="subirEvento" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkUR()}"></p:menuitem>
+                        <p:menuitem value="Publicar Anuncio" outcome="publicarAnuncio" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
+                        <p:submenu label="Gestión" icon="ui-icon-wrench" rendered="${ctrlAutorizacion.checkP()}">
+                            <p:menuitem value="Anuncios" outcome="gestionAnuncio"  ajax="false" icon="ui-icon-image" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
+                            <p:menuitem value="Usuarios" outcome="gestionUsuario" ajax="false" icon="ui-icon-person" rendered="${ctrlAutorizacion.checkJDR()}"></p:menuitem>
+                            <p:menuitem value="Reportes" outcome="GestionarReporte" ajax="false" icon="ui-icon-alert"></p:menuitem> 
                         </p:submenu>
                         <p:menuitem value="Búsqueda Avanzada" outcome="busqAvanzada" ajax="false" icon="ui-icon-search"></p:menuitem>
                         <f:facet name="options">
@@ -41,15 +41,17 @@
                             <p:inputText placeholder="Buscar..." style="margin-right:10px" size="35"  value="#{recogedorBusquedas.busqueda}"/>
                             <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:40px" icon="ui-icon-search" ajax="false"/>
                             <!-- Logueado -->
-                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-closed" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}"></p:button>
-                            <p:menuButton iconPos="right" value="Mi perfil" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}">
-                                <p:menuitem disabled="true" value="Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}"/>
+                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-closed" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and ctrlUsuarios.hayNotif()}"/>
+                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-open" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and !ctrlUsuarios.hayNotif()}"/>
+                            <p:menuButton value="Mi perfil" iconPos="right" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}">
+                                <p:menuitem value="Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}" disabled="true" />
+                                <p:separator/>
                                 <p:menuitem value="Configurar perfil" action="#{ctrlUsuarios.mostrarUsuarioPropio()}" ajax="false" icon="ui-icon-person"/>
                                 <p:menuitem value="Salir" action="#{ctrlAutorizacion.logout()}" ajax="false" style="color:red" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}"/> 
                             </p:menuButton>
                             <!-- No logueado -->
-                            <p:button outcome="login" value="Login" style="margin-right:10px" icon="ui-icon-person" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"></p:button>
-                            <p:button outcome="register" value="Registro" icon="ui-icon-pencil" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"></p:button>
+                            <p:button outcome="login" value="Login" style="margin-right:10px" icon="ui-icon-person" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
+                            <p:button outcome="register" value="Registro" icon="ui-icon-pencil" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
                         </f:facet>
                     </p:menubar>
                 </h:form>
