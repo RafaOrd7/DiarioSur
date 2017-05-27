@@ -10,6 +10,8 @@ import Entidades.UsuarioRegistrado;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +51,6 @@ public class recogedorEventos {
     private static Evento seleccionado=new Evento();
 
     public String editarEvento() {
-        System.out.println(seleccionado.getId_evento());
         Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
         seleccionado = aux;

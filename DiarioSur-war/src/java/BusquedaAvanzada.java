@@ -6,6 +6,8 @@
 
 import Entidades.Evento;
 import Negocio.Negocio;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -21,7 +23,7 @@ import javax.inject.Inject;
 public class BusquedaAvanzada {
 
     private String nombre = "";
-    private String tipo;
+    private List<String> tipo = new ArrayList<>();
     private float precio;
     private Date fecha = null;
     private String lugar="";
@@ -31,9 +33,6 @@ public class BusquedaAvanzada {
     private static boolean encontrado = false;
     
     private List<Evento> busq = new ArrayList<>();
-
-    @Inject
-    private BdBean bd;
     
     @EJB
     private Negocio negocio;
@@ -42,8 +41,8 @@ public class BusquedaAvanzada {
     }
 
     public String buscar() {
-        List<Evento> aux = new ArrayList<Evento>();
-        List<Evento> todo = new ArrayList<Evento>();
+        List<Evento> aux = new ArrayList<>();
+        List<Evento> todo = new ArrayList<>();
         encontrado = false;
         aux = negocio.getEv();
         
@@ -54,7 +53,6 @@ public class BusquedaAvanzada {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }       
         
         todo.addAll(aux);
@@ -65,9 +63,9 @@ public class BusquedaAvanzada {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
         
+        todo = new ArrayList<>();
         todo.addAll(aux);
         
         if(!lugar.equals("")){
@@ -76,31 +74,42 @@ public class BusquedaAvanzada {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
         
+        todo = new ArrayList<>();
         todo.addAll(aux);
         
-        if(tipo != null){
+        if(!tipo.isEmpty()){
+            List<Evento> auxTipos = new ArrayList<>();
             for (Evento e : todo) {
-                if (!e.getTipo().equals(tipo)) {
-                    aux.remove(e);
+                for(String i : tipo){
+                    if (e.getTipo().equals(i)) {
+                        auxTipos.add(e);
+                    }
                 }
+                
             }
-            //encontrado = true;
+            aux=auxTipos;
         }
         
+        todo = new ArrayList<>();
         todo.addAll(aux);    
-        
+            
         if(fecha != null){
+            DateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
             for (Evento e : todo) {
-                if (e.getFecha().compareTo(fecha) != 0) {
+                String f = formato.format(e.getFecha());
+                String f2 = formato.format(getFecha());
+                
+                if (!f.equals(f2)) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
         
+        System.out.println("Salimos de aqui y no ha pasado nada");
+        
+        todo = new ArrayList<>();
         todo.addAll(aux);
         
         if(!tags.equals("")){
@@ -109,7 +118,6 @@ public class BusquedaAvanzada {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
         
         busq.addAll(aux);
@@ -134,14 +142,14 @@ public class BusquedaAvanzada {
     }
 
 
-    public String getTipo() {
+    public List<String> getTipo() {
         return tipo;
     }
 
     /**
      * @param tipo the tipo to set
      */
-    public void setTipo(String tipo) {
+    public void setTipo(List<String> tipo) {
         this.tipo = tipo;
     }
 
