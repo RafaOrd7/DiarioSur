@@ -14,7 +14,6 @@
             <ui:insert name="title">Agenda MLG - Diario Sur</ui:insert>
         </title>
     </h:head>
-
     <h:body>
         <!--Muestra la cabecera de la pagina-->
         <div id="top" class="top">
@@ -22,8 +21,6 @@
                 <h:link outcome="index" style="alignment-adjust: central">
                     <h:graphicImage alt="Logo Diario Sur" url="http://www.diariosur.es/img//2014/logoC.png"/>
                 </h:link>
-                
-                <p:messages id="messages" autoUpdate="true" showIcon="false"/>
             </h:form>
              
                 <h:form id="menu">
@@ -55,8 +52,8 @@
                         </f:facet>
                     </p:menubar>
                 </h:form>
-                
-                <br/><br/>     
+            <p:messages id="messages" autoUpdate="true" showIcon="false"/>
+                <br/>    
         </div>
 
         <!--Muestra el contenido de la pagina-->
