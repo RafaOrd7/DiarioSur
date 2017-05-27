@@ -106,9 +106,7 @@ public class BusquedaAvanzada {
                 }
             }
         }
-        
-        System.out.println("Salimos de aqui y no ha pasado nada");
-        
+                
         todo = new ArrayList<>();
         todo.addAll(aux);
         
