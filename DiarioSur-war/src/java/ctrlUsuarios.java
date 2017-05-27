@@ -199,7 +199,7 @@ public class ctrlUsuarios implements Serializable {
 
     public String validarEmail() {
 
-        String page = "forgpass.xhtml";
+        String page = null;
 
         if (!usuario.getEmail().equals("")) {
 
@@ -259,7 +259,11 @@ public class ctrlUsuarios implements Serializable {
                                  + " es: " + u.getPassword());
 
                    Transport.send(message);
-
+                   
+                   FacesContext ctx = FacesContext.getCurrentInstance();
+                   ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
+                           "Mensaje enviado, compruebe su email."));
+                   
                } catch (MessagingException e) {
                    throw new RuntimeException(e);
                }
@@ -271,9 +275,7 @@ public class ctrlUsuarios implements Serializable {
                        "Error, email no registrado."));
            }
        }
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
-                "Mensaje enviado, compruebe su email."));
+
        return pag;
     }
     
