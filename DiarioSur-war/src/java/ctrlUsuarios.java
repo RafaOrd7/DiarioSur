@@ -54,7 +54,7 @@ public class ctrlUsuarios implements Serializable {
     private Administrador a = new Administrador();
     private static boolean propio = false; // flag que indica si la edición de usuario es de sí mismo(confUsuario)
     private static String rol = "";
-
+    private static int cont=0;
     @Inject
     private BdBean bd;
     @EJB
@@ -76,6 +76,11 @@ public class ctrlUsuarios implements Serializable {
 
     public String nuevoUsuario() throws DiarioSurException {
         FacesContext ctx = FacesContext.getCurrentInstance();
+        if(cont==0){
+           negocio.rellenarBd(); 
+           cont++;
+        }
+        
         String pag = null;
         if(negocio.existeUsuario(usuario)){
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -199,7 +204,7 @@ public class ctrlUsuarios implements Serializable {
 
     public String validarEmail() {
 
-        String page = "forgpass.xhtml";
+        String page = null;
 
         if (!usuario.getEmail().equals("")) {
 
@@ -260,7 +265,11 @@ public class ctrlUsuarios implements Serializable {
                                  + " es: " + u.getPassword());
 
                    Transport.send(message);
-
+                   
+                   FacesContext ctx = FacesContext.getCurrentInstance();
+                   ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
+                           "Mensaje enviado, compruebe su email."));
+                   
                } catch (MessagingException e) {
                    throw new RuntimeException(e);
                }
@@ -272,9 +281,7 @@ public class ctrlUsuarios implements Serializable {
                        "Error, email no registrado."));
            }
        }
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
-                "Mensaje enviado, compruebe su email."));
+
        return pag;
     }
     
@@ -420,23 +427,23 @@ public class ctrlUsuarios implements Serializable {
         UsuarioRegistrado u = cta.getUsuarioLogeado();
         switch (u.getIdUser().charAt(0)) {
             case 'A':
-                this.a = bd.buscarAdmin((Administrador) u);
+                this.a = negocio.buscarAdmin((Administrador) u);
                 this.rol = "Administrador";
                 break;
             case 'J':
-                this.jdr = bd.buscarJDR((JefeDeRedactores) u);
+                this.jdr = negocio.buscarJDR((JefeDeRedactores) u);
                 this.rol = "JefeDeRedactores";
                 break;
             case 'P':
-                this.p = bd.buscarPeriodista((Periodista) u);
+                this.p = negocio.buscarPeriodista((Periodista) u);
                 this.rol = "Periodista";
                 break;
             case 'S':
-                this.su = bd.buscarSU((SuperUsuario) u);
+                this.su = negocio.buscarSU((SuperUsuario) u);
                 this.rol = "SuperUsuario";
                 break;
             case 'U':
-                this.usuario = bd.buscarUR(u);
+                this.usuario = negocio.buscarUR(u);
                 this.rol = "UsuarioRegistrado";
                 break;
         }
