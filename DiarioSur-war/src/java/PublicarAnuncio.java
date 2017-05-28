@@ -35,6 +35,10 @@ public class PublicarAnuncio {
 
     private String nombreEmpresa;
     private long id;
+    
+    
+    
+    
 
     public boolean isConcierto() {
         return concierto;
