@@ -49,9 +49,6 @@ public class recogedorEventos {
     @Inject
     private ctrlAutorizacion cta;
 
-    @Inject
-    private BusquedaAvanzada ba;
-
     private static Evento seleccionado = new Evento();
 
     public String editarEvento() {
@@ -119,9 +116,12 @@ public class recogedorEventos {
         recogedorEventos.seleccionado = seleccionado;
     }
 
-    public String ver(Evento evento) {
+    public String ver(Evento evento) throws DiarioSurException {
         setSeleccionado(evento);
-        return "evento.xhtml";
+        if (cta.getUsuarioLogeado() != null) {
+            negocio.tipoVisitado(cta.getUsuarioLogeado(), evento);
+        }
+        return "evento";
     }
 
     public List<Evento> getEventos() {
