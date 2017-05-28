@@ -17,6 +17,18 @@
                     <p:panel header="Nuevo anuncio" style="margin-bottom:10px;">
                         <table>
                             <tr>
+                                <td>Subir imagen:</td>
+                            </tr>  
+                            <tr>
+                                <td><input type="file" id="files" name="files[]" value="#{publicarAnuncio.multimedia}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Dimensiones:</td>
+                            </tr>
+                            <tr>
+                                <td><p:inputText id="Dimensiones" required="true" value="#{publicarAnuncio.dimensiones}"/></td>
+                            </tr>
+                            <tr>
                                 <td>Nombre de la empresa:</td>
                             </tr>  
                             <tr>

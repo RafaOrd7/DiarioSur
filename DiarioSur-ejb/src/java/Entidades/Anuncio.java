@@ -7,6 +7,8 @@ package Entidades;
 
 import java.io.File;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -31,24 +33,24 @@ public class Anuncio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_anuncio;
-    @Column(nullable  = false, length=100)
-    @Temporal(value=TemporalType.DATE)
+    @Column(nullable = false, length = 100)
+    @Temporal(value = TemporalType.DATE)
     private Date fechaPublicacion;
-    @Column(nullable  = false, length=100)
-    @Temporal(value=TemporalType.DATE)
+    @Column(nullable = false, length = 100)
+    @Temporal(value = TemporalType.DATE)
     private Date fechaExpiracion;
-    @Column(nullable  = true, length=1000)
+    @Column(nullable = true, length = 1000)
     private File multimedia;
-    @Column(nullable  = false, length=50)
+    @Column(nullable = false, length = 50)
     private String empresa;
-    @Column(nullable  = false , length=10)
+    @Column(nullable = false, length = 10)
     private String dimensiones;
-    @Column(nullable  = false, length=10)
+    @Column(nullable = false, length = 10)
     private String prioridad;
-    @Column(nullable  = false, length=100)
+    @Column(nullable = false, length = 100)
     private String tags;
     @ManyToOne
-    @JoinColumn(nullable  = false)
+    @JoinColumn(nullable = false)
     private Administrador administrador;
 
     public Administrador getAdministrador() {
@@ -58,7 +60,7 @@ public class Anuncio implements Serializable {
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
     }
-    @OneToMany (mappedBy="anuncio")
+    @OneToMany(mappedBy = "anuncio")
     private List<Evento> evento;
 
     public List<Evento> getEvento() {
@@ -68,7 +70,6 @@ public class Anuncio implements Serializable {
     public void setEvento(List<Evento> evento) {
         this.evento = evento;
     }
-    
 
     public String getEmpresa() {
         return empresa;
@@ -101,7 +102,6 @@ public class Anuncio implements Serializable {
     public void setTags(String tags) {
         this.tags = tags;
     }
-    
 
     public Long getId_anuncio() {
         return id_anuncio;
@@ -143,6 +143,11 @@ public class Anuncio implements Serializable {
         return fechaPublicacion;
     }
 
+    public String FechaPublicacionString() {
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fechaPublicacion);
+    }
+
     /**
      * @param fechaPublicacion the fechaPublicacion to set
      */
@@ -155,6 +160,11 @@ public class Anuncio implements Serializable {
      */
     public Date getFechaExpiracion() {
         return fechaExpiracion;
+    }
+
+    public String FechaExpiracionString() {
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fechaExpiracion);
     }
 
     /**
@@ -177,24 +187,22 @@ public class Anuncio implements Serializable {
     public void setMultimedia(File multimedia) {
         this.multimedia = multimedia;
     }
-    
-    public Anuncio(Date fP,Date fE,File m,String em,String dim,String pri,String tag,Administrador ad,List<Evento> ev){
-        fechaPublicacion=fP;
-        fechaExpiracion=fE;
-        multimedia=m;
-        empresa=em;
-        dimensiones=dim;
-        prioridad=pri;
-        tags=tag;
-        administrador=ad;
-        evento=ev;
-        
-        
-        
+
+    public Anuncio(Date fP, Date fE, File m, String em, String dim, String pri, String tag, Administrador ad, List<Evento> ev) {
+        fechaPublicacion = fP;
+        fechaExpiracion = fE;
+        multimedia = m;
+        empresa = em;
+        dimensiones = dim;
+        prioridad = pri;
+        tags = tag;
+        administrador = ad;
+        evento = ev;
+
     }
-    
-    public Anuncio(){
-        
+
+    public Anuncio() {
+
     }
-    
+
 }
