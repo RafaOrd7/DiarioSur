@@ -91,4 +91,10 @@ public interface Negocio {
     
     public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
 
+    public void tipoVisitado(UsuarioRegistrado usuarioLogeado,Evento evento)throws DiarioSurException;
+
+    public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado);
+
+    public String devolverPref(UsuarioRegistrado usuarioLogeado);
+
 }
