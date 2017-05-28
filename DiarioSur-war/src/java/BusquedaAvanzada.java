@@ -6,10 +6,13 @@
 
 import Entidades.Evento;
 import Negocio.Negocio;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 /**
@@ -21,20 +24,17 @@ import javax.inject.Inject;
 public class BusquedaAvanzada {
 
     private String nombre = "";
-    private String tipo;
+    private List<String> tipo = new ArrayList<>();
     private float precio;
     private Date fecha = null;
-    private String lugar="";
+    private String lugar = "";
     private String descripcion = "";
-    private String tags ="";
+    private String tags = "";
 
     private static boolean encontrado = false;
-    
+
     private List<Evento> busq = new ArrayList<>();
 
-    @Inject
-    private BdBean bd;
-    
     @EJB
     private Negocio negocio;
 
@@ -42,86 +42,92 @@ public class BusquedaAvanzada {
     }
 
     public String buscar() {
-        List<Evento> aux = new ArrayList<Evento>();
-        List<Evento> todo = new ArrayList<Evento>();
+        List<Evento> aux = new ArrayList<>();
+        List<Evento> todo = new ArrayList<>();
         encontrado = false;
         aux = negocio.getEv();
-        
-        
+
         if (!nombre.equals("")) {
             for (Evento e : negocio.getEv()) {
                 if (!e.getNombre().toUpperCase().contains(nombre.toUpperCase())) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
-        }       
-        
+        }
+
         todo.addAll(aux);
-        
-        if(!descripcion.equals("")){
+
+        if (!descripcion.equals("")) {
             for (Evento e : todo) {
                 if (!e.getDescripcion().toUpperCase().contains(descripcion.toUpperCase())) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
-        
+
+        todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(!lugar.equals("")){
+
+        if (!lugar.equals("")) {
             for (Evento e : todo) {
                 if (!e.getGeolocalizacion().toUpperCase().contains(lugar.toUpperCase())) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
-        
+
+        todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(tipo != null){
+
+        if (!tipo.isEmpty()) {
+            List<Evento> auxTipos = new ArrayList<>();
             for (Evento e : todo) {
-                if (!e.getTipo().equals(tipo)) {
+                for (String i : tipo) {
+                    if (e.getTipo().equals(i)) {
+                        auxTipos.add(e);
+                    }
+                }
+
+            }
+            aux = auxTipos;
+        }
+
+        todo = new ArrayList<>();
+        todo.addAll(aux);
+
+        if (fecha != null) {
+            DateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
+            for (Evento e : todo) {
+                String f = formato.format(e.getFecha());
+                String f2 = formato.format(getFecha());
+
+                if (!f.equals(f2)) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
-        
-        todo.addAll(aux);    
-        
-        if(fecha != null){
-            for (Evento e : todo) {
-                if (e.getFecha().compareTo(fecha) != 0) {
-                    aux.remove(e);
-                }
-            }
-            //encontrado = true;
-        }
-        
+
+        todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(!tags.equals("")){
+
+        if (!tags.equals("")) {
             for (Evento e : todo) {
                 if (!e.getTags().toUpperCase().contains(tags.toUpperCase())) {
                     aux.remove(e);
                 }
             }
-            //encontrado = true;
         }
-        
-        busq.addAll(aux);
-        
-        if(!busq.isEmpty()){
-           encontrado = true; 
+
+        busq = aux;
+
+        if (!busq.isEmpty()) {
+            encontrado = true;
         }
 
         return "busqAvanzada.xhtml";
     }
-    
-    public List<Evento> getListaBusqueda(){
+
+    public List<Evento> getListaBusqueda() {
         return busq;
     }
 
@@ -133,15 +139,14 @@ public class BusquedaAvanzada {
         BusquedaAvanzada.encontrado = encontrado;
     }
 
-
-    public String getTipo() {
+    public List<String> getTipo() {
         return tipo;
     }
 
     /**
      * @param tipo the tipo to set
      */
-    public void setTipo(String tipo) {
+    public void setTipo(List<String> tipo) {
         this.tipo = tipo;
     }
 
@@ -229,4 +234,7 @@ public class BusquedaAvanzada {
         this.nombre = nombre;
     }
 
+    public List<Evento> getBusq() {
+        return busq;
+    }
 }

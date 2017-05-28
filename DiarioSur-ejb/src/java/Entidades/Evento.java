@@ -7,6 +7,8 @@ package Entidades;
 
 import java.io.File;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +16,7 @@ import javax.persistence.*;
 
 /**
  *
- * @author VersusPC
+ * @author rafaord
  */
 @Entity
 public class Evento implements Serializable {
@@ -163,6 +165,11 @@ public class Evento implements Serializable {
 
     public Date getFecha() {
         return fecha;
+    }
+    
+    public String FechaString(){
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fecha);
     }
 
     public void setFecha(Date fecha) {

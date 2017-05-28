@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
@@ -28,9 +27,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -39,7 +36,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
 /**
  *
  * @author Garri
@@ -47,6 +43,7 @@ import javax.mail.internet.MimeMessage;
 @Named(value = "ctrlUsuarios")
 @RequestScoped
 public class ctrlUsuarios implements Serializable {
+
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     private SuperUsuario su = new SuperUsuario();
     private Periodista p = new Periodista();
@@ -54,9 +51,7 @@ public class ctrlUsuarios implements Serializable {
     private Administrador a = new Administrador();
     private static boolean propio = false; // flag que indica si la edición de usuario es de sí mismo(confUsuario)
     private static String rol = "";
-    private static int cont=0;
-    @Inject
-    private BdBean bd;
+    private static int cont = 0;
     @EJB
     private Negocio negocio;
 
@@ -76,13 +71,13 @@ public class ctrlUsuarios implements Serializable {
 
     public String nuevoUsuario() throws DiarioSurException {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        if(cont==0){
-           negocio.rellenarBd(); 
-           cont++;
+        if (cont == 0) {
+            negocio.rellenarBd();
+            cont++;
         }
-        
+
         String pag = null;
-        if(negocio.existeUsuario(usuario)){
+        if (negocio.existeUsuario(usuario)) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "El email " + usuario.getEmail() + " está en uso por otro usuario.",
                     "El email " + usuario.getEmail() + " está en uso por otro usuario."));
@@ -90,7 +85,7 @@ public class ctrlUsuarios implements Serializable {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Ya existe un usuario con DNI " + usuario.getDni(),
                     "Ya existe un usuario con DNI " + usuario.getDni()));
-        }else{
+        } else {
             usuario.setHistorialEventos("");
             usuario.setBorrado(false);
             usuario.setMegusta(new ArrayList<>());
@@ -101,11 +96,9 @@ public class ctrlUsuarios implements Serializable {
                     "Usuario " + usuario.getEmail() + " registrado correctamente."));
             pag = "index.xhtml";
         }
-    
         return pag;
     }
 
-    
     //POR HACER
     public String nuevoUsuarioGestion() throws DiarioSurException {
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -114,7 +107,7 @@ public class ctrlUsuarios implements Serializable {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "El email " + a.getEmail() + " está en uso por otro usuario.",
                     "El email " + a.getEmail() + " está en uso por otro usuario."));
-        }else if(negocio.checkDNI(a)){    
+        } else if (negocio.checkDNI(a)) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Ya existe un usuario con DNI " + a.getDni(),
                     "Ya existe un usuario con DNI " + a.getDni()));
@@ -226,65 +219,71 @@ public class ctrlUsuarios implements Serializable {
         }
         return page;
     }
-    
-    
-    
-    
-    public String sendEmail() throws DiarioSurException {
-       String pag = validarEmail();
-       if (pag == null){
-           return pag;
-       }else{
-           if (negocio.existeUsuario(usuario)) {
-               UsuarioRegistrado u = negocio.buscarURmail(usuario.getEmail());
 
-               final String username = "sinfuma17@gmail.com";
-               final String password = "topillosmike";
-               Properties props = new Properties();
-               props.put("mail.smtp.auth", "true");
-               props.put("mail.smtp.starttls.enable", "true");
-               props.put("mail.smtp.host", "smtp.gmail.com");
-               props.put("mail.smtp.port", "587");
-
-               Session session = Session.getInstance(props,
-                       new javax.mail.Authenticator() {
-                   protected PasswordAuthentication getPasswordAuthentication() {
-                       return new PasswordAuthentication(username, password);
-                   }
-               });
-
-               try {
-
-                   Message message = new MimeMessage(session);
-                   message.setFrom(new InternetAddress("sinfuma17@gmail.com"));
-                   message.setRecipients(Message.RecipientType.TO,
-                           InternetAddress.parse(u.getEmail()));
-                   message.setSubject("Recuperación de contraseña Agenda Diario El Sur");
-                   message.setText("Ha solicitado la recuperación de contraseña, su contraseña actual"
-                                 + " es: " + u.getPassword());
-
-                   Transport.send(message);
-                   
-                   FacesContext ctx = FacesContext.getCurrentInstance();
-                   ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
-                           "Mensaje enviado, compruebe su email."));
-                   
-               } catch (MessagingException e) {
-                   throw new RuntimeException(e);
-               }
-
-           } else {
-               pag = null;
-               FacesContext ctx = FacesContext.getCurrentInstance();
-               ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, email no registrado.",
-                       "Error, email no registrado."));
-           }
-       }
-
-       return pag;
+    public boolean isSU() {
+        System.out.println("-------------------------------");
+        System.out.println(rol.equals("SuperUsuario"));
+        return rol.equals("SuperUsuario");
     }
-    
-    
+
+    public String sendEmail() throws DiarioSurException {
+        String pag = validarEmail();
+        if (pag == null) {
+            return pag;
+        } else {
+            if (negocio.existeUsuario(usuario)) {
+                UsuarioRegistrado u = negocio.buscarURmail(usuario.getEmail());
+
+                final String username = "sinfuma17@gmail.com";
+                final String password = "topillosmike";
+                Properties props = new Properties();
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "587");
+
+                Session session = Session.getInstance(props,
+                        new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+                try {
+
+                    Message message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress("Agenda MLG Diario Sur <sinfuma17@gmail.com>"));
+                    message.setRecipients(Message.RecipientType.TO,
+                            InternetAddress.parse(u.getEmail()));
+                    message.setSubject("Recuperación de contraseña Agenda Diario El Sur");
+                    message.setText("Ha solicitado la recuperación de contraseña, su contraseña actual"
+                            + " es: " + u.getPassword());
+
+                    Transport.send(message);
+
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado, compruebe su email.",
+                            "Mensaje enviado, compruebe su email."));
+
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+
+            } else {
+                pag = null;
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error, email no registrado.",
+                        "Error, email no registrado."));
+            }
+        }
+
+        return pag;
+    }
+
+    public boolean hayNotif() {
+        return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
+    }
 
     public List<Notificacion> getListaNotif() {
         return negocio.getNotif(cta.getUsuarioLogeado());
@@ -465,8 +464,6 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa("");
                 adm.setCargo("");
                 adm.setTelefono("");
-                
-
                 negocio.eliminarUR(usuario);
                 negocio.addAdmin(adm);
                 break;
@@ -484,7 +481,6 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa("");
                 jdre.setCargo("");
                 jdre.setTelefono("");
-
                 negocio.eliminarUR(usuario);
                 negocio.addJdr(jdre);
                 break;
@@ -502,7 +498,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setEmpresa("");
                 per.setCargo("");
                 per.setTelefono("");
-
                 negocio.eliminarUR(usuario);
                 negocio.addPeri(per);
                 break;
@@ -518,7 +513,6 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(usuario.getMultimedia());
                 sup.setHistorialEventos(usuario.getHistorialEventos());
                 sup.setEmpresa("");
-
                 negocio.eliminarUR(usuario);
                 negocio.addSuperu(sup);
                 break;
@@ -532,9 +526,8 @@ public class ctrlUsuarios implements Serializable {
                 aux.setPreferencias(usuario.getPreferencias());
                 aux.setMultimedia(usuario.getMultimedia());
                 aux.setHistorialEventos(usuario.getHistorialEventos());
-                
                 negocio.addUR(aux);
-                
+
                 break;
         }
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
@@ -556,7 +549,6 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa(su.getEmpresa());
                 adm.setCargo("");
                 adm.setTelefono("");
-
                 negocio.eliminarSU(su);
                 negocio.addAdmin(adm);
                 break;
@@ -574,7 +566,6 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa(su.getEmpresa());
                 jdre.setCargo("");
                 jdre.setTelefono("");
-
                 negocio.eliminarSU(su);
                 negocio.addJdr(jdre);
                 break;
@@ -592,7 +583,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setCargo("");
                 per.setTelefono("");
                 per.setEmpresa(su.getEmpresa());
-
                 negocio.eliminarSU(su);
                 negocio.addPeri(per);
                 break;
@@ -607,7 +597,6 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(su.getMultimedia());
                 sup.setHistorialEventos(su.getHistorialEventos());
                 sup.setEmpresa(su.getEmpresa());
-                
                 negocio.addSuperu(sup);
 
                 break;
@@ -622,7 +611,6 @@ public class ctrlUsuarios implements Serializable {
                 ure.setPreferencias(su.getPreferencias());
                 ure.setMultimedia(su.getMultimedia());
                 ure.setHistorialEventos(su.getHistorialEventos());
-
                 negocio.eliminarSU(su);
                 negocio.addUR(ure);
                 break;
@@ -646,7 +634,6 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa(p.getEmpresa());
                 adm.setCargo(p.getCargo());
                 adm.setTelefono(p.getTelefono());
-
                 negocio.eliminarPeriodista(p);
                 negocio.addAdmin(adm);
                 break;
@@ -664,7 +651,6 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa(p.getEmpresa());
                 jdre.setCargo(p.getCargo());
                 jdre.setTelefono(p.getTelefono());
-
                 negocio.eliminarPeriodista(p);
                 negocio.addJdr(jdre);
                 break;
@@ -681,7 +667,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setEmpresa(p.getEmpresa());
                 per.setCargo(p.getCargo());
                 per.setTelefono(p.getTelefono());
-                
                 negocio.addPeri(per);
                 break;
             case "SuperUsuario":
@@ -696,7 +681,6 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(p.getMultimedia());
                 sup.setHistorialEventos(p.getHistorialEventos());
                 sup.setEmpresa(p.getEmpresa());
-
                 negocio.eliminarPeriodista(p);
                 negocio.addSuperu(sup);
                 break;
@@ -711,7 +695,6 @@ public class ctrlUsuarios implements Serializable {
                 ure.setPreferencias(p.getPreferencias());
                 ure.setMultimedia(p.getMultimedia());
                 ure.setHistorialEventos(p.getHistorialEventos());
-
                 negocio.eliminarPeriodista(p);
                 negocio.addUR(ure);
                 break;
@@ -735,8 +718,6 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa(jdr.getEmpresa());
                 adm.setCargo(jdr.getCargo());
                 adm.setTelefono(jdr.getTelefono());
-
-               
                 negocio.eliminarJDR(jdr);
                 negocio.addAdmin(adm);
                 break;
@@ -753,7 +734,6 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa(jdr.getEmpresa());
                 jdre.setCargo(jdr.getCargo());
                 jdre.setTelefono(jdr.getTelefono());
-                
                 negocio.addJdr(jdre);
                 break;
             case "Periodista":
@@ -770,7 +750,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setEmpresa(jdr.getEmpresa());
                 per.setCargo(jdr.getCargo());
                 per.setTelefono(jdr.getTelefono());
-
                 negocio.eliminarJDR(jdr);
                 negocio.addPeri(per);
                 break;
@@ -786,7 +765,6 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(jdr.getMultimedia());
                 sup.setHistorialEventos(jdr.getHistorialEventos());
                 sup.setEmpresa(jdr.getEmpresa());
-
                 negocio.eliminarJDR(jdr);
                 negocio.addSuperu(sup);
                 break;
@@ -801,7 +779,6 @@ public class ctrlUsuarios implements Serializable {
                 ure.setPreferencias(jdr.getPreferencias());
                 ure.setMultimedia(jdr.getMultimedia());
                 ure.setHistorialEventos(jdr.getHistorialEventos());
-
                 negocio.eliminarJDR(jdr);
                 negocio.addUR(ure);
                 break;
@@ -824,7 +801,6 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa(a.getEmpresa());
                 adm.setCargo(a.getCargo());
                 adm.setTelefono(a.getTelefono());
-                
                 negocio.addAdmin(adm);
                 break;
             case "JefeDeRedactores":
@@ -841,7 +817,6 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa(a.getEmpresa());
                 jdre.setCargo(a.getCargo());
                 jdre.setTelefono(a.getTelefono());
-
                 negocio.eliminarAdmin(a);
                 negocio.addJdr(jdre);
                 break;
@@ -859,7 +834,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setEmpresa(a.getEmpresa());
                 per.setCargo(a.getCargo());
                 per.setTelefono(a.getTelefono());
-
                 negocio.eliminarAdmin(a);
                 negocio.addPeri(per);
                 break;
@@ -875,7 +849,6 @@ public class ctrlUsuarios implements Serializable {
                 sup.setMultimedia(a.getMultimedia());
                 sup.setHistorialEventos(a.getHistorialEventos());
                 sup.setEmpresa(a.getEmpresa());
-
                 negocio.eliminarAdmin(a);
                 negocio.addSuperu(sup);
                 break;
@@ -890,7 +863,6 @@ public class ctrlUsuarios implements Serializable {
                 ure.setPreferencias(a.getPreferencias());
                 ure.setMultimedia(a.getMultimedia());
                 ure.setHistorialEventos(a.getHistorialEventos());
-
                 negocio.eliminarAdmin(a);
                 negocio.addUR(ure);
                 break;
