@@ -16,14 +16,14 @@
                     <td><p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/></td>
                 </tr>
                 <tr>
-                    <td> <h:selectOneRadio value="#{busquedaAvanzada.tipo}">
+                    <td> <h:selectManyCheckbox value="#{busquedaAvanzada.tipo}">
                             <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
                             <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
                             <f:selectItem itemValue="musical" itemLabel="Musical" />
                             <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
                             <f:selectItem itemValue="teatral" itemLabel="Teatral" />
                             <f:selectItem itemValue="otro"  itemLabel="Otro" />
-                        </h:selectOneRadio></td>
+                        </h:selectManyCheckbox></td>
                 </tr>
                 <tr>
                     <td><p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha*"/></td>
@@ -55,26 +55,21 @@
                         <p:commandButton type="button" value="Más" icon="ui-icon-circle-triangle-s"/>
                     </f:facet>
 
+
                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
                         <p:outputPanel>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Nombre:" />
-                                <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
+                                <h:link value="#{evento.nombre}" outcome="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
 
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                <p:outputPanel>
-                                    <h:panelGrid columns="2" cellpadding="5">
-                                        <h:outputText value="Nombre:" />
-                                        <h:link value="#{evento.nombre}" outcome="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
-
-                                        <h:outputText value="Fecha:" />
-                                        <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
+                                <h:outputText value="Fecha:" />
+                                <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
 
                                 <h:outputText value="Descripcion: " />
                                 <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
                             </h:panelGrid>
                         </p:outputPanel>
-                    </h:panelGrid>
+                     </h:panelGrid>
                 </p:dataScroller>
             </h:form>
         </c:if>
