@@ -13,7 +13,7 @@
         <c:choose>
             <c:when test="#{!recogedorBusquedas.isEncontrado()}">
                 <h:form> 
-                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento" chunkSize="5">
                         <f:facet name="header">
                             Evento
                         </f:facet>

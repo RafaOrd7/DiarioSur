@@ -61,7 +61,7 @@
                                 <p:outputPanel>
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="Nombre:" />
-                                        <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
+                                        <h:link value="#{evento.nombre}" outcome="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
 
                                         <h:outputText value="Fecha:" />
                                         <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
