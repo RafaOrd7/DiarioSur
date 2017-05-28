@@ -9,6 +9,10 @@ import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.SuperUsuario;
 import Entidades.Evento;
+import Entidades.JefeDeRedactores;
+import Entidades.Notificacion;
+import Entidades.Periodista;
+import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
 import java.io.File;
@@ -22,23 +26,254 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Garri
  */
+
 @Stateless
 public class NegocioImpl implements Negocio {
 
-    private static Long contId = 0L;
+    private static Long contId = 10L;
 
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
+    
+    
+    @Override
+    public List<Notificacion> getNotif(UsuarioRegistrado u){
+        return em.createQuery("select n from Notificacion n where n.usuarioRegistrado.idUser = '"
+                + u.getIdUser() + "'").getResultList();
+    }
+    
+    @Override
+    public void eliminarNotificacion(Notificacion n){
+        em.remove(em.merge(n));
+    }
+    
+    
+    @Override
+    public boolean checkDNI(UsuarioRegistrado a){
+        boolean existe = false;
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.dni = '" + a.getDni() + "'").getResultList();
+        if (!lu.isEmpty()) {
+            existe = true;
+        }
+        return existe;
+    }
+    
+    
+    @Override
+    public void crearAdmin(Administrador a){
+        contId++;
+        a.setIdUser("A"+contId);      
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+        em.merge(a);
+        em.persist(n);
+    }
+    
+    @Override
+    public void crearJDR(JefeDeRedactores a){
+        contId++;
+        a.setIdUser("J"+contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+        em.merge(a);
+        em.persist(n);
+    }
+    
+    @Override
+    public void crearPeriodista(Periodista a){
+        contId++;
+        a.setIdUser("P" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+        em.merge(a);
+        em.persist(n);
+    }
+    
+    @Override
+    public void crearSU(SuperUsuario a){
+        contId++;
+        a.setIdUser("S" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+        em.merge(a);
+        em.persist(n);
+    }
+    
+    @Override
+    public void crearUR(UsuarioRegistrado a){
+        contId++;
+        a.setIdUser("U" + contId);
+        
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
+        n.setUsuarioRegistrado(a);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        a.setNotificacion(new ArrayList<Notificacion>());
+        em.persist(a);
+        List<Notificacion> l = a.getNotificacion();
+        l.add(n);
+        a.setNotificacion(l);
+        em.merge(a);
+        em.persist(n);
+    }
+    
+    
+    
+    @Override
+    public void addPeri(Periodista per){
+        em.merge(per);
+    }
+    
+    
+    @Override
+    public void addAdmin(Administrador adm){
+        em.merge(adm);
+    }
+    
+    @Override
+    public void addUR(UsuarioRegistrado ur){
+        em.merge(ur);
+    }
+    
+    @Override
+    public void addJdr(JefeDeRedactores jdre){
+        em.merge(jdre);
+    }
+    
+    @Override
+    public void addSuperu(SuperUsuario sup){
+        em.merge(sup);
+    }
+    
+    @Override
+    public void eliminarUR(UsuarioRegistrado a) {
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarSU(SuperUsuario a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarPeriodista(Periodista a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarJDR(JefeDeRedactores a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public void eliminarAdmin(Administrador a){
+        em.remove(em.merge(a));
+    }
+    
+    @Override
+    public List<UsuarioRegistrado> getUR(){
+        return em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.idUser LIKE 'U%'").getResultList();
+    }
+    
+    @Override
+    public List<SuperUsuario> getSuperu(){
+        return em.createQuery("SELECT u FROM SuperUsuario u WHERE u.idUser LIKE 'S%'").getResultList();
+    }
+    
+    @Override
+    public List<Periodista> getPeri(){
+        return em.createQuery("SELECT u FROM Periodista u WHERE u.idUser LIKE 'P%'").getResultList();
+    }
+    
+    @Override
+    public List<JefeDeRedactores> getJdr(){
+        return em.createQuery("SELECT u FROM JefeDeRedactores u WHERE u.idUser LIKE 'J%'").getResultList();
+    }
+    
+    @Override
+    public List<Administrador> getAdmin(){
+        return em.createQuery("SELECT u FROM Administrador u WHERE u.idUser LIKE 'A%'").getResultList();
+    }
+    
+    @Override
+    public Administrador buscarAdmin(Administrador a){
+        return em.find(Administrador.class, a.getIdUser());
+    }
+    
+    @Override
+    public JefeDeRedactores buscarJDR(JefeDeRedactores a){
+        return em.find(JefeDeRedactores.class, a.getIdUser());
+    }
+    
+    @Override
+    public Periodista buscarPeriodista(Periodista a){
+        return em.find(Periodista.class, a.getIdUser());
+    }
+    
+    @Override
+    public SuperUsuario buscarSU(SuperUsuario a){
+        return em.find(SuperUsuario.class, a.getIdUser());
+    }
+    
+    @Override
+    public UsuarioRegistrado buscarUR(UsuarioRegistrado a){
+        return em.find(UsuarioRegistrado.class, a.getIdUser());
+    }
+    
+    @Override
+    public UsuarioRegistrado buscarURmail(String email){
+        List<UsuarioRegistrado> l = em.createQuery("SELECT u FROM UsuarioRegistrado u WHERE u.email = '" +email+"'").getResultList();
+        return l.get(0);
+    }
+    
+    
+    @Override
+    public void rellenarBd() {
 
-   
-    public void rellenarBd(){
-       
-           
         Administrador ad = new Administrador();
         ad.setApellidos("a");
         ad.setBorrado(false);
@@ -51,8 +286,7 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A" + contId++);
-        
+        ad.setIdUser("A" + 1L);      
         em.persist(ad);
 
         Anuncio ano = new Anuncio();
@@ -61,33 +295,29 @@ public class NegocioImpl implements Negocio {
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
-        ano.setId_anuncio(contId++);
+        ano.setId_anuncio(2L);
         ano.setPrioridad("mucha");
-        ano.setTags("vale");       
+        ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
-        
         em.persist(ano);
-        
-        Evento e=new Evento();
+
+        Evento e = new Evento();
         e.setAnuncio(ano);
         e.setCompra("Ninguna");
         e.setDescripcion("Evento de prueba");
         e.setFecha(new Date());
         e.setGeolocalizacion("Montilla");
-        e.setId(contId++);
+        e.setId(3L);
         e.setNombre("Evento inicial");
         e.setPrecio(0F);
         e.setTags("Ninguno");
-        e.setTipo("Musical");
+        e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
-        
         em.persist(e);
-    
-    
+
     }
-    
- 
+
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
@@ -97,25 +327,30 @@ public class NegocioImpl implements Negocio {
         q = em.createQuery("select u from UsuarioRegistrado u where u.email=:email");
         q.setParameter("email", u.getEmail());
         lu =q.getResultList();
-        
-
         if (!lu.isEmpty()) {
             // El usuario ya existe
             throw new CuentaRepetidaException();
         }
-
         contId++;
         u.setIdUser("U" + contId);
+        Notificacion n = new Notificacion();
+        n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte "+u.getNombre()+"! :D");
+        n.setUsuarioRegistrado(u);
+        n.setFecha(new Date());
+        contId++;
+        n.setId(contId);
+        u.setNotificacion(new ArrayList<>());
         em.persist(u);
-
+        List<Notificacion> l = u.getNotificacion();
+        l.add(n);
+        u.setNotificacion(l);     
+        em.merge(u);
+        em.persist(n);
       
-
     }
 
     @Override
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
-
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -133,7 +368,6 @@ public class NegocioImpl implements Negocio {
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         em.refresh(user);
         return user;
 
@@ -142,14 +376,15 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
         boolean existe = false;
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
-         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
+        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         if (!lu.isEmpty()) {
             existe = true;
         }
 
         return existe;
     }
+    
+    
 
     @Override
     public void editarEvento(Evento e) {
@@ -166,9 +401,7 @@ public class NegocioImpl implements Negocio {
 
         Evento aux = em.find(Evento.class, e.getId_evento());
         UsuarioRegistrado ur = em.find(UsuarioRegistrado.class, u.getIdUser());
-        
-       
-        
+
         if (aux == null || u == null) {
             throw new EventoNoEncontradoException();
         } else {
@@ -178,7 +411,6 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg.add(ur);
             }
-
             List<Evento> mg2 = ur.getMegusta();
 
             if (mg2.contains(aux)) {
@@ -186,10 +418,8 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg2.add(aux);
             }
-
             aux.setUser_megusta(mg);
             ur.setMegusta(mg2);
-
             em.merge(aux);
             em.merge(ur);
 
@@ -206,31 +436,102 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public Anuncio devolverAnuncio() {
-        return em.find(Anuncio.class, 69L);
+        List<Anuncio>l=em.createQuery("select a from Anuncio a").getResultList();
+        return l.get(0);
     }
-    
+
     @Override
     public List<Evento> getEv() {
         return em.createQuery("SELECT u FROM Evento u").getResultList();
     }
-    
+
     @Override
-    public int numMeGusta(Long id){
-        
+    public int numMeGusta(Long id) {
+
         Evento aux = em.find(Evento.class, id);
         int num = -1;
-        if(aux != null){
-            if(aux.getUser_megusta().isEmpty()){
-               num = 0;
-           } else{
-               num = aux.getUser_megusta().size();
-           } 
+        if (aux != null) {
+            if (aux.getUser_megusta().isEmpty()) {
+                num = 0;
+            } else {
+                num = aux.getUser_megusta().size();
+            }
         }
         return num;
     }
 
+    
+    public void crearAnuncio(Anuncio anu) {
+        contId++;
+        anu.setId_anuncio(contId);
+        em.persist(anu);
+
+    }
+
+    public void borrarAnuncio(Anuncio anu) throws DiarioSurException {
+        Anuncio aux = em.find(Anuncio.class, anu.getId_anuncio());
+
+        if (aux == null) {
+            throw new DiarioSurException();
+        } else {
+            em.remove(em.merge(aux));
+        }
+    }
+
     @Override
-    public void crearValoracion(Valoracion v) throws DiarioSurException {
+    public List<Anuncio> getAnu() {
+        return em.createQuery("select a from Anuncio a").getResultList();
+    }
+
+    @Override
+    public void enviarRepVal(Reporte r) {
+        contId++;
+        r.setId_reporte(contId);
+        em.persist(r);
+    }
+
+    @Override
+    public void enviarRepEv(Reporte r) {
+        contId++;
+        r.setId_reporte(contId);
+        em.persist(r);
+    }
+
+    @Override
+    public List<Reporte> getReportesVal() {
+        List<Reporte> lista = new ArrayList<>();
+        lista = em.createQuery("select r from Reporte r where r.valoracion is not null").getResultList();
+        return lista;
+    }
+
+    @Override
+    public List<Reporte> getReportesEv() {
+        List<Reporte> lista = new ArrayList<>();
+        lista = em.createQuery("select r from Reporte r where r.valoracion is null").getResultList();
+        return lista;
+    }
+
+    @Override
+    public void eliminarReporteEv(Reporte r) throws DiarioSurException {
+        Reporte aux = em.find(Reporte.class, r.getId_reporte());
+        if (aux == null) {
+            throw new DiarioSurException();
+        } else {
+            em.remove(em.merge(aux));
+        }
+    }
+
+    @Override
+    public void eliminarReporteVal(Reporte r) throws DiarioSurException {
+        Reporte aux = em.find(Reporte.class, r.getId_reporte());
+        if (aux == null) {
+            throw new DiarioSurException();
+        } else {
+            em.remove(em.merge(aux));
+        }
+    }
+@Override
+    public void crearValoracion(Valoracion v)throws DiarioSurException{
         Evento aux = em.find(Evento.class, v.getEvento().getId());
         if (aux == null) {
             throw new EventoNoEncontradoException();
@@ -249,16 +550,5 @@ public class NegocioImpl implements Negocio {
         q=em.createQuery("select v from Valoracion v where v.evento=:evento");
         q.setParameter("evento", e);
         return q.getResultList();
-        
-        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
-        
-        /*if(aux==null){
-            throw new EventoNoEncontradoException();
-        }
-        else{
-            aux2= aux.getValoraciones();
-            System.out.println(aux2.isEmpty());
-        }*/
-        
     }
-    }
+}

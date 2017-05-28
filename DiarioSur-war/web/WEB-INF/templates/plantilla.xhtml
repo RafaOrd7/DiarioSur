@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
@@ -8,107 +9,64 @@
 
     <h:head>
         <link href="./resources/css/estilos.css" rel="stylesheet" type="text/css" />
+        <link rel="icon" type="image/ico" href="./resources/favicon.ico" />
         <title>
-            <ui:insert name="title">Diario Sur Eventos</ui:insert>
+            <ui:insert name="title">Agenda MLG - Diario Sur</ui:insert>
         </title>
     </h:head>
-
     <h:body>
         <!--Muestra la cabecera de la pagina-->
         <div id="top" class="top">
             <h:form id="cabecera">
-                <h:commandLink action="index.xhtml" value="SUR"/>
-                <p:messages id="messages" autoUpdate="true" showIcon="false"  />
-                <table align="right">
-                    <tr>
-                        <c:if test="#{empty ctrlAutorizacion.getUsuarioLogeado()}">
-                            <td><p:button outcome="login" value="Login" icon="ui-icon-person"></p:button></td>
-                            <td><p:button outcome="register" value="Register" icon="ui-icon-pencil"></p:button></td> 
-                            <td></td>
-                        </c:if>
-
-                        <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
-                            <td>Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}</td>
-                            <td></td>
-                            <td><h:commandLink action="#{ctrlAutorizacion.logout()}" value="Salir"/></td>
-                        </c:if>
-
-                    </tr> 
-
-                    <tr>
-                        <td colspan="2"><p:inputText id="busqueda" placeholder="Buscar..." value="#{recogedorBusquedas.busqueda}"/></td>
-                        <td><p:commandButton value="GO" action="#{recogedorBusquedas.buscar()}" icon="ui-icon-plusthick" ajax="false"/></td>
-                    </tr>
-                </table>
-
-                <br/><br/>     
+                <h:link outcome="index" style="alignment-adjust: central">
+                    <h:graphicImage alt="Logo Diario Sur" url="http://www.diariosur.es/img//2014/logoC.png"/>
+                </h:link>
             </h:form>
-        </div>
-
-        <!--Muestra los botones laterales de la pagina, varia en funcion del usuario-->
-        <div id="botones">
-            <h:form id="botonesForm">
-                <table>
-                    <c:choose>
-                        <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
-                            <h1>Administrador</h1>
-                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
-                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="publicarAnuncio" value="Publicar Anuncio" icon="ui-icon-document"></p:button></tr>
-                            <tr><p:button outcome="gestionAnuncio" value="Gestión Anuncios" icon="ui-icon-folder-collapsed"></p:button></tr>
-                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
-                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
-                            <tr><p:button outcome="GestionarReporte" value="Gestión Reporte" icon="ui-icon-copy"></p:button></tr> 
-                        </c:when>
-
-                        <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
-                            <h1>Jefe de Redactores</h1>
-                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
-                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
-                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
-                                               
-                        </c:when>
-                        
-                        <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
-                            <h1>Periodista</h1>
-                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
-                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                              
-                        </c:when>
-
-                        <c:when test="#{ctrlAutorizacion.comprobarUserSU() > 1}">
-                            <h1>SuperUsuario</h1>
-                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
-                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
-                        </c:when>
-
-                        <c:when test="#{ctrlAutorizacion.comprobarUserRegistrado() > 1}">
-                            <h1>Usuario Registrado</h1>
-                            <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
-                            <tr><p:commandButton action="#{ctrlUsuarios.mostrarUsuarioPropio()}" value="Configuración Usuario" icon="ui-icon-person"></p:commandButton></tr> 
-                            <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
-                            <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
-                        </c:when>
-                        
-                        <c:otherwise>
-                            <tr><h2>Si desea navegar por la pagina, registrese</h2></tr>     
-                        </c:otherwise>
-                    </c:choose>
-                </table>
-            </h:form>
+             
+                <h:form id="menu">
+                    <p:menubar>
+                        <p:menuitem value="Crear evento" outcome="subirEvento" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkUR()}"></p:menuitem>
+                        <p:menuitem value="Publicar Anuncio" outcome="publicarAnuncio" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
+                        <p:submenu label="Gestión" icon="ui-icon-wrench" rendered="${ctrlAutorizacion.checkP()}">
+                            <p:menuitem value="Anuncios" outcome="gestionAnuncio"  ajax="false" icon="ui-icon-image" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
+                            <p:menuitem value="Usuarios" outcome="gestionUsuario" ajax="false" icon="ui-icon-person" rendered="${ctrlAutorizacion.checkJDR()}"></p:menuitem>
+                            <p:menuitem value="Reportes" outcome="GestionarReporte" ajax="false" icon="ui-icon-alert"></p:menuitem> 
+                        </p:submenu>
+                        <p:menuitem value="Búsqueda Avanzada" outcome="busqAvanzada" ajax="false" icon="ui-icon-search"></p:menuitem>
+                        <f:facet name="options">
+                            <!-- Búsqueda -->
+                            <p:inputText placeholder="Buscar..." style="margin-right:10px" size="35"  value="#{recogedorBusquedas.busqueda}"/>
+                            <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:40px" icon="ui-icon-search" ajax="false"/>
+                            <!-- Logueado -->
+                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-closed" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and ctrlUsuarios.hayNotif()}"/>
+                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-open" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and !ctrlUsuarios.hayNotif()}"/>
+                            <p:menuButton value="Mi perfil" iconPos="right" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}">
+                                <p:menuitem value="Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}" disabled="true" />
+                                <p:separator/>
+                                <p:menuitem value="Configurar perfil" action="#{ctrlUsuarios.mostrarUsuarioPropio()}" ajax="false" icon="ui-icon-person"/>
+                                <p:menuitem value="Salir" action="#{ctrlAutorizacion.logout()}" ajax="false" style="color:red" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}"/> 
+                            </p:menuButton>
+                            <!-- No logueado -->
+                            <p:button outcome="login" value="Login" style="margin-right:10px" icon="ui-icon-person" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
+                            <p:button outcome="register" value="Registro" icon="ui-icon-pencil" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
+                        </f:facet>
+                    </p:menubar>
+                </h:form>
+            <p:messages id="messages" autoUpdate="true" showIcon="false"/>
+                <br/>    
         </div>
 
         <!--Muestra el contenido de la pagina-->
         <div id="content">
             <ui:insert name="content">Content</ui:insert>
+            <br/>
+            <br/>
+            <br/>
         </div>
 
+        <div id="footer">
+            <h:outputText value="© 2017 Sobacos, Inc."/>
+        </div>
     </h:body>
 </html>
 

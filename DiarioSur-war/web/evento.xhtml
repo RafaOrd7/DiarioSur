@@ -23,7 +23,7 @@
                     <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                 </tr>
                 <tr>
-                    <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                    <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                 </tr>
                 <tr>
                     <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -47,7 +47,7 @@
             <h:form>
                 <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                     <p:column headerText="Fecha">
-                        <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                        <h:outputText value="#{valoracion.FechaString()}" />
                     </p:column>
                     <p:column headerText="Calificación">
                         <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -90,7 +90,7 @@
                                     <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                                     </p:button></td>
@@ -106,7 +106,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -147,7 +147,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -184,7 +184,7 @@
                                     <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                                     </p:button></td>
@@ -200,7 +200,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -241,7 +241,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -278,7 +278,7 @@
                                     <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                                     </p:button></td>
@@ -294,7 +294,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -335,7 +335,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -373,7 +373,7 @@
                                     <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                                     </p:button></td>
@@ -389,7 +389,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -430,7 +430,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -467,7 +467,7 @@
                                     <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td>
-                                    <p:commandButton value="editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
+                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
                                 <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
                                     </p:button></td>
@@ -483,7 +483,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -524,7 +524,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -572,7 +572,7 @@
                             <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
                         </tr>
                         <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().getFecha()} </h4></td>
+                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
                         </tr>
                         <tr>
                             <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
@@ -613,7 +613,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />

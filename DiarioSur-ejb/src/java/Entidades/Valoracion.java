@@ -6,6 +6,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -108,6 +110,11 @@ public class Valoracion implements Serializable {
 
     public Date getFechaPublicacion() {
         return fechaPublicacion;
+    }
+    
+    public String FechaString(){
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fechaPublicacion);
     }
 
     public void setIdValoracion(Long idValoracion) {

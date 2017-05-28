@@ -72,7 +72,7 @@ public class Reporte implements Serializable {
     @JoinColumn(nullable=false)
     private Evento evento;
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable=true)
     private Valoracion valoracion;
     @ManyToOne
     @JoinColumn(nullable=false)

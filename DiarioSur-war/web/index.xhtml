@@ -6,7 +6,6 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="title">Home</ui:define>
 
 
 
@@ -30,7 +29,7 @@
                                     <h:commandLink value="#{evento.nombre}" action="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
 
                                     <h:outputText value="Fecha:" />
-                                    <h:outputText value="#{evento.fecha}" style="font-weight: bold"/>
+                                    <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
 
                                     <h:outputText value="Descripción:" />
                                     <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
@@ -59,7 +58,7 @@
                                     <h:commandLink value="#{busqEv.nombre}" action="#{recogedorEventos.ver(busqEv)}" style="font-weight: bold"/>
 
                                     <h:outputText value="Fecha:" />
-                                    <h:outputText value="#{busqEv.fecha}" style="font-weight: bold"/>
+                                    <h:outputText value="#{busqEv.FechaString()}" style="font-weight: bold"/>
 
                                     <h:outputText value="Descripción:" />
                                     <h:outputText value="#{busqEv.descripcion}" style="font-weight: bold"/>

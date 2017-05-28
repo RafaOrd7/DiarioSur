@@ -33,20 +33,17 @@ public class recogedorValoraciones {
     private Date fecha = new Date();
     private File archivo;
     private Evento evento;
-    private UsuarioRegistrado usuario ;
+    private UsuarioRegistrado usuario;
     private static Valoracion seleccionada;
-    @Inject
-    private BdBean bd;
 
     @EJB
     private Negocio negocio;
-    
-    
-    public String reportar(Valoracion v) {    
-        seleccionada=v;
+
+    public String reportar(Valoracion v) {
+        seleccionada = v;
         return "EnviarReporteVal.xhtml";
     }
-   
+
     public String ver(Valoracion va) {
         seleccionada = va;
         return "evento.xhtml";
@@ -57,7 +54,6 @@ public class recogedorValoraciones {
         return negocio.getValoraciones(seleccionado);
     }
 
-    
     public Evento getEvento() {
         return evento;
     }
@@ -81,7 +77,7 @@ public class recogedorValoraciones {
     public static void setSeleccionada(Valoracion seleccionada) {
         recogedorValoraciones.seleccionada = seleccionada;
     }
-    
+
     public Date getFecha() {
         return fecha;
     }
@@ -113,13 +109,13 @@ public class recogedorValoraciones {
     public void setComentario(String m) {
         comentario = m;
     }
-    
+
     public String enviarValoracion(Evento seleccionado, UsuarioRegistrado usuarior) throws DiarioSurException {
-        evento= seleccionado;
-        usuario=usuarior;
+        evento = seleccionado;
+        usuario = usuarior;
         Valoracion aux = new Valoracion(rating, comentario, fecha, usuario, evento);
-        setSeleccionada (aux);
-        
+
+        setSeleccionada(aux);
         negocio.crearValoracion(aux);
         return "evento.xhtml";
     }

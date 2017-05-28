@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import Entidades.Administrador;
 import java.io.File;
 import java.util.Date;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 /**
  *
  * @author Garri
@@ -26,11 +28,13 @@ import javax.inject.Inject;
 @RequestScoped
 public class PublicarAnuncio {
 
-    private String nombreEmpresa;
-    private long id;
+    @Inject
+    private ctrlAutorizacion cta;
     @EJB
     private Negocio negocio;
-    
+
+    private String nombreEmpresa;
+    private long id;
 
     public boolean isConcierto() {
         return concierto;
@@ -101,60 +105,44 @@ public class PublicarAnuncio {
     public void setEventos(String eventos) {
         this.eventos = eventos;
     }
-   
+
     private Anuncio anuncio;
-    @Inject
-    private BdBean bd;
-   
+
     /**
      * Creates a new instance of PublicarAnuncio
      */
     public PublicarAnuncio() {
     }
-    
-    public void crear(){
+
+    public void crear() {
         anuncio = new Anuncio();
         anuncio.setDimensiones(dimensiones);
         anuncio.setEmpresa(nombreEmpresa);
         anuncio.setId_anuncio(id);
         anuncio.setFechaPublicacion(fechaPublicacion);
-        anuncio.setFechaExpiracion(getFechaExpiracion());
+        anuncio.setFechaExpiracion(fechaExpiracion);
         anuncio.setMultimedia(multimedia);
         anuncio.setPrioridad(dimensiones);
-        anuncio.setTags(getTags());
-        
-        
-        
-        
-    }
-    
-  
-    public String subirAnuncio(){
-        crear();
-        
-        bd.crearAnuncio(anuncio);
-        
-        
-       
-        
-        
-        return "index.xhtml";
-       
-    }
-    public void eliminar(Anuncio anuncio){
-        bd.eliminarAnuncio(anuncio);
-    }
-    
-    public String ver(Anuncio anuncio){
-        seleccionado=anuncio;
-        return "anuncio.xhtml";
-    }
-    
-    public Anuncio getSeleccionado(){
-        return seleccionado;
+        anuncio.setTags(tags);
+        anuncio.setAdministrador((Administrador)cta.getUsuarioLogeado());
+
     }
 
-    
+    public String subirAnuncio() throws DiarioSurException {
+        crear();
+        negocio.crearAnuncio(anuncio);
+        return "index.xhtml";
+
+    }
+
+    public String ver(Anuncio anuncio) {
+        seleccionado = anuncio;
+        return "anuncio.xhtml";
+    }
+
+    public Anuncio getSeleccionado() {
+        return seleccionado;
+    }
 
     /**
      * @param anuncio the anuncio to set
@@ -162,7 +150,7 @@ public class PublicarAnuncio {
     public void setAnuncio(Anuncio anuncio) {
         this.anuncio = anuncio;
     }
-    
+
     /**
      * @return the nombreAnuncio
      */
@@ -236,8 +224,6 @@ public class PublicarAnuncio {
     /**
      * @return the diasContratados
      */
-    
-
     /**
      * @return the multimedia
      */
@@ -249,16 +235,16 @@ public class PublicarAnuncio {
      * @param multimedia the multimedia to set
      */
     public void setMultimedia(File multimedia) {
-        if(multimedia.getName().endsWith(".jpg")){
+        if (multimedia.getName().endsWith(".jpg")) {
             this.multimedia = multimedia;
-        }else if(multimedia.getName().endsWith(".png")){
+        } else if (multimedia.getName().endsWith(".png")) {
             this.multimedia = multimedia;
-        }else if(multimedia.getName().endsWith(".gif")){
+        } else if (multimedia.getName().endsWith(".gif")) {
             this.multimedia = multimedia;
-        }else{
+        } else {
             throw new IllegalArgumentException("La imagen debe estar en uno de los siguientes formatos: .jpg, .gif, .png");
         }
-        
+
     }
 
     /**
@@ -289,6 +275,13 @@ public class PublicarAnuncio {
         this.fechaExpiracion = fechaExpiracion;
     }
 
-   
-          
+    public String eliminarAnuncio() throws DiarioSurException {
+        negocio.borrarAnuncio(seleccionado);
+        return "index.xhtml";
+    }
+
+    public List<Anuncio> getAnuncios() {
+        return negocio.getAnu();
+
+    }
 }
