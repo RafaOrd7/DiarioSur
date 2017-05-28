@@ -35,9 +35,7 @@ public class recogedorReportes {
 
     @EJB
     private Negocio negocio;
-    
-    @Inject
-    private BdBean bd;
+
     @Inject
     private ctrlAutorizacion cta;
 
@@ -55,11 +53,12 @@ public class recogedorReportes {
         seleccionado = reporte;
         return "VerReporte.xhtml";
     }
-public String verVal(Reporte reporte) {
+
+    public String verVal(Reporte reporte) {
         seleccionado = reporte;
         return "VerReporteVal.xhtml";
     }
-    
+
     public String eliminarVal() throws DiarioSurException {
         //bd.eliminarReporteVal(seleccionado);
         negocio.eliminarReporteVal(seleccionado);
@@ -67,7 +66,7 @@ public String verVal(Reporte reporte) {
     }
 
     public String eliminarEv() throws DiarioSurException {
-       // bd.eliminarReporteEv(seleccionado);
+        // bd.eliminarReporteEv(seleccionado);
         negocio.eliminarReporteEv(seleccionado);
         return "GestionarReporte";
 
@@ -117,7 +116,6 @@ public String verVal(Reporte reporte) {
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
 
         //bd.crearReporteEv(aux);
-        
         negocio.enviarRepEv(aux);
 
         return "index.xhtml";
@@ -128,16 +126,14 @@ public String verVal(Reporte reporte) {
         UsuarioRegistrado user = cta.getUsuarioLogeado();
         Valoracion val = recogedorValoraciones.getSeleccionada();
         val.setEvento(ev);
-        
-        System.out.println(val.getId()+" "+val.getEvento()+" "+val.getReportes()+" "+val.getUsuarioRegistrado());
-        
-        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
-         //System.out.println(aux.getId()+" "+aux.getFecha()+" "+aux.getTexto()+" "+aux.getTipo()+" "+aux.getEvento()+" "+aux.getUsuarioRegistrado()+" "+aux.getValoracion());
-        negocio.enviarRepVal(aux);
-        
-        //bd.crearReporteVal(aux);
 
-        
+        System.out.println(val.getId() + " " + val.getEvento() + " " + val.getReportes() + " " + val.getUsuarioRegistrado());
+
+        Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
+        //System.out.println(aux.getId()+" "+aux.getFecha()+" "+aux.getTexto()+" "+aux.getTipo()+" "+aux.getEvento()+" "+aux.getUsuarioRegistrado()+" "+aux.getValoracion());
+        negocio.enviarRepVal(aux);
+
+        //bd.crearReporteVal(aux);
         return "index.xhtml";
     }
 

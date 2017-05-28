@@ -32,6 +32,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Garri
  */
+
 @Stateless
 public class NegocioImpl implements Negocio {
 
@@ -67,8 +68,7 @@ public class NegocioImpl implements Negocio {
     @Override
     public void crearAdmin(Administrador a){
         contId++;
-        a.setIdUser("A"+contId);
-        
+        a.setIdUser("A"+contId);      
         Notificacion n = new Notificacion();
         n.setTexto("Bienvenido a la agenda de eventos El Sur, gracias por registrarte " + a.getNombre() + "! :D");
         n.setUsuarioRegistrado(a);
@@ -80,7 +80,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -100,7 +99,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -120,7 +118,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -140,7 +137,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -161,7 +157,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -291,8 +286,7 @@ public class NegocioImpl implements Negocio {
         ad.setPassword("123");
         ad.setPreferencias("si");
         ad.setTelefono("123456789");
-        ad.setIdUser("A" + 1L);
-        
+        ad.setIdUser("A" + 1L);      
         em.persist(ad);
 
         Anuncio ano = new Anuncio();
@@ -305,7 +299,6 @@ public class NegocioImpl implements Negocio {
         ano.setPrioridad("mucha");
         ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
-
         em.persist(ano);
 
         Evento e = new Evento();
@@ -321,7 +314,6 @@ public class NegocioImpl implements Negocio {
         e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
-
         em.persist(e);
 
     }
@@ -329,14 +321,16 @@ public class NegocioImpl implements Negocio {
     @Override
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException {
         //UsuarioRegistrado user = em.find(UsuarioRegistrado.class, u.getEmail());
-
-        List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
-
+        Query q;
+        List<UsuarioRegistrado> lu = new ArrayList<>();
+        
+        q = em.createQuery("select u from UsuarioRegistrado u where u.email=:email");
+        q.setParameter("email", u.getEmail());
+        lu =q.getResultList();
         if (!lu.isEmpty()) {
             // El usuario ya existe
             throw new CuentaRepetidaException();
         }
-
         contId++;
         u.setIdUser("U" + contId);
         Notificacion n = new Notificacion();
@@ -349,8 +343,7 @@ public class NegocioImpl implements Negocio {
         em.persist(u);
         List<Notificacion> l = u.getNotificacion();
         l.add(n);
-        u.setNotificacion(l);
-        
+        u.setNotificacion(l);     
         em.merge(u);
         em.persist(n);
       
@@ -358,8 +351,6 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
-
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -377,7 +368,6 @@ public class NegocioImpl implements Negocio {
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         em.refresh(user);
         return user;
 
@@ -386,7 +376,6 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
         boolean existe = false;
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         if (!lu.isEmpty()) {
             existe = true;
@@ -422,7 +411,6 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg.add(ur);
             }
-
             List<Evento> mg2 = ur.getMegusta();
 
             if (mg2.contains(aux)) {
@@ -430,10 +418,8 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg2.add(aux);
             }
-
             aux.setUser_megusta(mg);
             ur.setMegusta(mg2);
-
             em.merge(aux);
             em.merge(ur);
 
@@ -478,7 +464,6 @@ public class NegocioImpl implements Negocio {
     public void crearAnuncio(Anuncio anu) {
         contId++;
         anu.setId_anuncio(contId);
-
         em.persist(anu);
 
     }
@@ -502,11 +487,6 @@ public class NegocioImpl implements Negocio {
     public void enviarRepVal(Reporte r) {
         contId++;
         r.setId_reporte(contId);
-        
-        //System.out.println(r.getId()+" "+r.getFecha()+" "+r.getTexto()+" "+r.getTipo()+" "+r.getEvento()+" "+r.getUsuarioRegistrado()+" "+r.getValoracion());
-        
-        
-        
         em.persist(r);
     }
 
@@ -514,7 +494,6 @@ public class NegocioImpl implements Negocio {
     public void enviarRepEv(Reporte r) {
         contId++;
         r.setId_reporte(contId);
-
         em.persist(r);
     }
 
@@ -528,7 +507,6 @@ public class NegocioImpl implements Negocio {
     @Override
     public List<Reporte> getReportesEv() {
         List<Reporte> lista = new ArrayList<>();
-
         lista = em.createQuery("select r from Reporte r where r.valoracion is null").getResultList();
         return lista;
     }
@@ -572,16 +550,5 @@ public class NegocioImpl implements Negocio {
         q=em.createQuery("select v from Valoracion v where v.evento=:evento");
         q.setParameter("evento", e);
         return q.getResultList();
-        
-        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
-        
-        /*if(aux==null){
-            throw new EventoNoEncontradoException();
-        }
-        else{
-            aux2= aux.getValoraciones();
-            System.out.println(aux2.isEmpty());
-        }*/
-        
     }
 }

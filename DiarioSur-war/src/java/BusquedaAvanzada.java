@@ -12,6 +12,7 @@ import java.util.*;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 /**
@@ -26,14 +27,14 @@ public class BusquedaAvanzada {
     private List<String> tipo = new ArrayList<>();
     private float precio;
     private Date fecha = null;
-    private String lugar="";
+    private String lugar = "";
     private String descripcion = "";
-    private String tags ="";
+    private String tags = "";
 
     private static boolean encontrado = false;
-    
+
     private List<Evento> busq = new ArrayList<>();
-    
+
     @EJB
     private Negocio negocio;
 
@@ -45,89 +46,88 @@ public class BusquedaAvanzada {
         List<Evento> todo = new ArrayList<>();
         encontrado = false;
         aux = negocio.getEv();
-        
-        
+
         if (!nombre.equals("")) {
             for (Evento e : negocio.getEv()) {
                 if (!e.getNombre().toUpperCase().contains(nombre.toUpperCase())) {
                     aux.remove(e);
                 }
             }
-        }       
-        
+        }
+
         todo.addAll(aux);
-        
-        if(!descripcion.equals("")){
+
+        if (!descripcion.equals("")) {
             for (Evento e : todo) {
                 if (!e.getDescripcion().toUpperCase().contains(descripcion.toUpperCase())) {
                     aux.remove(e);
                 }
             }
         }
-        
+
         todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(!lugar.equals("")){
+
+        if (!lugar.equals("")) {
             for (Evento e : todo) {
                 if (!e.getGeolocalizacion().toUpperCase().contains(lugar.toUpperCase())) {
                     aux.remove(e);
                 }
             }
         }
-        
+
         todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(!tipo.isEmpty()){
+
+        if (!tipo.isEmpty()) {
             List<Evento> auxTipos = new ArrayList<>();
             for (Evento e : todo) {
-                for(String i : tipo){
+                for (String i : tipo) {
                     if (e.getTipo().equals(i)) {
                         auxTipos.add(e);
                     }
                 }
-                
+
             }
-            aux=auxTipos;
+            aux = auxTipos;
         }
-        
+
         todo = new ArrayList<>();
-        todo.addAll(aux);    
-            
-        if(fecha != null){
+        todo.addAll(aux);
+
+        if (fecha != null) {
             DateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
             for (Evento e : todo) {
                 String f = formato.format(e.getFecha());
                 String f2 = formato.format(getFecha());
-                
+
                 if (!f.equals(f2)) {
                     aux.remove(e);
                 }
             }
         }
-                
+
         todo = new ArrayList<>();
         todo.addAll(aux);
-        
-        if(!tags.equals("")){
+
+        if (!tags.equals("")) {
             for (Evento e : todo) {
                 if (!e.getTags().toUpperCase().contains(tags.toUpperCase())) {
                     aux.remove(e);
                 }
             }
         }
-        
-        busq.addAll(aux);
-        
-        if(!busq.isEmpty()){
-           encontrado = true; 
+
+        busq = aux;
+
+        if (!busq.isEmpty()) {
+            encontrado = true;
         }
 
         return "busqAvanzada.xhtml";
     }
-    
-    public List<Evento> getListaBusqueda(){
+
+    public List<Evento> getListaBusqueda() {
         return busq;
     }
 
@@ -138,7 +138,6 @@ public class BusquedaAvanzada {
     public static void setEncontrado(boolean encontrado) {
         BusquedaAvanzada.encontrado = encontrado;
     }
-
 
     public List<String> getTipo() {
         return tipo;
@@ -235,4 +234,7 @@ public class BusquedaAvanzada {
         this.nombre = nombre;
     }
 
+    public List<Evento> getBusq() {
+        return busq;
+    }
 }

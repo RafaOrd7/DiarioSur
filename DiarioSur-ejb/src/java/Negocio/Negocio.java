@@ -19,6 +19,8 @@ import java.util.List;
 import Entidades.Valoracion;
 import javax.ejb.Local;
 
+
+
 /**
  *
  * @author Garri
@@ -55,40 +57,28 @@ public interface Negocio {
     public void addJdr(JefeDeRedactores jdre);
     public void addSuperu(SuperUsuario sup);
     public void addUR(UsuarioRegistrado ur);
-
     public List<Evento> getEv();
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
-
     public void crearAdmin(Administrador a);
-
     public void crearJDR(JefeDeRedactores a);
-
     public void crearPeriodista(Periodista a);
-
     public void crearSU(SuperUsuario a);
-
     public void crearUR(UsuarioRegistrado a);
-
     public boolean checkDNI(UsuarioRegistrado a);
-
     public List<Notificacion> getNotif(UsuarioRegistrado u);
-
     public void eliminarNotificacion(Notificacion n);
-
     public UsuarioRegistrado buscarURmail(String email);
     public void crearAnuncio(Anuncio anu)throws DiarioSurException;
     public void rellenarBd();
     public void borrarAnuncio(Anuncio anuncio)throws DiarioSurException;
     public List<Anuncio> getAnu();
-
     public void enviarRepVal(Reporte r)throws DiarioSurException;
     public void enviarRepEv(Reporte r)throws DiarioSurException;
     public List<Reporte>getReportesVal();
     public List<Reporte>getReportesEv();
     public void eliminarReporteEv(Reporte r)throws DiarioSurException;
     public void eliminarReporteVal(Reporte r)throws DiarioSurException;
-    
     public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
 
 }

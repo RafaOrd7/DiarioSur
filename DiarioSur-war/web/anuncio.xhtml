@@ -5,48 +5,40 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="title">Anuncio</ui:define>
-    
-    
+
+
     <ui:define name="content">
         <h:form>
-        <table align="center">
-             <tr>
-                <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
-            </tr>
-             <tr>
-                <td><h4>Empresa: #{publicarAnuncio.getSeleccionado().getEmpresa()} </h4></td>
-            </tr>           
-            <tr>
-                <td><h4>Fecha de inicio: #{publicarAnuncio.getSeleccionado().getFechaPublicacion()} </h4></td>
-            </tr>
-             <tr>
-                <td><h4>Fecha de expiracion: #{publicarAnuncio.getSeleccionado().getFechaExpiracion()} </h4></td>
-            </tr>
-            <tr>
-                <td><h4>Prioridad: #{publicarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
-            </tr>
-            <tr>
-                <td><h4>Tags: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
-            </tr>
-            
-        <tr> 
-                    <td>
-                        <p:commandButton value="Eliminar Anuncio">
-                            <p:confirm header="Eliminar Anuncio" message="¿Estás seguro de que quieres eliminar el anuncio?" icon="ui-icon-alert" />
-                        </p:commandButton>
-                    </td>
-
+            <table align="center">
+                <tr>
+                    <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
+                </tr>
+                <tr>
+                    <td><h4>Empresa: #{publicarAnuncio.getSeleccionado().getEmpresa()} </h4></td>
+                </tr>           
+                <tr>
+                    <td><h4>Fecha de inicio: #{publicarAnuncio.getSeleccionado().FechaPublicacionString()} </h4></td>
+                </tr>
+                <tr>
+                    <td><h4>Fecha de expiracion: #{publicarAnuncio.getSeleccionado().FechaExpiracionString()} </h4></td>
+                </tr>
+                <tr>
+                    <td><h4>Prioridad: #{publicarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
+                </tr>
+                <tr>
+                    <td><h4>Tags: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
+                </tr>
+                <td>
+                    <p:commandButton value="Eliminar" action="#{publicarAnuncio.eliminarAnuncio()}" icon="ui-icon-star" ajax="false"/>
+                </td>
+                <tr>                   
                 </tr>
             </table>
-            
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:button value="Si" outcome="#{publicarAnuncio.eliminarAnuncio()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
-             
-    </h:form>
-        
+
+
+        </h:form>
+
     </ui:define>
-    
-    
+
+
 </ui:composition>

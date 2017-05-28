@@ -42,17 +42,25 @@ public class recogedorEventos {
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
-    
+
     @EJB
     private Negocio negocio;
-    
+
     @Inject
     private ctrlAutorizacion cta;
-    private static Evento seleccionado=new Evento();
+
+    @Inject
+    private BusquedaAvanzada ba;
+
+    private static Evento seleccionado = new Evento();
 
     public String editarEvento() {
         Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
+        aux.setUser_megusta(seleccionado.getUser_megusta());
+        aux.setValoraciones(seleccionado.getValoraciones());
+        aux.setReportes(seleccionado.getReportes());
+        aux.setImagen(seleccionado.getImagen());
         seleccionado = aux;
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";
@@ -209,13 +217,13 @@ public class recogedorEventos {
     }
 
     public int getNumeroMG() {
-       return negocio.numMeGusta(seleccionado.getId_evento());
+        return negocio.numMeGusta(seleccionado.getId_evento());
     }
 
     public String enviarEvento() {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
-        
+
         Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());

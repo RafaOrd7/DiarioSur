@@ -47,7 +47,7 @@
             <h:form>
                 <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                     <p:column headerText="Fecha">
-                        <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                        <h:outputText value="#{valoracion.FechaString()}" />
                     </p:column>
                     <p:column headerText="Calificación">
                         <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -147,7 +147,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -241,7 +241,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -335,7 +335,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -430,7 +430,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -524,7 +524,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -613,7 +613,7 @@
                     <h:form>
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.getFechaPublicacion()}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
