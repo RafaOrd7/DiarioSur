@@ -112,7 +112,8 @@ public class recogedorEventos {
 
     public String ver(Evento evento) throws DiarioSurException {
         setSeleccionado(evento);
-        negocio.tipoVisitado(cta.getUsuarioLogeado(),evento);
+        if(cta.getUsuarioLogeado()!=null){
+        negocio.tipoVisitado(cta.getUsuarioLogeado(),evento);}
         return "evento.xhtml";
     }
 

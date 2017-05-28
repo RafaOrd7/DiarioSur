@@ -101,56 +101,65 @@ public class recogedorBusquedas {
         List<Evento> ordenada = new ArrayList<>();
         int concierto = 0, exposicion = 0, musical = 0, deportivo = 0, teatral = 0, otro = 0;
         Scanner sc = new Scanner(tiposVisitados);
+        int cantidad = tiposVisitados.length();
+        int inicio = cantidad-10;
+        
+        int cont = 0;
         sc.useDelimiter("[&]");
         while (sc.hasNext()) {
-            switch (sc.next()) {
-                case "concierto":
-                    concierto++;
-                    break;
-                case "exposicion":
-                    exposicion++;
-                    break;
-                case "musical":
-                    musical++;
-                    break;
-                case "deportivo":
-                    deportivo++;
-                    break;
-                case "teatral":
-                    teatral++;
-                    break;
-                case "otro":
-                    otro++;
-                    break;
+            cont+=2;
+            
+            if (cont > inicio) {
+                switch (sc.next()) {
+                    case "c":
+                        concierto++;
+                        break;
+                    case "e":
+                        exposicion++;
+                        break;
+                    case "m":
+                        musical++;
+                        break;
+                    case "d":
+                        deportivo++;
+                        break;
+                    case "t":
+                        teatral++;
+                        break;
+                    case "o":
+                        otro++;
+                        break;
+                }
+            }else{
+                sc.next();
             }
         }
         ordenar.put("concierto", concierto);
-            ordenar.put("exposicion", exposicion);
-            ordenar.put("musical", musical);
-            ordenar.put("deportivo", deportivo);
-            ordenar.put("teatral", teatral);
-            ordenar.put("otro", otro);
-            LinkedHashMap<String, Integer> mapaOrdenado
+        ordenar.put("exposicion", exposicion);
+        ordenar.put("musical", musical);
+        ordenar.put("deportivo", deportivo);
+        ordenar.put("teatral", teatral);
+        ordenar.put("otro", otro);
+        LinkedHashMap<String, Integer> mapaOrdenado
                 = sortHashMapByValues(ordenar);
-            
-          
 
-            List<String> listadetipos = new ArrayList<>();
-            for (String tipo : mapaOrdenado.keySet()) {
-                System.out.println(tipo);
-                listadetipos.add(tipo);
-            }
-            System.out.println("Se han mostrado todos");
-            for (String tipo : listadetipos) {
+        List<String> listadetipos = new ArrayList<>();
 
-                List<Evento> aux = new ArrayList<>();
-                for (Evento e : lista) {
-                    if (e.getTipo().equals(tipo)) {
-                        ordenada.add(e);
-                    }
+        for (String tipo : mapaOrdenado.keySet()) {
+
+            listadetipos.add(tipo);
+        }
+
+        for (String tipo : listadetipos) {
+
+            List<Evento> aux = new ArrayList<>();
+            for (Evento e : lista) {
+                if (e.getTipo().equals(tipo)) {
+                    ordenada.add(e);
                 }
             }
-            Collections.reverse(ordenada);
+        }
+        Collections.reverse(ordenada);
         return ordenada;
     }
 

@@ -315,7 +315,112 @@ public class NegocioImpl implements Negocio {
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
 
-        em.persist(e);
+        Evento e2 = new Evento();
+        e2.setAnuncio(ano);
+        e2.setCompra("Ninguna");
+        e2.setDescripcion("Evento de prueba");
+        e2.setFecha(new Date());
+        e2.setGeolocalizacion("Montilla");
+        e2.setId(3L);
+        e2.setNombre("Evento inicial");
+        e2.setPrecio(0F);
+        e2.setTags("Ninguno");
+        e2.setTipo("exposicion");
+        e2.setVerificado(false);
+        e2.setUsuarioRegistrado(ad);
+
+        Evento e3 = new Evento();
+        e3.setAnuncio(ano);
+        e3.setCompra("Ninguna");
+        e3.setDescripcion("Evento de prueba");
+        e3.setFecha(new Date());
+        e3.setGeolocalizacion("Montilla");
+        e3.setId(3L);
+        e3.setNombre("Evento inicial");
+        e3.setPrecio(0F);
+        e3.setTags("Ninguno");
+        e3.setTipo("teatral");
+        e3.setVerificado(false);
+        e3.setUsuarioRegistrado(ad);
+
+        Evento e4 = new Evento();
+        e4.setAnuncio(ano);
+        e4.setCompra("Ninguna");
+        e4.setDescripcion("Evento de prueba");
+        e4.setFecha(new Date());
+        e4.setGeolocalizacion("Montilla");
+        e4.setId(3L);
+        e4.setNombre("Evento inicial");
+        e4.setPrecio(0F);
+        e4.setTags("Ninguno");
+        e4.setTipo("otro");
+        e4.setVerificado(false);
+        e4.setUsuarioRegistrado(ad);
+
+        Evento e5 = new Evento();
+        e5.setAnuncio(ano);
+        e5.setCompra("Ninguna");
+        e5.setDescripcion("Evento de prueba");
+        e5.setFecha(new Date());
+        e5.setGeolocalizacion("Montilla");
+        e5.setId(3L);
+        e5.setNombre("Evento inicial");
+        e5.setPrecio(0F);
+        e5.setTags("Ninguno");
+        e5.setTipo("musical");
+        e5.setVerificado(false);
+        e5.setUsuarioRegistrado(ad);
+
+        Evento e6 = new Evento();
+        e6.setAnuncio(ano);
+        e6.setCompra("Ninguna");
+        e6.setDescripcion("Evento de prueba");
+        e6.setFecha(new Date());
+        e6.setGeolocalizacion("Montilla");
+        e6.setId(3L);
+        e6.setNombre("Evento inicial");
+        e6.setPrecio(0F);
+        e6.setTags("Ninguno");
+        e6.setTipo("exposicion");
+        e6.setVerificado(false);
+        e6.setUsuarioRegistrado(ad);
+
+        Evento e7 = new Evento();
+        e7.setAnuncio(ano);
+        e7.setCompra("Ninguna");
+        e7.setDescripcion("Evento de prueba");
+        e7.setFecha(new Date());
+        e7.setGeolocalizacion("Montilla");
+        e7.setId(3L);
+        e7.setNombre("Evento inicial");
+        e7.setPrecio(0F);
+        e7.setTags("Ninguno");
+        e7.setTipo("deportivo");
+        e7.setVerificado(false);
+        e7.setUsuarioRegistrado(ad);
+
+        Evento e8 = new Evento();
+        e8.setAnuncio(ano);
+        e8.setCompra("Ninguna");
+        e8.setDescripcion("Evento de prueba");
+        e8.setFecha(new Date());
+        e8.setGeolocalizacion("Montilla");
+        e8.setId(3L);
+        e8.setNombre("Evento inicial");
+        e8.setPrecio(0F);
+        e8.setTags("Ninguno");
+        e8.setTipo("musical");
+        e8.setVerificado(false);
+        e8.setUsuarioRegistrado(ad);
+
+        crearEvento(e);
+        crearEvento(e2);
+        crearEvento(e3);
+        crearEvento(e4);
+        crearEvento(e5);
+        crearEvento(e6);
+        crearEvento(e7);
+        crearEvento(e8);;
 
     }
 
@@ -574,11 +679,10 @@ public class NegocioImpl implements Negocio {
     @Override
     public void tipoVisitado(UsuarioRegistrado usuarioLogeado, Evento evento) throws DiarioSurException {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
-        if (user == null) {
-            throw new DiarioSurException();
-        } else {
+        if (user != null) {
+
             String prefer = user.getPreferencias();
-            prefer += "&" + evento.getTipo();
+            prefer += "&" + evento.getTipo().substring(0, 1);
             user.setPreferencias(prefer);
             em.merge(user);
         }
@@ -588,7 +692,7 @@ public class NegocioImpl implements Negocio {
     @Override
     public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado) {
         if (usuarioLogeado != null) {
-            
+
             UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
 
             return user.getPreferencias();
@@ -599,7 +703,7 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public String devolverPref(UsuarioRegistrado usuarioLogeado) {
-        UsuarioRegistrado user=em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
+        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
         return user.getPreferencias();
     }
 }
