@@ -154,11 +154,7 @@ public class PublicarAnuncio {
         return seleccionado;
     }
 
-    public List<Anuncio> getAnuncios() {
-        //return bd.getAnu();
-        return negocio.getAnu();
-        
-    }
+    
 
     /**
      * @param anuncio the anuncio to set
@@ -293,10 +289,6 @@ public class PublicarAnuncio {
         this.fechaExpiracion = fechaExpiracion;
     }
 
-    public String eliminarAnuncio() throws DiarioSurException{
-        //bd.eliminarAnuncio(seleccionado);      
-        negocio.borrarAnuncio(seleccionado);
-        return "index";
-    }
+   
           
 }

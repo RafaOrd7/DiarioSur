@@ -35,8 +35,5 @@ public interface Negocio {
     public int numMeGusta(Long id);
     public void crearValoracion(Valoracion v)throws DiarioSurException;
     public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException;
-    public void crearAnuncio(Anuncio anu)throws DiarioSurException;
     public void rellenarBd();
-    public void borrarAnuncio(Anuncio anuncio)throws DiarioSurException;
-    public List<Anuncio> getAnu();
 }
