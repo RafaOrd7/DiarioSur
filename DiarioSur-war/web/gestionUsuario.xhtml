@@ -1,179 +1,191 @@
 <ui:composition template="/WEB-INF/templates/plantilla.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+
     <ui:define name="title">Gestión de Usuarios</ui:define>
-    
+
     <ui:define name="content">
         <c:choose>
-            
+
             <c:when test="#{(ctrlAutorizacion.checkAdm()) || (ctrlAutorizacion.checkJDR())}">
-                <h:form>
-                    <h1>Usuarios</h1>
-
-                    <h2 align="right"><h:commandButton value="Crear usuario" action="crearUsuario.xhtml"/></h2>
-
-                    <p>Usuarios Registrados</p>
-
-                    <p:dataTable var="usuario" value="#{ctrlUsuarios.getListaUR()}">
-                        <p:column headerText="Id Usuario">              
-                            <h:outputText value="#{usuario.idUser}" />
-                        </p:column>
-                        <p:column headerText="Apellidos, Nombre">
-                            <h:outputText value="#{usuario.apellidos}, #{usuario.nombre}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{usuario.email}" />
-                        </p:column>
-                        <p:column headerText="Contraseña">
-                            <h:outputText value="#{usuario.password}" />
-                        </p:column>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{usuario.dni}" />
-                        </p:column>
-                        <p:column headerText="Editar, Eliminar">
-                            <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(usuario)}"/>
-                            <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarUR(usuario)}"/>
-                        </p:column>
-                    </p:dataTable>
-
-
-
-                    <p>Superusuarios</p>
-
-                    <p:dataTable var="su" value="#{ctrlUsuarios.getListaSU()}">
-                        <p:column headerText="Id Usuario">              
-                            <h:outputText value="#{su.idUser}" />
-                        </p:column>
-                        <p:column headerText="Apellidos, Nombre">
-                            <h:outputText value="#{su.apellidos}, #{su.nombre}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{su.email}" />
-                        </p:column>
-                        <p:column headerText="Contraseña">
-                            <h:outputText value="#{su.password}" />
-                        </p:column>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{su.dni}" />
-                        </p:column>
-                        <p:column headerText="Empresa">
-                            <h:outputText value="#{su.empresa}" />
-                        </p:column>
-                        <p:column headerText="Editar, Eliminar">
-                            <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(su)}"/>
-                            <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarSU(su)}"/>
-                        </p:column>
-                    </p:dataTable>
-
-
-                    <p>Periodistas</p>
-
-                    <p:dataTable var="p" value="#{ctrlUsuarios.getListaP()}">
-                        <p:column headerText="Id Usuario">              
-                            <h:outputText value="#{p.idUser}" />
-                        </p:column>
-                        <p:column headerText="Apellidos, Nombre">
-                            <h:outputText value="#{p.apellidos}, #{p.nombre}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{p.email}" />
-                        </p:column>
-                        <p:column headerText="Contraseña">
-                            <h:outputText value="#{p.password}" />
-                        </p:column>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{p.dni}" />
-                        </p:column>
-                        <p:column headerText="Empresa">
-                            <h:outputText value="#{p.empresa}" />
-                        </p:column>
-                        <p:column headerText="Cargo">
-                            <h:outputText value="#{p.cargo}" />
-                        </p:column>
-                        <p:column headerText="Teléfono">
-                            <h:outputText value="#{p.telefono}" />
-                        </p:column>
-                        <p:column headerText="Editar, Eliminar">
-                            <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(p)}"/>
-                            <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarP(p)}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form> 
-            
-                <c:if test="#{ctrlAutorizacion.checkAdm()}">
-                    <h:form> 
-                        <p>Jefes de Redactores</p>
-
-                        <p:dataTable var="j" value="#{ctrlUsuarios.getListaJDR()}">
+                <p:panel header="Gestión de usuarios" style="margin-bottom:10px;">
+                    
+                    
+                    
+                    <h:form>
+                        <p:commandButton value="Crear usuario" icon="fa fa-plus" action="crearUsuario.xhtml"/>
+                        <p:dataTable var="usuario" value="#{ctrlUsuarios.getListaUR()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
+                            <f:facet name="header">
+                                Usuarios Registrados
+                            </f:facet>
                             <p:column headerText="Id Usuario">              
-                                <h:outputText value="#{j.idUser}" />
+                                <h:outputText value="#{usuario.idUser}" />
                             </p:column>
                             <p:column headerText="Apellidos, Nombre">
-                                <h:outputText value="#{j.apellidos}, #{j.nombre}" />
+                                <h:outputText value="#{usuario.apellidos}, #{usuario.nombre}" />
                             </p:column>
                             <p:column headerText="Email">
-                                <h:outputText value="#{j.email}" />
+                                <h:outputText value="#{usuario.email}" />
                             </p:column>
                             <p:column headerText="Contraseña">
-                                <h:outputText value="#{j.password}" />
+                                <h:outputText value="#{usuario.password}" />
                             </p:column>
                             <p:column headerText="DNI">
-                                <h:outputText value="#{j.dni}" />
+                                <h:outputText value="#{usuario.dni}" />
                             </p:column>
-                            <p:column headerText="Empresa">
-                                <h:outputText value="#{j.empresa}" />
-                            </p:column>
-                            <p:column headerText="Cargo">
-                                <h:outputText value="#{j.cargo}" />
-                            </p:column>
-                            <p:column headerText="Teléfono">
-                                <h:outputText value="#{j.telefono}" />
-                            </p:column>
-                            <p:column headerText="Editar, Eliminar">
-                                <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(j)}"/>
-                                <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarJDR(j)}"/>
+                            <p:column style="width:88px">
+                                <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(usuario)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
+                                <p:commandButton action="#{ctrlUsuarios.eliminarUR(usuario)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
 
-
-                        <p>Administradores</p>
-
-                        <p:dataTable var="a" value="#{ctrlUsuarios.getListaA()}">
+                        <br/><br/>
+                            
+                        <p:dataTable var="su" value="#{ctrlUsuarios.getListaSU()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
+                            <f:facet name="header">
+                                Superusuarios
+                            </f:facet>
                             <p:column headerText="Id Usuario">              
-                                <h:outputText value="#{a.idUser}" />
+                                <h:outputText value="#{su.idUser}" />
                             </p:column>
                             <p:column headerText="Apellidos, Nombre">
-                                <h:outputText value="#{a.apellidos}, #{a.nombre}" />
+                                <h:outputText value="#{su.apellidos}, #{su.nombre}" />
                             </p:column>
                             <p:column headerText="Email">
-                                <h:outputText value="#{a.email}" />
+                                <h:outputText value="#{su.email}" />
                             </p:column>
                             <p:column headerText="Contraseña">
-                                <h:outputText value="#{a.password}" />
+                                <h:outputText value="#{su.password}" />
                             </p:column>
                             <p:column headerText="DNI">
-                                <h:outputText value="#{a.dni}" />
+                                <h:outputText value="#{su.dni}" />
                             </p:column>
                             <p:column headerText="Empresa">
-                                <h:outputText value="#{a.empresa}" />
+                                <h:outputText value="#{su.empresa}" />
+                            </p:column>
+                            <p:column style="width:88px">
+                                <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(su)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
+                                <p:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarSU(su)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <br/><br/>
+                            
+                        <p:dataTable var="p" value="#{ctrlUsuarios.getListaP()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
+                            <f:facet name="header">
+                                Periodistas
+                            </f:facet>
+                            <p:column headerText="Id Usuario">              
+                                <h:outputText value="#{p.idUser}" />
+                            </p:column>
+                            <p:column headerText="Apellidos, Nombre">
+                                <h:outputText value="#{p.apellidos}, #{p.nombre}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{p.email}" />
+                            </p:column>
+                            <p:column headerText="Contraseña">
+                                <h:outputText value="#{p.password}" />
+                            </p:column>
+                            <p:column headerText="DNI">
+                                <h:outputText value="#{p.dni}" />
+                            </p:column>
+                            <p:column headerText="Empresa">
+                                <h:outputText value="#{p.empresa}" />
                             </p:column>
                             <p:column headerText="Cargo">
-                                <h:outputText value="#{a.cargo}" />
+                                <h:outputText value="#{p.cargo}" />
                             </p:column>
                             <p:column headerText="Teléfono">
-                                <h:outputText value="#{a.telefono}" />
+                                <h:outputText value="#{p.telefono}" />
                             </p:column>
-                            <p:column headerText="Editar, Eliminar">
-                                <h:commandButton value="Editar" action="#{ctrlUsuarios.mostrarUsuario(a)}"/>
-                                <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarA(a)}"/>
+                            <p:column style="width:88px">
+                                <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(p)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
+                                <p:commandButton action="#{ctrlUsuarios.eliminarP(p)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
                     </h:form> 
+                    
+                    <br/><br/>
+                    
+                    <c:if test="#{ctrlAutorizacion.checkAdm()}">
+                        <h:form> 
+                            <p:dataTable var="j" value="#{ctrlUsuarios.getListaJDR()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
+                                <f:facet name="header">
+                                    Jefes de redactores
+                                </f:facet>
+                                <p:column headerText="Id Usuario">              
+                                    <h:outputText value="#{j.idUser}" />
+                                </p:column>
+                                <p:column headerText="Apellidos, Nombre">
+                                    <h:outputText value="#{j.apellidos}, #{j.nombre}" />
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{j.email}" />
+                                </p:column>
+                                <p:column headerText="Contraseña">
+                                    <h:outputText value="#{j.password}" />
+                                </p:column>
+                                <p:column headerText="DNI">
+                                    <h:outputText value="#{j.dni}" />
+                                </p:column>
+                                <p:column headerText="Empresa">
+                                    <h:outputText value="#{j.empresa}" />
+                                </p:column>
+                                <p:column headerText="Cargo">
+                                    <h:outputText value="#{j.cargo}" />
+                                </p:column>
+                                <p:column headerText="Teléfono">
+                                    <h:outputText value="#{j.telefono}" />
+                                </p:column>
+                                <p:column style="width:88px">
+                                    <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(j)}" icon="fa fa-pencil" style="background: none; border: none;" title="Editar"/>
+                                    <p:commandButton action="#{ctrlUsuarios.eliminarJDR(j)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <br/><br/>
+                                
+                            <p:dataTable var="a" value="#{ctrlUsuarios.getListaA()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
+                                <f:facet name="header">
+                                    Administradores
+                                </f:facet>
+                                <p:column headerText="Id Usuario">              
+                                    <h:outputText value="#{a.idUser}" />
+                                </p:column>
+                                <p:column headerText="Apellidos, Nombre">
+                                    <h:outputText value="#{a.apellidos}, #{a.nombre}" />
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{a.email}" />
+                                </p:column>
+                                <p:column headerText="Contraseña">
+                                    <h:outputText value="#{a.password}" />
+                                </p:column>
+                                <p:column headerText="DNI">
+                                    <h:outputText value="#{a.dni}" />
+                                </p:column>
+                                <p:column headerText="Empresa">
+                                    <h:outputText value="#{a.empresa}" />
+                                </p:column>
+                                <p:column headerText="Cargo">
+                                    <h:outputText value="#{a.cargo}" />
+                                </p:column>
+                                <p:column headerText="Teléfono">
+                                    <h:outputText value="#{a.telefono}" />
+                                </p:column>
+                                <p:column style="width:88px">
+                                    <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(a)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
+                                    <p:commandButton action="#{ctrlUsuarios.eliminarA(a)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form> 
                 </c:if>
+                </p:panel>
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>

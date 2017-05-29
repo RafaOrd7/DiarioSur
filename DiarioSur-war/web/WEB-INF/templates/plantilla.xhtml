@@ -16,7 +16,7 @@
     </h:head>
     <h:body>
         <!--Muestra la cabecera de la pagina-->
-        <div id="top" class="top">
+        <div id="top" class="top,ui-fluid">
             <h:form id="cabecera">
                 <h:link outcome="index" style="alignment-adjust: central">
                     <h:graphicImage alt="Logo Diario Sur" url="http://www.diariosur.es/img//2014/logoC.png"/>
@@ -25,6 +25,7 @@
              
                 <h:form id="menu">
                     <p:menubar>
+                        <p:menuitem value="Inicio" outcome="index" icon="ui-icon-home" ajax="false"/>
                         <p:menuitem value="Crear evento" outcome="subirEvento" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkUR()}"></p:menuitem>
                         <p:menuitem value="Publicar Anuncio" outcome="publicarAnuncio" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
                         <p:submenu label="Gestión" icon="ui-icon-wrench" rendered="${ctrlAutorizacion.checkP()}">
@@ -35,11 +36,11 @@
                         <p:menuitem value="Búsqueda Avanzada" outcome="busqAvanzada" ajax="false" icon="ui-icon-search"></p:menuitem>
                         <f:facet name="options">
                             <!-- Búsqueda -->
-                            <p:inputText placeholder="Buscar..." style="margin-right:10px" size="35"  value="#{recogedorBusquedas.busqueda}"/>
-                            <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:30px" icon="ui-icon-search" ajax="false"/>
+                            <p:inputText placeholder="Buscar..." style="margin-right:0.5em" size="20" value="#{recogedorBusquedas.busqueda}"/>
+                            <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:1em" icon="ui-icon-search" ajax="false"/>
                             <!-- Logueado -->
-                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-closed" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and ctrlUsuarios.hayNotif()}"/>
-                            <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-open" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and !ctrlUsuarios.hayNotif()}"/>
+                            <p:button outcome="notificacion" style="margin-right:0.5em" icon="ui-icon-mail-closed" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and ctrlUsuarios.hayNotif()}"/>
+                            <p:button outcome="notificacion" style="margin-right:0.5em" icon="ui-icon-mail-open" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and !ctrlUsuarios.hayNotif()}"/>
                             <p:menuButton value="Mi perfil" iconPos="right" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}">
                                 <p:menuitem value="Bienvenido, #{ctrlAutorizacion.getUsuarioLogeado().getNombre()}" disabled="true" />
                                 <p:separator/>
@@ -47,7 +48,7 @@
                                 <p:menuitem value="Salir" action="#{ctrlAutorizacion.logout()}" ajax="false" style="color:red" rendered="${!empty ctrlAutorizacion.getUsuarioLogeado()}"/> 
                             </p:menuButton>
                             <!-- No logueado -->
-                            <p:button outcome="login" value="Login" style="margin-right:10px" icon="ui-icon-person" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
+                            <p:button outcome="login" value="Login" style="margin-right:0.5em" icon="ui-icon-person" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
                             <p:button outcome="register" value="Registro" icon="ui-icon-pencil" rendered="${empty ctrlAutorizacion.getUsuarioLogeado()}"/>
                         </f:facet>
                     </p:menubar>
