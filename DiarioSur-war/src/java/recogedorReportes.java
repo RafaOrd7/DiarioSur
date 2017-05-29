@@ -62,13 +62,13 @@ public class recogedorReportes {
     public String eliminarVal() throws DiarioSurException {
         //bd.eliminarReporteVal(seleccionado);
         negocio.eliminarReporteVal(seleccionado);
-        return "GestionarReporte";
+        return "GestionarReporte.xhtml";
     }
 
     public String eliminarEv() throws DiarioSurException {
         // bd.eliminarReporteEv(seleccionado);
         negocio.eliminarReporteEv(seleccionado);
-        return "GestionarReporte";
+        return "GestionarReporte.xhtml";
 
     }
 

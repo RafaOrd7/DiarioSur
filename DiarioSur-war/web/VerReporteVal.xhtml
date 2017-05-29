@@ -12,51 +12,52 @@
     <ui:define name="content">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkAdm()}">
-        
-        <h:form>  
-            <h1 align="center">REPORTE</h1>  
-            <table align="center">
-                <tr>
 
-                    <td>Id: #{recogedorReportes.getSeleccionado().getId()}</td>
-                </tr>
-                <tr>
-                    <td>Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado().getNombre()}</td>
-                </tr>
-                <tr>
-                    <td> Fecha: #{recogedorReportes.getSeleccionado().getFecha()}   </td>
-                </tr>
-                <tr>               
-                    <td>Tipo: #{recogedorReportes.getSeleccionado().getTipo()}</td>
-                </tr>
-                <tr> 
-                    <td> Comentario: #{recogedorReportes.getSeleccionado().getTexto()}</td>
-                </tr>  
-                <tr> 
-                    <td>
-                        Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
-                    </td>
+                <h:form>  
+                    <h1 align="center">REPORTE</h1>  
+                    <table align="center">
+                        <tr>
 
-                </tr>
+                            <td>Id: #{recogedorReportes.getSeleccionado().getId()}</td>
+                        </tr>
+                        <tr>
+                            <td>Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado().getNombre()}</td>
+                        </tr>
+                        <tr>
+                            <td> Fecha: #{recogedorReportes.getSeleccionado().getFecha()}   </td>
+                        </tr>
+                        <tr>               
+                            <td>Tipo: #{recogedorReportes.getSeleccionado().getTipo()}</td>
+                        </tr>
+                        <tr> 
+                            <td> Comentario: #{recogedorReportes.getSeleccionado().getTexto()}</td>
+                        </tr>  
+                        <tr> 
+                            <td>
+                                Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
+                            </td>
 
-
-                <tr> 
-                    <td>
-                        <p:commandButton value="Eliminar Reporte">
-                            <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
-                        </p:commandButton>
-                    </td>
-
-                </tr>
-            </table>
-            
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:button value="Si" outcome="#{recogedorReportes.eliminarVal()}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:button value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
+                        </tr>
 
 
-        </h:form>
+                        <tr> 
+                            <td>
+                                <p:commandButton value="Eliminar Reporte">
+                                    <p:confirm header="Eliminar Reporte" message="¿Estás seguro de que quieres eliminar el reporte?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                            </td>
+
+                        </tr>
+                    </table>
+                </h:form>
+                <h:form>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton  ajax="false" value="Si" action="#{recogedorReportes.eliminarVal()}" styleClass="ui-confirmdialog-yes" />
+                        <p:commandButton ajax="false" value="No" styleClass="ui-confirmdialog-no"/>
+                    </p:confirmDialog>
+
+                </h:form>
 
 
 
