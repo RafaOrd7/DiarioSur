@@ -5,9 +5,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+
     <ui:define name="title">Mi perfil</ui:define>
-    
+
     <ui:define name="content">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkLog()}">
@@ -23,32 +23,32 @@
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.multimedia}"/>
                                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                                    <h:outputLabel for="nombreUR" value="NombreUR: " />
-                                    <p:inplace id="nombreUR" emptyLabel="vacío">
-                                        <p:inputText  value="#{ctrlUsuarios.usuario.nombre}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="nombreUR" value="NombreUR: " />
+                                <p:inplace id="nombreUR" emptyLabel="vacío">
+                                    <p:inputText  value="#{ctrlUsuarios.usuario.nombre}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="apellidosUR" value="Apellidos: " />
-                                    <p:inplace id="apellidosUR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.usuario.apellidos}" rendered="true" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="apellidosUR" value="Apellidos: " />
+                                <p:inplace id="apellidosUR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.usuario.apellidos}" rendered="true" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="emailUR" value="Email: " />
-                                    <p:inplace id="emailUR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.usuario.email}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="emailUR" value="Email: " />
+                                <p:inplace id="emailUR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.usuario.email}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="dniUR" value="DNI/NIF/NIE:" />
-                                    <p:inplace id="dniUR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.usuario.dni}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="dniUR" value="DNI/NIF/NIE:" />
+                                <p:inplace id="dniUR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.usuario.dni}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="passwordUR" value="Password:" />
-                                    <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR1" label="passwordUR" match="pUR2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                                                goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                                <h:outputLabel for="passwordUR" value="Password:" />
+                                <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR1" label="passwordUR" match="pUR2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
 
-                                    <h:outputLabel for="password2UR" value="Repita password:" />
-                                    <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR2" label="password2UR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
+                                <h:outputLabel for="password2UR" value="Repita password:" />
+                                <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR2" label="password2UR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
                                 </h:panelGrid>
                                 <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
@@ -65,37 +65,37 @@
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.su.multimedia}"/>
                                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                                    <h:outputLabel for="nombreSU" value="Nombre: " />
-                                    <p:inplace id="nombreSU" emptyLabel="vacío">
-                                        <p:inputText  value="#{ctrlUsuarios.su.nombre}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="nombreSU" value="Nombre: " />
+                                <p:inplace id="nombreSU" emptyLabel="vacío">
+                                    <p:inputText  value="#{ctrlUsuarios.su.nombre}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="apellidosSU" value="Apellidos: " />
-                                    <p:inplace id="apellidosSU" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.su.apellidos}" rendered="true" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="apellidosSU" value="Apellidos: " />
+                                <p:inplace id="apellidosSU" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.su.apellidos}" rendered="true" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="emailSU" value="Email: " />
-                                    <p:inplace id="emailSU" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.su.email}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="emailSU" value="Email: " />
+                                <p:inplace id="emailSU" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.su.email}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="dniSU" value="DNI/NIF/NIE:" />
-                                    <p:inplace id="dniSU" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.su.dni}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="dniSU" value="DNI/NIF/NIE:" />
+                                <p:inplace id="dniSU" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.su.dni}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="empresaSU" value="Empresa: " />
-                                    <p:inplace id="empresaSU" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.su.empresa}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="empresaSU" value="Empresa: " />
+                                <p:inplace id="empresaSU" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.su.empresa}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="passwordSU" value="Password:" />
-                                    <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU1" label="passwordSU" match="pSU2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                                                goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                                <h:outputLabel for="passwordSU" value="Password:" />
+                                <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU1" label="passwordSU" match="pSU2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
 
-                                    <h:outputLabel for="password2SU" value="Repita password:" />
-                                    <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU2" label="password2SU" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
+                                <h:outputLabel for="password2SU" value="Repita password:" />
+                                <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU2" label="password2SU" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarSuperUsuario()}"/>
@@ -112,47 +112,47 @@
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.p.multimedia}"/>
                                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                                    <h:outputLabel for="nombreP" value="Nombre: " />
-                                    <p:inplace id="nombreP" emptyLabel="vacío">
-                                        <p:inputText  value="#{ctrlUsuarios.p.nombre}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="nombreP" value="Nombre: " />
+                                <p:inplace id="nombreP" emptyLabel="vacío">
+                                    <p:inputText  value="#{ctrlUsuarios.p.nombre}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="apellidosP" value="Apellidos: " />
-                                    <p:inplace id="apellidosP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.apellidos}" rendered="true" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="apellidosP" value="Apellidos: " />
+                                <p:inplace id="apellidosP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.apellidos}" rendered="true" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="emailP" value="Email: " />
-                                    <p:inplace id="emailP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.email}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="emailP" value="Email: " />
+                                <p:inplace id="emailP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.email}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="dniP" value="DNI/NIF/NIE:" />
-                                    <p:inplace id="dniP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.dni}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="dniP" value="DNI/NIF/NIE:" />
+                                <p:inplace id="dniP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.dni}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="empresaP" value="Empresa: " />
-                                    <p:inplace id="empresaP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.empresa}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="empresaP" value="Empresa: " />
+                                <p:inplace id="empresaP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.empresa}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="cargoP" value="Cargo: " />
-                                    <p:inplace id="cargoP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.cargo}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="cargoP" value="Cargo: " />
+                                <p:inplace id="cargoP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.cargo}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="telefonoP" value="Teléfono: " />
-                                    <p:inplace id="telefonoP" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.p.telefono}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="telefonoP" value="Teléfono: " />
+                                <p:inplace id="telefonoP" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.p.telefono}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="passwordP" value="Password:" />
-                                    <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP1" label="passwordP" match="pP2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                                                goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                                <h:outputLabel for="passwordP" value="Password:" />
+                                <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP1" label="passwordP" match="pP2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
 
-                                    <h:outputLabel for="password2P" value="Repita password:" />
-                                    <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP2" label="password2P" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
+                                <h:outputLabel for="password2P" value="Repita password:" />
+                                <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP2" label="password2P" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarPeriodista()}"/>
@@ -169,47 +169,47 @@
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.multimedia}"/>
                                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                                    <h:outputLabel for="nombreJDR" value="Nombre: " />
-                                    <p:inplace id="nombreJDR" emptyLabel="vacío">
-                                        <p:inputText  value="#{ctrlUsuarios.jdr.nombre}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="nombreJDR" value="Nombre: " />
+                                <p:inplace id="nombreJDR" emptyLabel="vacío">
+                                    <p:inputText  value="#{ctrlUsuarios.jdr.nombre}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="apellidosJDR" value="Apellidos: " />
-                                    <p:inplace id="apellidosJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.apellidos}" rendered="true" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="apellidosJDR" value="Apellidos: " />
+                                <p:inplace id="apellidosJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.apellidos}" rendered="true" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="emailJDR" value="Email: " />
-                                    <p:inplace id="emailJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.email}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="emailJDR" value="Email: " />
+                                <p:inplace id="emailJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.email}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="dniJDR" value="DNI/NIF/NIE:" />
-                                    <p:inplace id="dniJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.dni}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="dniJDR" value="DNI/NIF/NIE:" />
+                                <p:inplace id="dniJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.dni}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="empresaJDR" value="Empresa: " />
-                                    <p:inplace id="empresaJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.empresa}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="empresaJDR" value="Empresa: " />
+                                <p:inplace id="empresaJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.empresa}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="cargoJDR" value="Cargo: " />
-                                    <p:inplace id="cargoJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.cargo}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="cargoJDR" value="Cargo: " />
+                                <p:inplace id="cargoJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.cargo}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="telefonoJDR" value="Teléfono: " />
-                                    <p:inplace id="telefonoJDR" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.jdr.telefono}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="telefonoJDR" value="Teléfono: " />
+                                <p:inplace id="telefonoJDR" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.jdr.telefono}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="passwordJDR" value="Password:" />
-                                    <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR1" label="passwordJDR" match="pJDR2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                                                goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                                <h:outputLabel for="passwordJDR" value="Password:" />
+                                <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR1" label="passwordJDR" match="pJDR2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
 
-                                    <h:outputLabel for="password2JDR" value="Repita password:" />
-                                    <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR2" label="password2JDR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
+                                <h:outputLabel for="password2JDR" value="Repita password:" />
+                                <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR2" label="password2JDR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
@@ -226,47 +226,47 @@
                                 <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
                                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                                    <h:outputLabel for="nombreA" value="Nombre: " />
-                                    <p:inplace id="nombreA" emptyLabel="vacío">
-                                        <p:inputText  value="#{ctrlUsuarios.a.nombre}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="nombreA" value="Nombre: " />
+                                <p:inplace id="nombreA" emptyLabel="vacío">
+                                    <p:inputText  value="#{ctrlUsuarios.a.nombre}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="apellidosA" value="Apellidos: " />
-                                    <p:inplace id="apellidosA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.apellidos}" rendered="true" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="apellidosA" value="Apellidos: " />
+                                <p:inplace id="apellidosA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.apellidos}" rendered="true" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="emailA" value="Email: " />
-                                    <p:inplace id="emailA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.email}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="emailA" value="Email: " />
+                                <p:inplace id="emailA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.email}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="dniA" value="DNI/NIF/NIE:" />
-                                    <p:inplace id="dniA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.dni}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="dniA" value="DNI/NIF/NIE:" />
+                                <p:inplace id="dniA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.dni}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="empresaA" value="Empresa: " />
-                                    <p:inplace id="empresaA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.empresa}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="empresaA" value="Empresa: " />
+                                <p:inplace id="empresaA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.empresa}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="cargoA" value="Cargo: " />
-                                    <p:inplace id="cargoA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.cargo}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="cargoA" value="Cargo: " />
+                                <p:inplace id="cargoA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.cargo}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="telefonoA" value="Teléfono: " />
-                                    <p:inplace id="telefonoA" emptyLabel="vacío">
-                                        <p:inputText value="#{ctrlUsuarios.a.telefono}" required="true"/>
-                                    </p:inplace>
+                                <h:outputLabel for="telefonoA" value="Teléfono: " />
+                                <p:inplace id="telefonoA" emptyLabel="vacío">
+                                    <p:inputText value="#{ctrlUsuarios.a.telefono}" required="true"/>
+                                </p:inplace>
 
-                                    <h:outputLabel for="passwordA" value="Password:" />
-                                    <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA1" label="passwordA" match="pA2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
-                                                goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
+                                <h:outputLabel for="passwordA" value="Password:" />
+                                <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA1" label="passwordA" match="pA2"  feedback="true" promptLabel="Introduzca una contraseña" weakLabel="Débil" 
+                                            goodLabel="Normal" strongLabel="Segura" required="true" requiredMessage="Campo contraseña obligatorio" />
 
-                                    <h:outputLabel for="password2A" value="Repita password:" />
-                                    <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA2" label="password2A" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
+                                <h:outputLabel for="password2A" value="Repita password:" />
+                                <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA2" label="password2A" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
                                 </h:panelGrid>
                                 <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
@@ -282,6 +282,6 @@
                 <h3>Error, acceso denegado.</h3>
             </c:otherwise>
         </c:choose>  
-          
+
     </ui:define>
 </ui:composition>

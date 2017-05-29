@@ -78,7 +78,7 @@ public class BusquedaAvanzada {
 
         todo = new ArrayList<>();
         todo.addAll(aux);
-
+        
         if (!tipo.isEmpty()) {
             List<Evento> auxTipos = new ArrayList<>();
             for (Evento e : todo) {
@@ -232,9 +232,5 @@ public class BusquedaAvanzada {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<Evento> getBusq() {
-        return busq;
     }
 }

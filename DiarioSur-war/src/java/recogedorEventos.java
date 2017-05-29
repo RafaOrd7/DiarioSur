@@ -49,9 +49,6 @@ public class recogedorEventos {
     @Inject
     private ctrlAutorizacion cta;
 
-    @Inject
-    private BusquedaAvanzada ba;
-
     private static Evento seleccionado = new Evento();
 
     public String editarEvento() {
@@ -223,7 +220,7 @@ public class recogedorEventos {
         return negocio.numMeGusta(seleccionado.getId_evento());
     }
 
-    public String enviarEvento() {
+    public String enviarEvento() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
 
