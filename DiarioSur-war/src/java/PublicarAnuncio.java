@@ -118,7 +118,7 @@ public class PublicarAnuncio {
     public PublicarAnuncio() {
     }
 
-    public void crear() {
+    public void crear() throws DiarioSurException {
         anuncio = new Anuncio();
         anuncio.setDimensiones(dimensiones);
         anuncio.setEmpresa(nombreEmpresa);

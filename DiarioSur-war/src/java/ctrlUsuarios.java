@@ -88,6 +88,7 @@ public class ctrlUsuarios implements Serializable {
         } else {
             usuario.setHistorialEventos("");
             usuario.setBorrado(false);
+            usuario.setPreferencias("");
             usuario.setMegusta(new ArrayList<>());
             negocio.registrarUsuario(usuario);
 
@@ -381,7 +382,7 @@ public class ctrlUsuarios implements Serializable {
         return null;
     }
     
-    public boolean hayNotif() {
+    public boolean hayNotif() throws DiarioSurException {
         return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
     }
 

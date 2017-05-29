@@ -6,6 +6,7 @@
 
 import Entidades.Evento;
 import Entidades.UsuarioRegistrado;
+import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,9 +74,9 @@ public class recogedorBusquedas {
         recogedorBusquedas.encontrado = encontrado;
     }
 
-    public List<Evento> getListaEvento() {
+    public List<Evento> getListaEvento() throws DiarioSurException {
         List<Evento> lista = negocio.getEv();
-
+        
         if (cta.getUsuarioLogeado() != null && !negocio.devolverPref(cta.getUsuarioLogeado()).isEmpty()) {
 
             lista = ordenarEvPorTipo(cta.getUsuarioLogeado(), lista);
