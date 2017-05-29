@@ -90,7 +90,7 @@ public class ctrlAutorizacion implements Serializable {
     }
 
     public boolean checkLog() {
-        return usuarioLogeado != null;
+        return usuarioLogeado != null  && !usuarioLogeado.isBorrado();
     }
 
     public UsuarioRegistrado getUsuarioLogeado() {
