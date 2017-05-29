@@ -50,7 +50,6 @@ public class recogedorValoraciones {
     }
 
     public List<Valoracion> getValev(Evento seleccionado) throws DiarioSurException {
-        /*System.out.println(negocio.getValoraciones(seleccionado).toString());*/
         return negocio.getValoraciones(seleccionado);
     }
 

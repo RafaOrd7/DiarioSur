@@ -60,32 +60,21 @@ public class recogedorReportes {
     }
 
     public String eliminarVal() throws DiarioSurException {
-        //bd.eliminarReporteVal(seleccionado);
         negocio.eliminarReporteVal(seleccionado);
         return "GestionarReporte.xhtml";
     }
 
     public String eliminarEv() throws DiarioSurException {
-        // bd.eliminarReporteEv(seleccionado);
         negocio.eliminarReporteEv(seleccionado);
         return "GestionarReporte.xhtml";
 
     }
 
     public List<Reporte> getReportesEv() {
-        /*
-        if(bd.getRepEv().size()==0){
-            return null;
-        }
-        return bd.getRepEv();*/
         return negocio.getReportesEv();
     }
 
     public List<Reporte> getReportesVal() {
-        /*if(bd.getRepVal().size()==0){
-            return null;
-        }
-        return bd.getRepVal();*/
         return negocio.getReportesVal();
     }
 
@@ -112,12 +101,9 @@ public class recogedorReportes {
     public String enviarReporte() throws DiarioSurException {
         Evento ev = recogedorEventos.getSeleccionado();
         UsuarioRegistrado user = cta.getUsuarioLogeado();
-        Valoracion val = null;//recogedorValoraciones.getSeleccionado();
+        Valoracion val = null;
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, null, user);
-
-        //bd.crearReporteEv(aux);
         negocio.enviarRepEv(aux);
-
         return "index.xhtml";
     }
 
@@ -126,14 +112,8 @@ public class recogedorReportes {
         UsuarioRegistrado user = cta.getUsuarioLogeado();
         Valoracion val = recogedorValoraciones.getSeleccionada();
         val.setEvento(ev);
-
-        System.out.println(val.getId() + " " + val.getEvento() + " " + val.getReportes() + " " + val.getUsuarioRegistrado());
-
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
-        //System.out.println(aux.getId()+" "+aux.getFecha()+" "+aux.getTexto()+" "+aux.getTipo()+" "+aux.getEvento()+" "+aux.getUsuarioRegistrado()+" "+aux.getValoracion());
         negocio.enviarRepVal(aux);
-
-        //bd.crearReporteVal(aux);
         return "index.xhtml";
     }
 
