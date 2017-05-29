@@ -46,21 +46,21 @@ public class ctrlAutorizacion implements Serializable {
     }
 
     public boolean checkAdm(){
-        if(usuarioLogeado!=null && usuarioLogeado.getIdUser().charAt(0) == 'A'){
+        if(usuarioLogeado!=null && usuarioLogeado.getIdUser().charAt(0) == 'A' && !usuarioLogeado.isBorrado()){
             return true;
         }
         return false;
     }
     
     public boolean checkJDR() {
-        if (usuarioLogeado != null && usuarioLogeado.getIdUser().charAt(0) == 'J') {
+        if (usuarioLogeado != null && usuarioLogeado.getIdUser().charAt(0) == 'J' && !usuarioLogeado.isBorrado()) {
             return true;
         }
         return false;
     }
     
     public boolean checkLog() {
-        return usuarioLogeado != null;
+        return usuarioLogeado != null  && !usuarioLogeado.isBorrado();
     }
     
     

@@ -69,9 +69,9 @@
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="gestionUsuario" value="Gestión Usuarios" icon="ui-icon-tag"></p:button></tr>
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>                         
-                                               
+
                         </c:when>
-                        
+
                         <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
                             <h1>Periodista</h1>
                             <tr><p:button outcome="subirEvento" value="Subir evento" icon="ui-icon-plusthick"></p:button></tr> 
@@ -95,7 +95,7 @@
                             <tr><p:button outcome="notificacion" value="Notificaciones" icon="ui-icon-mail-closed"></p:button></tr> 
                             <tr><p:button outcome="busqAvanzada" value="Búsqueda Avanzada" icon="ui-icon-search"></p:button></tr>      
                         </c:when>
-                        
+
                         <c:otherwise>
                             <tr><h2>Si desea navegar por la pagina, registrese</h2></tr>     
                         </c:otherwise>

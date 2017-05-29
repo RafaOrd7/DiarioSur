@@ -211,7 +211,7 @@ public class recogedorEventos {
        return negocio.numMeGusta(seleccionado.getId_evento());
     }
 
-    public String enviarEvento() {
+    public String enviarEvento() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
         
