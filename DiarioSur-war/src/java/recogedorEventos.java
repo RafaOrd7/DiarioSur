@@ -191,11 +191,6 @@ public class recogedorEventos {
     public void setImagen(File f) {
         imagen = f;
     }
-
-    public void mostrarTipo() {
-        System.out.println(tipo);
-    }
-
     public recogedorEventos() {
 
     }

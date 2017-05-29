@@ -221,8 +221,6 @@ public class ctrlUsuarios implements Serializable {
     }
 
     public boolean isSU() {
-        System.out.println("-------------------------------");
-        System.out.println(rol.equals("SuperUsuario"));
         return rol.equals("SuperUsuario");
     }
 
