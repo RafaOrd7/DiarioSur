@@ -64,16 +64,13 @@
         <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
             <c:choose>
                 <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
-                    <table align="center">                
+                    
+                    <table align="center">  
+                        
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
-                            </tr>
 
-                            <tr>
-
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
+                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/></td>
 
 
 
@@ -98,6 +95,11 @@
                         </h:form>
                     </table>
                     <table align="center"> 
+                        <br/><br/>
+                           
+                        <tr>
+                            <p:graphicImage url="/resources/ElNumeroSieteTeDaBuenaSuerte.jpg" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                        </tr>
 
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
