@@ -33,7 +33,7 @@ public class BusquedaAvanzada {
 
     private static boolean encontrado = false;
 
-    private static List<Evento> busq = new ArrayList<>();
+    private List<Evento> busq = new ArrayList<>();
 
     @EJB
     private Negocio negocio;

@@ -36,7 +36,7 @@
                         <f:facet name="options">
                             <!-- Búsqueda -->
                             <p:inputText placeholder="Buscar..." style="margin-right:10px" size="35"  value="#{recogedorBusquedas.busqueda}"/>
-                            <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:40px" icon="ui-icon-search" ajax="false"/>
+                            <p:commandButton value="Buscar" action="#{recogedorBusquedas.buscar()}" style="margin-right:30px" icon="ui-icon-search" ajax="false"/>
                             <!-- Logueado -->
                             <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-closed" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and ctrlUsuarios.hayNotif()}"/>
                             <p:button outcome="notificacion" style="margin-right:10px" icon="ui-icon-mail-open" rendered="#{(!empty ctrlAutorizacion.getUsuarioLogeado()) and !ctrlUsuarios.hayNotif()}"/>

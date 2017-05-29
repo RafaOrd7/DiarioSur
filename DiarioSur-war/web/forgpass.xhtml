@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         Introduce tu correo electrónico
-        
+
         <h:form>
             <h1>
                 <p:inputText id="email" value="#{ctrlUsuarios.usuario.email}"/>
@@ -18,9 +18,9 @@
             <p:button outcome="index" value="Volver" icon="ui-icon-person"></p:button>
             <p:commandButton value="Enviar" action="#{ctrlUsuarios.sendEmail()}" styleClass="submit"/>
             <p:messages id="messages" autoUpdate="true" showIcon="false"  />
-            
+
         </h:form>
-        
+
     </h:body>
 </html>
 
