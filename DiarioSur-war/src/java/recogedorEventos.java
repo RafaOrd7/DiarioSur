@@ -10,6 +10,8 @@ import Entidades.UsuarioRegistrado;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,18 +42,22 @@ public class recogedorEventos {
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
-    
+
     @EJB
     private Negocio negocio;
-    
+
     @Inject
     private ctrlAutorizacion cta;
-    private static Evento seleccionado=new Evento();
+
+    private static Evento seleccionado = new Evento();
 
     public String editarEvento() {
-        System.out.println(seleccionado.getId_evento());
         Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
+        aux.setUser_megusta(seleccionado.getUser_megusta());
+        aux.setValoraciones(seleccionado.getValoraciones());
+        aux.setReportes(seleccionado.getReportes());
+        aux.setImagen(seleccionado.getImagen());
         seleccionado = aux;
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";
@@ -110,9 +116,12 @@ public class recogedorEventos {
         recogedorEventos.seleccionado = seleccionado;
     }
 
-    public String ver(Evento evento) {
+    public String ver(Evento evento) throws DiarioSurException {
         setSeleccionado(evento);
-        return "evento.xhtml";
+        if (cta.getUsuarioLogeado() != null) {
+            negocio.tipoVisitado(cta.getUsuarioLogeado(), evento);
+        }
+        return "evento";
     }
 
     public List<Evento> getEventos() {
@@ -208,13 +217,13 @@ public class recogedorEventos {
     }
 
     public int getNumeroMG() {
-       return negocio.numMeGusta(seleccionado.getId_evento());
+        return negocio.numMeGusta(seleccionado.getId_evento());
     }
 
     public String enviarEvento() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
-        
+
         Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());

@@ -19,6 +19,8 @@ import java.util.List;
 import Entidades.Valoracion;
 import javax.ejb.Local;
 
+
+
 /**
  *
  * @author Garri
@@ -83,7 +85,6 @@ public interface Negocio {
     public void addSuperu(SuperUsuario sup);
 
     public void addUR(UsuarioRegistrado ur);
-
     public List<Evento> getEv();
 
     public int numMeGusta(Long id);
@@ -91,21 +92,13 @@ public interface Negocio {
     public void crearValoracion(Valoracion v) throws DiarioSurException;
 
     public void crearAdmin(Administrador a);
-
     public void crearJDR(JefeDeRedactores a);
-
     public void crearPeriodista(Periodista a);
-
     public void crearSU(SuperUsuario a);
-
     public void crearUR(UsuarioRegistrado a);
-
     public boolean checkDNI(UsuarioRegistrado a);
-
     public List<Notificacion> getNotif(UsuarioRegistrado u);
-
     public void eliminarNotificacion(Notificacion n);
-
     public UsuarioRegistrado buscarURmail(String email);
 
     public void crearAnuncio(Anuncio anu) throws DiarioSurException;
@@ -139,5 +132,10 @@ public interface Negocio {
     public void editaJdr(JefeDeRedactores jdre);
 
     public void editaAdmin(Administrador adm);
+    public void tipoVisitado(UsuarioRegistrado usuarioLogeado,Evento evento)throws DiarioSurException;
+
+    public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado);
+
+    public String devolverPref(UsuarioRegistrado usuarioLogeado);
 
 }

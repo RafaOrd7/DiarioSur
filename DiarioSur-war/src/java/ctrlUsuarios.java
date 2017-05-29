@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
@@ -28,9 +27,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -55,8 +52,6 @@ public class ctrlUsuarios implements Serializable {
     private static boolean propio = false; // flag que indica si la edición de usuario es de sí mismo(confUsuario)
     private static String rol = "";
     private static int cont = 0;
-
-    
     @EJB
     private Negocio negocio;
 
@@ -101,7 +96,6 @@ public class ctrlUsuarios implements Serializable {
                     "Usuario " + usuario.getEmail() + " registrado correctamente."));
             pag = "index.xhtml";
         }
-
         return pag;
     }
 
@@ -386,6 +380,10 @@ public class ctrlUsuarios implements Serializable {
         this.rol = rol;
         return null;
     }
+    
+    public boolean hayNotif() {
+        return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
+    }
 
     public String mostrarUsuario(UsuarioRegistrado user) {
         switch (user.getIdUser().charAt(0)) {
@@ -592,7 +590,6 @@ public class ctrlUsuarios implements Serializable {
                 per.setCargo("------");
                 per.setTelefono("------");
                 per.setEmpresa(su.getEmpresa());
-
                 negocio.eliminarSU(su);
                 negocio.addPeri(per);
                 break;

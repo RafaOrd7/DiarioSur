@@ -32,6 +32,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Garri
  */
+
 @Stateless
 public class NegocioImpl implements Negocio {
 
@@ -78,7 +79,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -98,7 +98,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -118,7 +117,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -138,7 +136,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -159,7 +156,6 @@ public class NegocioImpl implements Negocio {
         List<Notificacion> l = a.getNotificacion();
         l.add(n);
         a.setNotificacion(l);
-
         em.merge(a);
         em.persist(n);
     }
@@ -173,12 +169,12 @@ public class NegocioImpl implements Negocio {
     public void editaUR(UsuarioRegistrado aux){
         em.merge(aux);
     }
-    
+
     @Override
     public void editaSuperu(SuperUsuario sup){
         em.merge(sup);
     }
-    
+
     @Override
     public void editaJdr(JefeDeRedactores jdre){
         em.merge(jdre);
@@ -410,11 +406,13 @@ public class NegocioImpl implements Negocio {
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
-        ad.setPreferencias("si");
+        ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
 
         em.persist(ad);
+     
+
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
@@ -426,7 +424,6 @@ public class NegocioImpl implements Negocio {
         ano.setPrioridad("mucha");
         ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
-
         em.persist(ano);
 
         Evento e = new Evento();
@@ -444,6 +441,7 @@ public class NegocioImpl implements Negocio {
         e.setUsuarioRegistrado(ad);
 
         em.persist(e);
+
 
     }
 
@@ -472,8 +470,6 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
-
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -494,7 +490,6 @@ public class NegocioImpl implements Negocio {
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
         em.refresh(user);
         return user;
     }
@@ -502,7 +497,6 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException {
         boolean existe = false;
-        //UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getEmail());
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         if (!lu.isEmpty()) {
             existe = true;
@@ -536,7 +530,6 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg.add(ur);
             }
-
             List<Evento> mg2 = ur.getMegusta();
 
             if (mg2.contains(aux)) {
@@ -544,10 +537,8 @@ public class NegocioImpl implements Negocio {
             } else {
                 mg2.add(aux);
             }
-
             aux.setUser_megusta(mg);
             ur.setMegusta(mg2);
-
             em.merge(aux);
             em.merge(ur);
 
@@ -591,7 +582,6 @@ public class NegocioImpl implements Negocio {
     public void crearAnuncio(Anuncio anu) {
         contId++;
         anu.setId_anuncio(contId);
-
         em.persist(anu);
 
     }
@@ -615,8 +605,6 @@ public class NegocioImpl implements Negocio {
     public void enviarRepVal(Reporte r) {
         contId++;
         r.setId_reporte(contId);
-
-        //System.out.println(r.getId()+" "+r.getFecha()+" "+r.getTexto()+" "+r.getTipo()+" "+r.getEvento()+" "+r.getUsuarioRegistrado()+" "+r.getValoracion());
         em.persist(r);
     }
 
@@ -624,7 +612,6 @@ public class NegocioImpl implements Negocio {
     public void enviarRepEv(Reporte r) {
         contId++;
         r.setId_reporte(contId);
-
         em.persist(r);
     }
 
@@ -638,7 +625,6 @@ public class NegocioImpl implements Negocio {
     @Override
     public List<Reporte> getReportesEv() {
         List<Reporte> lista = new ArrayList<>();
-
         lista = em.createQuery("select r from Reporte r where r.valoracion is null").getResultList();
         return lista;
     }
@@ -692,5 +678,36 @@ public class NegocioImpl implements Negocio {
             aux2= aux.getValoraciones();
             System.out.println(aux2.isEmpty());
         }*/
+    }
+
+    @Override
+    public void tipoVisitado(UsuarioRegistrado usuarioLogeado, Evento evento) throws DiarioSurException {
+        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
+        if (user != null) {
+
+            String prefer = user.getPreferencias();
+            prefer += "&" + evento.getTipo().substring(0, 1);
+            user.setPreferencias(prefer);
+            em.merge(user);
+        }
+
+    }
+
+    @Override
+    public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado) {
+        if (usuarioLogeado != null) {
+
+            UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
+
+            return user.getPreferencias();
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public String devolverPref(UsuarioRegistrado usuarioLogeado) {
+        UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
+        return user.getPreferencias();
     }
 }

@@ -11,15 +11,17 @@
     <ui:define name="content">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkLog()}">
-                <c:choose>
-                    <h1>Editar usuario</h1>
-                    <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
-                        <h:form>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.historialEventos}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.preferencias}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                    <c:choose>
+                        <h1>Editar usuario</h1>
+                        <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
+                            <h:form>
+                                <p:panel header="Mi perfil (Usuario registrado)" style="margin-bottom:10px;">
+                                
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.idUser}" required="true"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.historialEventos}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.preferencias}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.multimedia}"/>
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreUR" value="NombreUR: " />
                                 <p:inplace id="nombreUR" emptyLabel="vacío">
@@ -48,18 +50,20 @@
                                 <h:outputLabel for="password2UR" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.usuario.password}" redisplay="true" id="pUR2" label="password2UR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
-                            <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
-                        </h:form>
-                    </c:when>
+                                </h:panelGrid>
+                                <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
+                                </p:panel>
+                            </h:form>
+                        </c:when>
 
-                    <c:when test="#{ctrlUsuarios.rol=='SuperUsuario'}">
-                        <h:form>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.idUser}" required="true"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.historialEventos}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.preferencias}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.su.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <c:when test="#{ctrlUsuarios.rol=='SuperUsuario'}">
+                            <h:form>
+                                <p:panel header="Mi perfil (Super usuario)" style="margin-bottom:10px;">
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.su.idUser}" required="true"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.su.historialEventos}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.su.preferencias}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.su.multimedia}"/>
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreSU" value="Nombre: " />
                                 <p:inplace id="nombreSU" emptyLabel="vacío">
@@ -93,18 +97,20 @@
                                 <h:outputLabel for="password2SU" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU2" label="password2SU" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
-                            <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarSuperUsuario()}"/>
-                        </h:form>
-                    </c:when>
+                                </h:panelGrid>
+                                <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarSuperUsuario()}"/>
+                                </p:panel>
+                            </h:form>
+                        </c:when>
 
-                    <c:when test="#{ctrlUsuarios.rol=='Periodista'}">
-                        <h:form>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.historialEventos}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.preferencias}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.p.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <c:when test="#{ctrlUsuarios.rol=='Periodista'}">
+                            <h:form>
+                                <p:panel header="Mi perfil (Periodista)" style="margin-bottom:10px;">
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.p.idUser}" required="true"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.p.historialEventos}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.p.preferencias}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.p.multimedia}"/>
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreP" value="Nombre: " />
                                 <p:inplace id="nombreP" emptyLabel="vacío">
@@ -148,18 +154,20 @@
                                 <h:outputLabel for="password2P" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP2" label="password2P" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
-                            <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarPeriodista()}"/>
-                        </h:form>
-                    </c:when>
+                                </h:panelGrid>
+                                <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarPeriodista()}"/>
+                                </p:panel>
+                            </h:form>
+                        </c:when>
 
-                    <c:when test="#{ctrlUsuarios.rol=='JefeDeRedactores'}">
-                        <h:form>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.historialEventos}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.preferencias}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <c:when test="#{ctrlUsuarios.rol=='JefeDeRedactores'}">
+                            <h:form>
+                                <p:panel header="Mi perfil (Jefe de redactores)" style="margin-bottom:10px;">
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.idUser}" required="true"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.historialEventos}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.preferencias}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.multimedia}"/>
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreJDR" value="Nombre: " />
                                 <p:inplace id="nombreJDR" emptyLabel="vacío">
@@ -203,18 +211,20 @@
                                 <h:outputLabel for="password2JDR" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR2" label="password2JDR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
-                            <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
-                        </h:form>
-                    </c:when>
+                                </h:panelGrid>
+                                <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
+                                </p:panel>
+                            </h:form>
+                        </c:when>
 
-                    <c:when test="#{ctrlUsuarios.rol=='Administrador'}">
-                        <h:form>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
-                            <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <c:when test="#{ctrlUsuarios.rol=='Administrador'}">
+                            <h:form>
+                                <p:panel header="Mi perfil (Administrador)" style="margin-bottom:10px;">
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.a.idUser}" required="true"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
+                                <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreA" value="Nombre: " />
                                 <p:inplace id="nombreA" emptyLabel="vacío">
@@ -258,14 +268,15 @@
                                 <h:outputLabel for="password2A" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA2" label="password2A" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
-                            <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
-                        </h:form>
-                    </c:when>
-                    <c:otherwise>
-                        <tr><h2>Error, contacte con un administrador</h2></tr>     
-                    </c:otherwise>
-                </c:choose>         
+                                </h:panelGrid>
+                                <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
+                                </p:panel>
+                            </h:form>
+                        </c:when>
+                        <c:otherwise>
+                            <tr><h2>Error, contacte con un administrador</h2></tr>     
+                        </c:otherwise>
+                    </c:choose>         
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>
