@@ -220,6 +220,10 @@ public class ctrlUsuarios implements Serializable {
         return page;
     }
 
+    public boolean isSU() {
+        return rol.equals("SuperUsuario");
+    }
+
     public String sendEmail() throws DiarioSurException {
         String pag = validarEmail();
         if (pag == null) {
