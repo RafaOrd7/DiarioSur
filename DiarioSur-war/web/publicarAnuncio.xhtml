@@ -20,7 +20,7 @@
                                 <td>Subir imagen:</td>
                             </tr>  
                             <tr>
-                                <td><input type="file" id="files" name="files[]" value="#{publicarAnuncio.multimedia}"/></td>
+                                <td><p:fileUpload id="imAnu" mode="simple" value="#{publicarAnuncio.multimedia}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/></td>
                             </tr>
                             <tr>
                                 <td>Dimensiones:</td>

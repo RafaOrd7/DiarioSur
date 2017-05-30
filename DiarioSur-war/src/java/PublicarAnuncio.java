@@ -13,12 +13,17 @@ import Entidades.Anuncio;
 import Entidades.Evento;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -39,7 +44,7 @@ public class PublicarAnuncio {
     private String prioridad;
     private Date fechaPublicacion;
     private Date fechaExpiracion;
-    private File multimedia;
+    private byte[] multimedia;
     private String tags;
     private static Anuncio seleccionado;
     private String eventos;
@@ -231,23 +236,15 @@ public class PublicarAnuncio {
     /**
      * @return the multimedia
      */
-    public File getMultimedia() {
-        return multimedia;
+    public UploadedFile getMultimedia() {
+        return null;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(File multimedia) {
-        if (multimedia.getName().endsWith(".jpg")) {
-            this.multimedia = multimedia;
-        } else if (multimedia.getName().endsWith(".png")) {
-            this.multimedia = multimedia;
-        } else if (multimedia.getName().endsWith(".gif")) {
-            this.multimedia = multimedia;
-        } else {
-            throw new IllegalArgumentException("La imagen debe estar en uno de los siguientes formatos: .jpg, .gif, .png");
-        }
+    public void setMultimedia(UploadedFile multimedia) {
+       this.multimedia=multimedia.getContents();
 
     }
 
@@ -288,4 +285,17 @@ public class PublicarAnuncio {
         return negocio.getAnu();
 
     }
+    
+     public StreamedContent sacarImagenA(Anuncio a) throws IOException {
+        if (negocio.tieneImagenA(a)) {
+            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(a.getMultimedia()));
+            return stm;
+        } else {
+            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
+         
+            return stm;
+        }
+
+    }
+    
 }

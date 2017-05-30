@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
@@ -430,6 +431,7 @@ public class NegocioImpl implements Negocio {
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
+        ano.setMultimedia(new byte[0]);
         ano.setPrioridad("3");
         ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -571,7 +573,9 @@ public class NegocioImpl implements Negocio {
     @Override
     public Anuncio devolverAnuncio() {
         List<Anuncio> l = em.createQuery("select a from Anuncio a").getResultList();
-        return l.get(0);
+        Random r=new Random();
+       
+        return l.get(r.nextInt(l.size()));
     }
 
     @Override
@@ -730,6 +734,16 @@ public class NegocioImpl implements Negocio {
     public boolean tieneImagen(Evento e) {
         Evento aux=em.find(Evento.class, e.getId());
         if(aux.getImagen()==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public boolean tieneImagenA(Anuncio a) {
+        Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
+        if(aux.getMultimedia()==null){
             return false;
         }else{
             return true;

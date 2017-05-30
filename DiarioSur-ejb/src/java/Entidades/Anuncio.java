@@ -39,8 +39,8 @@ public class Anuncio implements Serializable {
     @Column(nullable = false, length = 100)
     @Temporal(value = TemporalType.DATE)
     private Date fechaExpiracion;
-    @Column(nullable = true, length = 1000)
-    private File multimedia;
+    @Column(nullable = false)
+    private byte[] multimedia;
     @Column(nullable = false, length = 50)
     private String empresa;
     @Column(nullable = false, length = 10)
@@ -52,6 +52,7 @@ public class Anuncio implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Administrador administrador;
+     
 
     public Administrador getAdministrador() {
         return administrador;
@@ -177,18 +178,18 @@ public class Anuncio implements Serializable {
     /**
      * @return the multimedia
      */
-    public File getMultimedia() {
+    public byte[] getMultimedia() {
         return multimedia;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(File multimedia) {
+    public void setMultimedia(byte[] multimedia) {
         this.multimedia = multimedia;
     }
 
-    public Anuncio(Date fP, Date fE, File m, String em, String dim, String pri, String tag, Administrador ad, List<Evento> ev) {
+    public Anuncio(Date fP, Date fE, byte[] m, String em, String dim, String pri, String tag, Administrador ad, List<Evento> ev) {
         fechaPublicacion = fP;
         fechaExpiracion = fE;
         multimedia = m;

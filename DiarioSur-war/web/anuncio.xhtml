@@ -28,11 +28,15 @@
                 <tr>
                     <td><h4>Tags: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
                 </tr>
+                <tr>
+                    <td>
+                        <p:graphicImage value="#{publicarAnuncio.sacarImagenA(publicarAnuncio.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
+                    </td>
+                </tr>
                 <td>
                     <p:commandButton value="Eliminar" action="#{publicarAnuncio.eliminarAnuncio()}" icon="ui-icon-star" ajax="false"/>
                 </td>
-                <tr>                   
-                </tr>
+
             </table>
 
 

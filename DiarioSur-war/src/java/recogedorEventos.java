@@ -67,20 +67,6 @@ public class recogedorEventos {
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
 
-    private StreamedContent chart;
-
-    private String ImagenProducto;
-
-    public String getImagenProducto() {
-        return ImagenProducto;
-        
-
-    }
-
-    public void setImagenProducto(String ImagenProducto) {
-        this.ImagenProducto = ImagenProducto;
-    }
-
     @EJB
     private Negocio negocio;
 

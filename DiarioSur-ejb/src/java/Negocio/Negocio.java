@@ -141,4 +141,6 @@ public interface Negocio {
     public boolean tieneImagen(Evento e);
     public void eliminarVal(Valoracion seleccionada);
 
+    public boolean tieneImagenA(Anuncio a);
+
 }
