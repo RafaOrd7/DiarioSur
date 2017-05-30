@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import static javax.persistence.CascadeType.REMOVE;
 
 /**
  *
@@ -43,18 +44,24 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private String compra;
     private Boolean verificado;
+    
     @Column(name = "geolocalización")
     private String geolocalizacion;
-    @OneToMany(mappedBy = "evento")
+    
+    @OneToMany(mappedBy = "evento", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Valoracion> valoraciones;
-    @OneToMany(mappedBy = "evento")
+    
+    @OneToMany(mappedBy = "evento", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Reporte> reportes;
+    
     @ManyToOne
     @JoinColumn(nullable = false)
     private UsuarioRegistrado usuarioRegistrado;
+    
     @ManyToOne
     @JoinColumn(nullable = false)
     private Anuncio anuncio;
+    
     // añadido por Mike
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;

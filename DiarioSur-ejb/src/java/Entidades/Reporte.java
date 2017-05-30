@@ -33,6 +33,20 @@ public class Reporte implements Serializable {
     @Column(nullable = false)
     private Date fecha;
     
+    @Column(nullable = false, length = 20)
+    private String tipo;
+    
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private Evento evento;
+    
+    @ManyToOne
+    @JoinColumn(nullable=true)
+    private Valoracion valoracion;
+    
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private UsuarioRegistrado usuarioRegistrado;
 
     public Long getId_reporte() {
         return id_reporte;
@@ -65,18 +79,6 @@ public class Reporte implements Serializable {
     public void setUsuarioRegistrado(UsuarioRegistrado usuarioRegistrado) {
         this.usuarioRegistrado = usuarioRegistrado;
     }
-    @Column(nullable = false, length = 20)
-    private String tipo;
-    
-    @ManyToOne
-    @JoinColumn(nullable=false)
-    private Evento evento;
-    @ManyToOne
-    @JoinColumn(nullable=true)
-    private Valoracion valoracion;
-    @ManyToOne
-    @JoinColumn(nullable=false)
-    private UsuarioRegistrado usuarioRegistrado;
     
     
 

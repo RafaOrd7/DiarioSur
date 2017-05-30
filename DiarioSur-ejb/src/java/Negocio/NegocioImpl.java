@@ -63,6 +63,14 @@ public class NegocioImpl implements Negocio {
         return existe;
     }
 
+    
+    @Override
+    public void eliminarVal(Valoracion seleccionada){
+        Query q = em.createQuery("delete from Reporte r where r.valoracion.idValoracion = "+seleccionada.getId());
+        q.executeUpdate();
+        em.remove(em.merge(seleccionada));
+    }
+    
     @Override
     public void crearAdmin(Administrador a) {
         contId++;
@@ -422,7 +430,7 @@ public class NegocioImpl implements Negocio {
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
-        ano.setPrioridad("mucha");
+        ano.setPrioridad("3");
         ano.setTags("vale");
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
         em.persist(ano);
@@ -513,7 +521,12 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void eliminarEvento(Evento e) {
+    public void eliminarEvento(Evento e) throws DiarioSurException{
+        Query q = em.createQuery("delete from Reporte r where r.evento.id_evento = " + e.getId());
+        q.executeUpdate();
+        for(Valoracion v : getValoraciones(e)){
+            eliminarVal(v);
+        }
         em.remove(em.merge(e));
     }
 

@@ -4,25 +4,11 @@
  * and open the template in the editor.
  */
 
-import Entidades.Administrador;
-import Entidades.JefeDeRedactores;
-import Entidades.Notificacion;
-import Entidades.Periodista;
-import Entidades.Reporte;
-import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 /**
  *

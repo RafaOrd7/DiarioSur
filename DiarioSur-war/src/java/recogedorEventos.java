@@ -230,11 +230,6 @@ public class recogedorEventos {
     public void setImagen(UploadedFile f) {
         imagen = f.getContents();
     }
-
-    public void mostrarTipo() {
-        System.out.println(tipo);
-    }
-
     public recogedorEventos() {
 
     }
@@ -244,7 +239,7 @@ public class recogedorEventos {
         return "EnviarReporte";
     }
 
-    public String eliminarEvento() {
+    public String eliminarEvento() throws DiarioSurException {
         negocio.eliminarEvento(seleccionado);
         return "index.xhtml";
     }

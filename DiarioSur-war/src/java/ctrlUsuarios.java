@@ -88,6 +88,7 @@ public class ctrlUsuarios implements Serializable {
         } else {
             usuario.setHistorialEventos("");
             usuario.setBorrado(false);
+            usuario.setPreferencias("");
             usuario.setMegusta(new ArrayList<>());
             negocio.registrarUsuario(usuario);
             usuario.setPreferencias("");
@@ -219,6 +220,10 @@ public class ctrlUsuarios implements Serializable {
             }
         }
         return page;
+    }
+
+    public boolean isSU() {
+        return rol.equals("SuperUsuario");
     }
 
     public String sendEmail() throws DiarioSurException {
@@ -382,7 +387,7 @@ public class ctrlUsuarios implements Serializable {
         return null;
     }
     
-    public boolean hayNotif() {
+    public boolean hayNotif() throws DiarioSurException {
         return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
     }
 
@@ -529,7 +534,10 @@ public class ctrlUsuarios implements Serializable {
                 aux.setPreferencias(usuario.getPreferencias());
                 aux.setMultimedia(usuario.getMultimedia());
                 aux.setHistorialEventos(usuario.getHistorialEventos());
-
+                
+                if (propio) {
+                    cta.setUsuarioLogeado(aux);
+                }
                 negocio.editaUR(aux);
 
                 break;
@@ -606,6 +614,10 @@ public class ctrlUsuarios implements Serializable {
                 sup.setHistorialEventos(su.getHistorialEventos());
                 sup.setEmpresa(su.getEmpresa());
 
+                if (propio) {
+                    cta.setUsuarioLogeado(sup);
+                }    
+                
                 negocio.editaSuperu(sup);
 
                 break;
@@ -683,6 +695,10 @@ public class ctrlUsuarios implements Serializable {
                 per.setCargo(p.getCargo());
                 per.setTelefono(p.getTelefono());
 
+                if (propio) {
+                    cta.setUsuarioLogeado(per);
+                }
+                
                 negocio.editaPeri(per);
                 break;
             case "SuperUsuario":
@@ -756,7 +772,11 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setEmpresa(jdr.getEmpresa());
                 jdre.setCargo(jdr.getCargo());
                 jdre.setTelefono(jdr.getTelefono());
-
+                
+                if (propio) {
+                    cta.setUsuarioLogeado(jdre);
+                }
+                
                 negocio.editaJdr(jdre);
                 break;
             case "Periodista":
@@ -830,6 +850,10 @@ public class ctrlUsuarios implements Serializable {
                 adm.setEmpresa(a.getEmpresa());
                 adm.setCargo(a.getCargo());
                 adm.setTelefono(a.getTelefono());
+                
+                if (propio) {
+                    cta.setUsuarioLogeado(adm);
+                }
 
                 negocio.editaAdmin(adm);
                 break;
