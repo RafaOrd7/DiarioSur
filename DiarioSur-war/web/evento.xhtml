@@ -67,7 +67,9 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td><h2>IMAGEN: </h2>
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" />
+                                </td>
                             </tr>
 
                             <tr>

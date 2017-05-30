@@ -15,11 +15,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -31,7 +54,7 @@ public class recogedorEventos {
 
     private String nombre;
     private String descripcion;
-    private File imagen;
+    private byte[] imagen;
     private Date fecha;
     private String lugar;
     private String tipo;
@@ -43,13 +66,26 @@ public class recogedorEventos {
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
 
+    private StreamedContent chart;
+
+    private String ImagenProducto;
+
+    public String getImagenProducto() {
+        return ImagenProducto;
+
+    }
+
+    public void setImagenProducto(String ImagenProducto) {
+        this.ImagenProducto = ImagenProducto;
+    }
+
     @EJB
     private Negocio negocio;
 
     @Inject
     private ctrlAutorizacion cta;
 
-    private static Evento seleccionado = new Evento();
+    private static Evento seleccionado;
 
     public String editarEvento() {
         Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
@@ -61,6 +97,14 @@ public class recogedorEventos {
         seleccionado = aux;
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";
+    }
+
+    public static Evento getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Evento seleccionado) {
+        this.seleccionado = seleccionado;
     }
 
     public String editar() {
@@ -106,14 +150,6 @@ public class recogedorEventos {
 
     public void setUsuario(UsuarioRegistrado usuario) {
         this.usuario = usuario;
-    }
-
-    public static Evento getSeleccionado() {
-        return seleccionado;
-    }
-
-    public void setSeleccionado(Evento seleccionado) {
-        recogedorEventos.seleccionado = seleccionado;
     }
 
     public String ver(Evento evento) throws DiarioSurException {
@@ -184,12 +220,13 @@ public class recogedorEventos {
         descripcion = d;
     }
 
-    public File getImagen() {
-        return imagen;
+    public UploadedFile getImagen() {
+
+        return null;
     }
 
-    public void setImagen(File f) {
-        imagen = f;
+    public void setImagen(UploadedFile f) {
+        imagen = f.getContents();
     }
 
     public void mostrarTipo() {
@@ -232,4 +269,27 @@ public class recogedorEventos {
         return "evento";
     }
 
+    public void subirImagen(FileUploadEvent event) {
+        FacesMessage mensaje = new FacesMessage();
+        try {
+            seleccionado.setImagen(event.getFile().getContents());
+            mensaje.setSummary("Imagen subida correctamente");
+        } catch (Exception e) {
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Problemas al subir la imagen");
+        }
+        FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
+
+    }
+
+    public StreamedContent sacarImagen(Evento e) throws IOException {
+        if (negocio.tieneImagen(e)) {
+            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(e.getImagen()));
+            return stm;
+        } else {
+            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
+            return stm;
+        }
+
+    }
 }

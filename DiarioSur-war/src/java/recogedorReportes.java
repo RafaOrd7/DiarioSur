@@ -127,7 +127,7 @@ public class recogedorReportes {
         Valoracion val = recogedorValoraciones.getSeleccionada();
         val.setEvento(ev);
 
-        System.out.println(val.getId() + " " + val.getEvento() + " " + val.getReportes() + " " + val.getUsuarioRegistrado());
+        
 
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
         //System.out.println(aux.getId()+" "+aux.getFecha()+" "+aux.getTexto()+" "+aux.getTipo()+" "+aux.getEvento()+" "+aux.getUsuarioRegistrado()+" "+aux.getValoracion());

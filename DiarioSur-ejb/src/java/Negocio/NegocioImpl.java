@@ -710,4 +710,14 @@ public class NegocioImpl implements Negocio {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
         return user.getPreferencias();
     }
+
+    @Override
+    public boolean tieneImagen(Evento e) {
+        Evento aux=em.find(Evento.class, e.getId());
+        if(aux.getImagen()==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
