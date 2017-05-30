@@ -573,14 +573,18 @@ public class NegocioImpl implements Negocio {
     @Override
     public Anuncio devolverAnuncio() {
         List<Anuncio> l = em.createQuery("select a from Anuncio a").getResultList();
-        Random r=new Random();
-       
+        Random r=new Random();      
         return l.get(r.nextInt(l.size()));
     }
 
     @Override
     public List<Evento> getEv() {
-        return em.createQuery("SELECT u FROM Evento u").getResultList();
+        //return em.createQuery("SELECT u FROM Evento u").getResultList();
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=true");
+        l=q.getResultList();
+        return l;
+        
     }
 
     @Override
@@ -748,5 +752,10 @@ public class NegocioImpl implements Negocio {
         }else{
             return true;
         }
+    }
+
+    @Override
+    public List<Evento> getAllEv() {
+        return em.createQuery("SELECT u FROM Evento u").getResultList();
     }
 }

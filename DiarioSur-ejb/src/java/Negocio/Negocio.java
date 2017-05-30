@@ -143,4 +143,6 @@ public interface Negocio {
 
     public boolean tieneImagenA(Anuncio a);
 
+    public List<Evento> getAllEv();
+
 }

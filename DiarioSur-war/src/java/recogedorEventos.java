@@ -151,6 +151,10 @@ public class recogedorEventos {
     public List<Evento> getEventos() {
         return negocio.getEv();
     }
+    
+    public List<Evento> getAllEventos(){
+        return negocio.getAllEv();
+    }
 
     public String getLugar() {
         return lugar;
