@@ -163,6 +163,7 @@
                             </p:column>
                             <p:column>
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
+                                <p:commandButton  value="Eliminar Valoración" action="#{recogedorValoraciones.eliminarVal(valoracion)}" ajax="false" icon="ui-icon-check" />
                             </p:column>
                         </p:dataTable>
                     </h:form>

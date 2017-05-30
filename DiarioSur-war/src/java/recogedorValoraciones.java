@@ -38,7 +38,14 @@ public class recogedorValoraciones {
 
     @EJB
     private Negocio negocio;
-
+    
+    public String eliminarVal(Valoracion v){
+        seleccionada = v;
+        negocio.eliminarVal(seleccionada);
+        return "evento.xhtml";
+    }
+    
+    
     public String reportar(Valoracion v) {
         seleccionada = v;
         return "EnviarReporteVal.xhtml";
