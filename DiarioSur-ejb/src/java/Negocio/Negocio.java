@@ -38,7 +38,7 @@ public interface Negocio {
 
     public void editarEvento(Evento e);
 
-    public void eliminarEvento(Evento e);
+    public void eliminarEvento(Evento e) throws DiarioSurException;
 
     public void meGusta(Evento e, UsuarioRegistrado u) throws DiarioSurException;
 
@@ -137,5 +137,7 @@ public interface Negocio {
     public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado);
 
     public String devolverPref(UsuarioRegistrado usuarioLogeado);
+
+    public void eliminarVal(Valoracion seleccionada);
 
 }
