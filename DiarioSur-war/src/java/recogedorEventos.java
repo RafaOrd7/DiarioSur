@@ -33,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,6 +73,7 @@ public class recogedorEventos {
 
     public String getImagenProducto() {
         return ImagenProducto;
+        
 
     }
 
@@ -288,8 +290,32 @@ public class recogedorEventos {
             return stm;
         } else {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
+         
             return stm;
         }
 
     }
+    
+    
+    public byte[] cogerArBy() throws FileNotFoundException{
+        File file = new File("resources/logoC.png");
+            System.out.println(file.exists() + "!!");
+            
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            try {
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum); 
+                    System.out.println("read " + readNum + " bytes,");
+                }
+            } catch (IOException ex) {
+              
+            }
+            
+            //bytes is the ByteArray we need
+            byte[] bytes = bos.toByteArray();
+            return bytes;
+    }
+    
 }
