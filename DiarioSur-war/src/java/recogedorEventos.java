@@ -200,7 +200,7 @@ public class recogedorEventos {
         return "EnviarReporte";
     }
 
-    public String eliminarEvento() {
+    public String eliminarEvento() throws DiarioSurException {
         negocio.eliminarEvento(seleccionado);
         return "index.xhtml";
     }

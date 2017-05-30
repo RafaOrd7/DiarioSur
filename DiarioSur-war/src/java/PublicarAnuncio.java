@@ -35,6 +35,20 @@ public class PublicarAnuncio {
 
     private String nombreEmpresa;
     private long id;
+    private String dimensiones;
+    private String prioridad;
+    private Date fechaPublicacion;
+    private Date fechaExpiracion;
+    private File multimedia;
+    private String tags;
+    private static Anuncio seleccionado;
+    private String eventos;
+    private boolean concierto;
+    private boolean exposicion;
+    private boolean musical;
+    private boolean deportivo;
+    private boolean teatral;
+    private boolean otro;
     
     
     
@@ -87,20 +101,6 @@ public class PublicarAnuncio {
     public void setOtro(boolean otro) {
         this.otro = otro;
     }
-    private String dimensiones;
-    private int prioridad;
-    private Date fechaPublicacion;
-    private Date fechaExpiracion;
-    private File multimedia;
-    private String tags;
-    private static Anuncio seleccionado;
-    private String eventos;
-    private boolean concierto;
-    private boolean exposicion;
-    private boolean musical;
-    private boolean deportivo;
-    private boolean teatral;
-    private boolean otro;
 
     public String getEventos() {
         return eventos;
@@ -126,7 +126,7 @@ public class PublicarAnuncio {
         anuncio.setFechaPublicacion(fechaPublicacion);
         anuncio.setFechaExpiracion(fechaExpiracion);
         anuncio.setMultimedia(multimedia);
-        anuncio.setPrioridad(dimensiones);
+        anuncio.setPrioridad(prioridad);
         anuncio.setTags(tags);
         anuncio.setAdministrador((Administrador)cta.getUsuarioLogeado());
 
@@ -200,14 +200,14 @@ public class PublicarAnuncio {
     /**
      * @return the prioridad
      */
-    public int getPrioridad() {
+    public String getPrioridad() {
         return prioridad;
     }
 
     /**
      * @param prioridad the prioridad to set
      */
-    public void setPrioridad(int prioridad) {
+    public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
 
