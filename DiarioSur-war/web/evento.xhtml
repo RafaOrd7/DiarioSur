@@ -135,7 +135,7 @@
                         </tr>
                     </table>
                     <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
+                    <p:graphicImage value="#{publicarAnuncio.sacarImagenA(recogedorEventos.getSeleccionado().anuncio)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
                     <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
                         <table align="center">
                             <tr>
