@@ -49,6 +49,9 @@
                     <p:column headerText="Fecha">
                         <h:outputText value="#{valoracion.FechaString()}" />
                     </p:column>
+                    <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
+                            </p:column>
                     <p:column headerText="Calificación">
                         <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
                     </p:column>
@@ -131,11 +134,11 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
+                                <td><p:inputTextarea id="Comentario" required="true" rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
                                 <br/>
                             </tr>
                             <tr>
@@ -148,6 +151,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -225,7 +231,7 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
@@ -242,6 +248,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -319,7 +328,7 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
@@ -336,6 +345,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -414,7 +426,7 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
@@ -431,6 +443,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -508,7 +523,7 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
@@ -525,6 +540,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
@@ -597,7 +615,7 @@
                             <tr>
                                 <td><p:growl id="messages" showDetail="true" />
                                     <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false" />
+                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
                                     </h:panelGrid></td>
                             </tr>
                             <tr>                    
@@ -614,6 +632,9 @@
                         <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
                             <p:column headerText="Fecha">
                                 <h:outputText value="#{valoracion.FechaString()}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
                             <p:column headerText="Calificación">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
