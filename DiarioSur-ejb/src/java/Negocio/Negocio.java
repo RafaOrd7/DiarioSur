@@ -138,6 +138,7 @@ public interface Negocio {
 
     public String devolverPref(UsuarioRegistrado usuarioLogeado);
 
+    public boolean tieneImagen(Evento e);
     public void eliminarVal(Valoracion seleccionada);
 
 }

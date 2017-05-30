@@ -75,7 +75,7 @@ public class ctrlUsuarios implements Serializable {
             negocio.rellenarBd();
             cont++;
         }
-
+        
         String pag = null;
         if (negocio.existeUsuario(usuario)) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -91,6 +91,7 @@ public class ctrlUsuarios implements Serializable {
             usuario.setPreferencias("");
             usuario.setMegusta(new ArrayList<>());
             negocio.registrarUsuario(usuario);
+            usuario.setPreferencias("");
 
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario " + usuario.getEmail() + " registrado correctamente.",

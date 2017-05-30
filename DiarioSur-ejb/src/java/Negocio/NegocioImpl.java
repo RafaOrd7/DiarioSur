@@ -417,6 +417,7 @@ public class NegocioImpl implements Negocio {
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
+        
 
         em.persist(ad);
      
@@ -447,6 +448,7 @@ public class NegocioImpl implements Negocio {
         e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
+        e.setImagen(new byte[0]);
 
         em.persist(e);
 
@@ -722,5 +724,15 @@ public class NegocioImpl implements Negocio {
     public String devolverPref(UsuarioRegistrado usuarioLogeado) {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
         return user.getPreferencias();
+    }
+
+    @Override
+    public boolean tieneImagen(Evento e) {
+        Evento aux=em.find(Evento.class, e.getId());
+        if(aux.getImagen()==null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

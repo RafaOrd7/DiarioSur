@@ -134,6 +134,7 @@ public class ctrlAutorizacion implements Serializable {
 
     public int comprobarUserRegistradoEv() {
         if (usuarioLogeado != null && usuarioLogeado.getIdUser().substring(0, 1).equals("U")) {
+            
             if (usuarioLogeado.getIdUser().equals(recogedorEventos.getSeleccionado().getUsuarioRegistrado().getIdUser())) {
                 return 2;
             }

@@ -66,7 +66,7 @@ public class Evento implements Serializable {
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
-    private File imagen;
+    private byte[] imagen;
     
     
     
@@ -127,11 +127,11 @@ public class Evento implements Serializable {
         this.user_megusta = user_megusta;
     }
 
-    public File getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(File imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
     
