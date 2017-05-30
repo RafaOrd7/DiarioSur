@@ -13,7 +13,7 @@
         <c:choose>
             <c:when test="#{!recogedorBusquedas.isEncontrado()}">
                 <h:form> 
-                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento" chunkSize="5">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento" chunkSize="10">
                         <f:facet name="header">
                             Evento
                         </f:facet>
@@ -23,6 +23,7 @@
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <p:graphicImage value="#{recogedorEventos.sacarImagen(evento)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
@@ -54,6 +55,7 @@
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <p:graphicImage value="#{recogedorEventos.sacarImagen(evento)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />

@@ -409,6 +409,7 @@ public class NegocioImpl implements Negocio {
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
+        
 
         em.persist(ad);
      
@@ -439,6 +440,7 @@ public class NegocioImpl implements Negocio {
         e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
+        e.setImagen(new byte[0]);
 
         em.persist(e);
 

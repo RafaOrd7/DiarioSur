@@ -13,7 +13,7 @@
         <c:if test="#{empty ctrlAutorizacion.getUsuarioLogeado()}">
             <table align="center">   
                 <tr>
-                    <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                    <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                 </tr>
 
                 <tr>
@@ -66,11 +66,7 @@
                 <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td><h2>IMAGEN: </h2>
-                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" />
-                                </td>
-                            </tr>
+
 
                             <tr>
 
@@ -100,7 +96,11 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-
+                        <tr>
+                            <td>
+                                <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
+                            </td>
+                        </tr>
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -167,7 +167,7 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                             </tr>
 
                             <tr>
@@ -261,7 +261,7 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                             </tr>
 
                             <tr>
@@ -356,7 +356,7 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                             </tr>
 
                             <tr>
@@ -450,7 +450,7 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                             </tr>
 
                             <tr>
@@ -544,7 +544,7 @@
                     <table align="center">                
                         <h:form>
                             <tr>
-                                <td><h2>IMAGEN #{recogedorEventos.imagen}</h2></td>
+                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
                             </tr>
 
                             <tr>

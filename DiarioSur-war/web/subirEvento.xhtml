@@ -22,8 +22,7 @@
                                 </tr>  
                                 <tr>
                                     <td>
-                                        <p:fileUpload id="filImaPro" mode="single" fileUploadListener="#{recogedorEventos.subirImagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" uploadLabel="Subir Imagen" label="Elegir" update="graImaPro"/>
-                                        <p:graphicImage id="graImaPro" value="#{recogedorEventos.imagenProducto}" width="150" height="120"/>
+                                        <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                                     </td>
                                 </tr>                                                             
                                 <tr>
@@ -94,11 +93,11 @@
                         <p:panel header="Nuevo anuncio" style="margin-bottom:10px;">
                             <table>
                                 <tr>
-                                    <td>Subir imagen222:</td>
+                                    <td>Subir imagen:</td>
                                 </tr>  
                                 <tr>
-                                    <td> <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="graImaPro"/>
-                                        <p:graphicImage id="graImaPro" value="#{recogedorEventos.imagen}" width="150" height="120"/></td>
+                                    <td> <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                       </td>
                                 </tr>
                                 <tr>
                                     <td>Nombre evento:</td>
