@@ -6,6 +6,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +38,11 @@ public class Notificacion implements Serializable {
     @ManyToOne
     @JoinColumn(nullable  = false)
     private UsuarioRegistrado usuarioRegistrado;
+    
+    public String FechaString() {
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fecha);
+    }
 
     public UsuarioRegistrado getUsuarioRegistrado() {
         return usuarioRegistrado;
