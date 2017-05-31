@@ -15,12 +15,14 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -138,6 +140,22 @@ public class PublicarAnuncio {
     }
 
     public String subirAnuncio() throws DiarioSurException {
+        if(fechaPublicacion.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del anuncio no puede ser anterior a la fecha actual",
+                    "La fecha del anuncio no puede ser anterior a la fecha actual"));
+            return null;
+        }
+        
+        if(fechaExpiracion.compareTo(fechaPublicacion)<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion",
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion"));
+            return null;
+        }
+        
         crear();
         negocio.crearAnuncio(anuncio);
         return "index.xhtml";
@@ -287,15 +305,18 @@ public class PublicarAnuncio {
     }
     
      public StreamedContent sacarImagenA(Anuncio a) throws IOException {
+       
         if (negocio.tieneImagenA(a)) {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(a.getMultimedia()));
             return stm;
         } else {
-            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
-         
+            StreamedContent stm;
+            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux=origRequest.getRequestURL().toString();
+            aux=aux.substring(0,aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
             return stm;
         }
-
     }
     
 }
