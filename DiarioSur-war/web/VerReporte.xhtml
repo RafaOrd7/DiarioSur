@@ -12,38 +12,31 @@
     <ui:define name="content">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkAdm()}">
-
-                <h:form>  
-                    <h1 align="center">REPORTE</h1>  
-                    <table align="center">
-                        <tr>
-
-                            <td>Id: #{recogedorReportes.getSeleccionado().getId()}</td>
-                        </tr>
-                        <tr>
-                            <td>Usuario que ha reportado: #{recogedorReportes.getSeleccionado().getUsuarioRegistrado().getNombre()}</td>
-                        </tr>
-                        <tr>
-                            <td> Fecha: #{recogedorReportes.getSeleccionado().FechaString()}   </td>
-                        </tr>
-                        <tr>               
-                            <td>Tipo: #{recogedorReportes.getSeleccionado().getTipo()}</td>
-                        </tr>
-                        <tr> 
-                            <td> Comentario: #{recogedorReportes.getSeleccionado().getTexto()}</td>
-                        </tr>  
-                        <tr> 
-                            <td>
-                                Evento:  <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
-                            </td>
-                        </tr>
-                        <tr> 
-                            <td>
-                                <p:commandButton  value="Eliminar Reporte" action="#{recogedorReportes.eliminarEv()}" ajax="false" icon="ui-icon-check" />
-                            </td>
-                        </tr>
-                    </table>
-                </h:form>
+                <p:panel header="Reporte #{recogedorReportes.getSeleccionado().getId()}" style="margin-bottom:10px;">
+                    <h:form>  
+                        <p:panelGrid columns="2" style="border-style:none; border:none">
+                            <h:outputText value="Id:"/>
+                            <h:outputText value="#{recogedorReportes.getSeleccionado().getId()}"/>
+                            
+                            <h:outputText value="Usuario que ha reportado:"/>
+                            <h:outputText value="#{recogedorReportes.getSeleccionado().getUsuarioRegistrado().getNombre()}"/>
+                            
+                            <h:outputText value="Fecha:"/>
+                            <h:outputText value="#{recogedorReportes.getSeleccionado().FechaString()}"/>
+                            
+                            <h:outputText value="Tipo:"/>
+                            <h:outputText value="#{recogedorReportes.getSeleccionado().getTipo()}"/>
+                            
+                            <h:outputText value="Comentario:"/>
+                            <h:outputText value="#{recogedorReportes.getSeleccionado().getTexto()}"/>
+                            
+                            <h:outputText value="Evento:"/>
+                            <h:commandLink action="evento.xhtml" value="#{recogedorEventos.getSeleccionado().getNombre()}"/>
+                            
+                            <p:commandButton  value="Eliminar Reporte" action="#{recogedorReportes.eliminarEv()}" ajax="false" icon="fa fa-close" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:panel>
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>

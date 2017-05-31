@@ -76,7 +76,7 @@ public class ctrlUsuarios implements Serializable {
     public String nuevoUsuario() throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (cont == 0) {
-            negocio.rellenarBd();
+            negocio.rellenarBd(); // Eliminar ésta línea si la base de datos ya tiene datos (ésta llamada se hace porque tenemos un DROP AND CREATE
             cont++;
         }
 

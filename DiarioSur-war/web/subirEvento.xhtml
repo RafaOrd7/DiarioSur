@@ -17,10 +17,10 @@
                         <p:panelGrid columns="2" style="border-style:none; border:none">
                             Subir imagen:
                             <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                            Nombre evento:
-                            <p:inputText id="Nombre_evento" required="true" value="#{recogedorEventos.nombre}"/>
-                            Tipo:
-                            <h:selectOneRadio id="Tipo" required="true" value="#{recogedorEventos.tipo}">
+                            Nombre evento*:
+                            <p:inputText id="Nombre_evento" required="true" requiredMessage="Campo nombre obligatorio" value="#{recogedorEventos.nombre}"/>
+                            Tipo*:
+                            <h:selectOneRadio id="Tipo" required="true" requiredMessage="Campo tipo obligatorio" value="#{recogedorEventos.tipo}">
                                 <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
                                 <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
                                 <f:selectItem itemValue="musical" itemLabel="Musical" />
@@ -29,19 +29,22 @@
                                 <f:selectItem itemValue="otro"  itemLabel="Otro" />
                             </h:selectOneRadio>
                             Fecha:*
-                            <p:calendar required="true" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
-                            Lugar:
-                            <p:inputText id="Lugar" value="#{recogedorEventos.lugar}"/>
-                            Coordenadas:
-                            <p:inputText id="coordenadas" value="#{recogedorEventos.geolocalizacion}"/>
-                            Precio:
-                            <p:inputNumber id="Precio" required="true" value="#{recogedorEventos.precio}"/>
-                            Web compra:
-                            <p:inputText id="Web" required="true" value="#{recogedorEventos.compra}"/>
+                            <p:calendar required="true" requiredMessage="Campo fecha obligatorio" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
+                            Lugar*:
+                            <p:inputText id="Lugar" required="true" requiredMessage="Campo lugar obligatorio" value="#{recogedorEventos.lugar}"/>
+                            Coordenadas*:
+                            <p:inputText id="coordenadas" required="true" requiredMessage="Campo coordenadas obligatorio" validatorMessage="Las coordenadas no son correctas"
+                                         value="#{recogedorEventos.geolocalizacion}">
+                                <f:validateRegex pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$" />
+                            </p:inputText>
+                            Precio*:
+                            <p:inputNumber id="Precio" required="true" requiredMessage="Campo precio obligatorio (0 si es gratuito)" value="#{recogedorEventos.precio}"/>
+                            Web compra*:
+                            <p:inputText id="Web" required="true" requiredMessage="Campo web de compra obligatorio" value="#{recogedorEventos.compra}"/>
                             Descripción del evento:
                             <p:inputTextarea id="Descripción" rows="10" cols="50"  queryDelay="750" minQueryLength="4" maxlength="255" value="#{recogedorEventos.descripcion}" />
-                            Tags:
-                            <p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" />
+                            Tags*:
+                            <p:inputTextarea id="Tags" required="true" rows="2" requiredMessage="Campo tags obligatorio" cols="50"  queryDelay="750" minQueryLength="4" maxlength="255" value="#{recogedorEventos.tags}" />
                             <p:commandButton value="Subir" ajax="false" action="#{recogedorEventos.enviarEvento()}"></p:commandButton>
                         </p:panelGrid>
                     </p:panel>

@@ -8,41 +8,36 @@
 
 
     <ui:define name="content">
-        <h:form>
-            <table align="center">
-                <tr>
-                    <td><h4>Id: #{publicarAnuncio.getSeleccionado().getId_anuncio()}</h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Empresa: #{publicarAnuncio.getSeleccionado().getEmpresa()} </h4></td>
-                </tr>           
-                <tr>
-                    <td><h4>Fecha de inicio: #{publicarAnuncio.getSeleccionado().FechaPublicacionString()} </h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Fecha de expiracion: #{publicarAnuncio.getSeleccionado().FechaExpiracionString()} </h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Prioridad: #{publicarAnuncio.getSeleccionado().getPrioridad()}</h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Tags: #{publicarAnuncio.getSeleccionado().getTags()}</h4></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:graphicImage value="#{publicarAnuncio.sacarImagenA(publicarAnuncio.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
-                    </td>
-                </tr>
-                <td>
-                    <p:commandButton value="Eliminar" action="#{publicarAnuncio.eliminarAnuncio()}" icon="ui-icon-star" ajax="false"/>
-                </td>
+        <p:panel header="Anuncio #{publicarAnuncio.getSeleccionado().getId_anuncio()}" style="margin-bottom:10px;">
+            <h:form>
+                <p:panelGrid columns="2" style="border-style:none; border:none">
+                    Id:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().getId_anuncio()}"/>
 
-            </table>
+                    Empresa:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().getEmpresa()}"/>
 
+                    Fecha de inicio:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().FechaPublicacionString()}"/>
 
-        </h:form>
+                    Fecha de expiracion:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().FechaExpiracionString()}"/>
+
+                    Prioridad:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().getPrioridad()}"/>
+
+                    Tags:
+                    <h:outputText value="#{publicarAnuncio.getSeleccionado().getTags()}"/>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:graphicImage value="#{publicarAnuncio.sacarImagenA(publicarAnuncio.getSeleccionado())}" stream="false" width="250px" height="250px"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:commandButton value="Eliminar" action="#{publicarAnuncio.eliminarAnuncio()}" icon="fa fa-close" ajax="false"/>
+            </h:form>
+        </p:panel>
 
     </ui:define>
-
-
 </ui:composition>

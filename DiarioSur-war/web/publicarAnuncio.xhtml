@@ -15,63 +15,25 @@
 
                 <h:form enctype="multipart/form-data" id="form">
                     <p:panel header="Nuevo anuncio" style="margin-bottom:10px;">
-                        <table>
-                            <tr>
-                                <td>Subir imagen:</td>
-                            </tr>  
-                            <tr>
-                                <td><p:fileUpload id="imAnu" mode="simple" value="#{publicarAnuncio.multimedia}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/></td>
-                            </tr>
-                            <tr>
-                                <td>Dimensiones:</td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Dimensiones" required="true" value="#{publicarAnuncio.dimensiones}"/></td>
-                            </tr>
-                            <tr>
-                                <td>Nombre de la empresa:</td>
-                            </tr>  
-                            <tr>
-                                <td><p:inputText value="#{publicarAnuncio.nombreEmpresa}" required="true" requiredMessage="Campo empresa obligatorio" /></td>
-                            </tr>
-                            <tr>
-                                <td>Fecha de inicio:*</td>
-                            </tr>
-                            <tr>
-                                <td><p:calendar id="datetime1" value="#{publicarAnuncio.fechaPublicacion}" pattern="MM/dd/yyyy HH:mm:ss" required="true" requiredMessage="Campo fecha obligatorio" /></td>
-
-                            </tr>
-
-                            <tr>
-                                <td>Fecha de expiración:*</td>
-                            </tr>
-                            <tr>
-                                <td><p:calendar id="datetime2" value="#{publicarAnuncio.fechaExpiracion}" pattern="MM/dd/yyyy HH:mm:ss" required="true" requiredMessage="Campo fecha obligatorio"  /></td>
-                            </tr>
-
-                            <tr>
-                                <td>Prioridad (1-3):</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:inputText id="prioridad" value="#{publicarAnuncio.prioridad}" required="true" requiredMessage="Campo prioridad obligatorio"
-                                                 validatorMessage="El valor introducido no cumple el formato">
-                                        <f:validateRegex pattern="([1-3])" />
-                                    </p:inputText>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tags:</td>
-                            </tr>
-                            <tr>
-                                <td><p:inputTextarea  rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{publicarAnuncio.tags}" /></td>
-                            </tr>
-
-                            <tr>                   
-                                <td><h:commandButton value="Crear anuncio" action="#{publicarAnuncio.subirAnuncio()}"></h:commandButton></td>
-                            </tr>
-                        </table>
+                        <p:panelGrid columns="2" style="border-style:none; border:none">
+                            Subir imagen:
+                            <p:fileUpload id="imAnu" mode="simple" value="#{publicarAnuncio.multimedia}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                            Dimensiones:
+                            <p:inputText id="Dimensiones" required="true" requiredMessage="Campo dimensiones obligatorio" value="#{publicarAnuncio.dimensiones}"/>
+                            Nombre de la empresa:
+                            <p:inputText value="#{publicarAnuncio.nombreEmpresa}" required="true" requiredMessage="Campo empresa obligatorio" />Fecha de inicio:*
+                            <p:calendar id="datetime1" value="#{publicarAnuncio.fechaPublicacion}" pattern="MM/dd/yyyy HH:mm:ss" required="true" requiredMessage="Campo fecha obligatorio" />
+                            Fecha de expiración:*
+                            <p:calendar id="datetime2" value="#{publicarAnuncio.fechaExpiracion}" pattern="MM/dd/yyyy HH:mm:ss" required="true" requiredMessage="Campo fecha obligatorio"  />
+                            Prioridad (1-3):
+                            <p:inputText id="prioridad" value="#{publicarAnuncio.prioridad}" required="true" requiredMessage="Campo prioridad obligatorio"
+                                         validatorMessage="El valor introducido no cumple el formato">
+                                <f:validateRegex pattern="([1-3])" />
+                            </p:inputText>
+                            Tags:
+                            <p:inputTextarea  rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{publicarAnuncio.tags}" />
+                            <p:commandButton value="Crear anuncio" ajax="false" action="#{publicarAnuncio.subirAnuncio()}"></p:commandButton>
+                        </p:panelGrid>
                     </p:panel>
                 </h:form>                
             </c:when>

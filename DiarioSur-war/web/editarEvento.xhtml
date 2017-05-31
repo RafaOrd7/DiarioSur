@@ -11,169 +11,82 @@
 
     <ui:define name="content">
         <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
-            <c:choose>
-                <c:when test="#{ctrlAutorizacion.comprobarUserRegistradoEv() >1}">
-                    <h:form enctype="multipart/form-data" id="form">
-                        <p:growl id="msgs" showDetail="true" />
-                        <table align="center">
-                            <tr>
-                                    <td>Subir imagen:</td>
-                                </tr>  
-                                <tr>
-                                    <td>
-                                        <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.getSeleccionado().imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                    </td>
-                                </tr> 
-                            <tr>
-                                <td><h4>Nombre evento:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Nombre_evento" required="true" value="#{recogedorEventos.getSeleccionado().nombre}"/></td>
-                            </tr>
+            <p:panel header="Editar evento" style="margin-bottom:10px;">
+                <c:choose>
+                    <c:when test="#{ctrlAutorizacion.comprobarUserRegistradoEv() >1}">
 
-                            <tr>
-                                <td><h4>Tipo:</h4></td>
-                            </tr>
-                            <tr>
-                                <td> <h:selectOneRadio id="Tipo" required="true"  value="#{recogedorEventos.getSeleccionado().tipo}">
-                                        <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
-                                        <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
-                                        <f:selectItem itemValue="musical" itemLabel="Musical" />
-                                        <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
-                                        <f:selectItem itemValue="teatral" itemLabel="Teatral" />
-                                        <f:selectItem itemValue="otro"  itemLabel="Otro" />
-                                    </h:selectOneRadio></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Fecha:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:outputLabel  for="datetime" />
-                                    <p:calendar required="true" id="datetime" value="#{recogedorEventos.getSeleccionado().fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Lugar:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Lugar" value="#{recogedorEventos.getSeleccionado().geolocalizacion}"/></td>
-                            </tr> 
-                            <tr>
-                                <td><h4>Precio:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputNumber id="Precio" required="true" value="#{recogedorEventos.getSeleccionado().precio}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Web compra:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Web" required="true"  value="#{recogedorEventos.getSeleccionado().compra}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Descripción del evento:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputTextarea id="Descripcion" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().descripcion}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Tags:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().tags}"/></td>
-                            </tr>
-                            <tr>                   
-                                <td><h:commandButton value="Subir" action="#{recogedorEventos.editarEvento()}"></h:commandButton></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                </c:when>
+                        <h:form enctype="multipart/form-data" id="form">
+                            <p:panelGrid columns="2" style="border-style:none; border:none">
+                                Subir imagen:
+                                <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.getSeleccionado().imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                Nombre evento:*
+                                <p:inputText id="Nombre_evento" required="true" value="#{recogedorEventos.getSeleccionado().nombre}"/>
+                                Tipo:*
+                                <h:selectOneRadio id="Tipo" required="true"  value="#{recogedorEventos.getSeleccionado().tipo}">
+                                    <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                                    <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                                    <f:selectItem itemValue="musical" itemLabel="Musical" />
+                                    <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                                    <f:selectItem itemValue="teatral" itemLabel="Teatral" />
+                                    <f:selectItem itemValue="otro"  itemLabel="Otro" />
+                                </h:selectOneRadio>
+                                Fecha:*
+                                <p:calendar required="true" id="datetime" value="#{recogedorEventos.getSeleccionado().fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
+                                Lugar:*
+                                <p:inputText id="Lugar" value="#{recogedorEventos.getSeleccionado().geolocalizacion}"/>
+                                Precio:*
+                                <p:inputNumber id="Precio" required="true" value="#{recogedorEventos.getSeleccionado().precio}"/>
+                                Web compra:*
+                                <p:inputText id="Web" required="true"  value="#{recogedorEventos.getSeleccionado().compra}"/>
+                                Descripción del evento:
+                                <p:inputTextarea id="Descripcion" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().descripcion}"/>
+                                Tags:*
+                                <p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().tags}"/>
+                                <h:commandButton value="Subir" action="#{recogedorEventos.editarEvento()}"></h:commandButton>
+                            </p:panelGrid>
+                        </h:form>
+
+                    </c:when>
 
 
-                <c:otherwise>
-                    <h:form enctype="multipart/form-data" id="form">
-                        <p:growl id="msgs" showDetail="true" />
-                        <table align="center">
-                           <tr>
-                                    <td>Subir imagen:</td>
-                                </tr>  
-                                <tr>
-                                    <td>
-                                        <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                    </td>
-                                </tr> 
-                            <tr>
-                                <td><h4>Nombre evento:</h4></td>
-                            </tr>
-                            <tr>
+                    <c:otherwise>
 
-                                <td> <h:outputLabel for="NEv" value="Nombre:" />
-                                    <p:inputText value="#{recogedorEventos.getSeleccionado().nombre}"  label="NEv" 
-                                                 required="true"  /></td>
-                            </tr>
-
-                            <tr>
-                                <td><h4>Tipo:</h4></td>
-                            </tr>
-                            <tr>
-                                <td> <h:selectOneRadio id="Tipo" required="true"  value="#{recogedorEventos.getSeleccionado().tipo}">
-                                        <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
-                                        <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
-                                        <f:selectItem itemValue="musical" itemLabel="Musical" />
-                                        <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
-                                        <f:selectItem itemValue="teatral" itemLabel="teatral" />
-                                        <f:selectItem itemValue="otro"  itemLabel="otro" />
-                                    </h:selectOneRadio></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Fecha:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:outputLabel  for="datetime" />
-                                    <p:calendar required="true"  id="datetime" value="#{recogedorEventos.getSeleccionado().fecha}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Lugar:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Lugar" value="#{recogedorEventos.getSeleccionado().geolocalizacion}"/></td>
-                            </tr> 
-                            <tr>
-                                <td><h4>Precio:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputNumber id="Precio" required="true" value="#{recogedorEventos.getSeleccionado().precio}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Web compra:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputText id="Web" required="true" value="#{recogedorEventos.getSeleccionado().compra}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Verificado </h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:selectBooleanButton id="Verificado" required="true"  value="#{recogedorEventos.getSeleccionado().verificado}" onLabel="Si" offLabel="No" /></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Descripción del evento:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputTextarea id="Descripcion" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().descripcion}"/></td>
-                            </tr>
-                            <tr>
-                                <td><h4>Tags:</h4></td>
-                            </tr>
-                            <tr>
-                                <td><p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().tags}"/></td>
-                            </tr>
-                            <tr>                   
-                                <td><h:commandButton value="Subir" action="#{recogedorEventos.editarEvento()}"></h:commandButton></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                </c:otherwise>  
-            </c:choose>
+                        <h:form enctype="multipart/form-data" id="form">
+                            <p:panelGrid columns="2" style="border-style:none; border:none">
+                                Subir imagen:
+                                <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                Nombre evento:*
+                                <p:inputText value="#{recogedorEventos.getSeleccionado().nombre}"  label="NEv" 
+                                             required="true"  />
+                                Tipo:*
+                                <h:selectOneRadio id="Tipo" required="true"  value="#{recogedorEventos.getSeleccionado().tipo}">
+                                    <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                                    <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                                    <f:selectItem itemValue="musical" itemLabel="Musical" />
+                                    <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                                    <f:selectItem itemValue="teatral" itemLabel="teatral" />
+                                    <f:selectItem itemValue="otro"  itemLabel="otro" />
+                                </h:selectOneRadio>
+                                Fecha:*
+                                <p:calendar required="true"  id="datetime" value="#{recogedorEventos.getSeleccionado().fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
+                                Lugar:*
+                                <p:inputText id="Lugar" value="#{recogedorEventos.getSeleccionado().geolocalizacion}"/>
+                                Precio:*
+                                <p:inputNumber id="Precio" required="true" value="#{recogedorEventos.getSeleccionado().precio}"/>
+                                Web compra:*
+                                <p:inputText id="Web" required="true" value="#{recogedorEventos.getSeleccionado().compra}"/>
+                                Verificado:*
+                                <p:selectBooleanButton id="Verificado" required="true"  value="#{recogedorEventos.getSeleccionado().verificado}" onLabel="Si" offLabel="No" />
+                                Descripción del evento:
+                                <p:inputTextarea id="Descripcion" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().descripcion}"/>
+                                Tags:*
+                                <p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.getSeleccionado().tags}"/>
+                                <p:commandButton value="Subir" ajax="false" action="#{recogedorEventos.editarEvento()}"/>
+                            </p:panelGrid>
+                        </h:form>
+                    </c:otherwise>  
+                </c:choose>
+            </p:panel>
         </c:if>
     </ui:define>
 

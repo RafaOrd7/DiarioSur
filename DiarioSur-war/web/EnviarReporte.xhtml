@@ -24,7 +24,7 @@
                     <br/>
                     <h4>Cuéntanos más</h4>
                     <p>Especifiquenos el motivo de su reporte</p>
-                    <p:inputTextarea rows="10" cols="50" value="#{recogedorReportes.comentario}"/>
+                    <p:inputTextarea rows="10" cols="50" value="#{recogedorReportes.comentario}" minQueryLength="4"/>
                     <br/>
                     <p:commandButton value="Enviar reporte" ajax="false" action="#{recogedorReportes.enviarReporte()}"></p:commandButton>
                 </h:form>

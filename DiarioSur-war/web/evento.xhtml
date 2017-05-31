@@ -20,7 +20,7 @@
                                 <p:selectBooleanButton required="true"  value="#{recogedorEventos.getSeleccionado().verificado}" rendered="${ctrlAutorizacion.checkP()}" disabled="true" style="margin-right:0.3em" onLabel="Verificado" offLabel="No verificado"/>
                                 <p:commandButton action="#{recogedorEventos.editar()}" style="margin-right:0.3em" icon="fa fa-pencil" ajax="false" title="Editar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserRegistradoEv() > 1 || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
                                 <p:commandButton action="#{recogedorEventos.eliminarEvento()}" icon="fa fa-close" ajax="false" title="Eliminar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
-                                    
+
                                 <c:if test="${ctrlAutorizacion.checkP()}">
                                     <span class="ui-separator" hidden="true" >
                                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
@@ -74,25 +74,26 @@
             <!-- VALORACIONES -->
             <div class="ui-g" >
                 <!-- VALORACION PROPIA -->
-                <div class="ui-g-12 ui-md-6 ui-lg-3">
-                    <h:form>
-                        <h3>Deja tu valoración</h3>
-                        <p:rating value="#{recogedorValoraciones.rating}" required="false" cancel="true" stars="5"/>
-                        <br/>
-                        <p:inputTextarea rows="10" cols="40" required="true" value="#{recogedorValoraciones.comentario}"/>
-                        <br/>
-                        <p:commandButton value="Enviar valoración" ajax="false" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></p:commandButton >
-                    </h:form>
+                <c:if test="${ctrlAutorizacion.checkLog()}">
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <h:form>
+                            <h3>Deja tu valoración</h3>
+                            <p:rating value="#{recogedorValoraciones.rating}" required="false" cancel="true" stars="5"/>
+                            <br/>
+                            <p:inputTextarea rows="10" cols="40" required="true"  value="#{recogedorValoraciones.comentario}"/>
+                            <br/>
+                            <p:commandButton value="Enviar valoración" ajax="false" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></p:commandButton >
+                        </h:form>
+                    </div>
+                </c:if>
 
-                </div>
-                
                 <!-- GELOCALIZACIÓN -->
                 <div class="ui-g-12 ui-md-6 ui-lg-9">
                     <h3>Geolocalización</h3>
                     <p:gmap center="#{recogedorEventos.getSeleccionado().getGeolocalizacion()}" zoom="15" type="HYBRID" style="width:100%;height:300px" model="#{recogedorEventos.model}" />
                 </div>
             </div>
-            
+
             <!-- TABLA VALORACIONES + EVENTOS RECOMENDADOS -->
             <div class="ui-g">
                 <div class="ui-g-12">
