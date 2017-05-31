@@ -63,6 +63,33 @@
                     </p:column>
                 </p:dataTable>
             </h:form>
+            <br/>
+            <br/>
+            <h:form>
+                <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                    <f:facet name="header">
+                        QUIZÁS TAMBIÉN TE GUSTE:
+                    </f:facet>
+
+                    <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                        <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                            <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                        </h:commandLink>
+
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Nombre:" />
+                                <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                <h:outputText value="Fecha:" />
+                                <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                <h:outputText value="Tipo" />
+                                <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:dataScroller>
+            </h:form>
         </c:if>
         <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
             <c:choose>
@@ -163,6 +190,31 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">                   
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>                           
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
                     <table align="center">                
@@ -260,6 +312,30 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
                     <table align="center">                
@@ -356,6 +432,30 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:when>
 
@@ -455,6 +555,30 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserRegistradoEv() > 1}">
                     <table align="center">                
@@ -552,6 +676,30 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:otherwise>
                     <table align="center">                
@@ -643,6 +791,30 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:otherwise>
             </c:choose>

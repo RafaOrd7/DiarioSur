@@ -62,7 +62,7 @@ public class recogedorEventos {
     private String nombre;
     private String descripcion;
     private byte[] imagen;
-    
+
     private Date fecha;
     private String lugar;
     private String tipo;
@@ -264,8 +264,8 @@ public class recogedorEventos {
         } else {
             aux.setVerificado(false);
         }
-        
-        if(fecha.compareTo(new Date())<0){
+
+        if (fecha.compareTo(new Date()) < 0) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "La fecha del evento no puede ser anterior a la fecha actual",
@@ -297,16 +297,16 @@ public class recogedorEventos {
     }
 
     public StreamedContent sacarImagen(Evento e) throws IOException {
-      
+
         if (negocio.tieneImagen(e)) {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(e.getImagen()));
             return stm;
         } else {
             StreamedContent stm;
-            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            String aux=origRequest.getRequestURL().toString();
-            aux=aux.substring(0,aux.indexOf("faces/"));
-            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
+            HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux = origRequest.getRequestURL().toString();
+            aux = aux.substring(0, aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux + "resources/30.jpg").openStream());
             return stm;
         }
 
@@ -322,5 +322,28 @@ public class recogedorEventos {
     public List<Evento> getEvNV() {
         return negocio.getEvNV();
     }
+
+    public List<Evento> recomendar(Evento e, UsuarioRegistrado u) {
+        seleccionado = e;
+        usuario = u;
+        List<Evento> l = new ArrayList<>();
+        List<Evento> aux = new ArrayList<>();
+        l = negocio.recomendar(seleccionado, usuario);
+        
+        if (l.size() >= 2) {
+            Evento e1 = l.get(0);
+            Evento e2 = l.get(1);
+            aux.add(e1);
+            aux.add(e2);
+        }
+        if (l.size() == 1) {
+            Evento e1 = l.get(0);
+            aux.add(e1);
+        }
+
+        return aux;
+    }
+
+   
 
 }
