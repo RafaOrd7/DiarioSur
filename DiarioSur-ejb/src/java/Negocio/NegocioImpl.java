@@ -405,25 +405,22 @@ public class NegocioImpl implements Negocio {
         return l.get(0);
     }
 
-    
     @Override
-    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String cifrado;
         md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
-        
+
         UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
-        if(u.getPassword().equals(aux.getPassword())){
+        if (u.getPassword().equals(aux.getPassword())) {
             return u.getPassword();
-        }else{
+        } else {
             return cifrado;
         }
     }
-    
-    
-    
+
     @Override
     public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
@@ -437,31 +434,30 @@ public class NegocioImpl implements Negocio {
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
-        
+
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String cifrado;
         md.update(ad.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
         ad.setPassword(cifrado);
-        
+
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
-        
 
         em.persist(ad);
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
-        ano.setEmpresa("Anuncios funcionan SL");
+        ano.setEmpresa("Bar de copas La Marióse");
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
         ano.setMultimedia(new byte[0]);
-        ano.setPrioridad("3");
-        ano.setTags("vale");
+        ano.setPrioridad("2");
+        ano.setTags("copa");
         List<Evento> l = new ArrayList<>();
         ano.setEvento(l);
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -470,7 +466,7 @@ public class NegocioImpl implements Negocio {
         Evento e = new Evento();
         e.setAnuncio(ano);
         e.setLugar("ETSI Informática");
-        e.setCompra("Ninguna");
+        e.setCompra("http://www.ticketmaster.es");
         e.setDescripcion("Hackers Week IV organizada por Consejo de Estudiantes");
         e.setFecha(new Date());
         e.setGeolocalizacion("36.715228, -4.477606");
@@ -478,8 +474,8 @@ public class NegocioImpl implements Negocio {
         e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
         e.setTags("Ninguno");
-        e.setTipo("musical");
-        e.setVerificado(false);
+        e.setTipo("Musical");
+        e.setVerificado(true);
         e.setUsuarioRegistrado(ad);
         e.setImagen(new byte[0]);
 
@@ -488,6 +484,118 @@ public class NegocioImpl implements Negocio {
         ano.setEvento(l);
         editarAnuncio(ano);
 
+        Evento f = new Evento();
+        f.setAnuncio(ano);
+        f.setLugar("Calle Larios, Málaga");
+        f.setCompra("http://www.ticketmaster.es");
+        f.setDescripcion("Festival de cine, disfruta de todas tus películas favoritas "
+                + "a precios más bajos, además de tener la ocasión de poder conocer "
+                + "a tus estrellas de televisión favoritas.");
+        f.setFecha(new Date());
+        f.setGeolocalizacion("36.719382, -4.421569");
+        f.setId(1000L);
+        f.setNombre("Festival de cine");
+        f.setPrecio(5F);
+        f.setTags("cine cultura ocio");
+        f.setTipo("Teatral");
+        f.setVerificado(true);
+        f.setUsuarioRegistrado(ad);
+        f.setImagen(new byte[0]);
+
+        em.persist(f);
+        l.add(f);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+
+        Evento g = new Evento();
+        g.setAnuncio(ano);
+        g.setLugar("Campo de fútbol La Rosaleda, Málaga");
+        g.setCompra("http://www.ticketmaster.es");
+        g.setDescripcion("Partidazo Málaga vs Real Madrid, apoya a tu equipo"
+                + " favorito con tus amigos y familia");
+        g.setFecha(new Date());
+        g.setGeolocalizacion("36.719382, -4.421569");
+        g.setId(1001L);
+        g.setNombre("Málaga vs Real Madrid");
+        g.setPrecio(35F);
+        g.setTags("deporte futbol ocio");
+        g.setTipo("Deportivo");
+        g.setVerificado(true);
+        g.setUsuarioRegistrado(ad);
+        g.setImagen(new byte[0]);
+
+        em.persist(g);
+        l.add(g);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+
+        Evento h = new Evento();
+        h.setAnuncio(ano);
+        h.setLugar("Facultad de Derecho, Universidad de Málaga");
+        h.setCompra("http://www.ticketmaster.es");
+        h.setDescripcion("Charla sobre sexología y concienciación sobre sexualidad"
+                + " para los jóvenes malagueños");
+        h.setFecha(new Date());
+        h.setGeolocalizacion("36.717872, -4.469512");
+        h.setId(1002L);
+        h.setNombre("Charla de sexología");
+        h.setPrecio(0F);
+        h.setTags("charla social concienciación juventud");
+        h.setTipo("Exposición");
+        h.setVerificado(true);
+        h.setUsuarioRegistrado(ad);
+        h.setImagen(new byte[0]);
+
+        em.persist(h);
+        l.add(h);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+
+        Evento p = new Evento();
+        p.setAnuncio(ano);
+        p.setLugar("Playa Torremolinos");
+        p.setCompra("http://www.ticketmaster.es");
+        p.setDescripcion("Concierto para los seguidores de estos grandes artistas que se celebrará"
+                + " en la playa de Torremolinos, agradecimientos al ayuntamiento de la localidad "
+                + "por semejante espectáculo apto para todos los públicos.");
+        p.setFecha(new Date());
+        p.setGeolocalizacion("36.621571, -4.495203");
+        p.setId(1003L);
+        p.setNombre("Concierto Andy y Lucas");
+        p.setPrecio(20F);
+        p.setTags("musica andy lucas");
+        p.setTipo("Concierto");
+        p.setVerificado(true);
+        p.setUsuarioRegistrado(ad);
+        p.setImagen(new byte[0]);
+
+        em.persist(p);
+        l.add(p);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+
+        Evento o = new Evento();
+        o.setAnuncio(ano);
+        o.setLugar("Plaza de la marina, Málaga");
+        o.setCompra("http://www.ticketmaster.es");
+        o.setDescripcion("Recogida de alimentos para los pobres niños del Nepal, lo pasan "
+                + "bastante mal en los días fríos de invierno, cuando no tienen nada que "
+                + "llevarse al estómago, colabora con nosotros y súmate a la ayuda.");
+        o.setFecha(new Date());
+        o.setGeolocalizacion("36.717740, -4.420325");
+        o.setId(1004L);
+        o.setNombre("Recogida de alimentos");
+        o.setPrecio(0F);
+        o.setTags("obra benefica comida Nepal");
+        o.setTipo("Otro");
+        o.setVerificado(true);
+        o.setUsuarioRegistrado(ad);
+        o.setImagen(new byte[0]);
+
+        em.persist(o);
+        l.add(o);
+        ano.setEvento(l);
+        editarAnuncio(ano);
     }
 
     @Override
@@ -514,7 +622,7 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void compruebaLogin(UsuarioRegistrado u)throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -536,7 +644,7 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException{
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
@@ -630,11 +738,11 @@ public class NegocioImpl implements Negocio {
     @Override
     public List<Evento> getEv() {
         //return em.createQuery("SELECT u FROM Evento u").getResultList();
-        List<Evento>l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.verificado=true");
-        l=q.getResultList();
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.verificado=true");
+        l = q.getResultList();
         return l;
-        
+
     }
 
     @Override
@@ -818,22 +926,22 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public boolean tieneImagen(Evento e) {
-        Evento aux=em.find(Evento.class, e.getId());
-        
-        if(aux.getImagen()==null || aux.getImagen().length==0){
-            
+        Evento aux = em.find(Evento.class, e.getId());
+
+        if (aux.getImagen() == null || aux.getImagen().length == 0) {
+
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     @Override
     public boolean tieneImagenA(Anuncio a) {
-        Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
-        if(aux.getMultimedia()==null || aux.getMultimedia().length==0){
+        Anuncio aux = em.find(Anuncio.class, a.getId_anuncio());
+        if (aux.getMultimedia() == null || aux.getMultimedia().length == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -845,19 +953,19 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public List<Evento> recomendar(Evento e, UsuarioRegistrado u) {
-        
-        List<Evento> l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.tipo='" + e.getTipo()+"' and e.id_evento!="+e.getId() + " and e.verificado="+e.getVerificado());
-        l=q.getResultList();
+
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.tipo='" + e.getTipo() + "' and e.id_evento!=" + e.getId() + " and e.verificado=" + e.getVerificado());
+        l = q.getResultList();
         return l;
     }
 
     @Override
     public List<Evento> getEvNV() {
-        List<Evento>l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.verificado=false");
-        l=q.getResultList();
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.verificado=false");
+        l = q.getResultList();
         return l;
-        
+
     }
 }

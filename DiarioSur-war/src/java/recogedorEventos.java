@@ -289,7 +289,6 @@ public class recogedorEventos {
     public String enviarEvento() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
-
         Evento aux = new Evento(nombre, fecha, lugar, geolocalizacion, tipo, precio, compra, descripcion, tags, usuario, anuncio);
         if (usuario instanceof Administrador || usuario instanceof JefeDeRedactores || usuario instanceof Periodista || usuario instanceof SuperUsuario) {
             aux.setVerificado(true);

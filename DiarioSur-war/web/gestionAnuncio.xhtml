@@ -11,25 +11,31 @@
 
     <ui:define name="content">
         <p:panel header="Gestión de anuncios" style="margin-bottom:10px;">
-        <c:choose>
-            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+            <c:choose>
+                <c:when test="#{ctrlAutorizacion.checkAdm()}">
+                    <br/>
+                    <h:form>
+                        <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
+                            <p:column headerText="Id" style="width:100px">              
+                                <h:commandLink action="#{publicarAnuncio.ver(anuncio)}" value="#{anuncio.id_anuncio}"/>
+                            </p:column>
+                            <p:column headerText="Nombre de la empresa">
+                                <h:outputText value="#{anuncio.getEmpresa()}" />
+                            </p:column>
+                            <p:column headerText="Fecha de publicación" style="width:220px">
+                                <h:outputText value="#{anuncio.FechaPublicacionString()}" />
+                            </p:column>
+                            <p:column headerText="Fecha de expiración" style="width:220px">
+                                <h:outputText value="#{anuncio.FechaExpiracionString()}" />
+                            </p:column>
+                        </p:dataTable>
 
-                <h:form>
-                    <p:dataTable var="anuncio" value="#{publicarAnuncio.getAnuncios()}">
-                        <p:column headerText="Id">              
-                            <h:commandLink action="#{publicarAnuncio.ver(anuncio)}" value="#{anuncio.id_anuncio}"/>
-                        </p:column>
-                        <p:column headerText="Nombre de la empresa">
-                            <h:outputText value="#{anuncio.getEmpresa()}" />
-                        </p:column>
-                    </p:dataTable>
-
-                </h:form>
-            </c:when>
-            <c:otherwise>
-                <h3>Error, acceso denegado.</h3>
-            </c:otherwise>
-        </c:choose> 
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    <h3>Error, acceso denegado.</h3>
+                </c:otherwise>
+            </c:choose> 
         </p:panel>
     </ui:define>
 
