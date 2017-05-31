@@ -73,7 +73,6 @@ public class recogedorEventos {
     private UsuarioRegistrado usuario = new UsuarioRegistrado();
     @ManagedProperty("#{request.requestURI}")
     private String url; // +setter
-    private static Boolean encontrado=false;
 
     @EJB
     private Negocio negocio;
@@ -332,14 +331,12 @@ public class recogedorEventos {
         l = negocio.recomendar(seleccionado, usuario);
         
         if (l.size() >= 2) {
-            encontrado = true;
             Evento e1 = l.get(0);
             Evento e2 = l.get(1);
             aux.add(e1);
             aux.add(e2);
         }
         if (l.size() == 1) {
-            encontrado = true;
             Evento e1 = l.get(0);
             aux.add(e1);
         }
@@ -347,12 +344,6 @@ public class recogedorEventos {
         return aux;
     }
 
-    public Boolean getEncontrado() {
-        return encontrado;
-    }
-
-    public void setEncontrado(Boolean encontrado) {
-        this.encontrado = encontrado;
-    }
+   
 
 }
