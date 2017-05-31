@@ -145,4 +145,8 @@ public interface Negocio {
 
     public List<Evento> getAllEv();
 
+    public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u);
+
+    public List<Evento> getEvNV();
+
 }

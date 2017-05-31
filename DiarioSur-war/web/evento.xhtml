@@ -50,8 +50,8 @@
                         <h:outputText value="#{valoracion.FechaString()}" />
                     </p:column>
                     <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
+                        <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
+                    </p:column>
                     <p:column headerText="Calificación">
                         <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
                     </p:column>
@@ -69,15 +69,9 @@
                 <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
                     <table align="center">                
                         <h:form>
-
-
                             <tr>
-
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
-
-
-
                                 <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
                                     </p:button>
                                 </td>
@@ -101,12 +95,7 @@
                     <table align="center"> 
                         <tr>
                             <td>
-
-
-
-
                                 <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
-
                             </td>
                         </tr>
                         <tr>
@@ -150,6 +139,17 @@
                             </tr>
                             <tr>
                                 <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></h:commandButton ></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1>Quizá le interese</h1>
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </td>
                             </tr>
                         </table>
                     </h:form>

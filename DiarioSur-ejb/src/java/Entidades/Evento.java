@@ -140,7 +140,7 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
+    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
         nombre = n;
         fecha = d;
         geolocalizacion=l;
@@ -149,7 +149,6 @@ public class Evento implements Serializable {
         compra=c;
         descripcion= des;
         tags = ta;
-        verificado = ve;
         usuarioRegistrado = usuarioR;
         anuncio = a;
     }

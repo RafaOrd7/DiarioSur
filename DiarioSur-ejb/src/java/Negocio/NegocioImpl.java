@@ -758,4 +758,24 @@ public class NegocioImpl implements Negocio {
     public List<Evento> getAllEv() {
         return em.createQuery("SELECT u FROM Evento u").getResultList();
     }
+
+    @Override
+    public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u) {
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.tipo=tipoE");
+        q.setParameter("tipoE", e.getTipo());
+        
+        Evento e1=(Evento)q.getResultList().get(0);
+        
+        return null;
+    }
+
+    @Override
+    public List<Evento> getEvNV() {
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=false");
+        l=q.getResultList();
+        return l;
+        
+    }
 }
