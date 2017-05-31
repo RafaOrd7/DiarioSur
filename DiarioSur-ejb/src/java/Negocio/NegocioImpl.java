@@ -423,7 +423,8 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-Administrador ad = new Administrador();
+
+        Administrador ad = new Administrador();
         ad.setApellidos("a");
         ad.setBorrado(false);
         ad.setCargo("si");
@@ -433,23 +434,30 @@ Administrador ad = new Administrador();
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
+
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(ad.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        ad.setPassword(cifrado);
+
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
-        
 
         em.persist(ad);
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
-        ano.setEmpresa("Anuncios funcionan SL");
+        ano.setEmpresa("Bar de copas La Marióse");
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
         ano.setMultimedia(new byte[0]);
-        ano.setPrioridad("3");
-        ano.setTags("vale");
+        ano.setPrioridad("2");
+        ano.setTags("copa");
         List<Evento> l = new ArrayList<>();
         ano.setEvento(l);
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -457,12 +465,13 @@ Administrador ad = new Administrador();
 
         Evento e = new Evento();
         e.setAnuncio(ano);
-        e.setCompra("Ninguna");
-        e.setDescripcion("Evento de prueba");
+        e.setLugar("ETSI Informática");
+        e.setCompra("http://www.ticketmaster.es");
+        e.setDescripcion("Hackers Week IV organizada por Consejo de Estudiantes");
         e.setFecha(new Date());
-        e.setGeolocalizacion("Montilla");
+        e.setGeolocalizacion("36.715228, -4.477606");
         e.setId(3L);
-        e.setNombre("Evento inicial");
+        e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
         e.setTags("Ninguno");
         e.setTipo("musical");
@@ -746,7 +755,6 @@ Administrador ad = new Administrador();
         if (aux == null) {
             throw new EventoNoEncontradoException();
         }
-
         contId++;
         v.setId(contId);
         em.persist(v);
@@ -754,21 +762,10 @@ Administrador ad = new Administrador();
 
     @Override
     public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException {
-
         Query q;
-        //Evento aux= em.find(Evento.class, e.getId_evento());
         q = em.createQuery("select v from Valoracion v where v.evento=:evento");
         q.setParameter("evento", e);
         return q.getResultList();
-
-        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
-        /*if(aux==null){
-            throw new EventoNoEncontradoException();
-        }
-        else{
-            aux2= aux.getValoraciones();
-            System.out.println(aux2.isEmpty());
-        }*/
     }
 
     @Override
