@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.*;
 import static javax.persistence.CascadeType.REMOVE;
@@ -216,6 +219,13 @@ public class Evento implements Serializable {
 
     public Boolean getVerificado() {
         return verificado;
+    }
+    
+    public String VerificadoString(){
+        String res = "No";
+        if(verificado) res = "Si";
+        
+        return res;
     }
 
     public void setVerificado(Boolean verificado) {

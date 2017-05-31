@@ -138,6 +138,22 @@ public class PublicarAnuncio {
     }
 
     public String subirAnuncio() throws DiarioSurException {
+        if(fechaPublicacion.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del anuncio no puede ser anterior a la fecha actual",
+                    "La fecha del anuncio no puede ser anterior a la fecha actual"));
+            return null;
+        }
+        
+        if(fechaExpiracion.compareTo(fechaPublicacion)<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion",
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion"));
+            return null;
+        }
+        
         crear();
         negocio.crearAnuncio(anuncio);
         return "index.xhtml";
