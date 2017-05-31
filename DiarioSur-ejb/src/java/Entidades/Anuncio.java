@@ -43,7 +43,7 @@ public class Anuncio implements Serializable {
     private byte[] multimedia;
     @Column(nullable = false, length = 50)
     private String empresa;
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 30)
     private String dimensiones;
     @Column(nullable = false, length = 10)
     private String prioridad;
