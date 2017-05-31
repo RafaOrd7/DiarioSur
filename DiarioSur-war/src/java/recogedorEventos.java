@@ -264,6 +264,13 @@ public class recogedorEventos {
             aux.setVerificado(false);
         }
         
+        if(fecha.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del evento no puede ser anterior a la fecha actual",
+                    "La fecha del evento no puede ser anterior a la fecha actual"));
+            return null;
+        }
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
