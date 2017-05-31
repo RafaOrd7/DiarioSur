@@ -51,7 +51,7 @@
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:100%" columnClasses="ui-grid-col-2, ui-grid-col-10">
-                            <h:commandLink action="#{recogedorEventos.ver(busEv)}">
+                            <h:commandLink action="#{recogedorEventos.ver(busqEv)}">
                                 <p:graphicImage value="#{recogedorEventos.sacarImagen(busqEv)}" stream="false" width="150px" height="150px"/>
                             </h:commandLink>
                             <p:outputPanel>
@@ -75,9 +75,6 @@
                 </h:form>
             </c:otherwise>
         </c:choose>
-
-
     </ui:define>
-
 </ui:composition>
 

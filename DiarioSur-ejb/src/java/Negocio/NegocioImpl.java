@@ -464,9 +464,11 @@ Administrador ad = new Administrador();
         e.setId(3L);
         e.setNombre("Evento inicial");
         e.setPrecio(0F);
+
         e.setTags("Ninguno");
         e.setTipo("musical");
         e.setVerificado(false);
+
         e.setUsuarioRegistrado(ad);
         e.setImagen(new byte[0]);
 
@@ -474,6 +476,7 @@ Administrador ad = new Administrador();
         l.add(e);
         ano.setEvento(l);
         editarAnuncio(ano);
+
     }
 
     @Override
