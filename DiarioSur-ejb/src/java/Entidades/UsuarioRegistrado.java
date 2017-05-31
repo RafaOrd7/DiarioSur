@@ -50,13 +50,13 @@ public class UsuarioRegistrado implements Serializable {
     @Column(nullable  = false, length=50, unique=true)
     private String dni;
    
-   @Column(nullable  = false, length=50, unique=true)
+   @Column(nullable  = false, length=80, unique=true)
     private String email;
     @Column(nullable  = true, length=250)
     private String preferencias;
     @Column(nullable  = true)
     private byte multimedia;
-    @Column(nullable  = true, length=50)
+    @Column(nullable  = true, length=250)
     private String password;
     @Column(nullable  = false, length=100)
     private String historialEventos;

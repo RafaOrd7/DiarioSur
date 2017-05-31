@@ -15,6 +15,9 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import Negocio.UsuarioNoRegistradoException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +31,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.Properties;
+import java.util.Random;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -69,13 +73,13 @@ public class ctrlUsuarios implements Serializable {
         return 1;
     }
 
-    public String nuevoUsuario() throws DiarioSurException {
+    public String nuevoUsuario() throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (cont == 0) {
             negocio.rellenarBd();
             cont++;
         }
-        
+
         String pag = null;
         if (negocio.existeUsuario(usuario)) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -90,8 +94,16 @@ public class ctrlUsuarios implements Serializable {
             usuario.setBorrado(false);
             usuario.setPreferencias("");
             usuario.setMegusta(new ArrayList<>());
+
+            //hash de contraseña
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            String cifrado;
+            md.update(usuario.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+
+            usuario.setPassword(cifrado);
             negocio.registrarUsuario(usuario);
-            usuario.setPreferencias("");
 
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Usuario " + usuario.getEmail() + " registrado correctamente.",
@@ -101,10 +113,18 @@ public class ctrlUsuarios implements Serializable {
         return pag;
     }
 
-    //POR HACER
-    public String nuevoUsuarioGestion() throws DiarioSurException {
+    public String nuevoUsuarioGestion() throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         FacesContext ctx = FacesContext.getCurrentInstance();
         String pag = null;
+        
+        //hash de contraseña
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(a.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        a.setPassword(cifrado);
+        
         if (negocio.existeUsuario((UsuarioRegistrado) a)) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "El email " + a.getEmail() + " está en uso por otro usuario.",
@@ -179,7 +199,7 @@ public class ctrlUsuarios implements Serializable {
         return pag;
     }
 
-    public String logIn() throws DiarioSurException {
+    public String logIn() throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
 
         try {
             negocio.compruebaLogin(usuario);
@@ -225,15 +245,40 @@ public class ctrlUsuarios implements Serializable {
     public boolean isSU() {
         return rol.equals("SuperUsuario");
     }
+    
+    private String getCadenaAlfanumAleatoria(int longitud) {
+        String cadenaAleatoria = "";
+        long milis = new java.util.GregorianCalendar().getTimeInMillis();
+        Random r = new Random(milis);
+        int i = 0;
+        while (i < longitud) {
+            char c = (char) r.nextInt(255);
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+                cadenaAleatoria += c;
+                i++;
+            }
+        }
+        return cadenaAleatoria;
+    }
 
-    public String sendEmail() throws DiarioSurException {
+    public String sendEmail() throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         String pag = validarEmail();
         if (pag == null) {
             return pag;
         } else {
             if (negocio.existeUsuario(usuario)) {
                 UsuarioRegistrado u = negocio.buscarURmail(usuario.getEmail());
-
+                String pass = getCadenaAlfanumAleatoria(8);
+                
+                //hash de contraseña
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                String cifrado;
+                md.update(pass.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+                byte[] digest = md.digest();
+                cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+                u.setPassword(cifrado);
+                negocio.editaUR(u);
+                
                 final String username = "sinfuma17@gmail.com";
                 final String password = "topillosmike";
                 Properties props = new Properties();
@@ -291,7 +336,7 @@ public class ctrlUsuarios implements Serializable {
 
     public String eliminarUR(UsuarioRegistrado u) {
         negocio.eliminarUR(u);
-        return null;
+        return "gestionUsuario.xhtml";
     }
 
     public String eliminarSU(SuperUsuario u) {
@@ -386,7 +431,7 @@ public class ctrlUsuarios implements Serializable {
         this.rol = rol;
         return null;
     }
-    
+
     public boolean hayNotif() throws DiarioSurException {
         return !negocio.getNotif(cta.getUsuarioLogeado()).isEmpty();
     }
@@ -447,8 +492,8 @@ public class ctrlUsuarios implements Serializable {
 
     }
 
-    
-    public String editarUsuarioRegistrado() {
+    public String editarUsuarioRegistrado() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String cifrado = negocio.checkPass(usuario);
         switch (rol) {
             case "Administrador":
                 Administrador adm = new Administrador();
@@ -457,7 +502,7 @@ public class ctrlUsuarios implements Serializable {
                 adm.setApellidos(usuario.getApellidos());
                 adm.setDni(usuario.getDni());
                 adm.setEmail(usuario.getEmail());
-                adm.setPassword(usuario.getPassword());
+                adm.setPassword(cifrado);
                 adm.setPreferencias(usuario.getPreferencias());
                 adm.setMultimedia(usuario.getMultimedia());
                 adm.setHistorialEventos(usuario.getHistorialEventos());
@@ -476,7 +521,7 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setApellidos(usuario.getApellidos());
                 jdre.setDni(usuario.getDni());
                 jdre.setEmail(usuario.getEmail());
-                jdre.setPassword(usuario.getPassword());
+                jdre.setPassword(cifrado);
                 jdre.setPreferencias(usuario.getPreferencias());
                 jdre.setMultimedia(usuario.getMultimedia());
                 jdre.setHistorialEventos(usuario.getHistorialEventos());
@@ -495,7 +540,7 @@ public class ctrlUsuarios implements Serializable {
                 per.setApellidos(usuario.getApellidos());
                 per.setDni(usuario.getDni());
                 per.setEmail(usuario.getEmail());
-                per.setPassword(usuario.getPassword());
+                per.setPassword(cifrado);
                 per.setPreferencias(usuario.getPreferencias());
                 per.setMultimedia(usuario.getMultimedia());
                 per.setHistorialEventos(usuario.getHistorialEventos());
@@ -514,13 +559,13 @@ public class ctrlUsuarios implements Serializable {
                 sup.setApellidos(usuario.getApellidos());
                 sup.setDni(usuario.getDni());
                 sup.setEmail(usuario.getEmail());
-                sup.setPassword(usuario.getPassword());
+                sup.setPassword(cifrado);
                 sup.setPreferencias(usuario.getPreferencias());
                 sup.setMultimedia(usuario.getMultimedia());
                 sup.setHistorialEventos(usuario.getHistorialEventos());
                 sup.setEmpresa("------");
                 sup.setBorrado(false);
-                
+
                 negocio.eliminarUR(usuario);
                 negocio.addSuperu(sup);
                 break;
@@ -530,11 +575,11 @@ public class ctrlUsuarios implements Serializable {
                 aux.setApellidos(usuario.getApellidos());
                 aux.setDni(usuario.getDni());
                 aux.setEmail(usuario.getEmail());
-                aux.setPassword(usuario.getPassword());
+                aux.setPassword(cifrado);
                 aux.setPreferencias(usuario.getPreferencias());
                 aux.setMultimedia(usuario.getMultimedia());
                 aux.setHistorialEventos(usuario.getHistorialEventos());
-                
+
                 if (propio) {
                     cta.setUsuarioLogeado(aux);
                 }
@@ -545,7 +590,8 @@ public class ctrlUsuarios implements Serializable {
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
 
-    public String editarSuperUsuario() {
+    public String editarSuperUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String cifrado = negocio.checkPass(su);
         switch (rol) {
             case "Administrador":
                 Administrador adm = new Administrador();
@@ -554,7 +600,7 @@ public class ctrlUsuarios implements Serializable {
                 adm.setApellidos(su.getApellidos());
                 adm.setDni(su.getDni());
                 adm.setEmail(su.getEmail());
-                adm.setPassword(su.getPassword());
+                adm.setPassword(cifrado);
                 adm.setPreferencias(su.getPreferencias());
                 adm.setMultimedia(su.getMultimedia());
                 adm.setHistorialEventos(su.getHistorialEventos());
@@ -573,7 +619,7 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setApellidos(su.getApellidos());
                 jdre.setDni(su.getDni());
                 jdre.setEmail(su.getEmail());
-                jdre.setPassword(su.getPassword());
+                jdre.setPassword(cifrado);
                 jdre.setPreferencias(su.getPreferencias());
                 jdre.setMultimedia(su.getMultimedia());
                 jdre.setHistorialEventos(su.getHistorialEventos());
@@ -592,7 +638,7 @@ public class ctrlUsuarios implements Serializable {
                 per.setApellidos(su.getApellidos());
                 per.setDni(su.getDni());
                 per.setEmail(su.getEmail());
-                per.setPassword(su.getPassword());
+                per.setPassword(cifrado);
                 per.setPreferencias(su.getPreferencias());
                 per.setMultimedia(su.getMultimedia());
                 per.setHistorialEventos(su.getHistorialEventos());
@@ -608,7 +654,7 @@ public class ctrlUsuarios implements Serializable {
                 sup.setApellidos(su.getApellidos());
                 sup.setDni(su.getDni());
                 sup.setEmail(su.getEmail());
-                sup.setPassword(su.getPassword());
+                sup.setPassword(cifrado);
                 sup.setPreferencias(su.getPreferencias());
                 sup.setMultimedia(su.getMultimedia());
                 sup.setHistorialEventos(su.getHistorialEventos());
@@ -616,8 +662,8 @@ public class ctrlUsuarios implements Serializable {
 
                 if (propio) {
                     cta.setUsuarioLogeado(sup);
-                }    
-                
+                }
+
                 negocio.editaSuperu(sup);
 
                 break;
@@ -628,7 +674,7 @@ public class ctrlUsuarios implements Serializable {
                 ure.setApellidos(su.getApellidos());
                 ure.setDni(su.getDni());
                 ure.setEmail(su.getEmail());
-                ure.setPassword(su.getPassword());
+                ure.setPassword(cifrado);
                 ure.setPreferencias(su.getPreferencias());
                 ure.setMultimedia(su.getMultimedia());
                 ure.setHistorialEventos(su.getHistorialEventos());
@@ -641,7 +687,8 @@ public class ctrlUsuarios implements Serializable {
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
 
-    public String editarPeriodista() {
+    public String editarPeriodista() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String cifrado = negocio.checkPass(p);
         switch (rol) {
             case "Administrador":
                 Administrador adm = new Administrador();
@@ -650,7 +697,7 @@ public class ctrlUsuarios implements Serializable {
                 adm.setApellidos(p.getApellidos());
                 adm.setDni(p.getDni());
                 adm.setEmail(p.getEmail());
-                adm.setPassword(p.getPassword());
+                adm.setPassword(cifrado);
                 adm.setPreferencias(p.getPreferencias());
                 adm.setMultimedia(p.getMultimedia());
                 adm.setHistorialEventos(p.getHistorialEventos());
@@ -669,7 +716,7 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setApellidos(p.getApellidos());
                 jdre.setDni(p.getDni());
                 jdre.setEmail(p.getEmail());
-                jdre.setPassword(p.getPassword());
+                jdre.setPassword(cifrado);
                 jdre.setPreferencias(p.getPreferencias());
                 jdre.setMultimedia(p.getMultimedia());
                 jdre.setHistorialEventos(p.getHistorialEventos());
@@ -687,7 +734,7 @@ public class ctrlUsuarios implements Serializable {
                 per.setApellidos(p.getApellidos());
                 per.setDni(p.getDni());
                 per.setEmail(p.getEmail());
-                per.setPassword(p.getPassword());
+                per.setPassword(cifrado);
                 per.setPreferencias(p.getPreferencias());
                 per.setMultimedia(p.getMultimedia());
                 per.setHistorialEventos(p.getHistorialEventos());
@@ -698,7 +745,7 @@ public class ctrlUsuarios implements Serializable {
                 if (propio) {
                     cta.setUsuarioLogeado(per);
                 }
-                
+
                 negocio.editaPeri(per);
                 break;
             case "SuperUsuario":
@@ -708,7 +755,7 @@ public class ctrlUsuarios implements Serializable {
                 sup.setApellidos(p.getApellidos());
                 sup.setDni(p.getDni());
                 sup.setEmail(p.getEmail());
-                sup.setPassword(p.getPassword());
+                sup.setPassword(cifrado);
                 sup.setPreferencias(p.getPreferencias());
                 sup.setMultimedia(p.getMultimedia());
                 sup.setHistorialEventos(p.getHistorialEventos());
@@ -725,7 +772,7 @@ public class ctrlUsuarios implements Serializable {
                 ure.setApellidos(p.getApellidos());
                 ure.setDni(p.getDni());
                 ure.setEmail(p.getEmail());
-                ure.setPassword(p.getPassword());
+                ure.setPassword(cifrado);
                 ure.setPreferencias(p.getPreferencias());
                 ure.setMultimedia(p.getMultimedia());
                 ure.setHistorialEventos(p.getHistorialEventos());
@@ -738,7 +785,8 @@ public class ctrlUsuarios implements Serializable {
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
 
-    public String editarJefeDeRedactores() {
+    public String editarJefeDeRedactores() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String cifrado = negocio.checkPass(jdr);
         switch (rol) {
             case "Administrador":
                 Administrador adm = new Administrador();
@@ -747,7 +795,7 @@ public class ctrlUsuarios implements Serializable {
                 adm.setApellidos(jdr.getApellidos());
                 adm.setDni(jdr.getDni());
                 adm.setEmail(jdr.getEmail());
-                adm.setPassword(jdr.getPassword());
+                adm.setPassword(cifrado);
                 adm.setPreferencias(jdr.getPreferencias());
                 adm.setMultimedia(jdr.getMultimedia());
                 adm.setHistorialEventos(jdr.getHistorialEventos());
@@ -765,18 +813,18 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setApellidos(jdr.getApellidos());
                 jdre.setDni(jdr.getDni());
                 jdre.setEmail(jdr.getEmail());
-                jdre.setPassword(jdr.getPassword());
+                jdre.setPassword(cifrado);
                 jdre.setPreferencias(jdr.getPreferencias());
                 jdre.setMultimedia(jdr.getMultimedia());
                 jdre.setHistorialEventos(jdr.getHistorialEventos());
                 jdre.setEmpresa(jdr.getEmpresa());
                 jdre.setCargo(jdr.getCargo());
                 jdre.setTelefono(jdr.getTelefono());
-                
+
                 if (propio) {
                     cta.setUsuarioLogeado(jdre);
                 }
-                
+
                 negocio.editaJdr(jdre);
                 break;
             case "Periodista":
@@ -786,7 +834,7 @@ public class ctrlUsuarios implements Serializable {
                 per.setApellidos(jdr.getApellidos());
                 per.setDni(jdr.getDni());
                 per.setEmail(jdr.getEmail());
-                per.setPassword(jdr.getPassword());
+                per.setPassword(cifrado);
                 per.setPreferencias(jdr.getPreferencias());
                 per.setMultimedia(jdr.getMultimedia());
                 per.setHistorialEventos(jdr.getHistorialEventos());
@@ -805,7 +853,7 @@ public class ctrlUsuarios implements Serializable {
                 sup.setApellidos(jdr.getApellidos());
                 sup.setDni(jdr.getDni());
                 sup.setEmail(jdr.getEmail());
-                sup.setPassword(jdr.getPassword());
+                sup.setPassword(cifrado);
                 sup.setPreferencias(jdr.getPreferencias());
                 sup.setMultimedia(jdr.getMultimedia());
                 sup.setHistorialEventos(jdr.getHistorialEventos());
@@ -822,7 +870,7 @@ public class ctrlUsuarios implements Serializable {
                 ure.setApellidos(jdr.getApellidos());
                 ure.setDni(jdr.getDni());
                 ure.setEmail(jdr.getEmail());
-                ure.setPassword(jdr.getPassword());
+                ure.setPassword(cifrado);
                 ure.setPreferencias(jdr.getPreferencias());
                 ure.setMultimedia(jdr.getMultimedia());
                 ure.setHistorialEventos(jdr.getHistorialEventos());
@@ -835,7 +883,8 @@ public class ctrlUsuarios implements Serializable {
         return propio ? "index.xhtml" : "gestionUsuario.xhtml";
     }
 
-    public String editarAdministrador() {
+    public String editarAdministrador() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String cifrado = negocio.checkPass(a);
         switch (rol) {
             case "Administrador":
                 Administrador adm = negocio.buscarAdmin(a);
@@ -843,14 +892,14 @@ public class ctrlUsuarios implements Serializable {
                 adm.setApellidos(a.getApellidos());
                 adm.setDni(a.getDni());
                 adm.setEmail(a.getEmail());
-                adm.setPassword(a.getPassword());
+                adm.setPassword(cifrado);
                 adm.setPreferencias(a.getPreferencias());
                 adm.setMultimedia(a.getMultimedia());
                 adm.setHistorialEventos(a.getHistorialEventos());
                 adm.setEmpresa(a.getEmpresa());
                 adm.setCargo(a.getCargo());
                 adm.setTelefono(a.getTelefono());
-                
+
                 if (propio) {
                     cta.setUsuarioLogeado(adm);
                 }
@@ -864,7 +913,7 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setApellidos(a.getApellidos());
                 jdre.setDni(a.getDni());
                 jdre.setEmail(a.getEmail());
-                jdre.setPassword(a.getPassword());
+                jdre.setPassword(cifrado);
                 jdre.setPreferencias(a.getPreferencias());
                 jdre.setMultimedia(a.getMultimedia());
                 jdre.setHistorialEventos(a.getHistorialEventos());
@@ -872,7 +921,7 @@ public class ctrlUsuarios implements Serializable {
                 jdre.setCargo(a.getCargo());
                 jdre.setTelefono(a.getTelefono());
                 jdre.setBorrado(false);
-                
+
                 negocio.eliminarAdmin(a);
                 negocio.addJdr(jdre);
                 break;
@@ -883,7 +932,7 @@ public class ctrlUsuarios implements Serializable {
                 per.setApellidos(a.getApellidos());
                 per.setDni(a.getDni());
                 per.setEmail(a.getEmail());
-                per.setPassword(a.getPassword());
+                per.setPassword(cifrado);
                 per.setPreferencias(a.getPreferencias());
                 per.setMultimedia(a.getMultimedia());
                 per.setHistorialEventos(a.getHistorialEventos());
@@ -902,7 +951,7 @@ public class ctrlUsuarios implements Serializable {
                 sup.setApellidos(a.getApellidos());
                 sup.setDni(a.getDni());
                 sup.setEmail(a.getEmail());
-                sup.setPassword(a.getPassword());
+                sup.setPassword(cifrado);
                 sup.setPreferencias(a.getPreferencias());
                 sup.setMultimedia(a.getMultimedia());
                 sup.setHistorialEventos(a.getHistorialEventos());
@@ -919,7 +968,7 @@ public class ctrlUsuarios implements Serializable {
                 ure.setApellidos(a.getApellidos());
                 ure.setDni(a.getDni());
                 ure.setEmail(a.getEmail());
-                ure.setPassword(a.getPassword());
+                ure.setPassword(cifrado);
                 ure.setPreferencias(a.getPreferencias());
                 ure.setMultimedia(a.getMultimedia());
                 ure.setHistorialEventos(a.getHistorialEventos());
