@@ -178,7 +178,7 @@ public class recogedorEventos {
         if (cta.getUsuarioLogeado() != null) {
             negocio.tipoVisitado(cta.getUsuarioLogeado(), evento);
         }
-        return "evento";
+        return "evento.xhtml";
     }
 
     public String getGeolocalizacion() {

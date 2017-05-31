@@ -45,7 +45,7 @@
 
             <c:otherwise>
                 <h:form> 
-                    <p:dataScroller value="#{recogedorBusquedas.getListaBusqueda()}" var="busqEv">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaBusqueda()}" var="busqEv" chunkSize="10">
                         <f:facet name="header">
                             Buscados
                         </f:facet>
@@ -54,6 +54,7 @@
                             <h:commandLink action="#{recogedorEventos.ver(busqEv)}">
                                 <p:graphicImage value="#{recogedorEventos.sacarImagen(busqEv)}" stream="false" width="150px" height="150px"/>
                             </h:commandLink>
+                            
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
