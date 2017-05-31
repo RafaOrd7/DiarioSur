@@ -35,6 +35,8 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private String tipo;
     @Column(nullable = false)
+    private String lugar;
+    @Column(nullable = false)
     private Float precio;
     @Column(nullable = false)
     private String tags;
@@ -60,9 +62,16 @@ public class Evento implements Serializable {
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
     private File imagen;
+
     
     
-    
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
 
     public String getCompra() {
         return compra;

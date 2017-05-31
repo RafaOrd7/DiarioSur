@@ -428,12 +428,13 @@ public class NegocioImpl implements Negocio {
 
         Evento e = new Evento();
         e.setAnuncio(ano);
+        e.setLugar("ETSI Informática");
         e.setCompra("Ninguna");
-        e.setDescripcion("Evento de prueba");
+        e.setDescripcion("Hackers Week IV organizada por Consejo de Estudiantes");
         e.setFecha(new Date());
-        e.setGeolocalizacion("Montilla");
+        e.setGeolocalizacion("36.715228, -4.477606");
         e.setId(3L);
-        e.setNombre("Evento inicial");
+        e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
         e.setTags("Ninguno");
         e.setTipo("musical");

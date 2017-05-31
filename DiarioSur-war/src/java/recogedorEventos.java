@@ -15,12 +15,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
-
+// Imports para geolocalización
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 /**
  *
  * @author rafao
@@ -34,6 +39,7 @@ public class recogedorEventos {
     private File imagen;
     private Date fecha;
     private String lugar;
+    private MapModel model;
     private String tipo;
     private float precio;
     private String compra;
@@ -67,6 +73,24 @@ public class recogedorEventos {
         return "editarEvento.xhtml";
     }
 
+    // Geolocalización
+    public MapModel getModel() { // ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+        String geo = seleccionado.getGeolocalizacion();
+        geo = geo.replaceAll("\\s","");
+        int coma = geo.indexOf(',');
+        double x = Double.parseDouble(geo.substring(0,coma));
+        double y = Double.parseDouble(geo.substring(coma+1,geo.length()));
+        LatLng coord = new LatLng(x, y);
+        model = new DefaultMapModel();
+        model.addOverlay(new Marker(coord, nombre));
+        return model;
+    }
+
+    public void setModel(MapModel model) {
+        this.model = model;
+    }
+    
+    
     public String getUrl() {
         return url;
     }

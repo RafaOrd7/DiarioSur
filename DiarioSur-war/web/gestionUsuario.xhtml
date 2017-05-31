@@ -13,11 +13,12 @@
 
             <c:when test="#{(ctrlAutorizacion.checkAdm()) || (ctrlAutorizacion.checkJDR())}">
                 <p:panel header="Gestión de usuarios" style="margin-bottom:10px;">
-                    
+                    <br/>
                     
                     
                     <h:form>
-                        <p:commandButton value="Crear usuario" icon="fa fa-plus" action="crearUsuario.xhtml"/>
+                        <p:commandButton value="Crear usuario" icon="fa fa-user-plus" action="crearUsuario.xhtml"/>
+                        <br/><br/>
                         <p:dataTable var="usuario" value="#{ctrlUsuarios.getListaUR()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 Usuarios Registrados
@@ -37,7 +38,7 @@
                             <p:column headerText="DNI">
                                 <h:outputText value="#{usuario.dni}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(usuario)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                 <p:commandButton action="#{ctrlUsuarios.eliminarUR(usuario)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
@@ -67,9 +68,9 @@
                             <p:column headerText="Empresa">
                                 <h:outputText value="#{su.empresa}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(su)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
-                                <p:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarSU(su)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                                <p:commandButton action="#{ctrlUsuarios.eliminarSU(su)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
 
@@ -103,7 +104,7 @@
                             <p:column headerText="Teléfono">
                                 <h:outputText value="#{p.telefono}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(p)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                 <p:commandButton action="#{ctrlUsuarios.eliminarP(p)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
@@ -142,7 +143,7 @@
                                 <p:column headerText="Teléfono">
                                     <h:outputText value="#{j.telefono}" />
                                 </p:column>
-                                <p:column style="width:88px">
+                                <p:column style="width:90px">
                                     <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(j)}" icon="fa fa-pencil" style="background: none; border: none;" title="Editar"/>
                                     <p:commandButton action="#{ctrlUsuarios.eliminarJDR(j)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                                 </p:column>
@@ -178,7 +179,7 @@
                                 <p:column headerText="Teléfono">
                                     <h:outputText value="#{a.telefono}" />
                                 </p:column>
-                                <p:column style="width:88px">
+                                <p:column style="width:90px">
                                     <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(a)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                     <p:commandButton action="#{ctrlUsuarios.eliminarA(a)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                                 </p:column>

@@ -17,3 +17,8 @@ and open the template in the editor.
 #top a:hover {
     color: black;
 }
+
+.ui-panelgrid>*>tr,
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}

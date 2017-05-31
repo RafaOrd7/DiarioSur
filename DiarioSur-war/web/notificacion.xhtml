@@ -11,21 +11,22 @@
          <ui:define name="content">
             <c:choose>
                 <c:when test="#{ctrlAutorizacion.checkLog()}"> 
-                    <h:form>
-                        <h1>Notificaciones</h1>
-
-                        <p:dataTable var="notificacion" value="#{ctrlUsuarios.getListaNotif()}">
-                            <p:column headerText="Información">              
-                                <h:outputText value="#{notificacion.texto}" />
-                            </p:column>
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{notificacion.fecha}" />
-                            </p:column>
-                            <p:column headerText=" ">
-                                <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarNotif(notificacion)}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
+                    <p:panel header="Notificaciones" style="margin-bottom:10px;">
+                        <br/>
+                        <h:form>
+                            <p:dataTable var="notificacion" value="#{ctrlUsuarios.getListaNotif()}" emptyMessage="No tiene notificaciones" reflow="true">
+                                <p:column headerText="Fecha" style="width:220px">
+                                    <h:outputText value="#{notificacion.fecha}" />
+                                </p:column>
+                                <p:column headerText="Información">              
+                                    <h:outputText value="#{notificacion.texto}" />
+                                </p:column>
+                                <p:column style="width:45px">
+                                    <p:commandButton action="#{ctrlUsuarios.eliminarNotif(notificacion)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:panel>
                 </c:when>
                 <c:otherwise>
                     <h3>Error, acceso denegado.</h3>
