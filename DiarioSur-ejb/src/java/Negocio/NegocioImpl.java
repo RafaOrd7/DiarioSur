@@ -473,9 +473,11 @@ public class NegocioImpl implements Negocio {
         e.setId(3L);
         e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
+
         e.setTags("Ninguno");
         e.setTipo("musical");
         e.setVerificado(false);
+
         e.setUsuarioRegistrado(ad);
         e.setImagen(new byte[0]);
 
@@ -483,6 +485,7 @@ public class NegocioImpl implements Negocio {
         l.add(e);
         ano.setEvento(l);
         editarAnuncio(ano);
+
     }
 
     @Override
