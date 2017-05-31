@@ -13,28 +13,28 @@
             <h2>Filtros</h2>
             <h:form>
                 <p:panelGrid columns="1">
-                <p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/>
-                <h:selectManyCheckbox value="#{busquedaAvanzada.tipo}">
-                    <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
-                    <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
-                    <f:selectItem itemValue="musical" itemLabel="Musical" />
-                    <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
-                    <f:selectItem itemValue="teatral" itemLabel="Teatral" />
-                    <f:selectItem itemValue="otro"  itemLabel="Otro" />
-                </h:selectManyCheckbox>
+                    <p:inputText id="nombre" value="#{busquedaAvanzada.nombre}" placeholder="Palabras clave..."/>
+                    <h:selectManyCheckbox value="#{busquedaAvanzada.tipo}">
+                        <f:selectItem itemValue="concierto" itemLabel="Concierto"/>   
+                        <f:selectItem itemValue="exposicion" itemLabel="Exposición" />
+                        <f:selectItem itemValue="musical" itemLabel="Musical" />
+                        <f:selectItem itemValue="deportivo" itemLabel="Deportivo" />
+                        <f:selectItem itemValue="teatral" itemLabel="Teatral" />
+                        <f:selectItem itemValue="otro"  itemLabel="Otro" />
+                    </h:selectManyCheckbox>
 
-                <p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha*"/>
+                    <p:calendar id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" placeholder="Fecha*"/>
 
-                <p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="Lugar"/>
+                    <p:inputText id="lugar" value="#{busquedaAvanzada.lugar}" placeholder="Lugar"/>
 
-                <p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="Descripcion"/>
+                    <p:inputText id="descripcion" value="#{busquedaAvanzada.descripcion}" placeholder="Descripcion"/>
 
-                <p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="Tags"/>
+                    <p:inputText id="tags" value="#{busquedaAvanzada.tags}" placeholder="Tags"/>
 
-                <p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick" ajax="false"/>
+                    <p:commandButton value="Buscar" action="#{busquedaAvanzada.buscar()}" icon="ui-icon-plusthick" ajax="false"/>
                 </p:panelGrid>
             </h:form>
-        <br/>
+            <br/>
             <c:if test="#{busquedaAvanzada.isEncontrado()}">
                 <h2>Resultados</h2>
                 <h:form> 
@@ -47,8 +47,10 @@
                             <p:commandButton type="button" value="Más" icon="ui-icon-circle-triangle-s"/>
                         </f:facet>
 
-
                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <h:commandLink action="#{recogedorEventos.ver(evento)}" style="alignment-adjust: central">
+                                <p:graphicImage value="#{recogedorEventos.sacarImagen(evento)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                            </h:commandLink>
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
@@ -57,8 +59,9 @@
                                     <h:outputText value="Fecha:" />
                                     <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Descripcion: " />
-                                    <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
+                                    <h:outputText value="Tipo:" />
+                                    <h:outputText value="#{evento.tipo}" style="font-weight: bold"/>
+
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>

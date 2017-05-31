@@ -13,7 +13,7 @@
         <c:choose>
             <c:when test="#{!recogedorBusquedas.isEncontrado()}">
                 <h:form> 
-                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento" chunkSize="5">
+                    <p:dataScroller value="#{recogedorBusquedas.getListaEvento()}" var="evento" chunkSize="10">
                         <f:facet name="header">
                             Evento
                         </f:facet>
@@ -23,6 +23,11 @@
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                            <h:commandLink action="#{recogedorEventos.ver(evento)}">
+                                <p:graphicImage value="#{recogedorEventos.sacarImagen(evento)}" stream="false" width="250px" height="250px" style="max-width: 400px ; max-height: 400px"/>
+                            </h:commandLink>
+
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
@@ -31,8 +36,6 @@
                                     <h:outputText value="Fecha:" />
                                     <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Descripción:" />
-                                    <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>
                                     <h:outputText value="Tipo" />
                                     <h:outputText value="#{evento.tipo}" style="font-weight: bold"/>
                                 </h:panelGrid>
@@ -41,12 +44,12 @@
                     </p:dataScroller>
                 </h:form>
             </c:when>
-                
+
             <c:otherwise>
                 <h:form> 
                     <p:dataScroller value="#{recogedorBusquedas.getListaBusqueda()}" var="busqEv">
                         <f:facet name="header">
-                          Buscados
+                            Buscados
                         </f:facet>
 
                         <f:facet name="loader">
@@ -54,6 +57,10 @@
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <h:commandLink action="#{recogedorEventos.ver(busEv)}">
+
+                                <p:graphicImage value="#{recogedorEventos.sacarImagen(busqEv)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                            </h:commandLink>
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
@@ -62,8 +69,6 @@
                                     <h:outputText value="Fecha:" />
                                     <h:outputText value="#{busqEv.FechaString()}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Descripción:" />
-                                    <h:outputText value="#{busqEv.descripcion}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>

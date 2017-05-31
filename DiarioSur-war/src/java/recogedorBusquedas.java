@@ -32,7 +32,7 @@ import javax.inject.Inject;
 public class recogedorBusquedas {
 
     private String busqueda = "";
-    private static boolean encontrado;
+    private boolean encontrado;
 
     @Inject
     private ctrlAutorizacion cta;
@@ -54,6 +54,7 @@ public class recogedorBusquedas {
             encontrado = true;
             busq = aux;
         }
+                
 
         return "index";
     }
@@ -66,12 +67,12 @@ public class recogedorBusquedas {
         this.busqueda = busqueda;
     }
 
-    public static boolean isEncontrado() {
+    public boolean isEncontrado() {
         return encontrado;
     }
 
-    public static void setEncontrado(boolean encontrado) {
-        recogedorBusquedas.encontrado = encontrado;
+    public  void setEncontrado(boolean encontrado) {
+        this.encontrado = encontrado;
     }
 
     public List<Evento> getListaEvento() throws DiarioSurException {

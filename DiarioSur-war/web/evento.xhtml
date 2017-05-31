@@ -18,14 +18,9 @@
                         <p:toolbar>
                             <f:facet name="left">
                                 <p:selectBooleanButton required="true"  value="#{recogedorEventos.getSeleccionado().verificado}" rendered="${ctrlAutorizacion.checkP()}" disabled="true" style="margin-right:0.3em" onLabel="Verificado" offLabel="No verificado"/>
-                                <p:commandButton action="#{recogedorEventos.editar()}" style="margin-right:0.3em" icon="fa fa-pencil" ajax="false" title="Editar" rendered="${ctrlAutorizacion.checkP()}"/>
-                                <p:commandButton action="#{recogedorEventos.eliminarEvento()}" icon="fa fa-close" ajax="false" title="Eliminar" rendered="${ctrlAutorizacion.checkP()}">
-                                    <p:confirm header="Eliminar evento" message="¿Estás seguro?" icon="fa fa-exclamation-triangle"/>
-                                </p:commandButton>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
-                                </p:confirmDialog>
+                                <p:commandButton action="#{recogedorEventos.editar()}" style="margin-right:0.3em" icon="fa fa-pencil" ajax="false" title="Editar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserRegistradoEv() > 1 || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
+                                <p:commandButton action="#{recogedorEventos.eliminarEvento()}" icon="fa fa-close" ajax="false" title="Eliminar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
+                                    
                                 <c:if test="${ctrlAutorizacion.checkP()}">
                                     <span class="ui-separator" hidden="true" >
                                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
@@ -48,9 +43,10 @@
                 </div>
             </div>
 
+            <!-- INFO EVENTO (imagen, info, precio, anuncio) -->
             <div class="ui-g">
                 <div class="ui-g-12 ui-md-6 ui-lg-3" >#{recogedorEventos.imagen}
-                    <h:graphicImage style="width:100%;max-height:600px" alt="Imagen" url="http://tueventoenbogota.com/wp-content/uploads/2015/07/01_eventos_empresariales-1240x824.jpg"/>
+                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" alt="Imagen" stream="false" style="width:100%;max-height:600px"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-7">
                     <h1>#{recogedorEventos.getSeleccionado().getNombre()}</h1>
@@ -58,7 +54,7 @@
                     <br/>
                     <b>#{recogedorEventos.getSeleccionado().getLugar()}</b>
                     <br/>
-                    <b>#{recogedorEventos.getSeleccionado().FechaString()} </b>
+                    <b>#{recogedorEventos.getSeleccionado().FechaString()}</b>
                     <br/><br/>
                     <h4>Descripción</h4>
                     #{recogedorEventos.getSeleccionado().getDescripcion()}
@@ -71,31 +67,33 @@
                     <p:button  value="Comprar" icon="fa fa-ticket" href="#{recogedorEventos.getSeleccionado().getCompra()}" rendered="#{recogedorEventos.getSeleccionado().getCompra().length()>0}"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-1">
-                    Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}<br/>
-                    Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio 
-                    Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio Anuncio 
-                    Anuncio Anuncio
+                    <p:graphicImage value="#{publicarAnuncio.sacarImagenA(recogedorEventos.getSeleccionado().anuncio)}" stream="false" alt="Anuncio" style="width:100%;max-height:600px"/>
                 </div>
             </div>
 
+            <!-- VALORACIONES -->
             <div class="ui-g" >
+                <!-- VALORACION PROPIA -->
                 <div class="ui-g-12 ui-md-6 ui-lg-3">
                     <h:form>
                         <h3>Deja tu valoración</h3>
-                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" cancel="false"/>
+                        <p:rating value="#{recogedorValoraciones.rating}" required="false" cancel="true" stars="5"/>
                         <br/>
-                        <p:inputTextarea rows="10" cols="40" value="#{recogedorValoraciones.comentario}"/>
+                        <p:inputTextarea rows="10" cols="40" required="true" value="#{recogedorValoraciones.comentario}"/>
                         <br/>
                         <p:commandButton value="Enviar valoración" ajax="false" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></p:commandButton >
                     </h:form>
 
                 </div>
+                
+                <!-- GELOCALIZACIÓN -->
                 <div class="ui-g-12 ui-md-6 ui-lg-9">
                     <h3>Geolocalización</h3>
                     <p:gmap center="#{recogedorEventos.getSeleccionado().getGeolocalizacion()}" zoom="15" type="HYBRID" style="width:100%;height:300px" model="#{recogedorEventos.model}" />
                 </div>
             </div>
-
+            
+            <!-- TABLA VALORACIONES + EVENTOS RECOMENDADOS -->
             <div class="ui-g">
                 <div class="ui-g-12">
                     <br/>
@@ -108,6 +106,9 @@
                             <p:column headerText="Fecha" style="width:220px">
                                 <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
+                            </p:column>
                             <p:column headerText="Calificación" style="width:220px">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
                             </p:column>
@@ -115,9 +116,36 @@
                                 <h:outputText value="#{valoracion.getComentario()}" />
                             </p:column>
                             <p:column style="width:45px" rendered="${ctrlAutorizacion.checkUR()}">
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" icon="fa fa-exclamation"/>
+                                <p:commandButton title="Reportar valoración" action="#{recogedorValoraciones.reportar(valoracion)}" ajax="false" icon="fa fa-exclamation" />
+                                <p:commandButton title="Eliminar Valoración" action="#{recogedorValoraciones.eliminarVal(valoracion)}" ajax="false" icon="fa fa-close" />
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <!-- EVENTOS RECOMENDADOS (SIN MODIFICAR) -->
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">                   
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>                           
+                        </p:dataScroller>
                     </h:form>
                 </div>
             </div>

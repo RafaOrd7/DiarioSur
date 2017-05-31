@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.REMOVE;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class Valoracion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idValoracion;
-    
+
     @Column(nullable = false)
     private Integer calificacion;
     @Column(nullable = false, length = 200)
@@ -40,13 +42,17 @@ public class Valoracion implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable = false)
     private Date fechaPublicacion;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private UsuarioRegistrado usuarioRegistrado;
     
     @ManyToOne
-    @JoinColumn(nullable  = false)
-    private UsuarioRegistrado usuarioRegistrado;
-    @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private Evento evento;
+
+    @OneToMany(mappedBy = "valoracion", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Reporte> reportes;
 
     public UsuarioRegistrado getUsuarioRegistrado() {
         return usuarioRegistrado;
@@ -63,29 +69,25 @@ public class Valoracion implements Serializable {
     public void setReportes(List<Reporte> reportes) {
         this.reportes = reportes;
     }
-    @OneToMany (mappedBy="valoracion")
-    private List<Reporte> reportes;
-    
-    
-    public Valoracion(Integer c, String co, Date fecha, UsuarioRegistrado u,Evento e){
-        calificacion=c;
-        comentario=co;
-        fechaPublicacion=fecha;
-        usuarioRegistrado=u;
-        evento=e;
+
+    public Valoracion(Integer c, String co, Date fecha, UsuarioRegistrado u, Evento e) {
+        calificacion = c;
+        comentario = co;
+        fechaPublicacion = fecha;
+        usuarioRegistrado = u;
+        evento = e;
     }
-    
-    
-    public Valoracion(){
-       
+
+    public Valoracion() {
+
     }
-    
-    public Evento getEvento(){
+
+    public Evento getEvento() {
         return evento;
     }
-    
-    public void setEvento(Evento e){
-        evento=e;
+
+    public void setEvento(Evento e) {
+        evento = e;
     }
 
     public static long getSerialVersionUID() {
@@ -111,8 +113,8 @@ public class Valoracion implements Serializable {
     public Date getFechaPublicacion() {
         return fechaPublicacion;
     }
-    
-    public String FechaString(){
+
+    public String FechaString() {
         DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
         return formato.format(fechaPublicacion);
     }
@@ -136,7 +138,6 @@ public class Valoracion implements Serializable {
     public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
-    
 
     public Long getId() {
         return idValoracion;
@@ -145,8 +146,6 @@ public class Valoracion implements Serializable {
     public void setId(Long id) {
         this.idValoracion = id;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -172,9 +171,5 @@ public class Valoracion implements Serializable {
     public String toString() {
         return "proyectogrupo.Valoracion[ id=" + idValoracion + " ]";
     }
-    
-   
-    
+
 }
-
-

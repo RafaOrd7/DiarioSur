@@ -6,6 +6,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +35,20 @@ public class Reporte implements Serializable {
     @Column(nullable = false)
     private Date fecha;
     
+    @Column(nullable = false, length = 20)
+    private String tipo;
+    
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private Evento evento;
+    
+    @ManyToOne
+    @JoinColumn(nullable=true)
+    private Valoracion valoracion;
+    
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private UsuarioRegistrado usuarioRegistrado;
 
     public Long getId_reporte() {
         return id_reporte;
@@ -65,18 +81,6 @@ public class Reporte implements Serializable {
     public void setUsuarioRegistrado(UsuarioRegistrado usuarioRegistrado) {
         this.usuarioRegistrado = usuarioRegistrado;
     }
-    @Column(nullable = false, length = 20)
-    private String tipo;
-    
-    @ManyToOne
-    @JoinColumn(nullable=false)
-    private Evento evento;
-    @ManyToOne
-    @JoinColumn(nullable=true)
-    private Valoracion valoracion;
-    @ManyToOne
-    @JoinColumn(nullable=false)
-    private UsuarioRegistrado usuarioRegistrado;
     
     
 
@@ -91,8 +95,13 @@ public class Reporte implements Serializable {
     public Date getFecha() {
         return fecha;
     }
+    
+    public String FechaString() {
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fecha);
+    }
 
-    public String getTipo() {
+    public String getTipo() { 
         return tipo;
     }
 

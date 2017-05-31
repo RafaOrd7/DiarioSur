@@ -38,7 +38,14 @@ public class recogedorValoraciones {
 
     @EJB
     private Negocio negocio;
-
+    
+    public String eliminarVal(Valoracion v){
+        seleccionada = v;
+        negocio.eliminarVal(seleccionada);
+        return "evento.xhtml";
+    }
+    
+    
     public String reportar(Valoracion v) {
         seleccionada = v;
         return "EnviarReporteVal.xhtml";
@@ -112,6 +119,9 @@ public class recogedorValoraciones {
     public String enviarValoracion(Evento seleccionado, UsuarioRegistrado usuarior) throws DiarioSurException {
         evento = seleccionado;
         usuario = usuarior;
+        if(rating==null){
+            rating =0;
+        }
         Valoracion aux = new Valoracion(rating, comentario, fecha, usuario, evento);
 
         setSeleccionada(aux);

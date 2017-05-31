@@ -23,7 +23,7 @@
                                 <h:commandLink action="#{recogedorReportes.ver(reporte)}" value="#{reporte.id_reporte}"/>
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{reporte.fecha}" />
+                                <h:outputText value="#{reporte.FechaString()}" />
                             </p:column>
                             <p:column headerText="Usuario">
                                 <h:outputText value="#{reporte.usuarioRegistrado.nombre}" />
@@ -52,7 +52,7 @@
                                 <h:outputText value="#{valoracion.tipo}" />
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.fecha}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                         </p:dataTable>
                     </h:form>

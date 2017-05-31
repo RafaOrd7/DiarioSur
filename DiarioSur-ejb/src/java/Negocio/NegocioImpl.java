@@ -16,13 +16,21 @@ import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -32,13 +40,12 @@ import javax.persistence.TypedQuery;
  *
  * @author Garri
  */
-
 @Stateless
 public class NegocioImpl implements Negocio {
 
     private static Long contId = 10L;
     private static Long contBorrado = 10L;
-    
+
     @PersistenceContext(unitName = "DiarioSurEE-Entidades")
     private EntityManager em;
 
@@ -61,6 +68,13 @@ public class NegocioImpl implements Negocio {
             existe = true;
         }
         return existe;
+    }
+
+    @Override
+    public void eliminarVal(Valoracion seleccionada) {
+        Query q = em.createQuery("delete from Reporte r where r.valoracion.idValoracion = " + seleccionada.getId());
+        q.executeUpdate();
+        em.remove(em.merge(seleccionada));
     }
 
     @Override
@@ -159,38 +173,36 @@ public class NegocioImpl implements Negocio {
         em.merge(a);
         em.persist(n);
     }
-    
+
     @Override
-    public void editaPeri(Periodista per){
+    public void editaPeri(Periodista per) {
         em.merge(per);
     }
-    
+
     @Override
-    public void editaUR(UsuarioRegistrado aux){
+    public void editaUR(UsuarioRegistrado aux) {
         em.merge(aux);
     }
 
     @Override
-    public void editaSuperu(SuperUsuario sup){
+    public void editaSuperu(SuperUsuario sup) {
         em.merge(sup);
     }
 
     @Override
-    public void editaJdr(JefeDeRedactores jdre){
+    public void editaJdr(JefeDeRedactores jdre) {
         em.merge(jdre);
     }
-    
+
     @Override
-    public void editaAdmin(Administrador adm){
+    public void editaAdmin(Administrador adm) {
         em.merge(adm);
     }
-    
-    
 
     @Override
     public void addPeri(Periodista per) {
         contId++;
-        per.setIdUser("P"+contId);
+        per.setIdUser("P" + contId);
         Notificacion n = new Notificacion();
         n.setTexto("Su rol de usuario ha cambiado, ahora tiene permisos de Periodista");
         n.setUsuarioRegistrado(per);
@@ -286,8 +298,8 @@ public class NegocioImpl implements Negocio {
     public void eliminarUR(UsuarioRegistrado a) {
         a.setBorrado(true);
         contBorrado++;
-        a.setEmail(a.getEmail()+"Borrado"+contBorrado);
-        a.setDni(a.getDni()+"Borrado"+contBorrado);
+        a.setEmail(a.getEmail() + "Borrado" + contBorrado);
+        a.setDni(a.getDni() + "Borrado" + contBorrado);
         em.merge(a);
         //em.remove(em.merge(a));
     }
@@ -296,8 +308,8 @@ public class NegocioImpl implements Negocio {
     public void eliminarSU(SuperUsuario a) {
         a.setBorrado(true);
         contBorrado++;
-        a.setEmail(a.getEmail()+"Borrado"+contBorrado);
-        a.setDni(a.getDni()+"Borrado"+contBorrado);
+        a.setEmail(a.getEmail() + "Borrado" + contBorrado);
+        a.setDni(a.getDni() + "Borrado" + contBorrado);
         em.merge(a);
         //em.remove(em.merge(a));
     }
@@ -306,8 +318,8 @@ public class NegocioImpl implements Negocio {
     public void eliminarPeriodista(Periodista a) {
         a.setBorrado(true);
         contBorrado++;
-        a.setEmail(a.getEmail()+"Borrado"+contBorrado);
-        a.setDni(a.getDni()+"Borrado"+contBorrado);
+        a.setEmail(a.getEmail() + "Borrado" + contBorrado);
+        a.setDni(a.getDni() + "Borrado" + contBorrado);
         em.merge(a);
         //em.remove(em.merge(a));
     }
@@ -316,8 +328,8 @@ public class NegocioImpl implements Negocio {
     public void eliminarJDR(JefeDeRedactores a) {
         a.setBorrado(true);
         contBorrado++;
-        a.setEmail(a.getEmail()+"Borrado"+contBorrado);
-        a.setDni(a.getDni()+"Borrado"+contBorrado);
+        a.setEmail(a.getEmail() + "Borrado" + contBorrado);
+        a.setDni(a.getDni() + "Borrado" + contBorrado);
         em.merge(a);
         //em.remove(em.merge(a));
     }
@@ -326,8 +338,8 @@ public class NegocioImpl implements Negocio {
     public void eliminarAdmin(Administrador a) {
         a.setBorrado(true);
         contBorrado++;
-        a.setEmail(a.getEmail()+"Borrado"+contBorrado);
-        a.setDni(a.getDni()+"Borrado"+contBorrado);
+        a.setEmail(a.getEmail() + "Borrado" + contBorrado);
+        a.setDni(a.getDni() + "Borrado" + contBorrado);
         em.merge(a);
         //em.remove(em.merge(a));
     }
@@ -393,8 +405,27 @@ public class NegocioImpl implements Negocio {
         return l.get(0);
     }
 
+    
     @Override
-    public void rellenarBd() {
+    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        
+        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        if(u.getPassword().equals(aux.getPassword())){
+            return u.getPassword();
+        }else{
+            return cifrado;
+        }
+    }
+    
+    
+    
+    @Override
+    public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         Administrador ad = new Administrador();
         ad.setApellidos("a");
@@ -406,13 +437,20 @@ public class NegocioImpl implements Negocio {
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
+        
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(ad.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        ad.setPassword(cifrado);
+        
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
+        
 
         em.persist(ad);
-     
-
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
@@ -421,8 +459,11 @@ public class NegocioImpl implements Negocio {
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
-        ano.setPrioridad("mucha");
+        ano.setMultimedia(new byte[0]);
+        ano.setPrioridad("3");
         ano.setTags("vale");
+        List<Evento> l = new ArrayList<>();
+        ano.setEvento(l);
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
         em.persist(ano);
 
@@ -440,9 +481,12 @@ public class NegocioImpl implements Negocio {
         e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
+        e.setImagen(new byte[0]);
 
         em.persist(e);
-
+        l.add(e);
+        ano.setEvento(l);
+        editarAnuncio(ano);
 
     }
 
@@ -470,24 +514,29 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
+    public void compruebaLogin(UsuarioRegistrado u)throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
             throw new UsuarioNoRegistradoException();
         } else {
             UsuarioRegistrado user = lu.get(0);
-            if(user.isBorrado()){
+            if (user.isBorrado()) {
                 throw new ContraseniaInvalidaException();
             }
-            if (!user.getPassword().equals(u.getPassword())) {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            String cifrado;
+            md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+            if (!user.getPassword().equals(cifrado)) {
                 throw new ContraseniaInvalidaException();
             }
         }
     }
 
     @Override
-    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException{
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
@@ -512,7 +561,12 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void eliminarEvento(Evento e) {
+    public void eliminarEvento(Evento e) throws DiarioSurException {
+        Query q = em.createQuery("delete from Reporte r where r.evento.id_evento = " + e.getId());
+        q.executeUpdate();
+        for (Valoracion v : getValoraciones(e)) {
+            eliminarVal(v);
+        }
         em.remove(em.merge(e));
     }
 
@@ -556,13 +610,31 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public Anuncio devolverAnuncio() {
-        List<Anuncio> l = em.createQuery("select a from Anuncio a").getResultList();
-        return l.get(0);
+        List<Integer> lp = Arrays.asList(3, 3, 3, 2, 2, 1);
+        Random r = new Random();
+        int pri = lp.get(r.nextInt(lp.size()));
+        List<Anuncio> l = em.createQuery("select a from Anuncio a where a.prioridad >= '" + pri + "'").getResultList();
+        if (!l.isEmpty()) {
+            return l.get(r.nextInt(l.size()));
+        } else {
+            l = em.createQuery("select a from Anuncio a").getResultList();
+            return l.get(r.nextInt(l.size()));
+        }
+    }
+
+    @Override
+    public void editarAnuncio(Anuncio anuncio) {
+        em.merge(anuncio);
     }
 
     @Override
     public List<Evento> getEv() {
-        return em.createQuery("SELECT u FROM Evento u").getResultList();
+        //return em.createQuery("SELECT u FROM Evento u").getResultList();
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=true");
+        l=q.getResultList();
+        return l;
+        
     }
 
     @Override
@@ -580,6 +652,7 @@ public class NegocioImpl implements Negocio {
         return num;
     }
 
+    @Override
     public void crearAnuncio(Anuncio anu) {
         contId++;
         anu.setId_anuncio(contId);
@@ -587,14 +660,45 @@ public class NegocioImpl implements Negocio {
 
     }
 
+    @Override
     public void borrarAnuncio(Anuncio anu) throws DiarioSurException {
         Anuncio aux = em.find(Anuncio.class, anu.getId_anuncio());
 
         if (aux == null) {
             throw new DiarioSurException();
-        } else {
+        } else if (em.createQuery("SELECT u FROM Anuncio u").getResultList().size() > 1) {
+            for (Evento e : aux.getEvento()) {
+                Anuncio a = cambiaAnuncio(anu);
+                List<Evento> l = a.getEvento();
+                l.add(e);
+                e.setAnuncio(a);
+                a.setEvento(l);
+                editarAnuncio(a);
+                em.merge(e);
+            }
             em.remove(em.merge(aux));
+        } else {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "No se puede eliminar el anuncio " + anu.getId_anuncio() + " ya que debe haber, al menos, un anuncio en la bd",
+                    "No se puede eliminar el anuncio " + anu.getId_anuncio() + " ya que debe haber, al menos, un anuncio en la bd"));
         }
+
+    }
+
+    public Anuncio cambiaAnuncio(Anuncio a) {
+        Random r = new Random();
+        List<Integer> lp = Arrays.asList(3, 3, 3, 2, 2, 1);
+        int pri = lp.get(r.nextInt(lp.size()));
+        List<Anuncio> l = em.createQuery("select a from Anuncio a where a.prioridad >= '" + pri + "'").getResultList();
+        if (l.contains(a) && l.size() == 1 || l.isEmpty()) {
+            l = em.createQuery("select a from Anuncio a").getResultList();
+        }
+        Anuncio res = l.get(r.nextInt(l.size()));
+        while (Objects.equals(res.getId_anuncio(), a.getId_anuncio())) {
+            res = l.get(r.nextInt(l.size()));
+        }
+        return res;
     }
 
     @Override
@@ -710,5 +814,50 @@ public class NegocioImpl implements Negocio {
     public String devolverPref(UsuarioRegistrado usuarioLogeado) {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
         return user.getPreferencias();
+    }
+
+    @Override
+    public boolean tieneImagen(Evento e) {
+        Evento aux=em.find(Evento.class, e.getId());
+        
+        if(aux.getImagen()==null || aux.getImagen().length==0){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public boolean tieneImagenA(Anuncio a) {
+        Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
+        if(aux.getMultimedia()==null || aux.getMultimedia().length==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public List<Evento> getAllEv() {
+        return em.createQuery("SELECT u FROM Evento u").getResultList();
+    }
+
+    @Override
+    public List<Evento> recomendar(Evento e, UsuarioRegistrado u) {
+        
+        List<Evento> l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.tipo='" + e.getTipo()+"' and e.id_evento!="+e.getId() + " and e.verificado="+e.getVerificado());
+        l=q.getResultList();
+        return l;
+    }
+
+    @Override
+    public List<Evento> getEvNV() {
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=false");
+        l=q.getResultList();
+        return l;
+        
     }
 }

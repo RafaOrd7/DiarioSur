@@ -13,12 +13,19 @@ import Entidades.Anuncio;
 import Entidades.Evento;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -35,6 +42,20 @@ public class PublicarAnuncio {
 
     private String nombreEmpresa;
     private long id;
+    private String dimensiones;
+    private String prioridad;
+    private Date fechaPublicacion;
+    private Date fechaExpiracion;
+    private byte[] multimedia;
+    private String tags;
+    private static Anuncio seleccionado;
+    private String eventos;
+    private boolean concierto;
+    private boolean exposicion;
+    private boolean musical;
+    private boolean deportivo;
+    private boolean teatral;
+    private boolean otro;
     
     
     
@@ -87,20 +108,6 @@ public class PublicarAnuncio {
     public void setOtro(boolean otro) {
         this.otro = otro;
     }
-    private String dimensiones;
-    private int prioridad;
-    private Date fechaPublicacion;
-    private Date fechaExpiracion;
-    private File multimedia;
-    private String tags;
-    private static Anuncio seleccionado;
-    private String eventos;
-    private boolean concierto;
-    private boolean exposicion;
-    private boolean musical;
-    private boolean deportivo;
-    private boolean teatral;
-    private boolean otro;
 
     public String getEventos() {
         return eventos;
@@ -126,13 +133,29 @@ public class PublicarAnuncio {
         anuncio.setFechaPublicacion(fechaPublicacion);
         anuncio.setFechaExpiracion(fechaExpiracion);
         anuncio.setMultimedia(multimedia);
-        anuncio.setPrioridad(dimensiones);
+        anuncio.setPrioridad(prioridad);
         anuncio.setTags(tags);
         anuncio.setAdministrador((Administrador)cta.getUsuarioLogeado());
 
     }
 
     public String subirAnuncio() throws DiarioSurException {
+        if(fechaPublicacion.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del anuncio no puede ser anterior a la fecha actual",
+                    "La fecha del anuncio no puede ser anterior a la fecha actual"));
+            return null;
+        }
+        
+        if(fechaExpiracion.compareTo(fechaPublicacion)<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion",
+                    "La fecha del expiracion no puede ser anterior a la fecha de publicacion"));
+            return null;
+        }
+        
         crear();
         negocio.crearAnuncio(anuncio);
         return "index.xhtml";
@@ -200,14 +223,14 @@ public class PublicarAnuncio {
     /**
      * @return the prioridad
      */
-    public int getPrioridad() {
+    public String getPrioridad() {
         return prioridad;
     }
 
     /**
      * @param prioridad the prioridad to set
      */
-    public void setPrioridad(int prioridad) {
+    public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
 
@@ -231,23 +254,15 @@ public class PublicarAnuncio {
     /**
      * @return the multimedia
      */
-    public File getMultimedia() {
-        return multimedia;
+    public UploadedFile getMultimedia() {
+        return null;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(File multimedia) {
-        if (multimedia.getName().endsWith(".jpg")) {
-            this.multimedia = multimedia;
-        } else if (multimedia.getName().endsWith(".png")) {
-            this.multimedia = multimedia;
-        } else if (multimedia.getName().endsWith(".gif")) {
-            this.multimedia = multimedia;
-        } else {
-            throw new IllegalArgumentException("La imagen debe estar en uno de los siguientes formatos: .jpg, .gif, .png");
-        }
+    public void setMultimedia(UploadedFile multimedia) {
+       this.multimedia=multimedia.getContents();
 
     }
 
@@ -288,4 +303,20 @@ public class PublicarAnuncio {
         return negocio.getAnu();
 
     }
+    
+     public StreamedContent sacarImagenA(Anuncio a) throws IOException {
+       
+        if (negocio.tieneImagenA(a)) {
+            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(a.getMultimedia()));
+            return stm;
+        } else {
+            StreamedContent stm;
+            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux=origRequest.getRequestURL().toString();
+            aux=aux.substring(0,aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
+            return stm;
+        }
+    }
+    
 }

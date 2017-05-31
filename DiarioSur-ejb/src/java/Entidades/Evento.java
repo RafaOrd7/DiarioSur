@@ -9,10 +9,14 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.*;
+import static javax.persistence.CascadeType.REMOVE;
 
 /**
  *
@@ -45,26 +49,30 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private String compra;
     private Boolean verificado;
+    private byte[] imagen;
+    
     @Column(name = "geolocalización")
     private String geolocalizacion;
-    @OneToMany(mappedBy = "evento")
+    
+    @OneToMany(mappedBy = "evento", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Valoracion> valoraciones;
-    @OneToMany(mappedBy = "evento")
+    
+    @OneToMany(mappedBy = "evento", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Reporte> reportes;
+    
     @ManyToOne
     @JoinColumn(nullable = false)
     private UsuarioRegistrado usuarioRegistrado;
+    
     @ManyToOne
     @JoinColumn(nullable = false)
     private Anuncio anuncio;
-    // añadido por Mike
+    
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
-    // fin añadido por Mike
-    private File imagen;
-
     
     
+    //// GETTERS, SETTERS Y FUNCIONES
     public String getLugar() {
         return lugar;
     }
@@ -129,11 +137,11 @@ public class Evento implements Serializable {
         this.user_megusta = user_megusta;
     }
 
-    public File getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(File imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
     
@@ -142,7 +150,8 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String g, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
+
+    public Evento(String n, Date d, String l, String g, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
         nombre = n;
         fecha = d;
         lugar = l;
@@ -152,7 +161,6 @@ public class Evento implements Serializable {
         compra=c;
         descripcion= des;
         tags = ta;
-        verificado = ve;
         usuarioRegistrado = usuarioR;
         anuncio = a;
     }
@@ -220,6 +228,13 @@ public class Evento implements Serializable {
 
     public Boolean getVerificado() {
         return verificado;
+    }
+    
+    public String VerificadoString(){
+        String res = "No";
+        if(verificado) res = "Si";
+        
+        return res;
     }
 
     public void setVerificado(Boolean verificado) {

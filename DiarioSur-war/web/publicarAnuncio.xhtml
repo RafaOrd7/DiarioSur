@@ -20,7 +20,7 @@
                                 <td>Subir imagen:</td>
                             </tr>  
                             <tr>
-                                <td><input type="file" id="files" name="files[]" value="#{publicarAnuncio.multimedia}"/></td>
+                                <td><p:fileUpload id="imAnu" mode="simple" value="#{publicarAnuncio.multimedia}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/></td>
                             </tr>
                             <tr>
                                 <td>Dimensiones:</td>
@@ -53,7 +53,13 @@
                                 <td>Prioridad (1-3):</td>
                             </tr>
                             <tr>
-                                <td><p:inputText value="#{publicarAnuncio.prioridad}" required="true" requiredMessage="Campo prioridad obligatorio" /></td>
+                                <td>
+                                    <p:inputText id="prioridad" value="#{publicarAnuncio.prioridad}" required="true" requiredMessage="Campo prioridad obligatorio"
+                                                 validatorMessage="El valor introducido no cumple el formato">
+                                        <f:validateRegex pattern="([1-3])" />
+                                    </p:inputText>
+                                    
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tags:</td>
