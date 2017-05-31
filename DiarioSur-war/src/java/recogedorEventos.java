@@ -62,6 +62,7 @@ public class recogedorEventos {
     private String nombre;
     private String descripcion;
     private byte[] imagen;
+    
     private Date fecha;
     private String lugar;
     private String tipo;
@@ -88,7 +89,7 @@ public class recogedorEventos {
         aux.setUser_megusta(seleccionado.getUser_megusta());
         aux.setValoraciones(seleccionado.getValoraciones());
         aux.setReportes(seleccionado.getReportes());
-        aux.setImagen(seleccionado.getImagen());
+        aux.setImagen(imagen);
         seleccionado = aux;
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";

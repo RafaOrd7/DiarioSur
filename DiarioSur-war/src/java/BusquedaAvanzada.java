@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
+import Entidades.Anuncio;
 import Entidades.Evento;
 import Negocio.Negocio;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,6 +17,9 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -30,7 +36,6 @@ public class BusquedaAvanzada {
     private String lugar = "";
     private String descripcion = "";
     private String tags = "";
-
     private static boolean encontrado = false;
 
     private List<Evento> busq = new ArrayList<>();
