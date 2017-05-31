@@ -783,7 +783,9 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean tieneImagen(Evento e) {
         Evento aux=em.find(Evento.class, e.getId());
-        if(aux.getImagen()==null){
+        
+        if(aux.getImagen()==null || aux.getImagen().length==0){
+            
             return false;
         }else{
             return true;
