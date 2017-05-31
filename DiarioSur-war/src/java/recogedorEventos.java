@@ -243,6 +243,13 @@ public class recogedorEventos {
     public String enviarEvento() throws DiarioSurException {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
+        if(fecha.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del evento no puede ser anterior a la fecha actual",
+                    "La fecha del evento no puede ser anterior a la fecha actual"));
+            return null;
+        }
 
         Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
