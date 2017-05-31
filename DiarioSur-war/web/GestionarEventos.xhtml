@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Gestionar Eventos</ui:define>
+
+
+    <ui:define name="content">
+        <c:choose>
+            <c:when test="#{ctrlAutorizacion.checkAdm()}">
+                <c:if test="#{!empty recogedorEventos.getAllEventos()}">
+                    <h1>Reportes</h1>
+                    <h:form>
+                        <h2>Eventos no verificados</h2>
+                        <p:dataTable var="evento" value="#{recogedorEventos.getEvNV()}">
+                            <p:column headerText="Id">              
+                                <h:commandLink action="#{recogedorEventos.ver(evento)}" value="#{evento.id}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">              
+                                <h:outputText value="#{evento.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Verificado">
+                                <h:outputText value="#{evento.verificado}" />
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{evento.fecha}" />
+                            </p:column>                          
+                        </p:dataTable>
+                        
+                        <h2>Eventos verificados</h2>
+                        <p:dataTable var="evento" value="#{recogedorEventos.getEventos()}">
+                            <p:column headerText="Id">              
+                                <h:commandLink action="#{recogedorEventos.ver(evento)}" value="#{evento.id}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">              
+                                <h:outputText value="#{evento.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Verificado">
+                                <h:outputText value="#{evento.verificado}" />
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{evento.fecha}" />
+                            </p:column>                          
+                        </p:dataTable>
+                        
+                    </h:form>
+                </c:if>              
+            </c:when>
+            <c:otherwise>
+                <h3>Error, acceso denegado.</h3>
+            </c:otherwise>
+        </c:choose>          
+    </ui:define>
+</ui:composition>
