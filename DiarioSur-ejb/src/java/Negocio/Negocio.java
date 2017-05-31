@@ -140,4 +140,6 @@ public interface Negocio {
 
     public void eliminarVal(Valoracion seleccionada);
 
+    public void editarAnuncio(Anuncio anuncio);
+
 }

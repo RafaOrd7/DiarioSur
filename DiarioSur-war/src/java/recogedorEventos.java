@@ -223,7 +223,11 @@ public class recogedorEventos {
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
+        List<Evento> l = anuncio.getEvento();
+        l.add(aux);
         negocio.crearEvento(aux);
+        anuncio.setEvento(l);
+        negocio.editarAnuncio(anuncio);
         return "evento";
     }
 
