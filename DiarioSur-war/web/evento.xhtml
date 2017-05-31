@@ -50,8 +50,8 @@
                         <h:outputText value="#{valoracion.FechaString()}" />
                     </p:column>
                     <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
+                        <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
+                    </p:column>
                     <p:column headerText="Calificación">
                         <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
                     </p:column>
@@ -63,21 +63,42 @@
                     </p:column>
                 </p:dataTable>
             </h:form>
+            <br/>
+            <br/>
+            <h:form>
+                <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                    <f:facet name="header">
+                        QUIZÁS TAMBIÉN TE GUSTE:
+                    </f:facet>
+
+                    <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                        <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                            <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                        </h:commandLink>
+
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Nombre:" />
+                                <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                <h:outputText value="Fecha:" />
+                                <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                <h:outputText value="Tipo" />
+                                <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:dataScroller>
+            </h:form>
         </c:if>
         <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
             <c:choose>
                 <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
                     <table align="center">                
                         <h:form>
-
-
                             <tr>
-
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
                                 </td>
-
-
-
                                 <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
                                     </p:button>
                                 </td>
@@ -101,12 +122,7 @@
                     <table align="center"> 
                         <tr>
                             <td>
-
-
-
-
                                 <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
-
                             </td>
                         </tr>
                         <tr>
@@ -150,7 +166,7 @@
                             </tr>
                             <tr>
                                 <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></h:commandButton ></td>
-                            </tr>
+                            </tr>                            
                         </table>
                     </h:form>
                     <h3 align="center"> COMENTARIOS </h3>
@@ -174,13 +190,36 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">                   
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>                           
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                            </tr>
+
 
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
@@ -206,7 +245,9 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-
+                        <tr>
+                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
+                        </tr>
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -270,14 +311,36 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                            </tr>
+
 
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
@@ -303,7 +366,9 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-
+                        <tr>
+                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
+                        </tr>
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -367,15 +432,36 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:when>
 
                 <c:when test="#{ctrlAutorizacion.comprobarUserSUEv() > 1}">
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                            </tr>
 
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
@@ -401,6 +487,9 @@
                         </h:form>
                     </table>
                     <table align="center"> 
+                        <tr>
+                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
+                        </tr>
 
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
@@ -465,14 +554,36 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:when>
                 <c:when test="#{ctrlAutorizacion.comprobarUserRegistradoEv() > 1}">
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                            </tr>
+
 
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
@@ -498,7 +609,9 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-
+                        <tr>
+                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
+                        </tr>
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -563,13 +676,35 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
                 </c:when>
                 <c:otherwise>
                     <table align="center">                
                         <h:form>
-                            <tr>
-                                <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                            </tr>
+
 
                             <tr>
                                 <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
@@ -590,7 +725,9 @@
                         </h:form>
                     </table>
                     <table align="center"> 
-
+                        <tr>
+                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
+                        </tr>
                         <tr>
                             <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
                         </tr>
@@ -654,6 +791,30 @@
                                 <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
                             </p:column>
                         </p:dataTable>
+                    </h:form>
+                    <br/>
+                    <br/>
+                    <h:form>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
                     </h:form>
                 </c:otherwise>
             </c:choose>

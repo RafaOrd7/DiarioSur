@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.*;
 import static javax.persistence.CascadeType.REMOVE;
@@ -140,7 +143,7 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
+    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
         nombre = n;
         fecha = d;
         geolocalizacion=l;
@@ -149,7 +152,6 @@ public class Evento implements Serializable {
         compra=c;
         descripcion= des;
         tags = ta;
-        verificado = ve;
         usuarioRegistrado = usuarioR;
         anuncio = a;
     }
@@ -217,6 +219,13 @@ public class Evento implements Serializable {
 
     public Boolean getVerificado() {
         return verificado;
+    }
+    
+    public String VerificadoString(){
+        String res = "No";
+        if(verificado) res = "Si";
+        
+        return res;
     }
 
     public void setVerificado(Boolean verificado) {
