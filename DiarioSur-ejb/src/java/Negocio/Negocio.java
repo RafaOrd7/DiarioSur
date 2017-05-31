@@ -17,9 +17,9 @@ import Entidades.UsuarioRegistrado;
 import java.util.List;
 
 import Entidades.Valoracion;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import javax.ejb.Local;
-
-
 
 /**
  *
@@ -30,9 +30,9 @@ public interface Negocio {
 
     public void registrarUsuario(UsuarioRegistrado u) throws DiarioSurException;
 
-    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException;
+    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException;
 
-    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException;
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException;
 
     public boolean existeUsuario(UsuarioRegistrado u) throws DiarioSurException;
 
@@ -85,6 +85,7 @@ public interface Negocio {
     public void addSuperu(SuperUsuario sup);
 
     public void addUR(UsuarioRegistrado ur);
+
     public List<Evento> getEv();
 
     public int numMeGusta(Long id);
@@ -92,18 +93,28 @@ public interface Negocio {
     public void crearValoracion(Valoracion v) throws DiarioSurException;
 
     public void crearAdmin(Administrador a);
+
     public void crearJDR(JefeDeRedactores a);
+
     public void crearPeriodista(Periodista a);
+
     public void crearSU(SuperUsuario a);
+
     public void crearUR(UsuarioRegistrado a);
+
     public boolean checkDNI(UsuarioRegistrado a);
+
     public List<Notificacion> getNotif(UsuarioRegistrado u);
+
     public void eliminarNotificacion(Notificacion n);
+
     public UsuarioRegistrado buscarURmail(String email);
 
     public void crearAnuncio(Anuncio anu) throws DiarioSurException;
 
-    public void rellenarBd();
+    public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException;
+
+    ;
 
     public void borrarAnuncio(Anuncio anuncio) throws DiarioSurException;
 
@@ -132,13 +143,15 @@ public interface Negocio {
     public void editaJdr(JefeDeRedactores jdre);
 
     public void editaAdmin(Administrador adm);
-    public void tipoVisitado(UsuarioRegistrado usuarioLogeado,Evento evento)throws DiarioSurException;
+
+    public void tipoVisitado(UsuarioRegistrado usuarioLogeado, Evento evento) throws DiarioSurException;
 
     public String getTiposVisitadosDe(UsuarioRegistrado usuarioLogeado);
 
     public String devolverPref(UsuarioRegistrado usuarioLogeado);
 
     public boolean tieneImagen(Evento e);
+
     public void eliminarVal(Valoracion seleccionada);
 
     public boolean tieneImagenA(Anuncio a);
@@ -148,6 +161,9 @@ public interface Negocio {
     public List<Evento> recomendar(Evento e, UsuarioRegistrado u);
 
     public List<Evento> getEvNV();
+
     public void editarAnuncio(Anuncio anuncio);
+
+    public String checkPass(UsuarioRegistrado u) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 
 }

@@ -16,6 +16,9 @@ import Entidades.Reporte;
 import Entidades.UsuarioRegistrado;
 import Entidades.Valoracion;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -402,8 +405,27 @@ public class NegocioImpl implements Negocio {
         return l.get(0);
     }
 
+    
     @Override
-    public void rellenarBd() {
+    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        
+        UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
+        if(u.getPassword().equals(aux.getPassword())){
+            return u.getPassword();
+        }else{
+            return cifrado;
+        }
+    }
+    
+    
+    
+    @Override
+    public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         Administrador ad = new Administrador();
         ad.setApellidos("a");
@@ -415,6 +437,14 @@ public class NegocioImpl implements Negocio {
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
+        
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        String cifrado;
+        md.update(ad.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+        ad.setPassword(cifrado);
+        
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
@@ -483,7 +513,7 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException {
+    public void compruebaLogin(UsuarioRegistrado u)throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -493,14 +523,19 @@ public class NegocioImpl implements Negocio {
             if (user.isBorrado()) {
                 throw new ContraseniaInvalidaException();
             }
-            if (!user.getPassword().equals(u.getPassword())) {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            String cifrado;
+            md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
+            if (!user.getPassword().equals(cifrado)) {
                 throw new ContraseniaInvalidaException();
             }
         }
     }
 
     @Override
-    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException {
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException{
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
@@ -795,7 +830,7 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean tieneImagenA(Anuncio a) {
         Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
-        if(aux.getMultimedia()==null){
+        if(aux.getMultimedia()==null || aux.getMultimedia().length==0){
             return false;
         }else{
             return true;
