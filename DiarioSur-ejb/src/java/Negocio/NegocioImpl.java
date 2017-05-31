@@ -795,7 +795,7 @@ public class NegocioImpl implements Negocio {
     @Override
     public boolean tieneImagenA(Anuncio a) {
         Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
-        if(aux.getMultimedia()==null){
+        if(aux.getMultimedia()==null || aux.getMultimedia().length==0){
             return false;
         }else{
             return true;
