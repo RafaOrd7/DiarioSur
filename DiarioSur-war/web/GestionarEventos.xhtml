@@ -14,8 +14,8 @@
                 <c:if test="#{!empty recogedorEventos.getAllEventos()}">
                     <h1>Reportes</h1>
                     <h:form>
-                        <h2>Eventos</h2>
-                        <p:dataTable var="evento" value="#{recogedorEventos.getAllEventos()}">
+                        <h2>Eventos no verificados</h2>
+                        <p:dataTable var="evento" value="#{recogedorEventos.getEvNV()}">
                             <p:column headerText="Id">              
                                 <h:commandLink action="#{recogedorEventos.ver(evento)}" value="#{evento.id}"/>
                             </p:column>
@@ -23,12 +23,29 @@
                                 <h:outputText value="#{evento.nombre}"/>
                             </p:column>
                             <p:column headerText="Verificado">
-                                <h:outputText value="#{evento.verificado}" />
+                                <h:outputText value="#{evento.VerificadoString()}" />
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{evento.fecha}" />
+                                <h:outputText value="#{evento.FechaString()}" />
                             </p:column>                          
                         </p:dataTable>
+                        
+                        <h2>Eventos verificados</h2>
+                        <p:dataTable var="evento" value="#{recogedorEventos.getEventos()}">
+                            <p:column headerText="Id">              
+                                <h:commandLink action="#{recogedorEventos.ver(evento)}" value="#{evento.id}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">              
+                                <h:outputText value="#{evento.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Verificado">
+                                <h:outputText value="#{evento.VerificadoString()}" />
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{evento.FechaString()}" />
+                            </p:column>                          
+                        </p:dataTable>
+                        
                     </h:form>
                 </c:if>              
             </c:when>

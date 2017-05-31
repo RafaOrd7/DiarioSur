@@ -6,6 +6,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -93,8 +95,13 @@ public class Reporte implements Serializable {
     public Date getFecha() {
         return fecha;
     }
+    
+    public String FechaString() {
+        DateFormat formato = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return formato.format(fecha);
+    }
 
-    public String getTipo() {
+    public String getTipo() { 
         return tipo;
     }
 

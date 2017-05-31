@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
+import Entidades.Administrador;
 import Entidades.Anuncio;
 import Entidades.Evento;
+import Entidades.JefeDeRedactores;
+import Entidades.Periodista;
+import Entidades.SuperUsuario;
 import Entidades.UsuarioRegistrado;
 import Negocio.DiarioSurException;
 import Negocio.Negocio;
@@ -37,10 +41,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -77,7 +83,8 @@ public class recogedorEventos {
     private static Evento seleccionado;
 
     public String editarEvento() {
-        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
+        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getAnuncio());
+        aux.setVerificado(seleccionado.getVerificado());
         aux.setId_evento(seleccionado.getId_evento());
         aux.setUser_megusta(seleccionado.getUser_megusta());
         aux.setValoraciones(seleccionado.getValoraciones());
@@ -152,8 +159,8 @@ public class recogedorEventos {
     public List<Evento> getEventos() {
         return negocio.getEv();
     }
-    
-    public List<Evento> getAllEventos(){
+
+    public List<Evento> getAllEventos() {
         return negocio.getAllEv();
     }
 
@@ -221,9 +228,7 @@ public class recogedorEventos {
     public void setImagen(UploadedFile f) {
         imagen = f.getContents();
     }
-    
-   
-    
+
     public recogedorEventos() {
 
     }
@@ -252,11 +257,29 @@ public class recogedorEventos {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
 
-        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
+        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, anuncio);
+        if (usuario instanceof Administrador || usuario instanceof JefeDeRedactores || usuario instanceof Periodista || usuario instanceof SuperUsuario) {
+            aux.setVerificado(true);
+
+        } else {
+            aux.setVerificado(false);
+        }
+        
+        if(fecha.compareTo(new Date())<0){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La fecha del evento no puede ser anterior a la fecha actual",
+                    "La fecha del evento no puede ser anterior a la fecha actual"));
+            return null;
+        }
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
+        List<Evento> l = anuncio.getEvento();
+        l.add(aux);
         negocio.crearEvento(aux);
+        anuncio.setEvento(l);
+        negocio.editarAnuncio(anuncio);
         return "evento";
     }
 
@@ -274,37 +297,50 @@ public class recogedorEventos {
     }
 
     public StreamedContent sacarImagen(Evento e) throws IOException {
+      
         if (negocio.tieneImagen(e)) {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(e.getImagen()));
             return stm;
         } else {
-            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
-         
+            StreamedContent stm;
+            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux=origRequest.getRequestURL().toString();
+            aux=aux.substring(0,aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
             return stm;
         }
 
     }
-    
-    
-    public byte[] cogerArBy() throws FileNotFoundException{
+
+    public byte[] cogerArBy() throws FileNotFoundException {
         File file = new File("resources/logoC.png");
-            System.out.println(file.exists() + "!!");
-            
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            try {
-                for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                    bos.write(buf, 0, readNum); 
-                    System.out.println("read " + readNum + " bytes,");
-                }
-            } catch (IOException ex) {
-              
+        System.out.println(file.exists() + "!!");
+
+        FileInputStream fis = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        try {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+                System.out.println("read " + readNum + " bytes,");
             }
-            
-            //bytes is the ByteArray we need
-            byte[] bytes = bos.toByteArray();
-            return bytes;
+        } catch (IOException ex) {
+
+        }
+
+        //bytes is the ByteArray we need
+        byte[] bytes = bos.toByteArray();
+        return bytes;
     }
-    
+
+    public List<Evento> getListaEventoRec(Evento e) {
+        List<Evento> l = new ArrayList<>();
+        // l=negocio.getDosRecomendados(e);
+        return l;
+    }
+
+    public List<Evento> getEvNV() {
+        return negocio.getEvNV();
+    }
+
 }

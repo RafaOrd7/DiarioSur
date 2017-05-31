@@ -26,7 +26,7 @@
                                 <h:outputText value="#{reporte.tipo}" />
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{reporte.fecha}" />
+                                <h:outputText value="#{reporte.FechaString()}" />
                             </p:column>
                             <p:column headerText="Evento">
                                 <h:outputText value="#{reporte.evento.nombre}" />
@@ -48,7 +48,7 @@
                                 <h:outputText value="#{valoracion.tipo}" />
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.fecha}" />
+                                <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                         </p:dataTable>
                     </h:form>
