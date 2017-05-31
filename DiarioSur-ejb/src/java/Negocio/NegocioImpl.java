@@ -473,8 +473,8 @@ public class NegocioImpl implements Negocio {
         e.setId(3L);
         e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
-        e.setTags("Ninguno");
-        e.setTipo("Musical");
+        e.setTags("musical");
+        e.setTipo("musical");
         e.setVerificado(true);
         e.setUsuarioRegistrado(ad);
         e.setImagen(new byte[0]);
@@ -497,7 +497,7 @@ public class NegocioImpl implements Negocio {
         f.setNombre("Festival de cine");
         f.setPrecio(5F);
         f.setTags("cine cultura ocio");
-        f.setTipo("Teatral");
+        f.setTipo("teatral");
         f.setVerificado(true);
         f.setUsuarioRegistrado(ad);
         f.setImagen(new byte[0]);
@@ -519,7 +519,7 @@ public class NegocioImpl implements Negocio {
         g.setNombre("Málaga vs Real Madrid");
         g.setPrecio(35F);
         g.setTags("deporte futbol ocio");
-        g.setTipo("Deportivo");
+        g.setTipo("deportivo");
         g.setVerificado(true);
         g.setUsuarioRegistrado(ad);
         g.setImagen(new byte[0]);
@@ -541,7 +541,7 @@ public class NegocioImpl implements Negocio {
         h.setNombre("Charla de sexología");
         h.setPrecio(0F);
         h.setTags("charla social concienciación juventud");
-        h.setTipo("Exposición");
+        h.setTipo("exposición");
         h.setVerificado(true);
         h.setUsuarioRegistrado(ad);
         h.setImagen(new byte[0]);
@@ -564,7 +564,7 @@ public class NegocioImpl implements Negocio {
         p.setNombre("Concierto Andy y Lucas");
         p.setPrecio(20F);
         p.setTags("musica andy lucas");
-        p.setTipo("Concierto");
+        p.setTipo("concierto");
         p.setVerificado(true);
         p.setUsuarioRegistrado(ad);
         p.setImagen(new byte[0]);
@@ -587,7 +587,7 @@ public class NegocioImpl implements Negocio {
         o.setNombre("Recogida de alimentos");
         o.setPrecio(0F);
         o.setTags("obra benefica comida Nepal");
-        o.setTipo("Otro");
+        o.setTipo("otro");
         o.setVerificado(true);
         o.setUsuarioRegistrado(ad);
         o.setImagen(new byte[0]);
