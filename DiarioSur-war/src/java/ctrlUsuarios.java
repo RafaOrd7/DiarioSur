@@ -302,7 +302,7 @@ public class ctrlUsuarios implements Serializable {
                             InternetAddress.parse(u.getEmail()));
                     message.setSubject("Recuperación de contraseña Agenda Diario El Sur");
                     message.setText("Ha solicitado la recuperación de contraseña, su contraseña actual"
-                            + " es: " + u.getPassword());
+                            + " es: " + pass);
 
                     Transport.send(message);
 
