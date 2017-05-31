@@ -450,14 +450,14 @@ public class NegocioImpl implements Negocio {
 
         Anuncio ano = new Anuncio();
         ano.setDimensiones("si");
-        ano.setEmpresa("Anuncios funcionan SL");
+        ano.setEmpresa("Bar de copas La Marióse");
         ano.setEvento(new ArrayList<>());
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
         ano.setMultimedia(new byte[0]);
-        ano.setPrioridad("3");
-        ano.setTags("vale");
+        ano.setPrioridad("2");
+        ano.setTags("copa");
         List<Evento> l = new ArrayList<>();
         ano.setEvento(l);
         ano.setAdministrador(em.find(Administrador.class, ad.getIdUser()));
@@ -465,16 +465,17 @@ public class NegocioImpl implements Negocio {
 
         Evento e = new Evento();
         e.setAnuncio(ano);
-        e.setCompra("Ninguna");
-        e.setDescripcion("Evento de prueba");
+        e.setLugar("ETSI Informática");
+        e.setCompra("http://www.ticketmaster.es");
+        e.setDescripcion("Hackers Week IV organizada por Consejo de Estudiantes");
         e.setFecha(new Date());
-        e.setGeolocalizacion("Montilla");
+        e.setGeolocalizacion("36.715228, -4.477606");
         e.setId(3L);
-        e.setNombre("Evento inicial");
+        e.setNombre("Hackers Week IV");
         e.setPrecio(0F);
         e.setTags("Ninguno");
-        e.setTipo("musical");
-        e.setVerificado(false);
+        e.setTipo("Musical");
+        e.setVerificado(true);
         e.setUsuarioRegistrado(ad);
         e.setImagen(new byte[0]);
 
@@ -483,6 +484,120 @@ public class NegocioImpl implements Negocio {
         ano.setEvento(l);
         editarAnuncio(ano);
 
+        Evento f = new Evento();
+        f.setAnuncio(ano);
+        f.setLugar("Calle Larios, Málaga");
+        f.setCompra("http://www.ticketmaster.es");
+        f.setDescripcion("Festival de cine, disfruta de todas tus películas favoritas "
+                + "a precios más bajos, además de tener la ocasión de poder conocer "
+                + "a tus estrellas de televisión favoritas.");
+        f.setFecha(new Date());
+        f.setGeolocalizacion("36.719382, -4.421569");
+        f.setId(1000L);
+        f.setNombre("Festival de cine");
+        f.setPrecio(5F);
+        f.setTags("cine cultura ocio");
+        f.setTipo("Teatral");
+        f.setVerificado(true);
+        f.setUsuarioRegistrado(ad);
+        f.setImagen(new byte[0]);
+
+        em.persist(f);
+        l.add(f);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+        
+        Evento g = new Evento();
+        g.setAnuncio(ano);
+        g.setLugar("Campo de fútbol La Rosaleda, Málaga");
+        g.setCompra("http://www.ticketmaster.es");
+        g.setDescripcion("Partidazo Málaga vs Real Madrid, apoya a tu equipo"
+                + " favorito con tus amigos y familia");
+        g.setFecha(new Date());
+        g.setGeolocalizacion("36.719382, -4.421569");
+        g.setId(1001L);
+        g.setNombre("Málaga vs Real Madrid");
+        g.setPrecio(35F);
+        g.setTags("deporte futbol ocio");
+        g.setTipo("Deportivo");
+        g.setVerificado(true);
+        g.setUsuarioRegistrado(ad);
+        g.setImagen(new byte[0]);
+
+        em.persist(g);
+        l.add(g);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+        
+        Evento h = new Evento();
+        h.setAnuncio(ano);
+        h.setLugar("Facultad de Derecho, Universidad de Málaga");
+        h.setCompra("http://www.ticketmaster.es");
+        h.setDescripcion("Charla sobre sexología y concienciación sobre sexualidad"
+                + " para los jóvenes malagueños");
+        h.setFecha(new Date());
+        h.setGeolocalizacion("36.717872, -4.469512");
+        h.setId(1002L);
+        h.setNombre("Charla de sexología");
+        h.setPrecio(0F);
+        h.setTags("charla social concienciación juventud");
+        h.setTipo("Exposición");
+        h.setVerificado(true);
+        h.setUsuarioRegistrado(ad);
+        h.setImagen(new byte[0]);
+
+        em.persist(h);
+        l.add(h);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+        
+        
+        Evento p = new Evento();
+        p.setAnuncio(ano);
+        p.setLugar("Playa Torremolinos");
+        p.setCompra("http://www.ticketmaster.es");
+        p.setDescripcion("Concierto para los seguidores de estos grandes artistas que se celebrará"
+                + " en la playa de Torremolinos, agradecimientos al ayuntamiento de la localidad "
+                + "por semejante espectáculo apto para todos los públicos.");
+        p.setFecha(new Date());
+        p.setGeolocalizacion("36.621571, -4.495203");
+        p.setId(1003L);
+        p.setNombre("Concierto Andy y Lucas");
+        p.setPrecio(20F);
+        p.setTags("musica andy lucas");
+        p.setTipo("Concierto");
+        p.setVerificado(true);
+        p.setUsuarioRegistrado(ad);
+        p.setImagen(new byte[0]);
+
+        em.persist(p);
+        l.add(p);
+        ano.setEvento(l);
+        editarAnuncio(ano);
+        
+        
+        Evento o = new Evento();
+        o.setAnuncio(ano);
+        o.setLugar("Plaza de la marina, Málaga");
+        o.setCompra("http://www.ticketmaster.es");
+        o.setDescripcion("Recogida de alimentos para los pobres niños del Nepal, lo pasan "
+                + "bastante mal en los días fríos de invierno, cuando no tienen nada que "
+                + "llevarse al estómago, colabora con nosotros y súmate a la ayuda.");
+        o.setFecha(new Date());
+        o.setGeolocalizacion("36.717740, -4.420325");
+        o.setId(1004L);
+        o.setNombre("Recogida de alimentos");
+        o.setPrecio(0F);
+        o.setTags("obra benefica comida Nepal");
+        o.setTipo("Otro");
+        o.setVerificado(true);
+        o.setUsuarioRegistrado(ad);
+        o.setImagen(new byte[0]);
+
+        em.persist(o);
+        l.add(o);
+        ano.setEvento(l);
+        editarAnuncio(ano);
     }
 
     @Override
@@ -827,14 +942,12 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u) {
+    public List<Evento> recomendar(Evento e, UsuarioRegistrado u) {
+
         List<Evento> l = new ArrayList<>();
-        Query q = em.createQuery("select e from Evento e where e.tipo=tipoE");
-        q.setParameter("tipoE", e.getTipo());
-
-        Evento e1 = (Evento) q.getResultList().get(0);
-
-        return null;
+        Query q = em.createQuery("select e from Evento e where e.tipo='" + e.getTipo() + "' and e.id_evento!=" + e.getId() + " and e.verificado=" + e.getVerificado());
+        l = q.getResultList();
+        return l;
     }
 
     @Override

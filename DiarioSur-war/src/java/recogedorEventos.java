@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -27,6 +26,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+// Imports para geolocalización
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
+// Imports para imagenes
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -62,9 +67,11 @@ public class recogedorEventos {
     private String nombre;
     private String descripcion;
     private byte[] imagen;
-    
+
     private Date fecha;
     private String lugar;
+    private String geolocalizacion;
+    private MapModel model;
     private String tipo;
     private float precio;
     private String compra;
@@ -83,13 +90,17 @@ public class recogedorEventos {
     private static Evento seleccionado;
 
     public String editarEvento() {
-        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getAnuncio());
+        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getLugar(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getAnuncio());
         aux.setVerificado(seleccionado.getVerificado());
         aux.setId_evento(seleccionado.getId_evento());
         aux.setUser_megusta(seleccionado.getUser_megusta());
         aux.setValoraciones(seleccionado.getValoraciones());
         aux.setReportes(seleccionado.getReportes());
-        aux.setImagen(imagen);
+        if (imagen.length != 0) {
+            aux.setImagen(imagen);
+        }else{
+            aux.setImagen(seleccionado.getImagen());
+        }
         seleccionado = aux;
         negocio.editarEvento(seleccionado);
         return "evento.xhtml";
@@ -105,6 +116,23 @@ public class recogedorEventos {
 
     public String editar() {
         return "editarEvento.xhtml";
+    }
+
+    // Geolocalización
+    public MapModel getModel() { // ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+        String geo = seleccionado.getGeolocalizacion();
+        geo = geo.replaceAll("\\s", "");
+        int coma = geo.indexOf(',');
+        double x = Double.parseDouble(geo.substring(0, coma));
+        double y = Double.parseDouble(geo.substring(coma + 1, geo.length()));
+        LatLng coord = new LatLng(x, y);
+        model = new DefaultMapModel();
+        model.addOverlay(new Marker(coord, nombre));
+        return model;
+    }
+
+    public void setModel(MapModel model) {
+        this.model = model;
     }
 
     public String getUrl() {
@@ -154,6 +182,14 @@ public class recogedorEventos {
             negocio.tipoVisitado(cta.getUsuarioLogeado(), evento);
         }
         return "evento";
+    }
+
+    public String getGeolocalizacion() {
+        return geolocalizacion;
+    }
+
+    public void setGeolocalizacion(String geolocalizacion) {
+        this.geolocalizacion = geolocalizacion;
     }
 
     public List<Evento> getEventos() {
@@ -257,15 +293,15 @@ public class recogedorEventos {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
 
-        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, anuncio);
+        Evento aux = new Evento(nombre, fecha, lugar, geolocalizacion, tipo, precio, compra, descripcion, tags, usuario, anuncio);
         if (usuario instanceof Administrador || usuario instanceof JefeDeRedactores || usuario instanceof Periodista || usuario instanceof SuperUsuario) {
             aux.setVerificado(true);
 
         } else {
             aux.setVerificado(false);
         }
-        
-        if(fecha.compareTo(new Date())<0){
+
+        if (fecha.compareTo(new Date()) < 0) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "La fecha del evento no puede ser anterior a la fecha actual",
@@ -297,21 +333,20 @@ public class recogedorEventos {
     }
 
     public StreamedContent sacarImagen(Evento e) throws IOException {
-      
+
         if (negocio.tieneImagen(e)) {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(e.getImagen()));
             return stm;
         } else {
             StreamedContent stm;
-            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            String aux=origRequest.getRequestURL().toString();
-            aux=aux.substring(0,aux.indexOf("faces/"));
-            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
+            HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux = origRequest.getRequestURL().toString();
+            aux = aux.substring(0, aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux + "resources/30.jpg").openStream());
             return stm;
         }
 
     }
-
 
     public List<Evento> getListaEventoRec(Evento e) {
         List<Evento> l = new ArrayList<>();
@@ -321,6 +356,27 @@ public class recogedorEventos {
 
     public List<Evento> getEvNV() {
         return negocio.getEvNV();
+    }
+
+    public List<Evento> recomendar(Evento e, UsuarioRegistrado u) {
+        seleccionado = e;
+        usuario = u;
+        List<Evento> l = new ArrayList<>();
+        List<Evento> aux = new ArrayList<>();
+        l = negocio.recomendar(seleccionado, usuario);
+
+        if (l.size() >= 2) {
+            Evento e1 = l.get(0);
+            Evento e2 = l.get(1);
+            aux.add(e1);
+            aux.add(e2);
+        }
+        if (l.size() == 1) {
+            Evento e1 = l.get(0);
+            aux.add(e1);
+        }
+
+        return aux;
     }
 
 }

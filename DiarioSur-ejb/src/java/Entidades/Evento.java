@@ -39,6 +39,8 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private String tipo;
     @Column(nullable = false)
+    private String lugar;
+    @Column(nullable = false)
     private Float precio;
     @Column(nullable = false)
     private String tags;
@@ -47,6 +49,7 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private String compra;
     private Boolean verificado;
+    private byte[] imagen;
     
     @Column(name = "geolocalización")
     private String geolocalizacion;
@@ -65,14 +68,18 @@ public class Evento implements Serializable {
     @JoinColumn(nullable = false)
     private Anuncio anuncio;
     
-    // añadido por Mike
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
-    // fin añadido por Mike
-    private byte[] imagen;
     
     
-    
+    //// GETTERS, SETTERS Y FUNCIONES
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
 
     public String getCompra() {
         return compra;
@@ -143,10 +150,12 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
+
+    public Evento(String n, Date d, String l, String g, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
         nombre = n;
         fecha = d;
-        geolocalizacion=l;
+        lugar = l;
+        geolocalizacion=g;
         tipo = t;
         precio = p;
         compra=c;

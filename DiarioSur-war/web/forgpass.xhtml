@@ -1,26 +1,25 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <title>Recuperación de contraseña</title>
-    </h:head>
-    <h:body>
-        Introduce tu correo electrónico
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
 
-        <h:form>
-            <h1>
-                <p:inputText id="email" value="#{ctrlUsuarios.usuario.email}"/>
-            </h1>
-            <p:button outcome="index" value="Volver" icon="ui-icon-person"></p:button>
-            <p:commandButton value="Enviar" action="#{ctrlUsuarios.sendEmail()}" styleClass="submit"/>
-            <p:messages id="messages" autoUpdate="true" showIcon="false"  />
-
-        </h:form>
-
-    </h:body>
-</html>
-
+    <ui:define name="title">Recuperación de contraseña</ui:define>
+    
+    <ui:define name="content">
+        <p:panel header="Recuperación de contraseña" style="margin-bottom:10px;">
+            <h4>Te enviaremos la información necesaria para recuperar tu contraseña al correo electrónico</h4>
+            <h:form>
+                <h4> 
+                    <p:outputLabel value="Tu email: " for="email"/>
+                    <p:inputText id="email" size="35" value="#{ctrlUsuarios.usuario.email}"/>
+                </h4>
+                <p:button outcome="login" value="Volver" icon="fa fa-arrow-left" style="margin-right: 0.5em"></p:button>
+                <p:commandButton value="Enviar" action="#{ctrlUsuarios.sendEmail()}" styleClass="submit"/>
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>

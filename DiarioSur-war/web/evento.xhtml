@@ -10,646 +10,146 @@
     <ui:define name="title">Evento</ui:define>
 
     <ui:define name="content">
-        <c:if test="#{empty ctrlAutorizacion.getUsuarioLogeado()}">
-            <table align="center">   
-                <tr>
-                    <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                </tr>
-
-                <tr>
-                    <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                </tr> 
-                <tr>
-                    <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                </tr> 
-                <tr>
-                    <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                </tr>
-                <tr>
-                    <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                </tr>
-            </table>
-            <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-            <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-            <h3 align="center"> COMENTARIOS </h3>
-            <h:form>
-                <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                    <p:column headerText="Fecha">
-                        <h:outputText value="#{valoracion.FechaString()}" />
-                    </p:column>
-                    <p:column headerText="Usuario">
-                        <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                    </p:column>
-                    <p:column headerText="Calificación">
-                        <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                    </p:column>
-                    <p:column headerText="Comentario">
-                        <h:outputText value="#{valoracion.getComentario()}" />
-                    </p:column>
-                    <p:column>
-                        <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </c:if>
-        <c:if test="#{!empty ctrlAutorizacion.getUsuarioLogeado()}">
-            <c:choose>
-                <c:when test="#{ctrlAutorizacion.comprobarUserAdmin() > 1}">
-                    <table align="center">                
-                        <h:form>
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td>
-                                <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <p:graphicImage value="#{publicarAnuncio.sacarImagenA(recogedorEventos.getSeleccionado().anuncio)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  />
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea id="Comentario" required="true" rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></h:commandButton ></td>
-                            </tr>                            
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
+        <script src="http://maps.google.com/maps/api/js?key=AIzaSyD2O3VBlVX2xsdi_hhZtLna6lbb4gEd-cs" type="text/javascript" ></script>
+        <p:panel header="#{recogedorEventos.getSeleccionado().getNombre()}" style="margin-bottom:10px;">
+            <div class="ui-g">
+                <div class="ui-g-12">
                     <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <p:selectBooleanButton required="true"  value="#{recogedorEventos.getSeleccionado().verificado}" rendered="${ctrlAutorizacion.checkP()}" disabled="true" style="margin-right:0.3em" onLabel="Verificado" offLabel="No verificado"/>
+                                <p:commandButton action="#{recogedorEventos.editar()}" style="margin-right:0.3em" icon="fa fa-pencil" ajax="false" title="Editar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserRegistradoEv() > 1 || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
+                                <p:commandButton action="#{recogedorEventos.eliminarEvento()}" icon="fa fa-close" ajax="false" title="Eliminar" rendered="${ctrlAutorizacion.checkP() || ctrlAutorizacion.comprobarUserSUEv() > 1}"/>
+                                    
+                                <c:if test="${ctrlAutorizacion.checkP()}">
+                                    <span class="ui-separator" hidden="true" >
+                                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                    </span>
+                                </c:if>
+                                <p:commandButton id="megusta" value="Me gusta (#{recogedorEventos.getNumeroMG()})" ajax="false" action="#{recogedorEventos.megusta()}" icon="fa fa-thumbs-up" rendered="${ctrlAutorizacion.checkUR()}">
+                                </p:commandButton>
+                                <p:menuButton value="Compartir" iconPos="right" style="margin-right:0.3em">
+                                    <p:menuitem value="Facebook" url="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml" target="_blank" icon="fa fa-facebook"/>
+                                    <p:menuitem value="Twitter" url="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml" target="_blank" icon="fa fa-twitter"/>
+                                </p:menuButton>
+                                <p:button value="Imprimir" icon="fa fa-print" onclick="window.print();" style="margin-right:0.3em"/>
+                            </f:facet>
+
+                            <f:facet name="right">
+                                <p:button outcome="#{recogedorEventos.reportar()}" title="Reportar" icon="fa fa-exclamation" rendered="${ctrlAutorizacion.checkUR()}"/>
+                            </f:facet>
+                        </p:toolbar>
+                    </h:form>
+                </div>
+            </div>
+
+            <!-- INFO EVENTO (imagen, info, precio, anuncio) -->
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-3" >#{recogedorEventos.imagen}
+                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" alt="Imagen" stream="false" style="width:100%;max-height:600px"/>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-7">
+                    <h1>#{recogedorEventos.getSeleccionado().getNombre()}</h1>
+                    <b>#{recogedorEventos.getSeleccionado().getTipo()}</b>
+                    <br/>
+                    <b>#{recogedorEventos.getSeleccionado().getLugar()}</b>
+                    <br/>
+                    <b>#{recogedorEventos.getSeleccionado().FechaString()}</b>
+                    <br/><br/>
+                    <h4>Descripción</h4>
+                    #{recogedorEventos.getSeleccionado().getDescripcion()}
+                    <h4>Tags</h4>
+                    #{recogedorEventos.getSeleccionado().getTags()}
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-1">
+                    <h1><h:outputText value="#{recogedorEventos.getSeleccionado().getPrecio()}" rendered="#{recogedorEventos.getSeleccionado().getPrecio()!=0}" style="font-weight: normal"/>
+                        <h:outputText value="Gratis" rendered="#{recogedorEventos.getSeleccionado().getPrecio()==0}" style="text-align: center; font-weight: normal"/></h1>
+                    <p:button  value="Comprar" icon="fa fa-ticket" href="#{recogedorEventos.getSeleccionado().getCompra()}" rendered="#{recogedorEventos.getSeleccionado().getCompra().length()>0}"/>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-1">
+                    <p:graphicImage value="#{publicarAnuncio.sacarImagenA(recogedorEventos.getSeleccionado().anuncio)}" stream="false" alt="Anuncio" style="width:100%;max-height:600px"/>
+                </div>
+            </div>
+
+            <!-- VALORACIONES -->
+            <div class="ui-g" >
+                <!-- VALORACION PROPIA -->
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <h:form>
+                        <h3>Deja tu valoración</h3>
+                        <p:rating value="#{recogedorValoraciones.rating}" required="false" cancel="true" stars="5"/>
+                        <br/>
+                        <p:inputTextarea rows="10" cols="40" required="true" value="#{recogedorValoraciones.comentario}"/>
+                        <br/>
+                        <p:commandButton value="Enviar valoración" ajax="false" style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"  ></p:commandButton >
+                    </h:form>
+
+                </div>
+                
+                <!-- GELOCALIZACIÓN -->
+                <div class="ui-g-12 ui-md-6 ui-lg-9">
+                    <h3>Geolocalización</h3>
+                    <p:gmap center="#{recogedorEventos.getSeleccionado().getGeolocalizacion()}" zoom="15" type="HYBRID" style="width:100%;height:300px" model="#{recogedorEventos.model}" />
+                </div>
+            </div>
+            
+            <!-- TABLA VALORACIONES + EVENTOS RECOMENDADOS -->
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <br/>
+                    <h:form>
+                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}" emptyMessage="No hay valoraciones" paginatorAlwaysVisible="false"
+                                     paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" reflow="true" rows="5" paginator="true">
+                            <f:facet name="header">
+                                Valoraciones
+                            </f:facet>
+                            <p:column headerText="Fecha" style="width:220px">
                                 <h:outputText value="#{valoracion.FechaString()}" />
                             </p:column>
                             <p:column headerText="Usuario">
                                 <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
                             </p:column>
-                            <p:column headerText="Calificación">
+                            <p:column headerText="Calificación" style="width:220px">
                                 <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
                             </p:column>
                             <p:column headerText="Comentario">
                                 <h:outputText value="#{valoracion.getComentario()}" />
                             </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                                <p:commandButton  value="Eliminar Valoración" action="#{recogedorValoraciones.eliminarVal(valoracion)}" ajax="false" icon="ui-icon-check" />
+                            <p:column style="width:45px" rendered="${ctrlAutorizacion.checkUR()}">
+                                <p:commandButton title="Reportar valoración" action="#{recogedorValoraciones.reportar(valoracion)}" ajax="false" icon="fa fa-exclamation" />
+                                <p:commandButton title="Eliminar Valoración" action="#{recogedorValoraciones.eliminarVal(valoracion)}" ajax="false" icon="fa fa-close" />
                             </p:column>
                         </p:dataTable>
                     </h:form>
-                </c:when>
-                <c:when test="#{ctrlAutorizacion.comprobarUserJDR() > 1}">
-                    <table align="center">                
-                        <h:form>
-
-
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                        </tr>
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"></h:commandButton ></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
+                    <!-- EVENTOS RECOMENDADOS (SIN MODIFICAR) -->
+                    <br/>
+                    <br/>
                     <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.FechaString()}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
-                            <p:column headerText="Calificación">
-                                <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                            </p:column>
-                            <p:column headerText="Comentario">
-                                <h:outputText value="#{valoracion.getComentario()}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                            </p:column>
-                        </p:dataTable>
+                        <p:dataScroller value="#{recogedorEventos.recomendar(recogedorEventos.getSeleccionado(), ctrlAutorizacion.getUsuarioLogeado())}" var="recomendado" chunkSize="10">                   
+                            <f:facet name="header">
+                                QUIZÁS TAMBIÉN TE GUSTE:
+                            </f:facet>
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                                <h:commandLink action="#{recogedorEventos.ver(recomendado)}" style="alignment-adjust: central">
+                                    <p:graphicImage value="#{recogedorEventos.sacarImagen(recomendado)}"  stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                                </h:commandLink>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:" />
+                                        <h:commandLink value="#{recomendado.nombre}" action="#{recogedorEventos.ver(recomendado)}" style="font-weight: bold"/>
+                                        <h:outputText value="Fecha:" />
+                                        <h:outputText value="#{recomendado.FechaString()}" style="font-weight: bold"/>
+                                        <h:outputText value="Tipo" />
+                                        <h:outputText value="#{recomendado.tipo}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>                           
+                        </p:dataScroller>
                     </h:form>
-                </c:when>
-                <c:when test="#{ctrlAutorizacion.comprobarUserPeriodista() > 1}">
-                    <table align="center">                
-                        <h:form>
-
-
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                        </tr>
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"></h:commandButton ></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
-                    <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.FechaString()}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
-                            <p:column headerText="Calificación">
-                                <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                            </p:column>
-                            <p:column headerText="Comentario">
-                                <h:outputText value="#{valoracion.getComentario()}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </c:when>
-
-                <c:when test="#{ctrlAutorizacion.comprobarUserSUEv() > 1}">
-                    <table align="center">                
-                        <h:form>
-
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                        </tr>
-
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"></h:commandButton ></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
-                    <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.FechaString()}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
-                            <p:column headerText="Calificación">
-                                <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                            </p:column>
-                            <p:column headerText="Comentario">
-                                <h:outputText value="#{valoracion.getComentario()}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </c:when>
-                <c:when test="#{ctrlAutorizacion.comprobarUserRegistradoEv() > 1}">
-                    <table align="center">                
-                        <h:form>
-
-
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-                                <td>
-                                    <p:commandButton value="Eliminar" action="#{recogedorEventos.eliminarEvento()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td>
-                                    <p:commandButton value="Editar" action="#{recogedorEventos.editar()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                        </tr>
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"></h:commandButton ></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
-                    <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.FechaString()}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
-                            <p:column headerText="Calificación">
-                                <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                            </p:column>
-                            <p:column headerText="Comentario">
-                                <h:outputText value="#{valoracion.getComentario()}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </c:when>
-                <c:otherwise>
-                    <table align="center">                
-                        <h:form>
-
-
-                            <tr>
-                                <td><p:commandButton value="Me gusta" action="#{recogedorEventos.megusta()}" icon="ui-icon-star" ajax="false"/>
-                                </td>
-                                <td><p:button value="Compartir FB"   href="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button value="Compartir TW"   href="https://twitter.com/intent/tweet?url=http://localhost:8080/DiarioSur-war/faces/evento.xhtml"  >   
-                                    </p:button>
-                                </td>
-                                <td><p:button outcome="#{recogedorEventos.reportar()}" value="Reportar" icon="ui-icon-person"></p:button></td>
-                                <td><p:button  value="Imprimir" icon="ui-icon-star" onclick="window.print();" >
-                                    </p:button></td>
-
-                                <td><p:button  value="Comprar" icon="ui-icon-star" href="#{recogedorEventos.getSeleccionado().getCompra()}" >
-                                    </p:button></td>
-                            </tr>
-                        </h:form>
-                    </table>
-                    <table align="center"> 
-                        <tr>
-                            <td> <p:graphicImage value="#{recogedorEventos.sacarImagen(recogedorEventos.getSeleccionado())}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"  /></td>
-                        </tr>
-                        <tr>
-                            <td><h4 >Nombre del evento: #{recogedorEventos.getSeleccionado().getNombre()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tipo: #{recogedorEventos.getSeleccionado().getTipo()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Fecha: #{recogedorEventos.getSeleccionado().FechaString()} </h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Lugar: #{recogedorEventos.getSeleccionado().getGeolocalizacion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Precio: #{recogedorEventos.getSeleccionado().getPrecio()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Verificado: #{recogedorEventos.getSeleccionado().getVerificado()}</h4></td>
-                        </tr> 
-                        <tr>
-                            <td><h4>Descripción: #{recogedorEventos.getSeleccionado().getDescripcion()}</h4></td>
-                        </tr>
-                        <tr>
-                            <td><h4>Tags: #{recogedorEventos.getSeleccionado().getTags()} </h4></td>
-                        </tr>
-                    </table>
-                    <h2 align="center"> Me gusta: #{recogedorEventos.getNumeroMG()} </h2>
-                    <h1 align="center">Anuncio: #{recogedorEventos.getSeleccionado().getAnuncio().getEmpresa()}</h1>
-                    <h:form><h3 align="center">DANOS TU OPINIÓN</h3>
-                        <table align="center">
-                            <tr>
-                                <td><p:growl id="messages" showDetail="true" />
-                                    <h:panelGrid columns="2" cellpadding="1">
-                                        <p:rating value="#{recogedorValoraciones.rating}" stars="5" required="false"  cancel="true" />
-                                    </h:panelGrid></td>
-                            </tr>
-                            <tr>                    
-                                <td><p:inputTextarea rows="10" cols="50" value="#{recogedorValoraciones.comentario}" queryDelay="750" minQueryLength="4" /></td>
-                                <br/>
-                            </tr>
-                            <tr>
-                                <td><h:commandButton    value="Enviar"  style="margin:5px" action="#{recogedorValoraciones.enviarValoracion(recogedorEventos.getSeleccionado(),ctrlAutorizacion.getUsuarioLogeado())}"></h:commandButton ></td>
-                            </tr>
-                        </table>
-                    </h:form>
-                    <h3 align="center"> COMENTARIOS </h3>
-                    <h:form>
-                        <p:dataTable var="valoracion" value="#{recogedorValoraciones.getValev(recogedorEventos.getSeleccionado())}">
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{valoracion.FechaString()}" />
-                            </p:column>
-                            <p:column headerText="Usuario">
-                                <h:outputText value="#{valoracion.usuarioRegistrado.nombre}" />
-                            </p:column>
-                            <p:column headerText="Calificación">
-                                <p:rating readonly="true" value="#{valoracion.getCalificacion()}" />
-                            </p:column>
-                            <p:column headerText="Comentario">
-                                <h:outputText value="#{valoracion.getComentario()}" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton action="#{recogedorValoraciones.reportar(valoracion)}" value="Reportar" icon="ui-icon-person"></p:commandButton >
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </c:otherwise>
-            </c:choose>
-        </c:if>
-
-
-
+                </div>
+            </div>
+        </p:panel>
     </ui:define>
 
 </ui:composition>
