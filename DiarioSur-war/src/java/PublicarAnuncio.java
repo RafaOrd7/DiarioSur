@@ -15,12 +15,14 @@ import Negocio.DiarioSurException;
 import Negocio.Negocio;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -303,15 +305,18 @@ public class PublicarAnuncio {
     }
     
      public StreamedContent sacarImagenA(Anuncio a) throws IOException {
+       
         if (negocio.tieneImagenA(a)) {
             StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(a.getMultimedia()));
             return stm;
         } else {
-            StreamedContent stm = new DefaultStreamedContent(new ByteArrayInputStream(new byte[0]));
-         
+            StreamedContent stm;
+            HttpServletRequest origRequest=(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String aux=origRequest.getRequestURL().toString();
+            aux=aux.substring(0,aux.indexOf("faces/"));
+            stm = new DefaultStreamedContent(new URL(aux+"resources/30.jpg").openStream());
             return stm;
         }
-
     }
     
 }
