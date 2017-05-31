@@ -9,15 +9,14 @@
     <ui:define name="title">Editar usuario</ui:define>
     
     <ui:define name="content">
+        <p:panel header="Información de usuario" style="margin-bottom:10px;">
         <c:choose>
             <c:when test="#{ctrlAutorizacion.checkAdm() || ctrlAutorizacion.checkJDR()}">
                 <c:choose>
                     <h1>Editar usuario</h1>
                     <c:when test="#{ctrlUsuarios.rol=='UsuarioRegistrado'}" >
                         <h:form>
-                            <p:panel header="Información de usuario" style="margin-bottom:10px;">
-
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">                       
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">                  
                                 <h:outputLabel for="rolUR" value="Rol: " />
                                 <p:selectOneMenu id="rolUR" value="#{ctrlUsuarios.rol}" style="width:125px">
                                     <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
@@ -62,12 +61,12 @@
                             <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.preferencias}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.usuario.multimedia}"/>
                             <h:commandButton value="Confirmar" id="submitUR" action="#{ctrlUsuarios.editarUsuarioRegistrado()}" />
-                            </p:panel>
                             </h:form>
                     </c:when>
                     
                     <c:when test="#{ctrlUsuarios.rol=='SuperUsuario'}">
                         <h:form>
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="rolSU" value="Rol: " />
                             <p:selectOneMenu id="rolSU" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
@@ -82,7 +81,6 @@
                             <p:inputText type="hidden" value="#{ctrlUsuarios.su.historialEventos}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.su.preferencias}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.su.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreSU" value="Nombre: " />
                                 <p:inplace id="nombreSU" emptyLabel="----------">
@@ -116,13 +114,14 @@
                                 <h:outputLabel for="password2SU" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.su.password}" redisplay="true" id="pSU2" label="password2SU" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
                             <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarSuperUsuario()}"/>
+                            </h:panelGrid> 
                         </h:form>
                     </c:when>
                     
                     <c:when test="#{ctrlUsuarios.rol=='Periodista'}">
                         <h:form>
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="rolP" value="Rol: " />
                             <p:selectOneMenu id="rolP" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
@@ -137,7 +136,6 @@
                             <p:inputText type="hidden" value="#{ctrlUsuarios.p.historialEventos}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.p.preferencias}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.p.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreP" value="Nombre: " />
                                 <p:inplace id="nombreP" emptyLabel="----------">
@@ -181,13 +179,14 @@
                                 <h:outputLabel for="password2P" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.p.password}" redisplay="true" id="pP2" label="password2P" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
                             <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarPeriodista()}"/>
+                            </h:panelGrid> 
                         </h:form>
                     </c:when>
                     
                     <c:when test="#{ctrlUsuarios.rol=='JefeDeRedactores'}">
                         <h:form>
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="rolJDR" value="Rol: " />
                             <p:selectOneMenu id="rolJDR" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
@@ -202,7 +201,6 @@
                             <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.historialEventos}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.preferencias}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.jdr.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreJDR" value="Nombre: " />
                                 <p:inplace id="nombreJDR" emptyLabel="----------">
@@ -246,13 +244,14 @@
                                 <h:outputLabel for="password2JDR" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.jdr.password}" redisplay="true" id="pJDR2" label="password2JDR" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
                             <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarJefeDeRedactores()}"/>
+                            </h:panelGrid> 
                         </h:form>
                     </c:when>
                     
                     <c:when test="#{ctrlUsuarios.rol=='Administrador'}">
                         <h:form>
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5"> 
                             <h:outputLabel for="rolA" value="Rol: " />
                             <p:selectOneMenu id="rolA" value="#{ctrlUsuarios.rol}" style="width:125px">
                                 <f:selectItem itemLabel="Usuario registrado" itemValue="UsuarioRegistrado" />
@@ -267,7 +266,6 @@
                             <p:inputText type="hidden" value="#{ctrlUsuarios.a.historialEventos}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.a.preferencias}"/>
                             <p:inputText type="hidden" value="#{ctrlUsuarios.a.multimedia}"/>
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
                                 <h:outputLabel for="nombreA" value="Nombre: " />
                                 <p:inplace id="nombreA" emptyLabel="----------">
@@ -311,8 +309,8 @@
                                 <h:outputLabel for="password2A" value="Repita password:" />
                                 <p:password value="#{ctrlUsuarios.a.password}" redisplay="true" id="pA2" label="password2A" requiredMessage="Campo contraseña2 obligatorio" required="true"/>
 
-                            </h:panelGrid>
                             <p:commandButton value="Confirmar" action="#{ctrlUsuarios.editarAdministrador()}"/>
+                            </h:panelGrid> 
                         </h:form>
                     </c:when>
                     <c:otherwise>
@@ -324,5 +322,6 @@
                 <h3>Error, acceso denegado.</h3>
             </c:otherwise>
         </c:choose>       
+        </p:panel>
     </ui:define>
 </ui:composition>

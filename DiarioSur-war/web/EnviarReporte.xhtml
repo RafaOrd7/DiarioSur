@@ -10,9 +10,10 @@
 
     <ui:define name="content">
         <c:choose>
-            <c:when test="#{ctrlAutorizacion.checkLog()}">      
-  
-                ¿Cuál es el problema?
+            <c:when test="#{ctrlAutorizacion.checkLog()}">    
+                <p:panel header="Reporte de evento" style="margin-bottom:10px;">
+                <p:panelGrid columns="1">
+                    <h4>¿Cuál es el problema?</h4>
                 <h:form>
                     <h:selectOneRadio value="#{recogedorReportes.tipoReporte}">
                         <f:selectItem itemValue="1" itemLabel="Ofensivo o inapropiado"/>   
@@ -20,13 +21,15 @@
                         <f:selectItem itemValue="3" itemLabel="La información no es adecuada" />
                         <f:selectItem itemValue="4" itemLabel="Otros" />
                     </h:selectOneRadio>
-                    <h3 style="margin-top: 0">Cuéntanos más</h3>
-                    <p>Especifiquenos el motivo de su reporte</p>
-                    <p:inputTextarea rows="10" cols="50" value="#{recogedorReportes.comentario}" queryDelay="750" minQueryLength="4" />
                     <br/>
-                    <h:commandButton value="Reportes" action="#{recogedorReportes.enviarReporte()}"></h:commandButton>
+                    <h4>Cuéntanos más</h4>
+                    <p>Especifiquenos el motivo de su reporte</p>
+                    <p:inputTextarea rows="10" cols="50" value="#{recogedorReportes.comentario}"/>
+                    <br/>
+                    <p:commandButton value="Enviar reporte" ajax="false" action="#{recogedorReportes.enviarReporte()}"></p:commandButton>
                 </h:form>
-                
+                </p:panelGrid>
+                </p:panel>
             </c:when>
             <c:otherwise>
                 <h3>Error, acceso denegado.</h3>

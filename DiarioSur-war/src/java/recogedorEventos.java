@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -27,6 +26,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+// Imports para geolocalización
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
+// Imports para imagenes
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -65,6 +70,8 @@ public class recogedorEventos {
 
     private Date fecha;
     private String lugar;
+    private String geolocalizacion;
+    private MapModel model;
     private String tipo;
     private float precio;
     private String compra;
@@ -83,7 +90,7 @@ public class recogedorEventos {
     private static Evento seleccionado;
 
     public String editarEvento() {
-        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getAnuncio());
+        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getLugar(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getAnuncio());
         aux.setVerificado(seleccionado.getVerificado());
         aux.setId_evento(seleccionado.getId_evento());
         aux.setUser_megusta(seleccionado.getUser_megusta());
@@ -107,6 +114,24 @@ public class recogedorEventos {
         return "editarEvento.xhtml";
     }
 
+    // Geolocalización
+    public MapModel getModel() { // ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+        String geo = seleccionado.getGeolocalizacion();
+        geo = geo.replaceAll("\\s","");
+        int coma = geo.indexOf(',');
+        double x = Double.parseDouble(geo.substring(0,coma));
+        double y = Double.parseDouble(geo.substring(coma+1,geo.length()));
+        LatLng coord = new LatLng(x, y);
+        model = new DefaultMapModel();
+        model.addOverlay(new Marker(coord, nombre));
+        return model;
+    }
+
+    public void setModel(MapModel model) {
+        this.model = model;
+    }
+    
+    
     public String getUrl() {
         return url;
     }
@@ -156,6 +181,14 @@ public class recogedorEventos {
         return "evento";
     }
 
+    public String getGeolocalizacion() {
+        return geolocalizacion;
+    }
+
+    public void setGeolocalizacion(String geolocalizacion) {
+        this.geolocalizacion = geolocalizacion;
+    }    
+    
     public List<Evento> getEventos() {
         return negocio.getEv();
     }
@@ -257,7 +290,7 @@ public class recogedorEventos {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
 
-        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, anuncio);
+        Evento aux = new Evento(nombre, fecha, lugar, geolocalizacion, tipo, precio, compra, descripcion, tags, usuario, anuncio);
         if (usuario instanceof Administrador || usuario instanceof JefeDeRedactores || usuario instanceof Periodista || usuario instanceof SuperUsuario) {
             aux.setVerificado(true);
 

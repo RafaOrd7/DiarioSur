@@ -9,37 +9,34 @@
     <ui:define name="title">Login Diario Sur</ui:define>
     
     <ui:define name="content">
+        <p:panel header="Login" style="margin-bottom:10px;">
         <c:choose>
             <c:when test="#{empty ctrlAutorizacion.usuarioLogeado}"> 
-                <h:form>
+                    <h:form>
+                    <h2>
+                        <p><p:inputText id="correo" value="#{ctrlUsuarios.usuario.email}" placeholder="Email"/></p>
+                        <p:password id="pass" value="#{ctrlUsuarios.usuario.password}" placeholder="Contraseña"/>
+                    </h2>
+                    <h3>
+                        <p:commandButton value="Iniciar sesión" ajax="false" action="#{ctrlUsuarios.logIn}"/>
+                    </h3>
+                    <h5 style="margin-bottom: 0.5em">
+                        <p:link outcome="forgpass" value="¿Olvidaste tu contraseña?">
+                        </p:link>
+                    </h5>
+                    <h6 style="margin-top: 0">
+                        <p>¿No tienes cuenta?
+                        <p:link outcome="register" value=" ¡Regístrate! :)">
+                        </p:link>
+                        </p>
+                    </h6>
+                    </h:form>
 
-                <h1 align="center">Diario SUR login</h1>
-                <h2 align="center">
-                    <p><p:inputText id="correo" value="#{ctrlUsuarios.usuario.email}" placeholder="Email"/></p>
-                    <p:password id="pass" value="#{ctrlUsuarios.usuario.password}" placeholder="Contraseña"/>
-                </h2>
-                <h3 align="center">
-                    <h:commandButton value="Iniciar sesión" action="#{ctrlUsuarios.logIn}"/>
-                </h3>
-                <!--h4 align="center">
-                    <h:outputText value="Recordar mis datos " />
-                    <p:selectBooleanCheckbox value="" />
-                </h4-->
-                <h5 align="center">
-                    <p:link outcome="forgpass" value="¿Olvidaste tu contraseña?">
-                    </p:link>
-                </h5>
-                <h6 align="center">
-                    <p align="center">¿No tienes cuenta?
-                    <p:link outcome="register" value=" ¡Regístrate! :)">
-                    </p:link>
-                    </p>
-                </h6>
-                </h:form>
             </c:when>
             <c:otherwise>
                 <h:outputText value="Ya estás logueado. Si quieres entrar con otra cuenta primero debes salir." />
             </c:otherwise>
         </c:choose>
+        </p:panel>
     </ui:define>
 </ui:composition>

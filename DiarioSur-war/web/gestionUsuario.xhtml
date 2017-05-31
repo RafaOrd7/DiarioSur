@@ -13,16 +13,17 @@
 
             <c:when test="#{(ctrlAutorizacion.checkAdm()) || (ctrlAutorizacion.checkJDR())}">
                 <p:panel header="Gestión de usuarios" style="margin-bottom:10px;">
-                    
-                    
-                    
+                    <br/>
+
+
                     <h:form>
-                        <p:commandButton value="Crear usuario" icon="fa fa-plus" action="crearUsuario.xhtml"/>
+                        <p:commandButton value="Crear usuario" icon="fa fa-user-plus" action="crearUsuario.xhtml"/>
+                        <br/><br/>
                         <p:dataTable var="usuario" value="#{ctrlUsuarios.getListaUR()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 Usuarios Registrados
                             </f:facet>
-                            <p:column headerText="Id Usuario">              
+                            <p:column headerText="ID" style="width:100px">              
                                 <h:outputText value="#{usuario.idUser}" />
                             </p:column>
                             <p:column headerText="Apellidos, Nombre">
@@ -37,19 +38,19 @@
                             <p:column headerText="DNI">
                                 <h:outputText value="#{usuario.dni}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(usuario)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                 <p:commandButton ajax="false" action="#{ctrlUsuarios.eliminarUR(usuario)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
 
                         <br/><br/>
-                            
+
                         <p:dataTable var="su" value="#{ctrlUsuarios.getListaSU()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 Superusuarios
                             </f:facet>
-                            <p:column headerText="Id Usuario">              
+                            <p:column headerText="ID"  style="width:100px">              
                                 <h:outputText value="#{su.idUser}" />
                             </p:column>
                             <p:column headerText="Apellidos, Nombre">
@@ -67,19 +68,19 @@
                             <p:column headerText="Empresa">
                                 <h:outputText value="#{su.empresa}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(su)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                 <p:commandButton ajax="false" action="#{ctrlUsuarios.eliminarSU(su)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
 
                         <br/><br/>
-                            
+
                         <p:dataTable var="p" value="#{ctrlUsuarios.getListaP()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 Periodistas
                             </f:facet>
-                            <p:column headerText="Id Usuario">              
+                            <p:column headerText="ID" style="width:100px">              
                                 <h:outputText value="#{p.idUser}" />
                             </p:column>
                             <p:column headerText="Apellidos, Nombre">
@@ -103,22 +104,22 @@
                             <p:column headerText="Teléfono">
                                 <h:outputText value="#{p.telefono}" />
                             </p:column>
-                            <p:column style="width:88px">
+                            <p:column style="width:90px">
                                 <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(p)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                 <p:commandButton ajax="false" action="#{ctrlUsuarios.eliminarP(p)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                             </p:column>
                         </p:dataTable>
                     </h:form> 
-                    
+
                     <br/><br/>
-                    
+
                     <c:if test="#{ctrlAutorizacion.checkAdm()}">
                         <h:form> 
                             <p:dataTable var="j" value="#{ctrlUsuarios.getListaJDR()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                                 <f:facet name="header">
                                     Jefes de redactores
                                 </f:facet>
-                                <p:column headerText="Id Usuario">              
+                                <p:column headerText="ID"  style="width:100px">              
                                     <h:outputText value="#{j.idUser}" />
                                 </p:column>
                                 <p:column headerText="Apellidos, Nombre">
@@ -142,19 +143,19 @@
                                 <p:column headerText="Teléfono">
                                     <h:outputText value="#{j.telefono}" />
                                 </p:column>
-                                <p:column style="width:88px">
+                                <p:column style="width:90px">
                                     <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(j)}" icon="fa fa-pencil" style="background: none; border: none;" title="Editar"/>
                                     <p:commandButton ajax="false" action="#{ctrlUsuarios.eliminarJDR(j)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                                 </p:column>
                             </p:dataTable>
-                            
+
                             <br/><br/>
-                                
+
                             <p:dataTable var="a" value="#{ctrlUsuarios.getListaA()}" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,20" emptyMessage="No hay usuarios" reflow="true" rows="5" paginator="true">
                                 <f:facet name="header">
                                     Administradores
                                 </f:facet>
-                                <p:column headerText="Id Usuario">              
+                                <p:column headerText="ID" style="width:100px">              
                                     <h:outputText value="#{a.idUser}" />
                                 </p:column>
                                 <p:column headerText="Apellidos, Nombre">
@@ -178,13 +179,13 @@
                                 <p:column headerText="Teléfono">
                                     <h:outputText value="#{a.telefono}" />
                                 </p:column>
-                                <p:column style="width:88px">
+                                <p:column style="width:90px">
                                     <p:commandButton action="#{ctrlUsuarios.mostrarUsuario(a)}" icon="fa fa-pencil" style="background: none; border: none" title="Editar"/>
                                     <p:commandButton ajax="false" action="#{ctrlUsuarios.eliminarA(a)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form> 
-                </c:if>
+                    </c:if>
                 </p:panel>
             </c:when>
             <c:otherwise>
