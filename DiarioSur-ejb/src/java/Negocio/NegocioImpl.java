@@ -405,25 +405,22 @@ public class NegocioImpl implements Negocio {
         return l.get(0);
     }
 
-    
     @Override
-    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+    public String checkPass(UsuarioRegistrado u) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String cifrado;
         md.update(u.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
-        
+
         UsuarioRegistrado aux = em.find(UsuarioRegistrado.class, u.getIdUser());
-        if(u.getPassword().equals(aux.getPassword())){
+        if (u.getPassword().equals(aux.getPassword())) {
             return u.getPassword();
-        }else{
+        } else {
             return cifrado;
         }
     }
-    
-    
-    
+
     @Override
     public void rellenarBd() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
@@ -437,18 +434,17 @@ public class NegocioImpl implements Negocio {
         ad.setHistorialEventos("nada");
         ad.setNombre("prueba");
         ad.setPassword("123");
-        
+
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String cifrado;
         md.update(ad.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         cifrado = String.format("%064x", new java.math.BigInteger(1, digest));
         ad.setPassword(cifrado);
-        
+
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
-        
 
         em.persist(ad);
 
@@ -513,7 +509,7 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public void compruebaLogin(UsuarioRegistrado u)throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void compruebaLogin(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
 
         if (lu.isEmpty()) {
@@ -535,7 +531,7 @@ public class NegocioImpl implements Negocio {
     }
 
     @Override
-    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException{
+    public UsuarioRegistrado refrescarUsuario(UsuarioRegistrado u) throws DiarioSurException, NoSuchAlgorithmException, UnsupportedEncodingException {
         compruebaLogin(u);
         List<UsuarioRegistrado> lu = em.createQuery("select u from UsuarioRegistrado u where u.email = '" + u.getEmail() + "'").getResultList();
         UsuarioRegistrado user = lu.get(0);
@@ -629,11 +625,11 @@ public class NegocioImpl implements Negocio {
     @Override
     public List<Evento> getEv() {
         //return em.createQuery("SELECT u FROM Evento u").getResultList();
-        List<Evento>l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.verificado=true");
-        l=q.getResultList();
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.verificado=true");
+        l = q.getResultList();
         return l;
-        
+
     }
 
     @Override
@@ -759,7 +755,6 @@ public class NegocioImpl implements Negocio {
         if (aux == null) {
             throw new EventoNoEncontradoException();
         }
-
         contId++;
         v.setId(contId);
         em.persist(v);
@@ -767,21 +762,10 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public List<Valoracion> getValoraciones(Evento e) throws DiarioSurException {
-
         Query q;
-        //Evento aux= em.find(Evento.class, e.getId_evento());
         q = em.createQuery("select v from Valoracion v where v.evento=:evento");
         q.setParameter("evento", e);
         return q.getResultList();
-
-        //aux2 = em.createQuery("SELECT u FROM VALORACION u where EVENTO_ID_EVENTO = "+e.getId_evento()+"").getResultList();
-        /*if(aux==null){
-            throw new EventoNoEncontradoException();
-        }
-        else{
-            aux2= aux.getValoraciones();
-            System.out.println(aux2.isEmpty());
-        }*/
     }
 
     @Override
@@ -817,22 +801,22 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public boolean tieneImagen(Evento e) {
-        Evento aux=em.find(Evento.class, e.getId());
-        
-        if(aux.getImagen()==null || aux.getImagen().length==0){
-            
+        Evento aux = em.find(Evento.class, e.getId());
+
+        if (aux.getImagen() == null || aux.getImagen().length == 0) {
+
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     @Override
     public boolean tieneImagenA(Anuncio a) {
-        Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
-        if(aux.getMultimedia()==null || aux.getMultimedia().length==0){
+        Anuncio aux = em.find(Anuncio.class, a.getId_anuncio());
+        if (aux.getMultimedia() == null || aux.getMultimedia().length == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -844,21 +828,21 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u) {
-        List<Evento>l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.tipo=tipoE");
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.tipo=tipoE");
         q.setParameter("tipoE", e.getTipo());
-        
-        Evento e1=(Evento)q.getResultList().get(0);
-        
+
+        Evento e1 = (Evento) q.getResultList().get(0);
+
         return null;
     }
 
     @Override
     public List<Evento> getEvNV() {
-        List<Evento>l=new ArrayList<>();
-        Query q=em.createQuery("select e from Evento e where e.verificado=false");
-        l=q.getResultList();
+        List<Evento> l = new ArrayList<>();
+        Query q = em.createQuery("select e from Evento e where e.verificado=false");
+        l = q.getResultList();
         return l;
-        
+
     }
 }
