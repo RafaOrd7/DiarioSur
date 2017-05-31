@@ -57,13 +57,23 @@
 
 
                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                        <p:outputPanel>
+
+                            <h:commandLink action="#{recogedorEventos.ver(evento)}" style="alignment-adjust: central">
+                                <p:graphicImage value="#{recogedorEventos.sacarImagen(evento)}" stream="false" width="250px" height="250px" style="display:block;margin:0 auto 0 auto;"/>
+                            </h:commandLink>
+
+                            <p:outputPanel>
+                            
                             <h:panelGrid columns="2" cellpadding="5">
+                                
                                 <h:outputText value="Nombre:" />
                                 <h:link value="#{evento.nombre}" outcome="#{recogedorEventos.ver(evento)}" style="font-weight: bold"/>
 
                                 <h:outputText value="Fecha:" />
                                 <h:outputText value="#{evento.FechaString()}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="Tipo:" />
+                                <h:outputText value="#{evento.tipo}" style="font-weight: bold"/>
 
                                 <h:outputText value="Descripcion: " />
                                 <h:outputText value="#{evento.descripcion}" style="font-weight: bold"/>

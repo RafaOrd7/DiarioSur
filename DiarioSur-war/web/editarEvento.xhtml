@@ -17,11 +17,13 @@
                         <p:growl id="msgs" showDetail="true" />
                         <table align="center">
                             <tr>
-                                <td><h4>Subir imagen:</h4></td>
-                            </tr>  
-                            <tr>
-                                <td><input placeholder="#{recogedorEventos.getSeleccionado().getImagen()}" type="file" id="files" name="files[]" value="#{recogedorEventos.imagen}"/></td>
-                            </tr>
+                                    <td>Subir imagen:</td>
+                                </tr>  
+                                <tr>
+                                    <td>
+                                        <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.getSeleccionado().imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                    </td>
+                                </tr> 
                             <tr>
                                 <td><h4>Nombre evento:</h4></td>
                             </tr>
@@ -91,12 +93,14 @@
                     <h:form enctype="multipart/form-data" id="form">
                         <p:growl id="msgs" showDetail="true" />
                         <table align="center">
-                            <tr>
-                                <td><h4>Subir imagen:</h4></td>
-                            </tr>  
-                            <tr>
-                                <td><input placeholder="#{recogedorEventos.getSeleccionado().getImagen()}" type="file" id="files" name="files[]" value="#{recogedorEventos.imagen}"/></td>
-                            </tr>
+                           <tr>
+                                    <td>Subir imagen:</td>
+                                </tr>  
+                                <tr>
+                                    <td>
+                                        <p:fileUpload id="filImaPro" mode="simple" value="#{recogedorEventos.imagen}" sizeLimit="512000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                    </td>
+                                </tr> 
                             <tr>
                                 <td><h4>Nombre evento:</h4></td>
                             </tr>
