@@ -148,5 +148,6 @@ public interface Negocio {
     public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u);
 
     public List<Evento> getEvNV();
+    public void editarAnuncio(Anuncio anuncio);
 
 }
