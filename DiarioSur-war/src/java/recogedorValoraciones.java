@@ -119,6 +119,9 @@ public class recogedorValoraciones {
     public String enviarValoracion(Evento seleccionado, UsuarioRegistrado usuarior) throws DiarioSurException {
         evento = seleccionado;
         usuario = usuarior;
+        if(rating==null){
+            rating =0;
+        }
         Valoracion aux = new Valoracion(rating, comentario, fecha, usuario, evento);
 
         setSeleccionada(aux);

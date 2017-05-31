@@ -66,7 +66,7 @@ public class Evento implements Serializable {
     @ManyToMany(mappedBy = "megusta")
     private List<UsuarioRegistrado> user_megusta;
     // fin añadido por Mike
-    private File imagen;
+    private byte[] imagen;
     
     
     
@@ -127,11 +127,11 @@ public class Evento implements Serializable {
         this.user_megusta = user_megusta;
     }
 
-    public File getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(File imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
     
@@ -140,7 +140,7 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
+    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Anuncio a) {
         nombre = n;
         fecha = d;
         geolocalizacion=l;
@@ -149,7 +149,6 @@ public class Evento implements Serializable {
         compra=c;
         descripcion= des;
         tags = ta;
-        verificado = ve;
         usuarioRegistrado = usuarioR;
         anuncio = a;
     }

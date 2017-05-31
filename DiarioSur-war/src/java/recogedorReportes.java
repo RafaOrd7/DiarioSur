@@ -112,6 +112,9 @@ public class recogedorReportes {
         UsuarioRegistrado user = cta.getUsuarioLogeado();
         Valoracion val = recogedorValoraciones.getSeleccionada();
         val.setEvento(ev);
+
+        
+
         Reporte aux = new Reporte(comentario, new Date(), String.valueOf(tipoReporte), ev, val, user);
         negocio.enviarRepVal(aux);
         return "index.xhtml";

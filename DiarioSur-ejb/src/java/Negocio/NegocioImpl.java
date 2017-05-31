@@ -418,6 +418,7 @@ public class NegocioImpl implements Negocio {
         ad.setPreferencias("");
         ad.setTelefono("123456789");
         ad.setIdUser("A" + 1L);
+        
 
         em.persist(ad);
 
@@ -428,7 +429,8 @@ public class NegocioImpl implements Negocio {
         ano.setFechaExpiracion(new Date());
         ano.setFechaPublicacion(new Date());
         ano.setId_anuncio(2L);
-        ano.setPrioridad("1");
+        ano.setMultimedia(new byte[0]);
+        ano.setPrioridad("3");
         ano.setTags("vale");
         List<Evento> l = new ArrayList<>();
         ano.setEvento(l);
@@ -448,6 +450,7 @@ public class NegocioImpl implements Negocio {
         e.setTipo("musical");
         e.setVerificado(false);
         e.setUsuarioRegistrado(ad);
+        e.setImagen(new byte[0]);
 
         em.persist(e);
         l.add(e);
@@ -590,7 +593,12 @@ public class NegocioImpl implements Negocio {
 
     @Override
     public List<Evento> getEv() {
-        return em.createQuery("SELECT u FROM Evento u").getResultList();
+        //return em.createQuery("SELECT u FROM Evento u").getResultList();
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=true");
+        l=q.getResultList();
+        return l;
+        
     }
 
     @Override
@@ -770,5 +778,50 @@ public class NegocioImpl implements Negocio {
     public String devolverPref(UsuarioRegistrado usuarioLogeado) {
         UsuarioRegistrado user = em.find(UsuarioRegistrado.class, usuarioLogeado.getIdUser());
         return user.getPreferencias();
+    }
+
+    @Override
+    public boolean tieneImagen(Evento e) {
+        Evento aux=em.find(Evento.class, e.getId());
+        if(aux.getImagen()==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public boolean tieneImagenA(Anuncio a) {
+        Anuncio aux=em.find(Anuncio.class, a.getId_anuncio());
+        if(aux.getMultimedia()==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public List<Evento> getAllEv() {
+        return em.createQuery("SELECT u FROM Evento u").getResultList();
+    }
+
+    @Override
+    public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u) {
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.tipo=tipoE");
+        q.setParameter("tipoE", e.getTipo());
+        
+        Evento e1=(Evento)q.getResultList().get(0);
+        
+        return null;
+    }
+
+    @Override
+    public List<Evento> getEvNV() {
+        List<Evento>l=new ArrayList<>();
+        Query q=em.createQuery("select e from Evento e where e.verificado=false");
+        l=q.getResultList();
+        return l;
+        
     }
 }

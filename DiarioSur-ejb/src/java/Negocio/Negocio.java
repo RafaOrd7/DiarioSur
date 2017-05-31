@@ -138,8 +138,16 @@ public interface Negocio {
 
     public String devolverPref(UsuarioRegistrado usuarioLogeado);
 
+    public boolean tieneImagen(Evento e);
     public void eliminarVal(Valoracion seleccionada);
 
+    public boolean tieneImagenA(Anuncio a);
+
+    public List<Evento> getAllEv();
+
+    public List<Evento> getDosRecomendados(Evento e, UsuarioRegistrado u);
+
+    public List<Evento> getEvNV();
     public void editarAnuncio(Anuncio anuncio);
 
 }
