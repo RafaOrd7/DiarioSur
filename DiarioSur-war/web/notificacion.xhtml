@@ -22,7 +22,7 @@
                                     <h:outputText value="#{notificacion.texto}" />
                                 </p:column>
                                 <p:column style="width:45px">
-                                    <p:commandButton action="#{ctrlUsuarios.eliminarNotif(notificacion)}" icon="fa fa-close" style="background: none; border: none" title="Eliminar"/>
+                                    <p:commandButton action="#{ctrlUsuarios.eliminarNotif(notificacion)}" icon="fa fa-close" ajax="false" style="background: none; border: none" title="Eliminar"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>

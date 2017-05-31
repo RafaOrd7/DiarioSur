@@ -34,6 +34,8 @@
                                     <p:calendar required="true" id="datetime" value="#{recogedorEventos.fecha}" pattern="MM/dd/yyyy HH:mm:ss" />
                                     Lugar:
                                     <p:inputText id="Lugar" value="#{recogedorEventos.lugar}"/>
+                                    Coordenadas:
+                                    <p:inputText id="coordenadas" value="#{recogedorEventos.geolocalizacion}"/>
                                     Precio:
                                     <p:inputNumber id="Precio" required="true" value="#{recogedorEventos.precio}"/>
                                     Web compra:
@@ -42,7 +44,7 @@
                                     <p:inputTextarea id="Descripción" rows="10" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.descripcion}" />
                                     Tags:
                                     <p:inputTextarea id="Tags" required="true" rows="2" cols="50"  queryDelay="750" minQueryLength="4" value="#{recogedorEventos.tags}" />
-                                    <h:commandButton value="Subir" action="#{recogedorEventos.enviarEvento()}"></h:commandButton>
+                                    <p:commandButton value="Subir" ajax="false" action="#{recogedorEventos.enviarEvento()}"></p:commandButton>
                             </p:panelGrid>
                         </p:panel>
                     </h:form>

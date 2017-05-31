@@ -142,10 +142,11 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(String n, Date d, String l, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
+    public Evento(String n, Date d, String l, String g, String t, Float p, String c, String des, String ta, UsuarioRegistrado usuarioR, Boolean ve,  Anuncio a) {
         nombre = n;
         fecha = d;
-        geolocalizacion=l;
+        lugar = l;
+        geolocalizacion=g;
         tipo = t;
         precio = p;
         compra=c;

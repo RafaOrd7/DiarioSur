@@ -31,8 +31,7 @@
                                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                                     </span>
                                 </c:if>
-                                <p:commandButton id="megusta" value="Me gusta (#{recogedorEventos.getNumeroMG()})" action="#{recogedorEventos.megusta()}" icon="fa fa-thumbs-up" rendered="${ctrlAutorizacion.checkUR()}">
-                                    <f:ajax execute="@this" render="@this"/>
+                                <p:commandButton id="megusta" value="Me gusta (#{recogedorEventos.getNumeroMG()})" ajax="false" action="#{recogedorEventos.megusta()}" icon="fa fa-thumbs-up" rendered="${ctrlAutorizacion.checkUR()}">
                                 </p:commandButton>
                                 <p:menuButton value="Compartir" iconPos="right" style="margin-right:0.3em">
                                     <p:menuitem value="Facebook" url="https://www.facebook.com/sharer.php?u=http://localhost:8080/DiarioSur-war/faces/evento.xhtml" target="_blank" icon="fa fa-facebook"/>
@@ -56,6 +55,8 @@
                 <div class="ui-g-12 ui-md-6 ui-lg-7">
                     <h1>#{recogedorEventos.getSeleccionado().getNombre()}</h1>
                     <b>#{recogedorEventos.getSeleccionado().getTipo()}</b>
+                    <br/>
+                    <b>#{recogedorEventos.getSeleccionado().getLugar()}</b>
                     <br/>
                     <b>#{recogedorEventos.getSeleccionado().FechaString()} </b>
                     <br/><br/>

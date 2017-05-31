@@ -39,6 +39,7 @@ public class recogedorEventos {
     private File imagen;
     private Date fecha;
     private String lugar;
+    private String geolocalizacion;
     private MapModel model;
     private String tipo;
     private float precio;
@@ -58,7 +59,7 @@ public class recogedorEventos {
     private static Evento seleccionado = new Evento();
 
     public String editarEvento() {
-        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
+        Evento aux = new Evento(seleccionado.getNombre(), seleccionado.getFecha(), seleccionado.getLugar(), seleccionado.getGeolocalizacion(), seleccionado.getTipo(), seleccionado.getPrecio(), seleccionado.getCompra(), seleccionado.getDescripcion(), seleccionado.getTags(), seleccionado.getUsuarioRegistrado(), seleccionado.getVerificado(), seleccionado.getAnuncio());
         aux.setId_evento(seleccionado.getId_evento());
         aux.setUser_megusta(seleccionado.getUser_megusta());
         aux.setValoraciones(seleccionado.getValoraciones());
@@ -148,6 +149,14 @@ public class recogedorEventos {
         return "evento";
     }
 
+    public String getGeolocalizacion() {
+        return geolocalizacion;
+    }
+
+    public void setGeolocalizacion(String geolocalizacion) {
+        this.geolocalizacion = geolocalizacion;
+    }    
+    
     public List<Evento> getEventos() {
         return negocio.getEv();
     }
@@ -243,7 +252,7 @@ public class recogedorEventos {
         usuario = cta.getUsuarioLogeado();
         anuncio = negocio.devolverAnuncio();
 
-        Evento aux = new Evento(nombre, fecha, lugar, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
+        Evento aux = new Evento(nombre, fecha, lugar, geolocalizacion, tipo, precio, compra, descripcion, tags, usuario, verificado, anuncio);
         aux.setImagen(imagen);
         aux.setUser_megusta(new ArrayList<>());
         setSeleccionado(aux);
