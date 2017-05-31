@@ -92,7 +92,7 @@
                 </c:when>
                 <c:otherwise>       
                     <h:form enctype="multipart/form-data" id="form">
-                        <p:panel header="Nuevo anuncio" style="margin-bottom:10px;">
+                        <p:panel header="Nuevo evento" style="margin-bottom:10px;">
                             <table>
                                 <tr>
                                     <td>Subir imagen:</td>
@@ -144,12 +144,6 @@
                                 </tr>
                                 <tr>
                                     <td><p:inputText id="Web" required="true" value="#{recogedorEventos.compra}"/></td>
-                                </tr>
-                                <tr>
-                                    <td>Verificado</td>
-                                </tr>
-                                <tr>
-                                    <td><p:selectBooleanButton id="Verificado" required="true"  value="#{recogedorEventos.verificado}" onLabel="Si" offLabel="No" /></td>
                                 </tr>
                                 <tr>
                                     <td>Descripción del evento:</td>

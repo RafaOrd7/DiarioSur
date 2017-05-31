@@ -29,6 +29,7 @@
                         <p:menuitem value="Crear evento" outcome="subirEvento" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkUR()}"></p:menuitem>
                         <p:menuitem value="Publicar Anuncio" outcome="publicarAnuncio" icon="ui-icon-plusthick" ajax="false" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
                         <p:submenu label="Gestión" icon="ui-icon-wrench" rendered="${ctrlAutorizacion.checkP()}">
+                            <p:menuitem value="Eventos" outcome="GestionarEventos"  ajax="false" icon="ui-icon-image" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
                             <p:menuitem value="Anuncios" outcome="gestionAnuncio"  ajax="false" icon="ui-icon-image" rendered="${ctrlAutorizacion.checkAdm()}"></p:menuitem>
                             <p:menuitem value="Usuarios" outcome="gestionUsuario" ajax="false" icon="ui-icon-person" rendered="${ctrlAutorizacion.checkJDR()}"></p:menuitem>
                             <p:menuitem value="Reportes" outcome="GestionarReporte" ajax="false" icon="ui-icon-alert"></p:menuitem> 

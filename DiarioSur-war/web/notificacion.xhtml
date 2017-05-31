@@ -19,7 +19,7 @@
                                 <h:outputText value="#{notificacion.texto}" />
                             </p:column>
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{notificacion.fecha}" />
+                                <h:outputText value="#{notificacion.FechaString()}" />
                             </p:column>
                             <p:column headerText=" ">
                                 <h:commandButton value="Eliminar" action="#{ctrlUsuarios.eliminarNotif(notificacion)}"/>
